@@ -1,3 +1,5 @@
+import Meta from "./meta";
+
 export default function Hero() {
     return (
         <section className="w-full">
@@ -9,7 +11,10 @@ export default function Hero() {
                     Comic book designed by Catherine Lodef for NFT release January 2022
                 </p>
                 <div className="w-full flex flex-row space-x-8">
-                    <figure className="w-7/12 h-96 bg-yellow-500 rounded-xl"></figure>
+                    <div className="w-7/12 flex flex-col">
+                        <figure className="w-full h-96 bg-yellow-500 rounded-xl mb-1"></figure>
+                        <Meta />
+                    </div>
 
                     <div className="w-5/12 flex flex-col">
                         <div className="h-3 bg-gray-200 rounded-full relative overflow-hidden">

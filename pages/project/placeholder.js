@@ -1,4 +1,5 @@
 import Hero from "@/components/project/hero";
+import Steps from "@/components/project/steps";
 import Navbar from "@/components/shared/navbar";
 
 export default function ProjectDetails() {
@@ -7,6 +8,9 @@ export default function ProjectDetails() {
             <Navbar />
 
             <Hero />
+
+            <Steps />
+
         </div>
     )
 }
