@@ -3,8 +3,8 @@ import Link from "next/link";
 
 export default function Item({ item }) {
     return (
-        <Link href="/project/placeholder">
-            <div className="group w-full flex flex-col cursor-pointer">
+        <Link href="/project/placeholder" passHref={true}>
+            <a className="group w-full flex flex-col cursor-pointer">
                 <figure
                     className={classNames(
                         "h-32 w-full rounded-lg group-hover:scale-105 duration-200",
@@ -23,7 +23,7 @@ export default function Item({ item }) {
                 <p className="text-gray-400 text-sm">
                     by Alan Grey
                 </p>
-            </div>
+            </a>
         </Link>
     );
 }
