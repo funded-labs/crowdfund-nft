@@ -4,7 +4,7 @@ export default function Hero() {
             <div className="w-full max-w-5xl mx-auto flex flex-col">
                 <h1 className="text-3xl text-center">
                     Creative projects that push boundaries.<br />
-                    Help fund them, with NFT's
+                    Help fund them, with NFT&apos;s
                 </h1>
 
                 <div className="py-5 flex flex-col items-center">

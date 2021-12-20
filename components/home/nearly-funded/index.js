@@ -42,7 +42,7 @@ export default function NearlyFunded() {
                 Nearly Funded
             </div>
             <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
-                {ITEMS.map((item, index) => <Item item={item} />)}
+                {ITEMS.map((item, index) => <Item key={index} item={item} />)}
             </div>
         </section>
     )
