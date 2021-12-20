@@ -7,7 +7,7 @@ export default function Item({ item }) {
             <a className="group w-full flex flex-col cursor-pointer">
                 <figure
                     className={classNames(
-                        "h-32 w-full rounded-lg group-hover:scale-105 duration-200",
+                        "h-32 w-full lg:rounded-lg group-hover:scale-105 duration-200",
                         item.color
                     )}
                 >

@@ -38,10 +38,10 @@ const ITEMS = [
 export default function Featured() {
     return (
         <section className="w-full py-10">
-            <div className="w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-2">
+            <div className="px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-2">
                 Featured Projects
             </div>
-            <div className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="px-4 w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
                 {ITEMS.map((item, index) => <Item key={index} item={item} />)}
             </div>
         </section>
