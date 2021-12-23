@@ -3,7 +3,7 @@ import Meta from "./meta";
 export default function Hero() {
     return (
         <section className="w-full">
-            <div className="w-full max-w-5xl mx-auto flex flex-col">
+            <div className="w-full max-w-5xl mx-auto flex flex-col px-4">
                 <p className="text-2xl font-medium">
                     Comic Book Reboot
                 </p>
