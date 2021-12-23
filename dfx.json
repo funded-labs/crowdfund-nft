@@ -1,10 +1,16 @@
 {
     "canisters": {
-        "hello": {
-            "main": "src/hello/main.mo"
+        "backend": {
+            "declarations": {
+                "output": "ui/declarations/backend"
+            },
+            "main": "src/backend/main.mo"
         },
-        "hello_assets": {
-            "dependencies": ["hello"],
+        "frontend": {
+            "declarations": {
+                "output": "ui/declarations/frontend"
+            },
+            "dependencies": ["backend"],
             "source": ["out"],
             "type": "assets"
         }

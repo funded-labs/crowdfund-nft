@@ -1,16 +1,16 @@
 import {
-  createActor as createHelloActor,
-  canisterId as helloCanisterId,
-} from "../declarations/hello"
+    createActor as createBackendActor,
+    canisterId as backendCanisterId,
+} from '../declarations/backend'
 
 export const makeActor = (canisterId, createActor) => {
-  return createActor(canisterId, {
-    agentOptions: {
-      host: process.env.NEXT_PUBLIC_IC_HOST,
-    },
-  })
+    return createActor(canisterId, {
+        agentOptions: {
+            host: process.env.NEXT_PUBLIC_IC_HOST,
+        },
+    })
 }
 
-export function makeHelloActor() {
-  return makeActor(helloCanisterId, createHelloActor)
+export function makeBackendActor() {
+    return makeActor(backendCanisterId, createBackendActor)
 }

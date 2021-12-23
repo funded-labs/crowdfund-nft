@@ -1,4 +1,4 @@
-import type { Principal } from '@dfinity/agent';
+import type { Principal } from '@dfinity/principal';
 export type BatchId = bigint;
 export type BatchOperationKind = { 'CreateAsset' : CreateAssetArguments } |
   { 'UnsetAssetContent' : UnsetAssetContentArguments } |
@@ -6,39 +6,39 @@ export type BatchOperationKind = { 'CreateAsset' : CreateAssetArguments } |
   { 'SetAssetContent' : SetAssetContentArguments } |
   { 'Clear' : ClearArguments };
 export type ChunkId = bigint;
-export interface ClearArguments {};
-export interface CreateAssetArguments { 'key' : Key, 'content_type' : string };
-export interface DeleteAssetArguments { 'key' : Key };
-export interface HeaderField [string, string];
+export type ClearArguments = {};
+export interface CreateAssetArguments { 'key' : Key, 'content_type' : string }
+export interface DeleteAssetArguments { 'key' : Key }
+export type HeaderField = [string, string];
 export interface HttpRequest {
   'url' : string,
   'method' : string,
   'body' : Array<number>,
   'headers' : Array<HeaderField>,
-};
+}
 export interface HttpResponse {
   'body' : Array<number>,
   'headers' : Array<HeaderField>,
   'streaming_strategy' : [] | [StreamingStrategy],
   'status_code' : number,
-};
+}
 export type Key = string;
 export interface SetAssetContentArguments {
   'key' : Key,
   'sha256' : [] | [Array<number>],
   'chunk_ids' : Array<ChunkId>,
   'content_encoding' : string,
-};
+}
 export interface StreamingCallbackHttpResponse {
   'token' : [] | [StreamingCallbackToken],
   'body' : Array<number>,
-};
+}
 export interface StreamingCallbackToken {
   'key' : Key,
   'sha256' : [] | [Array<number>],
   'index' : bigint,
   'content_encoding' : string,
-};
+}
 export type StreamingStrategy = {
     'Callback' : {
       'token' : StreamingCallbackToken,
@@ -49,8 +49,8 @@ export type Time = bigint;
 export interface UnsetAssetContentArguments {
   'key' : Key,
   'content_encoding' : string,
-};
-export default interface _SERVICE {
+}
+export interface _SERVICE {
   'authorize' : (arg_0: Principal) => Promise<undefined>,
   'clear' : (arg_0: ClearArguments) => Promise<undefined>,
   'commit_batch' : (
@@ -114,4 +114,4 @@ export default interface _SERVICE {
   'unset_asset_content' : (arg_0: UnsetAssetContentArguments) => Promise<
       undefined
     >,
-};
+}

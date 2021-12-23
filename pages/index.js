@@ -1,21 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 // Next, React
-import Head from "next/head"
-import { useState, useEffect } from "react"
-import Featured from "../components/home/featured"
-import Hero from "../components/home/hero"
-import NearlyFunded from "../components/home/nearly-funded"
-import Navbar from "../components/shared/navbar"
-import styles from "../styles/Home.module.css"
+import Head from 'next/head'
+import { useState, useEffect } from 'react'
+import Featured from '../components/home/featured'
+import Hero from '../components/home/hero'
+import NearlyFunded from '../components/home/nearly-funded'
+import Navbar from '../components/shared/navbar'
+import styles from '../styles/Home.module.css'
 
 // Dfinity
-import { makeHelloActor } from "../ui/service/actor-locator"
-const hello = makeHelloActor()
+import { makeBackendActor } from '../ui/service/actor-locator'
+const backend = makeBackendActor()
 
 function HomePage() {
-    const [name, setName] = useState("")
-    const [loading, setLoading] = useState("")
-    const [greetingMessage, setGreetingMessage] = useState("")
+    const [name, setName] = useState('Max')
+    const [loading, setLoading] = useState('')
+    const [greetingMessage, setGreetingMessage] = useState('')
 
     function onChangeName(e) {
         const newName = e.target.value
@@ -23,20 +23,24 @@ function HomePage() {
     }
 
     async function sayGreeting() {
-        setGreetingMessage("")
-        setLoading("Loading...")
+        setGreetingMessage('')
+        setLoading('Loading...')
 
-        const greeting = await hello.greet(name)
+        const greeting = await backend.searchProfiles(name)
 
-        setLoading("")
-        setGreetingMessage(greeting)
+        setLoading('')
+        setGreetingMessage(JSON.stringify(greeting))
     }
 
+    useEffect(() => sayGreeting(), [name])
+
     return (
-        <div className="w-full">
+        <div className='w-full'>
             <Navbar />
 
             <Hero />
+
+            {greetingMessage}
 
             <Featured />
 
@@ -49,23 +53,23 @@ function HomePage() {
             <Head>
                 <title>Internet Computer</title>
             </Head>
-            <main className="bg-red-100">
+            <main className='bg-red-100'>
                 <h3 className={styles.title}>
                     Welcome to Next.js Internet Computer Starter Template!
                 </h3>
 
                 <img
-                    src="/logo.png"
-                    alt="DFINITY logo"
+                    src='/logo.png'
+                    alt='DFINITY logo'
                     className={styles.logo}
                 />
 
                 <section>
-                    <label htmlFor="name">Enter your name: &nbsp;</label>
+                    <label htmlFor='name'>Enter your name: &nbsp;</label>
                     <input
-                        id="name"
-                        alt="Name"
-                        type="text"
+                        id='name'
+                        alt='Name'
+                        type='text'
                         value={name}
                         onChange={onChangeName}
                     />
