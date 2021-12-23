@@ -1,7 +1,7 @@
 export default function End() {
     return (
         <div className="flex flex-row space-x-4">
-            <img src="/assets/metamask.png" className="w-8 h-8 hover:scale-105 duration-200 cursor-pointer" />
+            <img src="/assets/metamask.png" className="w-8 h-8 hover:scale-105 duration-200 cursor-pointer" alt="" />
             <button
                 className={`
                     appearance-none rounded-lg px-2 py-1 text-gray-900 font-medium
