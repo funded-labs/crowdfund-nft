@@ -1,7 +1,7 @@
 import Hero from "@/components/project/hero";
 import Steps from "@/components/project/steps";
 import Navbar from "@/components/shared/navbar";
-import Tabs from "@/components/project/tabs";
+import TabBar from "@/components/project/tab-bar";
 import { useState } from "react";
 
 export default function ProjectDetails() {
@@ -15,7 +15,7 @@ export default function ProjectDetails() {
 
             <Steps />
             
-            <Tabs selected={selectedTab} onSelect={setTab} />
+            <TabBar selected={selectedTab} onSelect={setTab} />
 
         </div>
     )
