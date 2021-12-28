@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function AuthorProfile({ selected = "story", onSelect = () => {} }) {
+export default function AuthorProfile() {
     return (
         <div className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-center">
             <figure
