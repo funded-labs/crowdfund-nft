@@ -1,16 +1,14 @@
-const links = [
+export default [
     {
-        title: "About",
-        href: "/"
+        title: 'About',
+        href: '/',
     },
     {
-        title: "Whitepaper",
-        href: "/whitepaper"
+        title: 'Whitepaper',
+        href: '/whitepaper',
     },
     {
-        title: "Docs",
-        href: "/docs"
-    }
-];
-
-export default links;
+        title: 'Docs',
+        href: '/docs',
+    },
+]
