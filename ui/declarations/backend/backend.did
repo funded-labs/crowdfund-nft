@@ -38,5 +38,6 @@ service : {
   getProfile: (UserId__1) -> (Profile) query;
   healthcheck: () -> (bool);
   searchProfiles: (text) -> (vec Profile) query;
+  test: () -> ();
   updateProfile: (Profile) -> ();
 }

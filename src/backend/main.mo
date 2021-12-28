@@ -19,6 +19,10 @@ actor CrowdFundNFT {
 
     public func healthcheck(): async Bool { true };
 
+    // Testing
+
+    // public shared(msg) func test(): async Principal { msg.caller };
+
     // Profiles
 
     public shared(msg) func createProfile(profile: NewProfile): async () {

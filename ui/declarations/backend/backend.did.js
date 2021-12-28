@@ -35,6 +35,7 @@ export const idlFactory = ({ IDL }) => {
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
+    'test' : IDL.Func([], [], []),
     'updateProfile' : IDL.Func([Profile], [], []),
   });
 };

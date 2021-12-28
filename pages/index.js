@@ -8,14 +8,20 @@ import NearlyFunded from '../components/home/nearly-funded'
 import Navbar from '../components/shared/navbar'
 import styles from '../styles/Home.module.css'
 
+import { AuthClient } from '@dfinity/auth-client'
+
 // Dfinity
-import { makeBackendActor } from '../ui/service/actor-locator'
+import {
+    makeBackendActor,
+    makeBackendActorWithIdentity,
+} from '../ui/service/actor-locator'
 const backend = makeBackendActor()
 
 function HomePage() {
     const [name, setName] = useState('Max')
     const [loading, setLoading] = useState('')
     const [greetingMessage, setGreetingMessage] = useState('')
+    const [identity, setIdentity] = useState()
 
     function onChangeName(e) {
         const newName = e.target.value
@@ -32,15 +38,29 @@ function HomePage() {
         setGreetingMessage(JSON.stringify(greeting))
     }
 
+    const testLogin = async () => {
+        alert('hello')
+        alert(await backend.getOwnId())
+        const authClient = await AuthClient.create()
+        authClient.login({
+            onSuccess: async () => {
+                const identity = await authClient.getIdentity()
+                alert(JSON.stringify(identity))
+                const actor = makeBackendActorWithIdentity(identity)
+                alert(await actor.getOwnId())
+            },
+        })
+    }
+
     useEffect(() => sayGreeting(), [name])
 
     return (
         <div className='w-full'>
             <Navbar />
 
-            <Hero />
+            <button onClick={testLogin}>Login</button>
 
-            {greetingMessage}
+            <Hero />
 
             <Featured />
 
