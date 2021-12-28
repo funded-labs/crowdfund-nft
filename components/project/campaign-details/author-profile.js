@@ -1,16 +1,5 @@
 import Link from "next/link";
 
-const menuItems = [
-    {
-        label: "Story",
-        id: "story"
-    },
-    {
-        label: "Rewards",
-        id: "rewards"
-    }
-];
-
 export default function AuthorProfile({ selected = "story", onSelect = () => {} }) {
     return (
         <div className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-center">
