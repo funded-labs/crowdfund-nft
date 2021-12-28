@@ -1,5 +1,6 @@
 import AuthorProfile from "./author-profile";
 import Menu from "./menu";
+import Story from "./story";
 
 export default function CampaignDetails() {
     return (
@@ -8,6 +9,10 @@ export default function CampaignDetails() {
                 <div className="w-3/12 flex flex-col space-y-4">
                     <Menu />
                     <AuthorProfile />
+                </div>
+
+                <div className="w-9/12 flex flex-col">
+                    <Story />
                 </div>
             </div>
         </div>
