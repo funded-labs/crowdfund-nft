@@ -1,6 +1,4 @@
-import Link from "next/link";
-
-export default function Story({ selected = "story", onSelect = () => {} }) {
+export default function Story() {
     return (
         <div className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start">
             <p className="font-bold text-base text-black">
