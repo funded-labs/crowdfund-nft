@@ -10,7 +10,7 @@ export default function ProjectDetails() {
     const [selectedTab, setTab] = useState("campaign-details");
 
     return (
-        <div className="w-full">
+        <div className="w-full bg-gray-50">
             <Navbar />
 
             <Hero />
