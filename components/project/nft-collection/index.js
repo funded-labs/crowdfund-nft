@@ -1,5 +1,6 @@
 import Menu from "./menu";
 import NFTs from "./nfts";
+import Rewards from "./rewards";
 
 export default function NFTCollection() {
     return (
@@ -9,8 +10,9 @@ export default function NFTCollection() {
                     <Menu />
                 </div>
 
-                <div className="w-9/12 flex flex-col">
+                <div className="w-9/12 flex flex-col space-y-8">
                     <NFTs />
+                    <Rewards />
                 </div>
             </div>
         </div>
