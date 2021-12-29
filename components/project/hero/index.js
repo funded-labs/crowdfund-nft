@@ -48,7 +48,7 @@ export default function Hero() {
                             <button
                                 className={`
                                     shadow-lg bg-blue-600 text-white text-sm font-medium rounded-full w-full
-                                    appearance-none focus:outline-none py-3 px-4
+                                    appearance-none focus:outline-none py-3 px-4 hover:bg-blue-700
                                 `}
                             >
                                 Back this project
@@ -60,6 +60,7 @@ export default function Hero() {
                                 <button
                                     className={`
                                         bg-white border border-gray-300 py-3 w-full px-4 text-gray-900 text-sm
+                                        hover:border-blue-600
                                     `}
                                 >
                                     Remind me
