@@ -17,7 +17,7 @@ const tabs = [
 
 export default function TabBar({ selected, onSelect = () => {} }) {
     return (
-        <section className="w-full border-b-2">
+        <section className="w-full border-b-2 bg-white">
             <div className="w-full max-w-5xl px-4 mx-auto flex pt-1 text-gray-900">
                 {tabs.map(tab => (
                     <button
