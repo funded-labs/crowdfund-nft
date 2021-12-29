@@ -1,18 +1,18 @@
-import AuthorProfile from "./author-profile";
 import Menu from "./menu";
-import Story from "./story";
+import NFTs from "./nfts";
+import Rewards from "./rewards";
 
-export default function CampaignDetails() {
+export default function NFTCollection() {
     return (
         <div className="w-full">
             <div className="w-full max-w-5xl mx-auto px-4 flex flex-row py-4 space-x-4">
                 <div className="w-3/12 flex flex-col space-y-4">
                     <Menu />
-                    <AuthorProfile />
                 </div>
 
-                <div className="w-9/12 flex flex-col">
-                    <Story />
+                <div className="w-9/12 flex flex-col space-y-8">
+                    <NFTs />
+                    <Rewards />
                 </div>
             </div>
         </div>

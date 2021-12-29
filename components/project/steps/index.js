@@ -1,6 +1,6 @@
 export default function Steps() {
     return (
-        <section className="w-full bg-gray-100 py-7">
+        <section className="w-full bg-gray-100 py-7 hidden">
             <div className="w-full max-w-5xl px-4 mx-auto flex grid grid-cols-3 gap-8 text-gray-600 text-sm">
                 <div className="flex flex-row items-start w-full">
                     <div className="text-blue-600 text-2xl mr-2 font-bold">
