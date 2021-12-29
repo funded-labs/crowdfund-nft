@@ -14,9 +14,9 @@ export default function Story({ selected = "story", onSelect = () => {} }) {
                 like Redwing, Nike, Adidas as both consultant and engineer on many concepts
                 and projects. Along with his role on the founding team that helped launch Altra
                 Running, he has collaborated extensively with industry titans like Roy Smith,
-                Tinker Hatfield, and Bruce Kilgore, and also designed the patented "Shoes That
-                Grow". Vlad's extensive background in biomechanics and high-performance shoes
-                shows in Good Company's boots, incorporating concepts and innovation typically
+                Tinker Hatfield, and Bruce Kilgore, and also designed the patented &quot;Shoes That
+                Grow&quot;. Vlad&apos;s extensive background in biomechanics and high-performance shoes
+                shows in Good Company&apos;s boots, incorporating concepts and innovation typically
                 reserved for performance shoes to create a durable, high-quality, and comfortable
                 boot that fits and feels like no other.
             </p>
