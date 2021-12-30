@@ -35,9 +35,7 @@ export default function Navbar() {
                 <div className="w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center">
                     <div className="flex flex-row">
                         <Link href="/">
-                            <a className="flex text-gray-900">
-                                [Logo]
-                            </a>
+                            <img src="/assets/logo1.png" className="w-125 h-8 hover:scale-105 duration-200 cursor-pointer" alt=""/>
                         </Link>
                     </div>
 
