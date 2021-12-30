@@ -28,14 +28,14 @@ export default function Navbar() {
                 className={classNames(
                     "py-1 pt-3 fixed z-20 w-full text-white",
                     "transition-all duration-300 border-b-4",
-                    hasScrolled ? "bg-royal-500 border-b backdrop-filter backdrop-blur-lg bg-opacity-90" : "bg-royal-500",
+                    hasScrolled ? "bg-royal-500 border-b backdrop-filter backdrop-blur-lg bg-opacity-95" : "bg-royal-500",
                     hasScrolled ? null : "border-transparent"
                 )}
             >
                 <div className="w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center">
                     <div className="flex flex-row">
                         <Link href="/">
-                            <img src="/assets/logo1.png" className="w-125 h-8 hover:scale-105 duration-200 cursor-pointer" alt=""/>
+                            <img src="/assets/logo1.png" className="w-25 h-8 hover:scale-105 duration-200 cursor-pointer" alt=""/>
                         </Link>
                     </div>
 

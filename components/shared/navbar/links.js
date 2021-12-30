@@ -1,15 +1,15 @@
 const links = [
     {
         title: 'About',
-        href: '/',
-    },
-    {
-        title: 'Whitepaper',
-        href: '/whitepaper',
+        href: '/about',
     },
     {
         title: 'Docs',
         href: '/docs',
+    },
+    {
+        title: 'Contact',
+        href: '/contact',
     },
 ];
 
