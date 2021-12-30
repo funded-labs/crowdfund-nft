@@ -1,4 +1,4 @@
-export default [
+const links = [
     {
         title: 'About',
         href: '/',
@@ -11,4 +11,6 @@ export default [
         title: 'Docs',
         href: '/docs',
     },
-]
+];
+
+export default links;
