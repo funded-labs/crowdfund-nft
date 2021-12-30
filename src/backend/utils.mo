@@ -19,11 +19,8 @@ module {
           id = userId;
           firstName = "";
           lastName = "";
-          title = "";
-          company = "";
-          experience = "";
-          education = "";
           imgUrl = "";
+          projects = [];
         }
       };
     };

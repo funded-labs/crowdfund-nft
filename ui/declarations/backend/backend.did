@@ -34,10 +34,11 @@ type NewProfile =
 service : {
   createProfile: (NewProfile) -> ();
   createProject: (NewProject) -> (Project);
+  getMyProfile: () -> (Profile) query;
   getOwnId: () -> (UserId__1) query;
   getProfile: (UserId__1) -> (Profile) query;
+  greet: () -> (text);
   healthcheck: () -> (bool);
   searchProfiles: (text) -> (vec Profile) query;
-  test: () -> ();
   updateProfile: (Profile) -> ();
 }

@@ -15,50 +15,51 @@ import {
     makeBackendActor,
     makeBackendActorWithIdentity,
 } from '../ui/service/actor-locator'
-const backend = makeBackendActor()
 
 function HomePage() {
-    const [name, setName] = useState('Max')
-    const [loading, setLoading] = useState('')
-    const [greetingMessage, setGreetingMessage] = useState('')
-    const [identity, setIdentity] = useState()
+    const [backend, setBackend] = useState()
+    const [profile, setProfile] = useState({})
 
-    function onChangeName(e) {
-        const newName = e.target.value
-        setName(newName)
-    }
+    useEffect(() => {
+        if (!backend) return
+        backend.getMyProfile().then((profile) => setProfile(profile))
+    }, [backend])
 
     async function sayGreeting() {
-        setGreetingMessage('')
-        setLoading('Loading...')
-
-        const greeting = await backend.searchProfiles(name)
-
-        setLoading('')
-        setGreetingMessage(JSON.stringify(greeting))
+        if (!backend) return alert('You must log in for this feature')
+        const greeting = await backend.greet()
+        alert(greeting)
     }
 
-    const testLogin = async () => {
-        alert('hello')
-        alert(await backend.getOwnId())
-        const authClient = await AuthClient.create()
-        authClient.login({
-            onSuccess: async () => {
-                const identity = await authClient.getIdentity()
-                alert(JSON.stringify(identity))
-                const actor = makeBackendActorWithIdentity(identity)
-                alert(await actor.getOwnId())
-            },
-        })
+    const login = async () => {
+        const DEV = process.env.NEXT_PUBLIC_IC_HOST === 'http://localhost:8000'
+        if (!DEV) {
+            // log in using internet identity, otherwise use default identity
+            const authClient = await AuthClient.create()
+            authClient.login({
+                onSuccess: async () => {
+                    const identity = await authClient.getIdentity()
+                    setBackend(makeBackendActorWithIdentity(identity))
+                },
+            })
+        } else {
+            setBackend(makeBackendActor())
+        }
     }
-
-    useEffect(() => sayGreeting(), [name])
 
     return (
         <div className='w-full'>
             <Navbar />
 
-            <button onClick={testLogin}>Login</button>
+            {backend ? (
+                <div>Logged in</div>
+            ) : (
+                <button onClick={login}>Login</button>
+            )}
+
+            <button onClick={sayGreeting}>Say greeting</button>
+
+            <div>{JSON.stringify(profile)}</div>
 
             <Hero />
 

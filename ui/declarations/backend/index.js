@@ -13,7 +13,6 @@ export const canisterId = process.env.NEXT_PUBLIC_BACKEND_CANISTER_ID
  * @return {import("@dfinity/agent").ActorSubclass<import("./backend.did.js")._SERVICE>}
  */
 export const createActor = (canisterId, options) => {
-    console.log({ ...options?.agentOptions })
     const agent = new HttpAgent({ ...options?.agentOptions })
 
     // Fetch root key for certificate validation during development

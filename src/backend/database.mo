@@ -5,6 +5,7 @@ import Nat "mo:base/Nat";
 import Option "mo:base/Option";
 import Principal "mo:base/Principal";
 import Types "./types";
+import Text "mo:base/Text";
 
 module {
   type NewProfile = Types.NewProfile;
@@ -12,10 +13,15 @@ module {
   type Profile = Types.Profile;
   type Project = Types.Project;
   type UserId = Types.UserId;
+  type ProjectId = Types.ProjectId;
 
   public class Directory() {
     // The "database" is just a local hash map
-    let userMap = HashMap.HashMap<UserId, Profile>(1, isEq, Principal.hash);
+    let userMap = HashMap.HashMap<UserId, Profile>(1, isEqUserId, Principal.hash);
+    let projectMap = HashMap.HashMap<ProjectId, Project>(1, isEqProjectId, Text.hash);
+    let userToProjectsMap = HashMap.HashMap<UserId, [ProjectId]>(1, isEqUserId, Principal.hash);
+
+    // Users
 
     public func createOne(userId: UserId, profile: NewProfile) {
       userMap.put(userId, makeProfile(userId, profile));
@@ -47,6 +53,33 @@ module {
       profiles
     };
 
+    // Projects 
+
+    public func createProject(userId: UserId, newProject: NewProject) {
+      let project = makeProject(userId, newProject);
+      projectMap.put(project.id, project);
+      switch (userToProjectsMap.get(userId)) {
+        case (null) { userToProjectsMap.put(userId, [project.id]); };
+        case (?projects) { userToProjectsMap.put(userId, Array.append<ProjectId>(projects, [project.id])); };
+      };
+    };
+
+    // public func getProject(id: ProjectId): ?Project {
+    //   projectMap.get(id)
+    // };
+
+    public func getProjects(userId: UserId): [Project] {
+      switch (userToProjectsMap.get(userId)) {
+        case (null) { [] };
+        case (?projects) {
+          func getProject(projectId: ProjectId): Project {
+            Option.unwrap<Project>(projectMap.get(projectId))
+          };
+          Array.map<ProjectId, Project>(projects, getProject)
+        };
+      };
+    };
+
     // Helpers
 
     func makeProfile(userId: UserId, profile: NewProfile): Profile {
@@ -69,7 +102,7 @@ module {
         name = project.name;
         owner = userId;
         tags = project.tags; 
-      }
+      };
     };
 
     func includesText(string: Text, term: Text): Bool {
@@ -93,5 +126,6 @@ module {
     };
   };
 
-  func isEq(x: UserId, y: UserId): Bool { x == y };
+  func isEqUserId(x: UserId, y: UserId): Bool { x == y };
+  func isEqProjectId(x: ProjectId, y: ProjectId): Bool { x == y };
 };

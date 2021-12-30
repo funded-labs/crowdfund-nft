@@ -1,7 +1,9 @@
+import Buffer "mo:base/Buffer";
 import Principal "mo:base/Principal";
 
 module {
   public type UserId = Principal;
+  public type ProjectId = Text;
 
   public type NewProfile = {
     firstName: Text;
@@ -25,7 +27,7 @@ module {
   };
 
   public type Project = {
-    id: Text;
+    id: ProjectId;
     description: Text;
     goal: Float;
     imgUrl: Text;
