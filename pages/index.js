@@ -19,10 +19,12 @@ import {
 function HomePage() {
     const [backend, setBackend] = useState()
     const [profile, setProfile] = useState({})
+    const [profiles, setProfiles] = useState([])
 
     useEffect(() => {
         if (!backend) return
         backend.getMyProfile().then((profile) => setProfile(profile))
+        backend.searchProfiles('s').then((profiles) => setProfiles(profiles))
     }, [backend])
 
     async function sayGreeting() {
@@ -60,6 +62,7 @@ function HomePage() {
             <button onClick={sayGreeting}>Say greeting</button>
 
             <div>{JSON.stringify(profile)}</div>
+            <div>{JSON.stringify(profiles)}</div>
 
             <Hero />
 

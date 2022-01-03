@@ -1,6 +1,7 @@
 import Array "mo:base/Array";
-import Option "mo:base/Option";
 import Database "./database";
+import Option "mo:base/Option";
+import Principal "mo:base/Principal";
 import Types "./types";
 
 module {
@@ -38,7 +39,7 @@ module {
 
   // Authorization
 
-  let adminIds: [UserId] = [];
+  let adminIds: [UserId] = [];//Principal.fromText("rwvfd-5wxx6-yeevy-xe4wu-rnywu-nrkxe-vxnup-yg3uz-5rgmo-hvtbd-sqe")];
 
   public func isAdmin(userId: UserId): Bool {
     func identity(x: UserId): Bool { x == userId };
