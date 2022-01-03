@@ -3,19 +3,17 @@ export default function Hero() {
         <section className="w-full py-20">
             <div className="w-full max-w-5xl mx-auto flex flex-col">
                 <h1 className="text-xl lg:text-3xl text-center">
-                    Creative projects that push boundaries.<br />
-                    Help fund them, with NFT&apos;s
+                    Crowdfunding on the Blockchain,<br />
+                    with NFT&apos;s
                 </h1>
 
                 <div className="py-5 flex flex-col items-center">
                     <p className="text-gray-400 uppercase text-sm">
-                        To date
+                        Built on
                     </p>
-                    <p className="text-xl lg:text-3xl text-blue-600 font-semibold">
-                        $3,000,000
-                    </p>
+                    <img src="/assets/IClogo.png" className="w-125 h-8 hover:scale-105 duration-200 cursor-pointer" alt=""/>
                     <p className="text-gray-400 uppercase text-sm">
-                        in funding
+                        Internet Computer
                     </p>
                 </div>
 
