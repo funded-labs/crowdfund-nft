@@ -1,6 +1,9 @@
 import ProgressBar from "./progress-bar";
 import { ProjectFormProvider, useProjectForm } from "./project-form-context";
+import StepFive from "./step-five";
+import StepFour from "./step-four";
 import StepOne from "./step-one";
+import StepThree from "./step-three";
 import StepTwo from "./step-two";
 
 export default function CreateAProjectForm({ instruction, onSuccess }) {
@@ -25,6 +28,9 @@ function Form() {
                     </div>
                     {step === 1 && (<StepOne />)}
                     {step === 2 && (<StepTwo />)}
+                    {step === 3 && (<StepThree />)}
+                    {step === 4 && (<StepFour />)}
+                    {step === 5 && (<StepFive />)}
                 </div>
             </div>
         )

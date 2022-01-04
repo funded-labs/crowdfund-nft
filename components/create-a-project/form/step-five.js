@@ -1,15 +1,13 @@
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { useState } from "react";
 import Input from "@/components/forms/input";
 import { Spinner } from "@/components/shared/loading-spinner";
 import { useProjectForm } from "./project-form-context";
 import Textarea from "@/components/forms/textarea";
-import Select from "@/components/forms/select";
 
-export default function StepTwo({ onSuccess }) {
-    const { email, code, setCode, error, setError, setStep } = useProjectForm();
+export default function StepFive() {
+    const { email, setEmail, error, setError } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
-    const router = useRouter();
 
     const startAgain = () => router.reload();
 
@@ -18,17 +16,12 @@ export default function StepTwo({ onSuccess }) {
         setLoading(true);
 
         try {
+            
 
             setError("");
-
-            if (onSuccess) {
-                onSuccess();
-                return;
-            }
-
-            setStep(3);
         }
         catch (error) {
+            console.log(error);
             setError(error.response.data.message);
             setLoading(false);
         }
@@ -38,43 +31,24 @@ export default function StepTwo({ onSuccess }) {
         <form className="w-full flex flex-col space-y-2" onSubmit={handleSubmit}>
             <div className="w-full flex flex-col space-y-1">
                 <p className="font-semibold text-2xl">
-                    Your project
+                    Project story and investor rewards
                 </p>
                 <p className="">
-                    What's your project title?
+                    Tell us your project story
                 </p>
-                <Input
-                    id="firstName"
-                    name="firstName"
-                    value={email}
-                    onChange={({ target }) => setEmail(target.value)}
-                    type="email"
-                    placeholder="Project name"
-                />
+                <Textarea rows={4} />
                 <p className="">
-                    Select a project category
+                    Investor rewards
                 </p>
-                <Select options={[{ label: "Test", value: "test" }]} />
-                <p className="">
-                    Social Media Links
-                </p>
-                <div className="w-full grid grid-cols-2 gap-4">
-                    <Input
-                        id="firstName"
-                        name="firstName"
-                        value={email}
-                        onChange={({ target }) => setEmail(target.value)}
-                        type="email"
-                        placeholder="Twitter Link"
-                    />
-                    <Input
-                        id="firstName"
-                        name="firstName"
-                        value={email}
-                        onChange={({ target }) => setEmail(target.value)}
-                        type="email"
-                        placeholder="Discord Link"
-                    />
+                <div className="rounded-2xl w-full bg-blue-100 bg-opacity-30 p-4">
+                    Tips! Be sure to mention:
+                    <p className="text-center text-blue-600 underline">
+                        <a href="">Why this project is impactful</a><br />
+                        <a href="">What you will do with funds</a><br />
+                        <a href="">Perks and rewards for investors</a><br />
+                        <a href="">Project Timeline and key milestones</a><br />
+                        <a href="">Challenges & Risks</a><br />
+                    </p>
                 </div>
             </div>
 
@@ -83,6 +57,26 @@ export default function StepTwo({ onSuccess }) {
                     {error}
                 </div>
             )}
+
+            <button
+                disabled={isLoading === true}
+                type="button"
+                className={`
+                    flex flex-row justify-center w-full bg-white text-blue-600 py-3 
+                    px-4 font-medium text-base tracking-wider rounded-xl
+                    hover:bg-blue-100 border-2 border-blue-600
+                `}
+            >
+                {!isLoading && (
+                    <span>Preview Project</span>
+                )}
+
+                {isLoading && (
+                    <span className="h-5 w-5">
+                        <Spinner show={true} />
+                    </span>
+                )}
+            </button>
             
             <button
                 disabled={isLoading === true}
@@ -94,7 +88,7 @@ export default function StepTwo({ onSuccess }) {
                 `}
             >
                 {!isLoading && (
-                    <span>Next</span>
+                    <span>Submit Project</span>
                 )}
 
                 {isLoading && (

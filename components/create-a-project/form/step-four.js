@@ -3,10 +3,8 @@ import { useState } from "react";
 import Input from "@/components/forms/input";
 import { Spinner } from "@/components/shared/loading-spinner";
 import { useProjectForm } from "./project-form-context";
-import Textarea from "@/components/forms/textarea";
-import Select from "@/components/forms/select";
 
-export default function StepTwo({ onSuccess }) {
+export default function StepFour({ onSuccess }) {
     const { email, code, setCode, error, setError, setStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
@@ -26,7 +24,7 @@ export default function StepTwo({ onSuccess }) {
                 return;
             }
 
-            setStep(3);
+            setStep(5);
         }
         catch (error) {
             setError(error.response.data.message);
@@ -38,44 +36,39 @@ export default function StepTwo({ onSuccess }) {
         <form className="w-full flex flex-col space-y-2" onSubmit={handleSubmit}>
             <div className="w-full flex flex-col space-y-1">
                 <p className="font-semibold text-2xl">
-                    Your project
+                    Add a cover photo for your NFT's
                 </p>
                 <p className="">
-                    What's your project title?
+                    A high-quality image that will serve as your project cover, as well
+                    as NFT collection cover!
                 </p>
+                <div className="border rounded-2xl py-20"></div>
+                <p className="">
+                    To upload your full NFT collection, please add a WeTransfer link
+                    and share it with the following email address:
+                </p>
+                <div className="w-full text-center text-blue-600">
+                    collections@crowdfundnft.icp
+                </div>
                 <Input
                     id="firstName"
                     name="firstName"
                     value={email}
                     onChange={({ target }) => setEmail(target.value)}
                     type="email"
-                    placeholder="Project name"
+                    placeholder="WeTransfer link for your NFT"
                 />
                 <p className="">
-                    Select a project category
+                    Reminder, you selected a collection of:
                 </p>
-                <Select options={[{ label: "Test", value: "test" }]} />
+                <p className="font-semibold">
+                    1,000 NFT's
+                </p>
                 <p className="">
-                    Social Media Links
+                    Please make sure you have the apropriate number of JPG's or
+                    PNG's in your upload. These will be minted and randomly
+                    allocated to people who invest in your project.
                 </p>
-                <div className="w-full grid grid-cols-2 gap-4">
-                    <Input
-                        id="firstName"
-                        name="firstName"
-                        value={email}
-                        onChange={({ target }) => setEmail(target.value)}
-                        type="email"
-                        placeholder="Twitter Link"
-                    />
-                    <Input
-                        id="firstName"
-                        name="firstName"
-                        value={email}
-                        onChange={({ target }) => setEmail(target.value)}
-                        type="email"
-                        placeholder="Discord Link"
-                    />
-                </div>
             </div>
 
             {error && (

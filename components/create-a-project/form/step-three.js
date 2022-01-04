@@ -6,7 +6,7 @@ import { useProjectForm } from "./project-form-context";
 import Textarea from "@/components/forms/textarea";
 import Select from "@/components/forms/select";
 
-export default function StepTwo({ onSuccess }) {
+export default function StepThree({ onSuccess }) {
     const { email, code, setCode, error, setError, setStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
@@ -26,7 +26,7 @@ export default function StepTwo({ onSuccess }) {
                 return;
             }
 
-            setStep(3);
+            setStep(4);
         }
         catch (error) {
             setError(error.response.data.message);
@@ -38,10 +38,10 @@ export default function StepTwo({ onSuccess }) {
         <form className="w-full flex flex-col space-y-2" onSubmit={handleSubmit}>
             <div className="w-full flex flex-col space-y-1">
                 <p className="font-semibold text-2xl">
-                    Your project
+                    Set your target
                 </p>
                 <p className="">
-                    What's your project title?
+                    How much would you like to raise?
                 </p>
                 <Input
                     id="firstName"
@@ -49,32 +49,40 @@ export default function StepTwo({ onSuccess }) {
                     value={email}
                     onChange={({ target }) => setEmail(target.value)}
                     type="email"
-                    placeholder="Project name"
+                    placeholder="Enter target amount"
+                    endItem={() => <p className="font-bold text-black">ICP</p>}
                 />
-                <p className="">
-                    Select a project category
+                <p className="bg-gray-50 rounded-2xl text-sm p-4">
+                    Bear in mind that fees are deducated from each donation, we charge
+                    5% of every donation, and there is a flat 0.001 ICP fee per
+                    transaction
                 </p>
-                <Select options={[{ label: "Test", value: "test" }]} />
+
                 <p className="">
-                    Social Media Links
+                    How many NFT's would you like to include in your collection?
                 </p>
-                <div className="w-full grid grid-cols-2 gap-4">
-                    <Input
-                        id="firstName"
-                        name="firstName"
-                        value={email}
-                        onChange={({ target }) => setEmail(target.value)}
-                        type="email"
-                        placeholder="Twitter Link"
-                    />
-                    <Input
-                        id="firstName"
-                        name="firstName"
-                        value={email}
-                        onChange={({ target }) => setEmail(target.value)}
-                        type="email"
-                        placeholder="Discord Link"
-                    />
+                <Input
+                    id="firstName"
+                    name="firstName"
+                    value={email}
+                    onChange={({ target }) => setEmail(target.value)}
+                    type="email"
+                    placeholder="Enter target amount"
+                    endItem={() => <p className="font-bold text-black">NFT's</p>}
+                />
+                <p className="bg-gray-50 rounded-2xl text-sm p-4">
+                    Guide: The average donation in crodfunding is £320. So if you
+                    would like to raise £100,000 - make sure you set your NFT collection
+                    to roughly 312 NFT's.
+                </p>
+
+                <div className="bg-gray-50 rounded-2xl text-sm p-4">
+                    To receive the money raised, make sure you have a Plug Wallet.
+                    <br /><br />
+                    If you want to connect your wallet, or dont have a wallet yet,
+                    click below:
+
+                    <div className="bg-gray-200 rounded-xl p-8 my-5" />
                 </div>
             </div>
 
