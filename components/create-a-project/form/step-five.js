@@ -1,9 +1,9 @@
-import Link from "next/link";
 import { useState } from "react";
-import Input from "@/components/forms/input";
 import { Spinner } from "@/components/shared/loading-spinner";
 import { useProjectForm } from "./project-form-context";
 import Textarea from "@/components/forms/textarea";
+import { AuthClient } from "@dfinity/auth-client";
+import { makeBackendActor, makeBackendActorWithIdentity } from "@/ui/service/actor-locator";
 
 export default function StepFive() {
     const { email, setEmail, error, setError } = useProjectForm();
@@ -11,18 +11,63 @@ export default function StepFive() {
 
     const startAgain = () => router.reload();
 
+    const authClientLogin = async () => {
+        const authClient = await AuthClient.create();
+
+        return new Promise((resolve, reject) => {
+            authClient.login({
+                onSuccess: async () => {
+                    const identity = authClient.getIdentity();
+
+                    if (!identity) {
+                        return reject(new Error("identity is null"));
+                    }
+
+                    const backend = makeBackendActorWithIdentity(identity);
+
+                    resolve(backend)
+                }
+            })
+        });
+    }
+
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-
         try {
-            
-
+            e.preventDefault();
             setError("");
+            setLoading(true);
+
+            const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT;
+
+            let backend;
+
+            if (environmentName === "development") {
+                backend = makeBackendActor();
+            }
+
+            if (environmentName !== "development") {
+                backend = await authClientLogin();
+            }
+
+            const random = ((Math.random() + 1) * 100).toFixed(0);
+
+            console.log({ backend });
+
+            const project = await backend.createProject({
+                imgUrl: "https://via.placeholder.com/1000x600",
+                goal: +random,
+                name: `Test project ${random}`,
+                tags: ["test"],
+                description: `This is a test project ${random}`
+            });
+
+            console.log({ project });
         }
-        catch (error) {
-            console.log(error);
-            setError(error.response.data.message);
+        catch (e) {
+            setError("there was an error");
+            console.log(e);
+        }
+        finally {
             setLoading(false);
         }
     }
