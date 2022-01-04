@@ -4,10 +4,12 @@ import { useProjectForm } from "./project-form-context";
 import Textarea from "@/components/forms/textarea";
 import { AuthClient } from "@dfinity/auth-client";
 import { makeBackendActor, makeBackendActorWithIdentity } from "@/ui/service/actor-locator";
+import { useRouter } from "next/router";
 
 export default function StepFive() {
     const { email, setEmail, error, setError } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
+    const router = useRouter();
 
     const startAgain = () => router.reload();
 
