@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { useState } from "react";
 import Input from "@/components/forms/input";
 import { Spinner } from "@/components/shared/loading-spinner";
@@ -25,18 +24,17 @@ export default function StepOne() {
     const { email, setEmail, error, setError, setStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
-        setLoading(true);
-
+    const handleSubmit = async (form) => {
         try {
+            setLoading(true);
             
-
-            setError("");
+            // todo: set values to Context
+            // todo: do we want to persist the data somewhere else at each stage?
             setStep(2);
         }
         catch (error) {
             console.log(error);
-            setError(error.response.data.message);
+            // todo: set form error
             setLoading(false);
         }
     }
@@ -125,12 +123,7 @@ export default function StepOne() {
                         )}
                     </button>
 
-                    <p
-                        className={`
-                            w-full py-4 px-4 text-xs text-center text-gray-500
-                            
-                        `}
-                    >
+                    <p className="w-full py-4 px-4 text-xs text-center text-gray-500">
                         By continuing, you agree to CrowdFund NFT's Terms and acknowledge
                         receipt of our Privacy Policy.
                     </p>
