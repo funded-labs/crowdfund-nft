@@ -22,7 +22,7 @@ const initialValues = {
     discordLink: ""
 };
 
-export default function StepTwo({ onSuccess }) {
+export default function StepTwo() {
     const { setStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
