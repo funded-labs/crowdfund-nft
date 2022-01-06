@@ -58,7 +58,6 @@ export default function StepOne() {
                         </p>
                         <div className="w-full grid grid-cols-2 gap-4">
                             <Input
-                                id="firstName"
                                 name="firstName"
                                 value={values.firstName}
                                 onChange={handleChange}
@@ -67,7 +66,6 @@ export default function StepOne() {
                                 type="text"
                             />
                             <Input
-                                id="lastName"
                                 name="lastName"
                                 value={values.lastName}
                                 onChange={handleChange}
@@ -90,7 +88,6 @@ export default function StepOne() {
                             Upload a profile picture (optional)
                         </p>
                         <Input
-                            id="profileImgUrl"
                             name="profileImgUrl"
                             value={values.profileImgUrl}
                             onChange={handleChange}
