@@ -1,10 +1,11 @@
 type UserId__1 = principal;
 type UserId = principal;
+type ProjectId = text;
 type Project = 
  record {
    description: text;
    goal: float64;
-   id: text;
+   id: ProjectId;
    imgUrl: text;
    name: text;
    owner: UserId;
@@ -33,12 +34,16 @@ type NewProfile =
  };
 service : {
   createProfile: (NewProfile) -> ();
-  createProject: (NewProject) -> (Project);
+  createProject: (NewProject) -> ();
   getMyProfile: () -> (Profile) query;
+  getMyProjects: () -> (vec Project) query;
   getOwnId: () -> (UserId__1) query;
   getProfile: (UserId__1) -> (Profile) query;
+  getProjects: (UserId__1) -> (vec Project) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
+  listProjects: () -> (vec Project) query;
   searchProfiles: (text) -> (vec Profile) query;
+  testVal: () -> (nat) query;
   updateProfile: (Profile) -> ();
 }

@@ -65,8 +65,12 @@ actor CrowdFundNFT {
         directory.createProject(msg.caller, project)
     };
 
-    public query func getProject(userId: UserId): async [Project] {
+    public query func getProjects(userId: UserId): async [Project] {
         directory.getProjects(userId)
+    };
+
+    public query func listProjects(): async [Project] {
+        directory.listProjects()
     };
 
     // User Auth
