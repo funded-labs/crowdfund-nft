@@ -61,7 +61,6 @@ export default function StepOne() {
                                 value={values.firstName}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
-                                type="firstName"
                                 placeholder="First name"
                                 type="text"
                             />
