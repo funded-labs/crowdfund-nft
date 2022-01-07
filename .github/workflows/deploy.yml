@@ -36,8 +36,8 @@ jobs:
           sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
           cat ~/.config/dfx/identity/default/identity.pem
           echo "${{ secrets.DFX_WALLETS }}" > ~/.config/dfx/identity/default/wallets.json
-          dfx ping ic
-          dfx identity whoami
+          # dfx ping ic
+          # dfx identity whoami
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
