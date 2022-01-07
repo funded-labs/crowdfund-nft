@@ -28,7 +28,7 @@ jobs:
       # Install dfx
       - name: Installing dfx
         run: |
-          sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)" -y
+          echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
           mkdir /home/runner/.config/dfx
           mkdir /home/runner/.config/dfx/identity
           mkdir /home/runner/.config/dfx/identity/default
