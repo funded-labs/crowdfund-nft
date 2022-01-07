@@ -32,9 +32,9 @@ jobs:
           mkdir /home/runner/.config/dfx
           mkdir /home/runner/.config/dfx/identity
           mkdir /home/runner/.config/dfx/identity/default
-          echo ${{ secrets.DFX_IDENTITY }} > /home/runner/.config/dfx/identity/default/identity.pem
+          echo "${{ secrets.DFX_IDENTITY }}" > /home/runner/.config/dfx/identity/default/identity.pem
           sed -i 's/\\r\\n/\r\n/g' /home/runner/.config/dfx/identity/default/identity.pem
-          echo ${{ secrets.DFX_WALLETS }} > /home/runner/.config/dfx/identity/default/wallets.json
+          echo "${{ secrets.DFX_WALLETS }}" > /home/runner/.config/dfx/identity/default/wallets.json
           dfx ping ic
           dfx identity whoami
 
