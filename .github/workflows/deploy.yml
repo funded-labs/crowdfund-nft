@@ -35,9 +35,9 @@ jobs:
           mkdir ~/.config/dfx
           mkdir ~/.config/dfx/identity
           mkdir ~/.config/dfx/identity/default
-          echo "$IDENTITY" > ~/.config/dfx/identity/default/identity.pem
+          echo $IDENTITY > ~/.config/dfx/identity/default/identity.pem
           sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
-          echo "$WALLETS" > ~/.config/dfx/identity/default/wallets.json
+          echo $WALLETS > ~/.config/dfx/identity/default/wallets.json
           # dfx ping ic
           dfx identity whoami
           dfx identity get-principal
