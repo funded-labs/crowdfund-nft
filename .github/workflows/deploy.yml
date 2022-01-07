@@ -24,6 +24,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      # Install dfx
+      - name: Installing dfx
+        run: |
+          sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)" -y
+          dfx --version
+          dfx ping ic
+          dfx identity whoami
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
