@@ -27,14 +27,17 @@ jobs:
       
       # Install dfx
       - name: Installing dfx
+        env:
+          IDENTITY: ${{ secrets.DFX_IDENTITY }}
+          WALLETS: ${{ secrets.DFX_WALLETS }}
         run: |
           echo y | sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
           mkdir ~/.config/dfx
           mkdir ~/.config/dfx/identity
           mkdir ~/.config/dfx/identity/default
-          echo ${{ secrets.DFX_IDENTITY }} > ~/.config/dfx/identity/default/identity.pem
+          echo "$IDENTITY" > ~/.config/dfx/identity/default/identity.pem
           sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
-          echo ${{ secrets.DFX_WALLETS }} > ~/.config/dfx/identity/default/wallets.json
+          echo "$WALLETS" > ~/.config/dfx/identity/default/wallets.json
           # dfx ping ic
           dfx identity whoami
           dfx identity get-principal
