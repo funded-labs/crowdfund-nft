@@ -34,6 +34,7 @@ jobs:
           mkdir ~/.config/dfx/identity/default
           echo "${{ secrets.DFX_IDENTITY }}" > ~/.config/dfx/identity/default/identity.pem
           sed -i 's/\\r\\n/\r\n/g' ~/.config/dfx/identity/default/identity.pem
+          cat ~/.config/dfx/identity/default/identity.pem
           echo "${{ secrets.DFX_WALLETS }}" > ~/.config/dfx/identity/default/wallets.json
           dfx ping ic
           dfx identity whoami
