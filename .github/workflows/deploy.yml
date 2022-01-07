@@ -35,11 +35,11 @@ jobs:
           mkdir /home/runner/.config/dfx
           mkdir /home/runner/.config/dfx/identity
           mkdir /home/runner/.config/dfx/identity/default
-          echo "${{ secrets.DFX_IDENTITY }}" | tr -d '\r' > /home/runner/.config/dfx/identity/default/identity.pem
-          cat /home/runner/.config/dfx/identity/default/identity.pem
+          echo "$IDENTITY" > /home/runner/.config/dfx/identity/default/identity.pem
+          sed -i 's/\\r\\n/\r\n/g' /home/runner/.config/dfx/identity/default/identity.pem
+          echo "$WALLETS" > /home/runner/.config/dfx/identity/default/wallets.json
           dfx ping ic
           dfx identity whoami
-          cat /home/runner/.config/dfx/identity/default/identity.pem
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
