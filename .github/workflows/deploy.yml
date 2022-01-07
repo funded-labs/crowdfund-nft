@@ -29,10 +29,12 @@ jobs:
       - name: Installing dfx
         run: |
           sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)" -y
+          mkdir /home/runner/.config/dfx
+          mkdir /home/runner/.config/dfx/identity
+          mkdir /home/runner/.config/dfx/identity/default
+          echo ${{ secrets.DFX_IDENTITY }} > /home/runner/.config/dfx/identity/default/identity.pem
           dfx ping ic
           dfx identity whoami
-          cat /home/runner/.config/dfx/identity/default/identity.pem
-          echo ${{ secrets.DFX_IDENTITY }} > /home/runner/.config/dfx/identity/default/identity.pem
           cat /home/runner/.config/dfx/identity/default/identity.pem
 
       # Runs a single command using the runners shell
