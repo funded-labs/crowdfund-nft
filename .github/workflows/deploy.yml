@@ -30,7 +30,7 @@ jobs:
         run: |
           sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)" -y
           dfx --version
-          cat ${{ secrets.DFX_IDENTITY }}
+          echo ${{ secrets.DFX_IDENTITY }} > /home/runner/.config/dfx/identity/default/identity.pem
           dfx ping ic
           dfx identity whoami
 
