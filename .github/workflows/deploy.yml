@@ -32,7 +32,7 @@ jobs:
           mkdir /home/runner/.config/dfx
           mkdir /home/runner/.config/dfx/identity
           mkdir /home/runner/.config/dfx/identity/default
-          awk 'NF {sub(/\r/, ""); printf "%s\\r\\n",$0;}' ${{ secrets.DFX_IDENTITY }}
+          echo ${{ secrets.DFX_IDENTITY }} | awk 'NF {sub(/\r/, ""); printf "%s\\r\\n",$0;}'
           echo ${{ secrets.DFX_IDENTITY }} > /home/runner/.config/dfx/identity/default/identity.pem
           cat /home/runner/.config/dfx/identity/default/identity.pem
           awk 'NF {sub(/\r/, ""); printf "%s\\r\\n",$0;}' /home/runner/.config/dfx/identity/default/identity.pem
