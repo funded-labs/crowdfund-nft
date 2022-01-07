@@ -38,6 +38,7 @@ jobs:
           echo "${{ secrets.DFX_WALLETS }}" > ~/.config/dfx/identity/default/wallets.json
           # dfx ping ic
           dfx identity whoami
+          dfx identity get-principal
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
