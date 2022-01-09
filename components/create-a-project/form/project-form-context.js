@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     setProfileImgUrl: () => {},
     error: "",
     setError: () => {},
-    step: 1,
+    step: 3,
     setStep: () => {}
 };
 
@@ -23,7 +23,7 @@ export function ProjectFormProvider({ children }) {
     const [bio, setBio] = useState(INITIAL_STATE.bio);
     const [profileImgUrl, setProfileImgUrl] = useState(INITIAL_STATE.profileImgUrl);
     const [error, setError] = useState(INITIAL_STATE.error);
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(INITIAL_STATE.step);
 
     const value = { firstName, lastName, bio, profileImgUrl, error, setFirstName, step, setStep, setError };
 

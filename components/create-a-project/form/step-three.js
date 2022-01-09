@@ -19,8 +19,8 @@ const stepThreeSchema = Yup.object().shape({
 });
 
 const initialValues = {
-    targetAmount: 100000,
-    nftVolume: 312,
+    targetAmount: "",
+    nftVolume: "",
     walletId: ""
 };
 
