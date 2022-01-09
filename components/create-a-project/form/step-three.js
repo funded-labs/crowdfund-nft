@@ -41,7 +41,7 @@ export default function StepThree({ onSuccess }) {
         }
         catch (error) {
             console.log(error);
-            // todo: set form erro
+            // todo: set form error
         }
         finally {
             setLoading(false);
@@ -142,9 +142,9 @@ export default function StepThree({ onSuccess }) {
 
                     <p
                         className={`
-                    w-full py-4 px-4 text-xs text-center text-gray-500
-                    
-                `}
+                            w-full py-4 px-4 text-xs text-center text-gray-500
+                            
+                        `}
                     >
                         By continuing, you agree to CrowdFund NFT's Terms and acknowledge
                         receipt of our Privacy Policy.
