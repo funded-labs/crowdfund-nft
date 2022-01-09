@@ -55,13 +55,14 @@ module {
 
     // Projects 
 
-    public func createProject(userId: UserId, newProject: NewProject) {
+    public func createProject(userId: UserId, newProject: NewProject): Project {
       let project = makeProject(userId, newProject);
       projectMap.put(project.id, project);
       switch (userToProjectsMap.get(userId)) {
         case (null) { userToProjectsMap.put(userId, [project.id]); };
         case (?projects) { userToProjectsMap.put(userId, Array.append<ProjectId>(projects, [project.id])); };
       };
+      project;
     };
 
     // public func getProject(id: ProjectId): ?Project {

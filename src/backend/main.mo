@@ -19,6 +19,7 @@ actor CrowdFundNFT {
     type Profile = Types.Profile;
     type Project = Types.Project;
     type UserId = Types.UserId;
+    type ProjectId = Types.ProjectId;
 
     // Healthcheck
 
@@ -61,7 +62,7 @@ actor CrowdFundNFT {
         directory.getProjects(msg.caller)
     };
 
-    public shared(msg) func createProject(project: NewProject): async () {
+    public shared(msg) func createProject(project: NewProject): async Project {
         directory.createProject(msg.caller, project)
     };
 
