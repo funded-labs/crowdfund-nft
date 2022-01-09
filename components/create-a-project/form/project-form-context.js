@@ -11,7 +11,7 @@ const INITIAL_STATE = {
     setProfileImgUrl: () => {},
     error: "",
     setError: () => {},
-    step: 3,
+    step: 1,
     setStep: () => {}
 };
 
