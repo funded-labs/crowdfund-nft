@@ -26,10 +26,9 @@ export default function Navbar() {
         <>
             <div
                 className={classNames(
-                    "py-1 pt-3 fixed z-20 w-full text-white",
-                    "transition-all duration-300 border-b-4",
-                    hasScrolled ? "bg-royal-500 border-b backdrop-filter backdrop-blur-lg bg-opacity-95" : "bg-royal-500",
-                    hasScrolled ? null : "border-transparent"
+                    "py-1 pt-3 fixed z-20 w-full text-white bg-white",
+                    "transition-all duration-300 border-b",
+                    hasScrolled ? "border-gray-200" : "border-transparent"
                 )}
             >
                 <div className="w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center">
