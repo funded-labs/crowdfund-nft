@@ -34,14 +34,15 @@ type NewProfile =
  };
 service : {
   createProfile: (NewProfile) -> ();
-  createProject: (NewProject) -> (Project);
+  createProject: (NewProject) -> ();
   getMyProfile: () -> (Profile) query;
   getMyProjects: () -> (vec Project) query;
   getOwnId: () -> (UserId__1) query;
   getProfile: (UserId__1) -> (Profile) query;
-  getProject: (UserId__1) -> (vec Project) query;
+  getProjects: (UserId__1) -> (vec Project) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
+  listProjects: () -> (vec Project) query;
   searchProfiles: (text) -> (vec Profile) query;
   testVal: () -> (nat) query;
   updateProfile: (Profile) -> ();

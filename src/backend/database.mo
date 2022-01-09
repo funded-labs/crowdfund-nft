@@ -81,6 +81,10 @@ module {
       };
     };
 
+    public func listProjects() : [Project] {
+      Iter.toArray(projectMap.vals())
+    };
+
     // Helpers
 
     func makeProfile(userId: UserId, profile: NewProfile): Profile {

@@ -13,6 +13,13 @@ export const idlFactory = ({ IDL }) => {
   });
   const ProjectId = IDL.Text;
   const UserId = IDL.Principal;
+  const Profile = IDL.Record({
+    'id' : UserId,
+    'imgUrl' : IDL.Text,
+    'lastName' : IDL.Text,
+    'firstName' : IDL.Text,
+  });
+  const ProjectId = IDL.Text;
   const Project = IDL.Record({
     'id' : ProjectId,
     'imgUrl' : IDL.Text,
@@ -22,23 +29,18 @@ export const idlFactory = ({ IDL }) => {
     'tags' : IDL.Vec(IDL.Text),
     'description' : IDL.Text,
   });
-  const Profile = IDL.Record({
-    'id' : UserId,
-    'imgUrl' : IDL.Text,
-    'lastName' : IDL.Text,
-    'firstName' : IDL.Text,
-  });
   const UserId__1 = IDL.Principal;
   return IDL.Service({
     'createProfile' : IDL.Func([NewProfile], [], []),
-    'createProject' : IDL.Func([NewProject], [Project], []),
+    'createProject' : IDL.Func([NewProject], [], []),
     'getMyProfile' : IDL.Func([], [Profile], ['query']),
     'getMyProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
-    'getProject' : IDL.Func([UserId__1], [IDL.Vec(Project)], ['query']),
+    'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project)], ['query']),
     'greet' : IDL.Func([], [IDL.Text], []),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
+    'listProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'testVal' : IDL.Func([], [IDL.Nat], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
