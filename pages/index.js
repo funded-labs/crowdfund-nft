@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 // Next, React
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
