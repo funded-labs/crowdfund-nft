@@ -11,7 +11,6 @@ export const idlFactory = ({ IDL }) => {
     'tags' : IDL.Vec(IDL.Text),
     'description' : IDL.Text,
   });
-  const ProjectId = IDL.Text;
   const UserId = IDL.Principal;
   const Profile = IDL.Record({
     'id' : UserId,
