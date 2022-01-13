@@ -62,6 +62,11 @@ actor CrowdFundNFT {
         directory.getProjects(msg.caller)
     };
 
+    public shared(msg) func createFirstProject(profile: NewProfile, project: NewProject): async Project {
+        directory.createOne(msg.caller, profile);
+        directory.createProject(msg.caller, project);
+    };
+
     public shared(msg) func createProject(project: NewProject): async Project {
         directory.createProject(msg.caller, project)
     };

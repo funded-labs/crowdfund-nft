@@ -17,11 +17,11 @@ module {
       case (?existing) { existing };
       case (null) {
         {
-          id = userId;
+          bio = "";
           firstName = "";
+          id = userId;
+          img = [];
           lastName = "";
-          imgUrl = "";
-          projects = [];
         }
       };
     };

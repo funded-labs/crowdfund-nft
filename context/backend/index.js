@@ -1,54 +1,59 @@
-import { createContext, useContext, useState } from "react";
-import { makeBackendActor, makeBackendActorWithIdentity } from "@/ui/service/actor-locator";
+import { createContext, useContext, useState } from 'react'
+import {
+    makeBackendActor,
+    makeBackendActorWithIdentity,
+} from '@/ui/service/actor-locator'
+
+import { AuthClient } from '@dfinity/auth-client'
 
 const INITIAL_STATE = {
     backend: null,
     isLoading: true,
-    setBackend: () => {}
-};
+    setBackend: () => {},
+}
 
-export const BackendContext = createContext(INITIAL_STATE);
+export const BackendContext = createContext(INITIAL_STATE)
 
 export function BackendProvider({ children, backend }) {
-    const [_backend, setBackend] = useState(backend || INITIAL_STATE.backend);
+    const [_backend, setBackend] = useState(backend || INITIAL_STATE.backend)
 
     const login = async () => {
-        const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT;
+        const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT
 
-        let backend;
+        let backend
 
-        if (environmentName === "development") {
-            backend = makeBackendActor();
+        if (environmentName === 'development') {
+            backend = makeBackendActor()
         }
 
-        if (environmentName !== "development") {
-            backend = await authClientLogin();
+        if (environmentName !== 'development') {
+            backend = await authClientLogin()
         }
 
-        setBackend(backend);
+        setBackend(backend)
     }
 
     const authClientLogin = async () => {
-        const authClient = await AuthClient.create();
+        const authClient = await AuthClient.create()
 
         return new Promise((resolve, reject) => {
             authClient.login({
                 onSuccess: async () => {
-                    const identity = authClient.getIdentity();
+                    const identity = authClient.getIdentity()
 
                     if (!identity) {
-                        return reject(new Error("identity is null"));
+                        return reject(new Error('identity is null'))
                     }
 
-                    const backend = makeBackendActorWithIdentity(identity);
+                    const backend = makeBackendActorWithIdentity(identity)
 
                     resolve(backend)
-                }
+                },
             })
-        });
+        })
     }
 
-    const value = { backend: _backend, login };
+    const value = { backend: _backend, login }
 
     return (
         <BackendContext.Provider value={value}>
@@ -58,6 +63,6 @@ export function BackendProvider({ children, backend }) {
 }
 
 export function useBackend() {
-    const context = useContext(BackendContext);
-    return context;
+    const context = useContext(BackendContext)
+    return context
 }

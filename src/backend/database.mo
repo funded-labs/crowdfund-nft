@@ -89,10 +89,11 @@ module {
 
     func makeProfile(userId: UserId, profile: NewProfile): Profile {
       {
-        id = userId;
+        bio = profile.bio;
         firstName = profile.firstName;
+        id = userId;
+        img = profile.img;
         lastName = profile.lastName;
-        imgUrl = profile.imgUrl;
       }
     };
 
@@ -100,13 +101,20 @@ module {
     public func makeProject(userId: UserId, project: NewProject): Project {
       projectIdGenerator += 1;
       {
-        id = Nat.toText(projectIdGenerator);
+        category = project.category;
+        coverImg = project.coverImg;
         description = project.description;
+        discordLink = project.discordLink;
         goal = project.goal;
-        imgUrl = project.imgUrl;
-        name = project.name;
+        id = Nat.toText(projectIdGenerator);
+        nftVolume = project.nftVolume;
         owner = userId;
+        story = project.story;
         tags = project.tags; 
+        title = project.title;
+        twitterLink = project.twitterLink;
+        walletId = project.walletId;
+        wetransferLink = project.wetransferLink;
       };
     };
 
