@@ -4,6 +4,7 @@ import Hero from '../components/home/hero'
 import NearlyFunded from '../components/home/nearly-funded'
 import Navbar from '../components/shared/navbar'
 import { useBackend } from '@/context/backend'
+import Footer from '@/components/shared/footer'
 
 function HomePage() {
     const { backend, login } = useBackend()
@@ -45,6 +46,8 @@ function HomePage() {
             <Featured />
 
             <NearlyFunded />
+
+            <Footer />
         </div>
     )
 }
