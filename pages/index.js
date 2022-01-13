@@ -14,6 +14,7 @@ import {
     makeBackendActor,
     makeBackendActorWithIdentity,
 } from '../ui/service/actor-locator'
+import Footer from '@/components/shared/footer'
 
 function HomePage() {
     const [backend, setBackend] = useState()
@@ -71,6 +72,8 @@ function HomePage() {
             <Featured />
 
             <NearlyFunded />
+
+            <Footer />
         </div>
     )
 
