@@ -5,6 +5,7 @@ import TabBar from "@/components/project/tab-bar";
 import { useState } from "react";
 import CampaignDetails from "@/components/project/campaign-details";
 import NFTCollection from "@/components/project/nft-collection";
+import Footer from "@/components/shared/footer";
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState("campaign-details");
@@ -21,6 +22,8 @@ export default function ProjectDetails() {
 
             {selectedTab === "campaign-details" && (<CampaignDetails />)}
             {selectedTab === "nft-collection" && (<NFTCollection />)}
+
+            <Footer />
         </div>
     )
 }
