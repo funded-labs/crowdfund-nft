@@ -89,6 +89,7 @@ export default function Footer() {
                                             className="hover:underline cursor-pointer"
                                             href={link.href}
                                             target="_blank"
+                                            rel="noreferrer"
                                         >
                                             {link.label}
                                         </a>
