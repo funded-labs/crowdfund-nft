@@ -24,19 +24,19 @@ const initialValues = {
     walletId: ""
 };
 
-export default function StepThree({ onSuccess }) {
-    const { setStep } = useProjectForm();
+export default function StepThree() {
+    const { setStep, setProject } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
 
     const startAgain = () => router.reload();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (form) => {
         try {
             setLoading(true);
+            
+            setProject(project => ({ ...project, ...form }));
 
-            // todo: set values to Context
-            // todo: do we want to persist data at each stage?
             setStep(4);
         }
         catch (error) {
