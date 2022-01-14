@@ -56,6 +56,7 @@ export interface _SERVICE {
   'getMyProfile' : () => Promise<Profile>,
   'getMyProjects' : () => Promise<Array<Project>>,
   'getOwnId' : () => Promise<UserId__1>,
+  'getOwnIdText' : () => Promise<string>,
   'getProfile' : (arg_0: UserId__1) => Promise<Profile>,
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project>>,
   'greet' : () => Promise<string>,

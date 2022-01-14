@@ -57,6 +57,7 @@ service : {
   getMyProfile: () -> (Profile) query;
   getMyProjects: () -> (vec Project) query;
   getOwnId: () -> (UserId__1) query;
+  getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
   getProjects: (UserId__1) -> (vec Project) query;
   greet: () -> (text);

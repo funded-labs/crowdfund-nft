@@ -81,6 +81,8 @@ actor CrowdFundNFT {
 
     // User Auth
 
-    public shared query(msg) func getOwnId(): async UserId { msg.caller }
+    public shared query(msg) func getOwnId(): async UserId { msg.caller };
+
+    public shared query(msg) func getOwnIdText(): async Text { Principal.toText(msg.caller) };
 
 };
