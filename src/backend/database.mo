@@ -37,7 +37,17 @@ module {
 
     public func findMany(userIds: [UserId]): [Profile] {
       func getProfile(userId: UserId): Profile {
-        Option.unwrap<Profile>(userMap.get(userId))
+        switch (userMap.get(userId)) {
+          case null {
+            {
+              id = userId;
+              firstName = "";
+              lastName = "";
+              imgUrl = "";
+            };
+          };
+          case (?profile) { profile };
+        };
       };
       Array.map<UserId, Profile>(userIds, getProfile)
     };
@@ -74,7 +84,20 @@ module {
         case (null) { [] };
         case (?projects) {
           func getProject(projectId: ProjectId): Project {
-            Option.unwrap<Project>(projectMap.get(projectId))
+            switch (projectMap.get(projectId)) {
+              case null {
+                {
+                  id = projectId;
+                  description = "";
+                  goal = 0;
+                  imgUrl = "";
+                  name = "";
+                  owner = Principal.fromText("");
+                  tags = []; 
+                };
+              };
+              case (?project) { project };
+            }
           };
           Array.map<ProjectId, Project>(projects, getProject)
         };

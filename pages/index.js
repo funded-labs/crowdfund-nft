@@ -4,9 +4,10 @@ import Hero from '../components/home/hero'
 import NearlyFunded from '../components/home/nearly-funded'
 import Navbar from '../components/shared/navbar'
 import { useBackend } from '@/context/backend'
+import Footer from '@/components/shared/footer'
 
 function HomePage() {
-    const { backend, login } = useBackend();
+    const { backend, login } = useBackend()
     const [profile, setProfile] = useState({})
     const [profiles, setProfiles] = useState([])
     const [test, setTest] = useState('')
@@ -23,7 +24,6 @@ function HomePage() {
         const greeting = await backend.greet()
         alert(greeting)
     }
-    
 
     return (
         <div className='w-full'>
@@ -46,8 +46,10 @@ function HomePage() {
             <Featured />
 
             <NearlyFunded />
+
+            <Footer />
         </div>
-    );
+    )
 }
 
 export default HomePage

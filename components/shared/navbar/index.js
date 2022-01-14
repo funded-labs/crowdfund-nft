@@ -33,8 +33,8 @@ export default function Navbar() {
             >
                 <div className="w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center">
                     <div className="flex flex-row">
-                        <Link href="/">
-                            <img src="/assets/logo1.png" className="w-25 h-8 hover:scale-105 duration-200 cursor-pointer" alt=""/>
+                        <Link href="/" passHref>
+                            <img src="/assets/logo.png" className="w-25 h-8 hover:scale-105 duration-200 cursor-pointer" alt=""/>
                         </Link>
                     </div>
 
@@ -43,8 +43,8 @@ export default function Navbar() {
                             <Link href={item.href} key={item.title} passHref>
                                 <a
                                     className={`
-                                        text-gray-500 text-sm bg-transparent hover:bg-sunshine-500 px-2 py-px
-                                        transform hover:rotate-3 hover:text-royal-500 transition duration-200 cursor-pointer
+                                        text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
+                                        transform transition duration-200 cursor-pointer hover:underline
                                     `}
                                 >
                                     {item.title}
