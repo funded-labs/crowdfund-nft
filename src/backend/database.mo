@@ -16,7 +16,7 @@ module {
   type ProjectId = Types.ProjectId;
 
   public class Directory() {
-    // The "database" is just a local hash map
+    // The "database" is made up of a few hashmaps
     let userMap = HashMap.HashMap<UserId, Profile>(1, isEqUserId, Principal.hash);
     let projectMap = HashMap.HashMap<ProjectId, Project>(1, isEqProjectId, Text.hash);
     let userToProjectsMap = HashMap.HashMap<UserId, [ProjectId]>(1, isEqUserId, Principal.hash);
@@ -65,10 +65,6 @@ module {
       project;
     };
 
-    // public func getProject(id: ProjectId): ?Project {
-    //   projectMap.get(id)
-    // };
-
     public func getProjects(userId: UserId): [Project] {
       switch (userToProjectsMap.get(userId)) {
         case (null) { [] };
@@ -83,6 +79,38 @@ module {
 
     public func listProjects() : [Project] {
       Iter.toArray(projectMap.vals())
+    };
+
+    // Upgrade helpers
+
+    public func getUserArray() : [(UserId, Profile)] {
+      Iter.toArray(userMap.entries())
+    };
+
+    public func getProjectArray() : [(ProjectId, Project)] {
+      Iter.toArray(projectMap.entries())
+    };
+
+    public func getUserToProjectArray() : [(UserId, [ProjectId])] {
+      Iter.toArray(userToProjectsMap.entries())
+    };
+
+    public func initializeUserMap(users: [(UserId, Profile)]) {
+      for ((userId, profile) in users.vals()) {
+        userMap.put(userId, profile);
+      };
+    };
+
+    public func initializeProjectMap(projects: [(ProjectId, Project)]) {
+      for ((projectId, project) in projects.vals()) {
+        projectMap.put(projectId, project);
+      };
+    };
+
+    public func initializeUserToProjectMap(userToProjects: [(UserId, [ProjectId])]) {
+      for ((userId, projects) in userToProjects.vals()) {
+        userToProjectsMap.put(userId, projects);
+      };
     };
 
     // Helpers

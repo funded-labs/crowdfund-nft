@@ -64,6 +64,5 @@ service : {
   healthcheck: () -> (bool);
   listProjects: () -> (vec Project) query;
   searchProfiles: (text) -> (vec Profile) query;
-  testVal: () -> (nat) query;
   updateProfile: (Profile) -> ();
 }

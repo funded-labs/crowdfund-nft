@@ -63,6 +63,5 @@ export interface _SERVICE {
   'healthcheck' : () => Promise<boolean>,
   'listProjects' : () => Promise<Array<Project>>,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
-  'testVal' : () => Promise<bigint>,
   'updateProfile' : (arg_0: Profile) => Promise<undefined>,
 }
