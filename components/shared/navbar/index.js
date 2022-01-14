@@ -43,8 +43,8 @@ export default function Navbar() {
                             <Link href={item.href} key={item.title} passHref>
                                 <a
                                     className={`
-                                        text-gray-500 text-sm bg-transparent hover:bg-sunshine-500 px-2 py-px
-                                        transform hover:rotate-3 hover:text-royal-500 transition duration-200 cursor-pointer
+                                        text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
+                                        transform transition duration-200 cursor-pointer hover:underline
                                     `}
                                 >
                                     {item.title}
