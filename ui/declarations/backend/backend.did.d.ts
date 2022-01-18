@@ -1,37 +1,58 @@
 import type { Principal } from '@dfinity/principal';
+export type Image = Array<number>;
+export type Link = string;
 export interface NewProfile {
-  'imgUrl' : string,
+  'bio' : string,
+  'img' : Image,
   'lastName' : string,
   'firstName' : string,
 }
 export interface NewProject {
-  'imgUrl' : string,
+  'title' : string,
+  'wetransferLink' : Link,
   'goal' : number,
-  'name' : string,
+  'twitterLink' : Link,
   'tags' : Array<string>,
   'description' : string,
+  'discordLink' : Link,
+  'story' : string,
+  'category' : string,
+  'coverImg' : Image,
+  'nftVolume' : bigint,
+  'walletId' : string,
 }
 export interface Profile {
   'id' : UserId,
-  'imgUrl' : string,
+  'bio' : string,
+  'img' : Image,
   'lastName' : string,
   'firstName' : string,
 }
 export interface Project {
   'id' : ProjectId,
-  'imgUrl' : string,
+  'title' : string,
+  'wetransferLink' : Link,
   'owner' : UserId,
   'goal' : number,
-  'name' : string,
+  'twitterLink' : Link,
   'tags' : Array<string>,
   'description' : string,
+  'discordLink' : Link,
+  'story' : string,
+  'category' : string,
+  'coverImg' : Image,
+  'nftVolume' : bigint,
+  'walletId' : string,
 }
 export type ProjectId = string;
 export type UserId = Principal;
 export type UserId__1 = Principal;
 export interface _SERVICE {
+  'createFirstProject' : (arg_0: NewProfile, arg_1: NewProject) => Promise<
+      Project
+    >,
   'createProfile' : (arg_0: NewProfile) => Promise<undefined>,
-  'createProject' : (arg_0: NewProject) => Promise<undefined>,
+  'createProject' : (arg_0: NewProject) => Promise<Project>,
   'getMyProfile' : () => Promise<Profile>,
   'getMyProjects' : () => Promise<Array<Project>>,
   'getOwnId' : () => Promise<UserId__1>,
