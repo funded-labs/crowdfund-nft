@@ -1,16 +1,10 @@
 import { createContext, useContext, useState } from "react";
 
 const INITIAL_STATE = {
-    firstName: "",
-    lastName: "",
-    bio: "",
-    profileImgUrl: "",
-    setFirstName: () => {},
-    setLastName: () => {},
-    setBio: () => {},
-    setProfileImgUrl: () => {},
-    error: "",
-    setError: () => {},
+    profile: null,
+    setProfile: () => {},
+    project: null,
+    setProject: () => {},
     step: 1,
     setStep: () => {}
 };
@@ -18,14 +12,11 @@ const INITIAL_STATE = {
 export const ProjectFormContext = createContext(INITIAL_STATE);
 
 export function ProjectFormProvider({ children }) {
-    const [firstName, setFirstName] = useState(INITIAL_STATE.firstName);
-    const [lastName, setLastName] = useState(INITIAL_STATE.lastName);
-    const [bio, setBio] = useState(INITIAL_STATE.bio);
-    const [profileImgUrl, setProfileImgUrl] = useState(INITIAL_STATE.profileImgUrl);
-    const [error, setError] = useState(INITIAL_STATE.error);
+    const [profile, setProfile] = useState(INITIAL_STATE.profile);
+    const [project, setProject] = useState(INITIAL_STATE.project);
     const [step, setStep] = useState(INITIAL_STATE.step);
 
-    const value = { firstName, lastName, bio, profileImgUrl, error, setFirstName, step, setStep, setError };
+    const value = { profile, setProfile, project, setProject, step, setStep };
 
     return (
         <ProjectFormContext.Provider value={value}>

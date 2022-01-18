@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { Spinner } from "@/components/shared/loading-spinner";
-import { useProjectForm } from "./project-form-context";
 import Textarea from "@/components/forms/textarea";
-import { AuthClient } from "@dfinity/auth-client";
-import { makeBackendActor, makeBackendActorWithIdentity } from "@/ui/service/actor-locator";
 import { useRouter } from "next/router";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useBackend } from "@/context/backend";
+import { useProjectForm } from "./project-form-context";
 
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required("Enter details about your project")
@@ -17,63 +16,44 @@ const initialValues = {
 };
 
 export default function StepFive() {
-    const { setStep } = useProjectForm();
+    const { backend } = useBackend();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
+    const { profile, project, setProject } = useProjectForm();
 
     const startAgain = () => router.reload();
 
-    const authClientLogin = async () => {
-        const authClient = await AuthClient.create();
-
-        return new Promise((resolve, reject) => {
-            authClient.login({
-                onSuccess: async () => {
-                    const identity = authClient.getIdentity();
-
-                    if (!identity) {
-                        return reject(new Error("identity is null"));
-                    }
-
-                    const backend = makeBackendActorWithIdentity(identity);
-
-                    resolve(backend)
-                }
-            })
-        });
-    }
-
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (form) => {
         try {
             setLoading(true);
 
-            // todo: set values to context
-
-            const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT;
-
-            let backend;
-
-            if (environmentName === "development") {
-                backend = makeBackendActor();
-            }
-
-            if (environmentName !== "development") {
-                backend = await authClientLogin();
-            }
+            setProject(project => ({ ...project, ...form }));
 
             const random = ((Math.random() + 1) * 100).toFixed(0);
 
-            console.log({ backend });
+            const payload = {
+                category: projectCategory,
+                coverImg: "", // project.coverImgUrl
+                description: "",
+                discordLink: project.discordLink,
+                goal: project.targetAmount,
+                nftVolume: project.nftVolume,
+                story: project.story,
+                tags: [],
+                title: projectTitle,
+                twitterLink: project.twitterLink,
+                walletId: project.walletId,
+                wtransferLink: project.wetransferLink
+            };
 
-            const project = await backend.createProject({
-                imgUrl: "https://via.placeholder.com/1000x600",
-                goal: +random,
-                name: `Test project ${random}`,
-                tags: ["test"],
-                description: `This is a test project ${random}`
+            const profile = await backend.makeProfile({
+                bio: profile.bio,
+                firstName: profile.firstName,
+                img: "", // profile.profileImgUrl
+                lastName: profile.lastName
             });
 
-            console.log({ project });
+            const project = await backend.createProject(payload);
         }
         catch (error) {
             console.log(error);
