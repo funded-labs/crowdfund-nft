@@ -40,10 +40,11 @@ module {
         switch (userMap.get(userId)) {
           case null {
             {
+              bio = "";
               id = userId;
+              img = [];
               firstName = "";
               lastName = "";
-              imgUrl = "";
             };
           };
           case (?profile) { profile };
@@ -83,13 +84,20 @@ module {
             switch (projectMap.get(projectId)) {
               case null {
                 {
-                  id = projectId;
+                  category = "";
+                  coverImg = [];
                   description = "";
+                  discordLink = "";
                   goal = 0;
-                  imgUrl = "";
-                  name = "";
-                  owner = Principal.fromText("");
-                  tags = []; 
+                  id = projectId;
+                  nftVolume = 0;
+                  owner = userId;
+                  story = "";
+                  tags = [];
+                  title = "";
+                  twitterLink = "";
+                  walletId = "";
+                  wetransferLink = "";
                 };
               };
               case (?project) { project };
