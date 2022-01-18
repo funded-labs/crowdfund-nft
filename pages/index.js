@@ -29,18 +29,6 @@ function HomePage() {
         <div className='w-full'>
             <Navbar />
 
-            {backend ? (
-                <div>Logged in</div>
-            ) : (
-                <button onClick={login}>Login</button>
-            )}
-
-            <button onClick={sayGreeting}>Say greeting</button>
-
-            <div>{JSON.stringify(test)}</div>
-            <div>{JSON.stringify(profile)}</div>
-            <div>{JSON.stringify(profiles)}</div>
-
             <Hero />
 
             <Featured />

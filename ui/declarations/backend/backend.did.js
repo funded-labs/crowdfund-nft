@@ -54,13 +54,13 @@ export const idlFactory = ({ IDL }) => {
     'getMyProfile' : IDL.Func([], [Profile], ['query']),
     'getMyProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
+    'getOwnIdText' : IDL.Func([], [IDL.Text], ['query']),
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
     'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project)], ['query']),
     'greet' : IDL.Func([], [IDL.Text], []),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
     'listProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
-    'testVal' : IDL.Func([], [IDL.Nat], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
   });
 };

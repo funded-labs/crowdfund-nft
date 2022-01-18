@@ -56,12 +56,12 @@ export interface _SERVICE {
   'getMyProfile' : () => Promise<Profile>,
   'getMyProjects' : () => Promise<Array<Project>>,
   'getOwnId' : () => Promise<UserId__1>,
+  'getOwnIdText' : () => Promise<string>,
   'getProfile' : (arg_0: UserId__1) => Promise<Profile>,
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project>>,
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
   'listProjects' : () => Promise<Array<Project>>,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
-  'testVal' : () => Promise<bigint>,
   'updateProfile' : (arg_0: Profile) => Promise<undefined>,
 }
