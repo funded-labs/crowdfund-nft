@@ -1,19 +1,13 @@
-import Meta from "./meta";
-
 export default function Hero() {
     return (
         <section className="w-full bg-white">
-            <div className="w-full max-w-5xl mx-auto flex flex-col px-4">
-                <p className="text-2xl font-medium">
+            <div className="w-full max-w-5xl mx-auto flex flex-col px-4 py-5">
+                <p className="text-2xl font-medium mb-3">
                     Comic Book Reboot
-                </p>
-                <p className="text-lg text-gray-400">
-                    Comic book designed by Catherine Lodef for NFT release January 2022
                 </p>
                 <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8">
                     <div className="w-full lg:w-7/12 flex flex-col">
                         <figure className="w-full h-96 bg-yellow-500 rounded-xl mb-1"></figure>
-                        <Meta />
                     </div>
 
                     <div className="w-full lg:w-5/12 flex flex-col">
@@ -63,7 +57,7 @@ export default function Hero() {
                                         hover:border-blue-600
                                     `}
                                 >
-                                    Remind me
+                                    Share
                                 </button>
                             </div>
                             <div className="w-6/12 flex flex-row justify-between">
