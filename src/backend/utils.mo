@@ -49,11 +49,11 @@ module {
 
   // Authorization
 
-  let adminIds: [UserId] = [];//Principal.fromText("rwvfd-5wxx6-yeevy-xe4wu-rnywu-nrkxe-vxnup-yg3uz-5rgmo-hvtbd-sqe")];
+  let adminIds: [Text] = ["rwvfd-5wxx6-yeevy-xe4wu-rnywu-nrkxe-vxnup-yg3uz-5rgmo-hvtbd-sqe"];
 
   public func isAdmin(userId: UserId): Bool {
-    func identity(x: UserId): Bool { x == userId };
-    Option.isSome(Array.find<UserId>(adminIds,identity))
+    func identity(x: Text): Bool { x == Principal.toText(userId) };
+    Option.isSome(Array.find<Text>(adminIds,identity))
   };
 
   public func hasAccess(userId: UserId, profile: Profile): Bool {
