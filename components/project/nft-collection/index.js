@@ -2,6 +2,7 @@ import Menu from "./menu";
 import NFTs from "./nfts";
 import Rewards from "./rewards";
 import HowItWorks from "./how-it-works";
+import ResaleSecondaryMarkets from "./resale-secondary-markets";
 
 export default function NFTCollection() {
     return (
@@ -15,6 +16,7 @@ export default function NFTCollection() {
                     <NFTs />
                     <Rewards />
                     <HowItWorks />
+                    <ResaleSecondaryMarkets />
                 </div>
             </div>
         </div>
