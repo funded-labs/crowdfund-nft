@@ -1,5 +1,6 @@
 // Make the Connectd app's public methods available locally
 // import Connectd "canister:connectd";
+import Array "mo:base/Array";
 import Debug "mo:base/Debug";
 import Database "./database";
 import Principal "mo:base/Principal";
@@ -15,8 +16,9 @@ actor CrowdFundNFT {
     type NewProject = Types.NewProject;
     type Profile = Types.Profile;
     type Project = Types.Project;
-    type UserId = Types.UserId;
     type ProjectId = Types.ProjectId;
+    type ProjectWithOwner = Types.ProjectWithOwner;
+    type UserId = Types.UserId;
 
     // Stable vars used for upgrading 
 
@@ -98,8 +100,11 @@ actor CrowdFundNFT {
         db.getProjects(userId)
     };
 
-    public query func listProjects(): async [Project] {
-        db.listProjects()
+    public query func listProjects(): async [ProjectWithOwner] {
+        func getProjectWithOwner(p: Project) : ProjectWithOwner { 
+            Utils.getProjectWithOwner(db, p);
+        };
+        Array.map(db.listProjects(), getProjectWithOwner);
     };
 
     // User Auth

@@ -55,4 +55,9 @@ module {
     walletId: Text;
     wetransferLink: Link;
   };
+
+  public type ProjectWithOwner = {
+    project: Project;
+    owner: Profile;
+  }
 };

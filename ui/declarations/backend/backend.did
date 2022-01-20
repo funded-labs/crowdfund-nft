@@ -1,5 +1,27 @@
 type UserId__1 = principal;
 type UserId = principal;
+type Project__1 = 
+ record {
+   category: text;
+   coverImg: Image;
+   description: text;
+   discordLink: Link;
+   goal: float64;
+   id: ProjectId;
+   nftVolume: nat;
+   owner: UserId;
+   story: text;
+   tags: vec text;
+   title: text;
+   twitterLink: Link;
+   walletId: text;
+   wetransferLink: Link;
+ };
+type ProjectWithOwner = 
+ record {
+   owner: Profile__1;
+   project: Project;
+ };
 type ProjectId = text;
 type Project = 
  record {
@@ -17,6 +39,14 @@ type Project =
    twitterLink: Link;
    walletId: text;
    wetransferLink: Link;
+ };
+type Profile__1 = 
+ record {
+   bio: text;
+   firstName: text;
+   id: UserId;
+   img: Image;
+   lastName: text;
  };
 type Profile = 
  record {
@@ -51,18 +81,18 @@ type NewProfile =
 type Link = text;
 type Image = vec nat8;
 service : {
-  createFirstProject: (NewProfile, NewProject) -> (Project);
+  createFirstProject: (NewProfile, NewProject) -> (Project__1);
   createProfile: (NewProfile) -> ();
-  createProject: (NewProject) -> (Project);
+  createProject: (NewProject) -> (Project__1);
   getMyProfile: () -> (Profile) query;
-  getMyProjects: () -> (vec Project) query;
+  getMyProjects: () -> (vec Project__1) query;
   getOwnId: () -> (UserId__1) query;
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
-  getProjects: (UserId__1) -> (vec Project) query;
+  getProjects: (UserId__1) -> (vec Project__1) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
-  listProjects: () -> (vec Project) query;
+  listProjects: () -> (vec ProjectWithOwner) query;
   searchProfiles: (text) -> (vec Profile) query;
   updateProfile: (Profile) -> ();
 }
