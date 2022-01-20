@@ -4,8 +4,8 @@ const links = [
         href: '/about',
     },
     {
-        title: 'Docs',
-        href: '/docs',
+        title: 'Whitepaper',
+        href: '/',
     },
     {
         title: 'Contact',
