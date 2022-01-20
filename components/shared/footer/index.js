@@ -21,28 +21,6 @@ const links = [
         ]
     },
     {
-        title: "Popular Projects",
-        items: [
-            {
-                label: "Project One",
-                href: ""
-            },
-            {
-                label: "Project Two",
-                pillText: "featured",
-                href: ""
-            },
-            {
-                label: "Project Three",
-                href: ""
-            },
-            {
-                label: "Project Four",
-                href: ""
-            },
-        ]
-    },
-    {
         title: "Categories",
         items: [
             {
