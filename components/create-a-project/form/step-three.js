@@ -56,40 +56,44 @@ export default function StepThree({ onSuccess }) {
         >
             {({ handleSubmit, handleBlur, handleChange, errors, values }) => (
                 <form className="w-full flex flex-col space-y-2" onSubmit={handleSubmit}>
-                    <div className="w-full flex flex-col space-y-1">
+                    <div className="w-full flex flex-col space-y-4">
                         <p className="font-semibold text-2xl">
                             Set your target
                         </p>
-                        <p className="">
-                            How much would you like to raise?
-                        </p>
-                        <Input
-                            name="targetAmount"
-                            value={values.targetAmount}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            placeholder="Enter target amount"
-                            type="number"
-                            endItem={() => <p className="font-bold text-black">ICP</p>}
-                        />
+                        <div className="w-full flex flex-col space-y-1">
+                            <p className="">
+                                How much would you like to raise?
+                            </p>
+                            <Input
+                                name="targetAmount"
+                                value={values.targetAmount}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder="Enter target amount"
+                                type="number"
+                                endItem={() => <p className="font-bold text-black">ICP</p>}
+                            />
+                        </div>
                         <p className="bg-gray-50 rounded-2xl text-sm p-4">
                             Bear in mind that fees are deducated from each donation, we charge
                             5% of every donation, and there is a flat 0.001 ICP fee per
                             transaction
                         </p>
 
-                        <p className="">
-                            How many NFT's would you like to include in your collection?
-                        </p>
-                        <Input
-                            name="nftVolume"
-                            value={values.nftVolume}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            placeholder="Enter target amount"
-                            type="number"
-                            endItem={() => <p className="font-bold text-black">NFT's</p>}
-                        />
+                        <div className="w-full flex flex-col space-y-1">
+                            <p className="">
+                                How many NFT's would you like to include in your collection?
+                            </p>
+                            <Input
+                                name="nftVolume"
+                                value={values.nftVolume}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                placeholder="Enter target amount"
+                                type="number"
+                                endItem={() => <p className="font-bold text-black">NFT's</p>}
+                            />
+                        </div>
                         <p className="bg-gray-50 rounded-2xl text-sm p-4">
                             Guide: The average donation in crodfunding is £320. So if you
                             would like to raise £100,000 - make sure you set your NFT collection
