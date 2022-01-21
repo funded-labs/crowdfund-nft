@@ -32,7 +32,7 @@ export default function StepFive() {
             const random = ((Math.random() + 1) * 100).toFixed(0);
 
             const payload = {
-                category: projectCategory,
+                category: project.projectCategory,
                 coverImg: "", // project.coverImgUrl
                 description: "",
                 discordLink: project.discordLink,
