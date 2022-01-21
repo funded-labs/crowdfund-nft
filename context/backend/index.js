@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState, useEffect } from 'react'
 import {
     makeBackendActor,
     makeBackendActorWithIdentity,
@@ -16,6 +16,13 @@ export const BackendContext = createContext(INITIAL_STATE)
 
 export function BackendProvider({ children, backend }) {
     const [_backend, setBackend] = useState(backend || INITIAL_STATE.backend)
+
+    useEffect(() => {
+        if (backend) return
+
+        const _backend = makeBackendActor()
+        setBackend(backend)
+    }, [])
 
     const login = async () => {
         const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT

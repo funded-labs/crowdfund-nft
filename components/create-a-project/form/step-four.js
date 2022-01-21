@@ -17,18 +17,18 @@ const initialValues = {
 };
 
 export default function StepFour() {
-    const { setStep } = useProjectForm();
+    const { setStep, setProject } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
 
     const startAgain = () => router.reload();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (form) => {
         try {
             setLoading(true);
+            
+            setProject(project => ({ ...project, ...form }));
 
-            // todo set values to Context
-            // todo: do we want to persist data at each stage?
             setStep(5);
         }
         catch (error) {

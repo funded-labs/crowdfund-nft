@@ -3,7 +3,6 @@ import { useState } from "react";
 import Input from "@/components/forms/input";
 import { Spinner } from "@/components/shared/loading-spinner";
 import { useProjectForm } from "./project-form-context";
-import Textarea from "@/components/forms/textarea";
 import Select from "@/components/forms/select";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -23,18 +22,20 @@ const initialValues = {
 };
 
 export default function StepTwo() {
-    const { setStep } = useProjectForm();
+    const { setStep, setProject, profile } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
 
+    console.log({ profile });
+
     const startAgain = () => router.reload();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (form) => {
         try {
             setLoading(true);
+            
+            setProject(project => ({ ...project, ...form }));
 
-            // todo: set values to context
-            // todo: do we want to persist this data at each stage?
             setStep(3);
         }
         catch (error) {

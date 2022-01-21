@@ -21,15 +21,15 @@ const initialValues = {
 }
 
 export default function StepOne() {
-    const { email, setEmail, error, setError, setStep } = useProjectForm();
+    const { setProfile, setStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
 
     const handleSubmit = async (form) => {
         try {
             setLoading(true);
             
-            // todo: set values to Context
-            // todo: do we want to persist the data somewhere else at each stage?
+            setProfile(profile => ({ ...profile, ...form }));
+
             setStep(2);
         }
         catch (error) {
