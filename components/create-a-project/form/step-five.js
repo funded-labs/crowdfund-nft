@@ -9,10 +9,12 @@ import { useProjectForm } from './project-form-context'
 
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
+    rewards: Yup.string().required("Enter details about the rewards investors will receive")
 })
 
 const initialValues = {
     story: '',
+    rewards: ""
 }
 
 export default function StepFive() {
@@ -79,6 +81,12 @@ export default function StepFive() {
                             rows={4}
                         />
                         <p className=''>Investor rewards</p>
+                        <Textarea
+                            name='rewards'
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            rows={4}
+                        />
                         <div className='rounded-2xl w-full bg-blue-100 bg-opacity-30 p-4'>
                             Tips! Be sure to mention:
                             <p className='text-center text-blue-600 underline'>

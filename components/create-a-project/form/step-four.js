@@ -17,7 +17,7 @@ const initialValues = {
 };
 
 export default function StepFour() {
-    const { setStep, setProject, previousStep } = useProjectForm();
+    const { setStep, setProject, previousStep, project } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
 
@@ -75,7 +75,7 @@ export default function StepFour() {
                     Reminder, you selected a collection of:
                 </p>
                 <p className="font-semibold">
-                    1,000 NFT's
+                    {project.nftVolume} NFT's
                 </p>
                 <p className="">
                     Please make sure you have the apropriate number of JPG's or
