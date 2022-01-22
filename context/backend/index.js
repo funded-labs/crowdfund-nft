@@ -27,7 +27,7 @@ export function BackendProvider({ children, backend }) {
     const login = async () => {
         const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT
 
-        let backend
+        let backend;
 
         if (environmentName === 'development') {
             backend = makeBackendActor()
