@@ -22,13 +22,9 @@ const initialValues = {
 };
 
 export default function StepTwo() {
-    const { setStep, setProject, profile } = useProjectForm();
+    const { setStep, setProject, profile, previousStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
-
-    console.log({ profile });
-
-    const startAgain = () => router.reload();
 
     const handleSubmit = async (form) => {
         try {
@@ -135,10 +131,10 @@ export default function StepTwo() {
 
                     <button
                         className="appearance-none w-full py-4 px-4 text-xs text-center text-gray-500 focus:outline-none"
-                        onClick={startAgain}
+                        onClick={previousStep}
                         type="button"
                     >
-                        &larr; Start again
+                        &larr; Go back
                     </button>
 
                     <p

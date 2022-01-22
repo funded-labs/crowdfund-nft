@@ -19,9 +19,7 @@ export default function StepFive() {
     const { backend } = useBackend()
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
-    const { profile, project, setProject } = useProjectForm()
-
-    const startAgain = () => router.reload()
+    const { profile, project, previousStep } = useProjectForm()
 
     const handleSubmit = async (form) => {
         try {
@@ -142,9 +140,9 @@ export default function StepFive() {
 
                     <button
                         className='appearance-none w-full py-4 px-4 text-xs text-center text-gray-500 focus:outline-none'
-                        onClick={startAgain}
+                        onClick={previousStep}
                         type='button'>
-                        &larr; Start again
+                        &larr; Go back
                     </button>
 
                     <p

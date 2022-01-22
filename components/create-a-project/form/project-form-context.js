@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     project: null,
     setProject: () => {},
     step: 1,
-    setStep: () => {}
+    setStep: () => {},
+    previousStep: () => {}
 };
 
 export const ProjectFormContext = createContext(INITIAL_STATE);
@@ -16,7 +17,13 @@ export function ProjectFormProvider({ children }) {
     const [project, setProject] = useState(INITIAL_STATE.project);
     const [step, setStep] = useState(INITIAL_STATE.step);
 
-    const value = { profile, setProfile, project, setProject, step, setStep };
+    const previousStep = () => {
+        if (step === 1) return;
+
+        setStep(step - 1);
+    }
+
+    const value = { profile, setProfile, project, setProject, step, setStep, previousStep };
 
     return (
         <ProjectFormContext.Provider value={value}>

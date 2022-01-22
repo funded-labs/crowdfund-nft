@@ -3,7 +3,7 @@ import { useState } from "react";
 import Input from "@/components/forms/input";
 import { Spinner } from "@/components/shared/loading-spinner";
 import { useProjectForm } from "./project-form-context";
-import { Form, Formik } from "formik";
+import { Formik } from "formik";
 import * as Yup from "yup";
 
 const stepFourSchema = Yup.object().shape({
@@ -17,11 +17,9 @@ const initialValues = {
 };
 
 export default function StepFour() {
-    const { setStep, setProject } = useProjectForm();
+    const { setStep, setProject, previousStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
-
-    const startAgain = () => router.reload();
 
     const handleSubmit = async (form) => {
         try {
@@ -114,10 +112,10 @@ export default function StepFour() {
 
                     <button
                         className="appearance-none w-full py-4 px-4 text-xs text-center text-gray-500 focus:outline-none"
-                        onClick={startAgain}
+                        onClick={previousStep}
                         type="button"
                     >
-                        &larr; Start again
+                        &larr; Go back
                     </button>
 
                     <p

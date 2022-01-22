@@ -25,11 +25,9 @@ const initialValues = {
 };
 
 export default function StepThree() {
-    const { setStep, setProject } = useProjectForm();
+    const { setStep, setProject, previousStep } = useProjectForm();
     const [isLoading, setLoading] = useState(false);
     const router = useRouter();
-
-    const startAgain = () => router.reload();
 
     const handleSubmit = async (form) => {
         try {
@@ -138,10 +136,10 @@ export default function StepThree() {
 
                     <button
                         className="appearance-none w-full py-4 px-4 text-xs text-center text-gray-500 focus:outline-none"
-                        onClick={startAgain}
+                        onClick={previousStep}
                         type="button"
                     >
-                        &larr; Start again
+                        &larr; Go back
                     </button>
 
                     <p
