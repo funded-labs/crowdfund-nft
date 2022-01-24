@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 const menuItems = [
     {
-        label: "NFT's",
+        label: "NFTs",
         id: "nfts"
     },
     {
