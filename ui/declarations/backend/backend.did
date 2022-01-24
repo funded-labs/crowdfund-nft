@@ -10,6 +10,7 @@ type Project__1 =
    id: ProjectId;
    nftVolume: nat;
    owner: UserId;
+   status: ProjectStatus__1;
    story: text;
    tags: vec text;
    title: text;
@@ -22,6 +23,8 @@ type ProjectWithOwner =
    owner: Profile__1;
    project: Project;
  };
+type ProjectStatus__1 = text;
+type ProjectStatus = text;
 type ProjectId = text;
 type Project = 
  record {
@@ -33,6 +36,7 @@ type Project =
    id: ProjectId;
    nftVolume: nat;
    owner: UserId;
+   status: ProjectStatus__1;
    story: text;
    tags: vec text;
    title: text;
@@ -92,7 +96,8 @@ service : {
   getProjects: (UserId__1) -> (vec Project__1) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
-  listProjects: () -> (vec ProjectWithOwner) query;
+  isAdmin: () -> (bool) query;
+  listProjects: (vec ProjectStatus) -> (vec ProjectWithOwner) query;
   searchProfiles: (text) -> (vec Profile) query;
   updateProfile: (Profile) -> ();
 }

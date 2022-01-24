@@ -22,9 +22,11 @@ export const idlFactory = ({ IDL }) => {
     'walletId' : IDL.Text,
   });
   const ProjectId = IDL.Text;
+  const ProjectStatus__1 = IDL.Text;
   const UserId = IDL.Principal;
   const Project__1 = IDL.Record({
     'id' : ProjectId,
+    'status' : ProjectStatus__1,
     'title' : IDL.Text,
     'wetransferLink' : Link,
     'owner' : UserId,
@@ -47,6 +49,7 @@ export const idlFactory = ({ IDL }) => {
     'firstName' : IDL.Text,
   });
   const UserId__1 = IDL.Principal;
+  const ProjectStatus = IDL.Text;
   const Profile__1 = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
@@ -56,6 +59,7 @@ export const idlFactory = ({ IDL }) => {
   });
   const Project = IDL.Record({
     'id' : ProjectId,
+    'status' : ProjectStatus__1,
     'title' : IDL.Text,
     'wetransferLink' : Link,
     'owner' : UserId,
@@ -86,7 +90,12 @@ export const idlFactory = ({ IDL }) => {
     'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project__1)], ['query']),
     'greet' : IDL.Func([], [IDL.Text], []),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
-    'listProjects' : IDL.Func([], [IDL.Vec(ProjectWithOwner)], ['query']),
+    'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'listProjects' : IDL.Func(
+        [IDL.Vec(ProjectStatus)],
+        [IDL.Vec(ProjectWithOwner)],
+        ['query'],
+      ),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
   });

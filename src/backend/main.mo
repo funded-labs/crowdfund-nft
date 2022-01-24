@@ -17,6 +17,7 @@ actor CrowdFundNFT {
     type Profile = Types.Profile;
     type Project = Types.Project;
     type ProjectId = Types.ProjectId;
+    type ProjectStatus = Types.ProjectStatus;
     type ProjectWithOwner = Types.ProjectWithOwner;
     type UserId = Types.UserId;
 
@@ -100,11 +101,21 @@ actor CrowdFundNFT {
         db.getProjects(userId)
     };
 
-    public query func listProjects(): async [ProjectWithOwner] {
+    public query func listProjects(statuses: [ProjectStatus]): async [ProjectWithOwner] {
         func getProjectWithOwner(p: Project) : ProjectWithOwner { 
             Utils.getProjectWithOwner(db, p);
         };
-        Array.map(db.listProjects(), getProjectWithOwner);
+        let projectsWithOwners = Array.map(db.listProjects(), getProjectWithOwner);
+        switch (statuses.size()) { 
+            case 0 { projectsWithOwners };
+            case _ { Array.filter(projectsWithOwners, func (p: ProjectWithOwner) : Bool { 
+                switch(Array.find(statuses, func (s: ProjectStatus) : Bool { s == p.project.status })) {
+                    case null { false };
+                    case _ { true };
+                };
+            }); 
+            };
+        };
     };
 
     // User Auth
@@ -112,5 +123,9 @@ actor CrowdFundNFT {
     public shared query(msg) func getOwnId(): async UserId { msg.caller };
 
     public shared query(msg) func getOwnIdText(): async Text { Principal.toText(msg.caller) };
+
+    public shared query(msg) func isAdmin(): async Bool {
+        Utils.isAdmin(msg.caller)
+    };
 
 };

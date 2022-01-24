@@ -12,8 +12,9 @@ module {
   type NewProject = Types.NewProject;
   type Profile = Types.Profile;
   type Project = Types.Project;
-  type UserId = Types.UserId;
   type ProjectId = Types.ProjectId;
+  type ProjectStatus = Types.ProjectStatus;
+  type UserId = Types.UserId;
 
   public class Directory() {
     // The "database" is made up of a few hashmaps
@@ -92,6 +93,7 @@ module {
                   id = projectId;
                   nftVolume = 0;
                   owner = userId;
+                  status = "";
                   story = "";
                   tags = [];
                   title = "";
@@ -168,6 +170,7 @@ module {
         id = Nat.toText(projectIdGenerator);
         nftVolume = project.nftVolume;
         owner = userId;
+        status = "submitted";
         story = project.story;
         tags = project.tags; 
         title = project.title;
