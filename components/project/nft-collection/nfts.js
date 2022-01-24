@@ -13,7 +13,7 @@ const nfts = [
 export default function NFTs({ selected = 'story', onSelect = () => {} }) {
     return (
         <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
-            <p className='font-bold text-base text-black'>{"NFT's"}</p>
+            <p className='font-bold text-base text-black'>{"NFTs"}</p>
 
             <p className='text-gray-600 my-10 w-full'>
                 When you invest in this project, you will be randomly allocated

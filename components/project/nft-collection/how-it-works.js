@@ -22,7 +22,7 @@ export default function HowItWorks() {
                 <p>
                     If a project does meet its funding goalm then funds are released from The
                     Crowdfund NFT escroc wallet into the project creator's wallet. Similarly,
-                    NFT's are delivered to investor wallets.
+                    NFTs are delivered to investor wallets.
                 </p>
 
                 <img src="/assets/how-it-works.png" className="w-full" />

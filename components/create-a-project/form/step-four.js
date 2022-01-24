@@ -49,7 +49,7 @@ export default function StepFour() {
         <form className="w-full flex flex-col space-y-2" onSubmit={handleSubmit}>
             <div className="w-full flex flex-col space-y-1">
                 <p className="font-semibold text-2xl">
-                    Add a cover photo for your NFT's
+                    Add a cover photo for your NFTs
                 </p>
                 <p className="">
                     A high-quality image that will serve as your project cover, as well
@@ -75,7 +75,7 @@ export default function StepFour() {
                     Reminder, you selected a collection of:
                 </p>
                 <p className="font-semibold">
-                    {project.nftVolume} NFT's
+                    {project.nftVolume} NFTs
                 </p>
                 <p className="">
                     Please make sure you have the apropriate number of JPG's or
@@ -124,7 +124,7 @@ export default function StepFour() {
                             
                         `}
                     >
-                        By continuing, you agree to CrowdFund NFT's Terms and acknowledge
+                        By continuing, you agree to CrowdFund NFTs Terms and acknowledge
                         receipt of our Privacy Policy.
                     </p>
         </form>

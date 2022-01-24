@@ -142,7 +142,7 @@ export default function StepTwo() {
                             w-full py-4 px-4 text-xs text-center text-gray-500
                         `}
                     >
-                        By continuing, you agree to CrowdFund NFT's Terms and acknowledge
+                        By continuing, you agree to CrowdFund NFTs Terms and acknowledge
                         receipt of our Privacy Policy.
                     </p>
                 </form>

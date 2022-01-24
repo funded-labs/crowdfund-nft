@@ -80,7 +80,7 @@ export default function StepThree() {
 
                         <div className="w-full flex flex-col space-y-1">
                             <p className="">
-                                How many NFT's would you like to include in your collection?
+                                How many NFTs would you like to include in your collection?
                             </p>
                             <Input
                                 name="nftVolume"
@@ -89,13 +89,13 @@ export default function StepThree() {
                                 onBlur={handleBlur}
                                 placeholder="Enter target amount"
                                 type="number"
-                                endItem={() => <p className="font-bold text-black">NFT's</p>}
+                                endItem={() => <p className="font-bold text-black">NFTs</p>}
                             />
                         </div>
                         <p className="bg-gray-50 rounded-2xl text-sm p-4">
                             Guide: The average donation in crodfunding is £320. So if you
                             would like to raise £100,000 - make sure you set your NFT collection
-                            to roughly 312 NFT's.
+                            to roughly 312 NFTs.
                         </p>
 
                         <div className="bg-gray-50 rounded-2xl text-sm p-4">
@@ -148,7 +148,7 @@ export default function StepThree() {
                             
                         `}
                     >
-                        By continuing, you agree to CrowdFund NFT's Terms and acknowledge
+                        By continuing, you agree to CrowdFund NFTs Terms and acknowledge
                         receipt of our Privacy Policy.
                     </p>
                 </form>

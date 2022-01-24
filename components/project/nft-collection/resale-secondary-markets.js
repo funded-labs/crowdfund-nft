@@ -8,13 +8,13 @@ export default function ResaleSecondaryMarkets() {
                 
                 <div className="flex flex-col space-y-4 text-gray-600">
                     <p>
-                        As a backer, who holds NFT's generated through Crowdfund NFT, you are
-                        entitled to sell your NFT's on secondary marketplaces. However, buyers
+                        As a backer, who holds NFTs generated through Crowdfund NFT, you are
+                        entitled to sell your NFTs on secondary marketplaces. However, buyers
                         on secondary marketplaces are not legally entitled to rewards. They are
                         simply buying the NFT itself, not the rewards associated with it.
                     </p>
                     <p>
-                        Once NFT's reach secondary marketplaces, there is an exit from the
+                        Once NFTs reach secondary marketplaces, there is an exit from the
                         contractual agreement between backers and creators. The only legally binding
                         contact with regards to rewards exists between creators and backers on
                         Crowdfund NFT, secondary NFT owners and buyers do not form part of this legally
