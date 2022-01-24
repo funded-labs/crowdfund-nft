@@ -37,6 +37,7 @@ export interface Profile__1 {
 }
 export interface Project {
   'id' : ProjectId,
+  'status' : ProjectStatus__1,
   'title' : string,
   'wetransferLink' : Link,
   'owner' : UserId,
@@ -52,9 +53,12 @@ export interface Project {
   'walletId' : string,
 }
 export type ProjectId = string;
+export type ProjectStatus = string;
+export type ProjectStatus__1 = string;
 export interface ProjectWithOwner { 'owner' : Profile__1, 'project' : Project }
 export interface Project__1 {
   'id' : ProjectId,
+  'status' : ProjectStatus__1,
   'title' : string,
   'wetransferLink' : Link,
   'owner' : UserId,
@@ -85,7 +89,10 @@ export interface _SERVICE {
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project__1>>,
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
-  'listProjects' : () => Promise<Array<ProjectWithOwner>>,
+  'isAdmin' : () => Promise<boolean>,
+  'listProjects' : (arg_0: Array<ProjectStatus>) => Promise<
+      Array<ProjectWithOwner>
+    >,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
   'updateProfile' : (arg_0: Profile) => Promise<undefined>,
 }
