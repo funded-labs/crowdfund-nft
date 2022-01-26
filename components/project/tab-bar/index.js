@@ -15,7 +15,20 @@ const tabs = [
     }
 ]
 
-export default function TabBar({ selected, onSelect = () => {} }) {
+export default function TabBar({ selected, onSelect = () => {}, isLoading }) {
+    if (isLoading) {
+        return (
+            <section className="w-full border-b-2 bg-white">
+                <div className="w-full max-w-5xl px-4 mx-auto flex pt-1 text-gray-900 flex-row space-x-2">
+                    <div className="bg-gray-200 animate-pulse h-12 w-32" />
+                    <div className="bg-gray-200 animate-pulse h-12 w-32" />
+                    <div className="bg-gray-200 animate-pulse h-12 w-32" />
+                </div>
+            </section>
+        );
+    }
+
+
     return (
         <section className="w-full border-b-2 bg-white">
             <div className="w-full max-w-5xl px-4 mx-auto flex pt-1 text-gray-900">
@@ -35,5 +48,5 @@ export default function TabBar({ selected, onSelect = () => {} }) {
                 ))}
             </div>
         </section>
-    )
+    );
 }
