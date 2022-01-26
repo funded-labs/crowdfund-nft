@@ -21,7 +21,7 @@ export function BackendProvider({ children, backend }) {
         if (backend) return
 
         const _backend = makeBackendActor()
-        setBackend(backend)
+        setBackend(_backend)
     }, [])
 
     const login = async () => {
