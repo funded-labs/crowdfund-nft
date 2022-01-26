@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react'
 import Grid from './grid'
-import { makeBackendActor } from '@/ui/service/actor-locator'
 import { useQuery } from 'react-query'
+import { useBackend } from '@/context/backend'
 
 export default function Featured() {
-    const [backend, setBackend] = useState(null)
+    const { backend } = useBackend();
 
     const {
         data: projects,
@@ -25,10 +24,6 @@ export default function Featured() {
             refetchOnWindowFocus: false,
         }
     )
-
-    useEffect(() => {
-        setBackend(makeBackendActor())
-    }, [])
 
     return (
         <section className='w-full py-10'>
