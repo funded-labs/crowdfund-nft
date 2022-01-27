@@ -49,6 +49,7 @@ export const idlFactory = ({ IDL }) => {
     'firstName' : IDL.Text,
   });
   const UserId__1 = IDL.Principal;
+  const ProjectId__1 = IDL.Text;
   const ProjectStatus = IDL.Text;
   const Profile__1 = IDL.Record({
     'id' : UserId,
@@ -87,6 +88,7 @@ export const idlFactory = ({ IDL }) => {
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
     'getOwnIdText' : IDL.Func([], [IDL.Text], ['query']),
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
+    'getProject' : IDL.Func([ProjectId__1], [Project__1], ['query']),
     'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project__1)], ['query']),
     'greet' : IDL.Func([], [IDL.Text], []),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
