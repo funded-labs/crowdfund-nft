@@ -7,8 +7,8 @@ const links = [
             //     href: "/about"
             // },
             {
-                label: "Privacy Policy",
-                href: "/privacy"
+                label: "Terms",
+                href: "/terms"
             },
             {
                 label: "List your project",
