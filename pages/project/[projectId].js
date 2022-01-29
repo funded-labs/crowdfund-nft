@@ -22,13 +22,13 @@ export default function ProjectDetails() {
         isError,
         isFetching,
     } = useQuery(
-        ['featured-projects', projectId, backend],
+        ['project-details', projectId, backend],
         async () => {
+            console.log({ backend, projectId });
             if (!backend) return null;
             if (!projectId) return null;
 
-            return null;
-
+            // const { project } = await backend.getProject(projectId);
             const projects = await backend.listProjects([])
             console.log({ projects })
             return projects[0].project;
@@ -61,13 +61,13 @@ export default function ProjectDetails() {
         <div className="w-full bg-gray-50">
             <Navbar />
 
-            <Hero />
+            <Hero project={project} />
 
             <Steps />
             
             <TabBar selected={selectedTab} onSelect={setTab} />
 
-            {selectedTab === "campaign-details" && (<CampaignDetails />)}
+            {selectedTab === "campaign-details" && (<CampaignDetails project={project} />)}
             {selectedTab === "nft-collection" && (<NFTCollection />)}
 
             <Footer />

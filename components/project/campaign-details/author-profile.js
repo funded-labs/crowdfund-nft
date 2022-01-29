@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export default function AuthorProfile() {
+export default function AuthorProfile({ isLoading }) {
+    if (isLoading) {
+        return (
+            <div className="w-full animate-pulse rounded-2xl bg-gray-200 h-64" />
+        );
+    }
+    
     return (
         <div className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-center">
             <figure

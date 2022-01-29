@@ -14,16 +14,16 @@ export default function ProjectDetails() {
         <div className="w-full bg-gray-50">
             <Navbar />
 
-            <Hero />
+            <Hero isLoading={true} />
 
             <Steps />
             
-            <TabBar selected={selectedTab} onSelect={setTab} />
+            <TabBar selected={selectedTab} onSelect={setTab} isLoading={true} />
 
-            {selectedTab === "campaign-details" && (<CampaignDetails />)}
+            {selectedTab === "campaign-details" && (<CampaignDetails isLoading={true} />)}
             {selectedTab === "nft-collection" && (<NFTCollection />)}
 
             <Footer />
         </div>
-    )
+    );
 }

@@ -1,4 +1,4 @@
-export default function Hero({ isLoading }) {
+export default function Hero({ isLoading, project }) {
 
     if (isLoading) {
         return (
@@ -46,11 +46,13 @@ export default function Hero({ isLoading }) {
         );
     }
 
+    const { title } = project;
+
     return (
         <section className="w-full bg-white">
             <div className="w-full max-w-5xl mx-auto flex flex-col px-4 py-5">
                 <p className="text-2xl font-medium mb-3">
-                    Comic Book Reboot
+                    {title}
                 </p>
                 <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8">
                     <div className="w-full lg:w-7/12 flex flex-col">
