@@ -15,7 +15,7 @@ export default function NFTs({ project }) {
     const { nftVolume } = project;
     
     return (
-        <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
+        <div id="nft-collection-nfts" className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
             <p className='font-bold text-base text-black'>{"NFTs"}</p>
 
             <p className='text-gray-600 my-10 w-full'>

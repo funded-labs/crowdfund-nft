@@ -1,6 +1,6 @@
 export default function HowItWorks() {
     return (
-        <div className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start">
+        <div id="nft-collection-how-it-works" className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start">
             <p className="font-bold text-base text-black">
                 How It Works
             </p>
