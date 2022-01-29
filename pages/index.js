@@ -33,7 +33,7 @@ function HomePage() {
 
             <Featured />
 
-            <NearlyFunded />
+            {/* <NearlyFunded /> */}
 
             <Footer />
         </div>
