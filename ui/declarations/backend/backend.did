@@ -84,7 +84,7 @@ type NewProfile =
    lastName: text;
  };
 type Link = text;
-type Image = vec nat8;
+type Image = vec int8;
 service : {
   createFirstProject: (NewProfile, NewProject) -> (Project__1);
   createProfile: (NewProfile) -> ();

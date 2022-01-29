@@ -1,5 +1,5 @@
 export const idlFactory = ({ IDL }) => {
-  const Image = IDL.Vec(IDL.Nat8);
+  const Image = IDL.Vec(IDL.Int8);
   const NewProfile = IDL.Record({
     'bio' : IDL.Text,
     'img' : Image,

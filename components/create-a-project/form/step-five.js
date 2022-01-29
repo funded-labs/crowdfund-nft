@@ -7,14 +7,18 @@ import * as Yup from 'yup'
 import { useBackend } from '@/context/backend'
 import { useProjectForm } from './project-form-context'
 
+import { imgFileToInt8Array } from '../../../helpers/imageHelper'
+
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
-    rewards: Yup.string().required("Enter details about the rewards investors will receive")
+    rewards: Yup.string().required(
+        'Enter details about the rewards investors will receive'
+    ),
 })
 
 const initialValues = {
     story: '',
-    rewards: ""
+    rewards: '',
 }
 
 export default function StepFive() {
@@ -31,7 +35,9 @@ export default function StepFive() {
 
             const payload = {
                 category: p.projectCategory,
-                coverImg: [], // project.coverImgUrl
+                coverImg: p.coverImg
+                    ? await imgFileToInt8Array(p.coverImg)
+                    : [], // project.coverImgUrl
                 description: '',
                 discordLink: p.discordLink,
                 goal: p.targetAmount,
@@ -46,9 +52,11 @@ export default function StepFive() {
 
             await backend.createProfile({
                 bio: profile.bio,
-                firstName: profile.firstName,
-                img: [], // profile.profileImgUrl
+                img: profile.profileImg
+                    ? await imgFileToInt8Array(profile.profileImg)
+                    : [],
                 lastName: profile.lastName,
+                firstName: profile.firstName,
             })
 
             await backend.createProject(payload)
