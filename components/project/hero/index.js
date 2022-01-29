@@ -120,12 +120,12 @@ export default function Hero({ isLoading, project }) {
                                     Share
                                 </button>
                             </div>
-                            <div className="w-6/12 flex flex-row justify-between">
+                            {/* <div className="w-6/12 flex flex-row justify-between">
                                 <span className="bg-gray-300 h-5 w-5 rounded-full" />
                                 <span className="bg-gray-300 h-5 w-5 rounded-full" />
                                 <span className="bg-gray-300 h-5 w-5 rounded-full" />
                                 <span className="bg-gray-300 h-5 w-5 rounded-full" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
