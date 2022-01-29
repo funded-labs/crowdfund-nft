@@ -88,6 +88,7 @@ export interface _SERVICE {
   'getOwnIdText' : () => Promise<string>,
   'getProfile' : (arg_0: UserId__1) => Promise<Profile>,
   'getProject' : (arg_0: ProjectId__1) => Promise<Project__1>,
+  'getProjectWithOwner' : (arg_0: ProjectId__1) => Promise<ProjectWithOwner>,
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project__1>>,
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,

@@ -101,6 +101,10 @@ actor CrowdFundNFT {
         Utils.getProject(db, projectId)
     };
 
+    public query func getProjectWithOwner(projectId: ProjectId): async ProjectWithOwner {
+        Utils.getProjectWithOwner(db, Utils.getProject(db, projectId))
+    };
+
     public query func getProjects(userId: UserId): async [Project] {
         db.getProjects(userId)
     };

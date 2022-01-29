@@ -95,6 +95,7 @@ service : {
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
   getProject: (ProjectId__1) -> (Project__1) query;
+  getProjectWithOwner: (ProjectId__1) -> (ProjectWithOwner) query;
   getProjects: (UserId__1) -> (vec Project__1) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
