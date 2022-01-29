@@ -23,7 +23,7 @@ export default function Item({ item, isLoading = false }) {
     }
 
     return (
-        <Link href={`/project/${item.project.id}`} passHref={true}>
+        <Link href={`/project/${item.project.id}`} passHref={true} as={`/project.html?projectId=${item.project.id}`}>
             <a className='group w-full flex flex-col cursor-pointer'>
                 <figure
                     className={classNames(
