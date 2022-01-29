@@ -1,5 +1,14 @@
 export default function Hero({ isLoading, project }) {
 
+    const handleShare = () => {
+        if (!window) return;
+
+        const message = encodeURI(`${project.title} on @crowdfundnft`);
+        const url = encodeURI(window.location);
+
+        window.location = `https://twitter.com/intent/tweet?text=${message}&url=${url}`;
+    }
+
     if (isLoading) {
         return (
             <section className="w-full bg-white">
@@ -46,7 +55,7 @@ export default function Hero({ isLoading, project }) {
         );
     }
 
-    const { title } = project;
+    const { title, goal } = project;
 
     return (
         <section className="w-full bg-white">
@@ -68,12 +77,12 @@ export default function Hero({ isLoading, project }) {
                                 £39,543
                             </p>
                             <p className="text-gray-400 text-lg">
-                                pledged of £51,000 goal
+                                pledged of {goal} ICP goal
                             </p>
                         </div>
                         <div className="w-full flex flex-col py-3">
                             <p className="text-blue-600 text-2xl font-medium">
-                                387
+                                --
                             </p>
                             <p className="text-gray-400 text-lg">
                                 backers
@@ -81,7 +90,7 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className="w-full flex flex-col py-3">
                             <p className="text-blue-600 text-2xl font-medium">
-                                25
+                                --
                             </p>
                             <p className="text-gray-400 text-lg">
                                 days to go
@@ -105,6 +114,8 @@ export default function Hero({ isLoading, project }) {
                                         bg-white border border-gray-300 py-3 w-full px-4 text-gray-900 text-sm
                                         hover:border-blue-600
                                     `}
+                                    type="button"
+                                    onClick={handleShare}
                                 >
                                     Share
                                 </button>
