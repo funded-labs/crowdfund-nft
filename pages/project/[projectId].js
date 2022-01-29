@@ -28,10 +28,8 @@ export default function ProjectDetails() {
             if (!backend) return null;
             if (!projectId) return null;
 
-            // const { project } = await backend.getProject(projectId);
-            const projects = await backend.listProjects([])
-            console.log({ projects })
-            return projects[0].project;
+            const project = await backend.getProject(projectId);
+            return project;
         },
         {
             refetchOnWindowFocus: false,
