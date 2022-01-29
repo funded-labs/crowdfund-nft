@@ -68,7 +68,7 @@ export default function ProjectDetails() {
             <TabBar selected={selectedTab} onSelect={setTab} />
 
             {selectedTab === "campaign-details" && (<CampaignDetails project={project} />)}
-            {selectedTab === "nft-collection" && (<NFTCollection />)}
+            {selectedTab === "nft-collection" && (<NFTCollection project={project} />)}
 
             <Footer />
         </div>
