@@ -28,7 +28,7 @@ export default function LandingPopup({ onContinue = () => { } }) {
                     <div className="w-full text-gray-600 text-left">
                         This platform is currently a preview of the user interface for
                         CrowdFund NFT. Users will be updated as functionality is rolled
-                        out. Follow us on Twitter for more info <a class="text-blue-600 underline font-semibold" href="https://twitter.com/crowdfundnft">@crowdfundnft</a>
+                        out. Follow us on Twitter for more info <a className="text-blue-600 underline font-semibold" href="https://twitter.com/crowdfundnft">@crowdfundnft</a>
                     </div>
 
                     <div className="w-full flex flex-col items-center">
