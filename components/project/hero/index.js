@@ -70,11 +70,11 @@ export default function Hero({ isLoading, project }) {
 
                     <div className="w-full lg:w-5/12 flex flex-col">
                         <div className="h-3 bg-gray-200 rounded-full relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bg-blue-600 w-7/12 h-3 rounded-full" />
+                            <div className="absolute left-0 top-0 bg-blue-600 w-1/12 h-3 rounded-full" />
                         </div>
                         <div className="w-full flex flex-col py-3">
                             <p className="text-blue-600 text-2xl font-medium">
-                                £39,543
+                                0 ICP
                             </p>
                             <p className="text-gray-400 text-lg">
                                 pledged of {goal} ICP goal
