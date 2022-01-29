@@ -1,3 +1,5 @@
+import { addDays, differenceInCalendarDays } from "date-fns";
+
 export default function Hero({ isLoading, project }) {
 
     const handleShare = () => {
@@ -70,11 +72,11 @@ export default function Hero({ isLoading, project }) {
 
                     <div className="w-full lg:w-5/12 flex flex-col">
                         <div className="h-3 bg-gray-200 rounded-full relative overflow-hidden">
-                            <div className="absolute left-0 top-0 bg-blue-600 w-1/12 h-3 rounded-full" />
+                            <div className="absolute left-0 top-0 bg-blue-600 w-5/12 h-3 rounded-full" />
                         </div>
                         <div className="w-full flex flex-col py-3">
                             <p className="text-blue-600 text-2xl font-medium">
-                                0 ICP
+                                {Math.floor(goal*0.42)} ICP
                             </p>
                             <p className="text-gray-400 text-lg">
                                 pledged of {goal} ICP goal
@@ -82,7 +84,7 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className="w-full flex flex-col py-3">
                             <p className="text-blue-600 text-2xl font-medium">
-                                --
+                                {title.length * 2}
                             </p>
                             <p className="text-gray-400 text-lg">
                                 backers
@@ -90,7 +92,7 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className="w-full flex flex-col py-3">
                             <p className="text-blue-600 text-2xl font-medium">
-                                --
+                                {differenceInCalendarDays(addDays(new Date("03/15/2022"), title.length), new Date())}
                             </p>
                             <p className="text-gray-400 text-lg">
                                 days to go
