@@ -42,11 +42,11 @@ const links = [
         items: [
             {
                 label: "Twitter",
-                href: ""
+                href: "https://twitter.com/crowdfundnft"
             },
             {
                 label: "Discord",
-                href: ""
+                href: "https://discord.gg/uWEbFHBEHz"
             }
         ]
     }
