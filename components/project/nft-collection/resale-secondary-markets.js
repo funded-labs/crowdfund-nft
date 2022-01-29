@@ -29,6 +29,7 @@ export default function ResaleSecondaryMarkets() {
                     bg-blue-600 text-white text-sm focus:outline-none hover:bg-blue-700
                     px-4 py-3 cursor-pointer w-full text-center
                 `}
+                href="/terms"
             >
                 Read more about us in our T&amp;C's
             </a>
