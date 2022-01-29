@@ -7,8 +7,8 @@ const links = [
             //     href: "/about"
             // },
             {
-                label: "Privacy Policy",
-                href: "/privacy"
+                label: "Terms",
+                href: "/terms"
             },
             {
                 label: "List your project",
@@ -42,11 +42,11 @@ const links = [
         items: [
             {
                 label: "Twitter",
-                href: ""
+                href: "https://twitter.com/crowdfundnft"
             },
             {
                 label: "Discord",
-                href: ""
+                href: "https://discord.gg/uWEbFHBEHz"
             }
         ]
     }
