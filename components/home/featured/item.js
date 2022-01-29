@@ -23,7 +23,10 @@ export default function Item({ item, isLoading = false }) {
     }
 
     return (
-        <Link href={`/project/${item.project.id}`} passHref={true} as={`/project?projectId=${item.project.id}`}>
+        <Link
+            href={`/project/${item.project.id}`}
+            passHref={true}
+            as={`/project.html?projectId=${item.project.id}`}>
             <a className='group w-full flex flex-col cursor-pointer'>
                 <figure
                     className={classNames(
@@ -41,9 +44,13 @@ export default function Item({ item, isLoading = false }) {
                 </figure>
                 <div className='w-full flex flex-row justify-between text-sm mt-2'>
                     <p className='font-semibold'>{item.project.title}</p>
-                    <p className='text-indigo-500'>{item.project.goal} ICP goal</p>
+                    <p className='text-indigo-500'>
+                        {item.project.goal} ICP goal
+                    </p>
                 </div>
-                <p className='text-sm text-indigo-500'>{Math.floor(item.project.goal*0.42)} ICP pledged</p>
+                <p className='text-sm text-indigo-500'>
+                    {Math.floor(item.project.goal * 0.42)} ICP pledged
+                </p>
                 <p className='text-gray-400 text-sm'>
                     by {`${item.owner.firstName} ${item.owner.lastName}`}
                 </p>
