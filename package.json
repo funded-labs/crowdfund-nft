@@ -41,10 +41,12 @@
         "date-fns": "2.28.0",
         "events": "^3.3.0",
         "formik": "2.2.9",
+        "history": "5.2.0",
         "next": "^11.0.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-query": "3.34.7",
+        "react-router-dom": "6.2.1",
         "stream-browserify": "^3.0.0",
         "util": "^0.12.4",
         "yup": "0.32.11"
