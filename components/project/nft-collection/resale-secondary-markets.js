@@ -1,7 +1,7 @@
 export default function ResaleSecondaryMarkets() {
     return (
         <>
-            <div className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start mb-5">
+            <div id="nft-collection-resale-and-secondary-market" className="w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start mb-5">
                 <p className="font-bold text-base text-black">
                     Resale &amp; Secondary Markets
                 </p>
@@ -29,6 +29,7 @@ export default function ResaleSecondaryMarkets() {
                     bg-blue-600 text-white text-sm focus:outline-none hover:bg-blue-700
                     px-4 py-3 cursor-pointer w-full text-center
                 `}
+                href="/terms"
             >
                 Read more about us in our T&amp;C's
             </a>

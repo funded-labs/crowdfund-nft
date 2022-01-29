@@ -11,7 +11,14 @@ const menuItems = [
     }
 ];
 
-export default function Menu({ selected = "story", onSelect = () => {} }) {
+export default function Menu({ selected = "story", onSelect = () => {}, isLoading }) {
+    if (isLoading) {
+        return (
+            <div className="w-full animate-pulse rounded-2xl bg-gray-200 h-64" />
+        );
+    }
+
+
     return (
         <div className="w-full shadow p-4 pl-0 rounded-2xl bg-white">
             <div className="w-full flex flex-col space-y-1">

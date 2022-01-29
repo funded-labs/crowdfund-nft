@@ -10,9 +10,12 @@ const nfts = [
     },
 ]
 
-export default function NFTs({ selected = 'story', onSelect = () => {} }) {
+export default function NFTs({ project }) {
+
+    const { nftVolume } = project;
+    
     return (
-        <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
+        <div id="nft-collection-nfts" className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
             <p className='font-bold text-base text-black'>{"NFTs"}</p>
 
             <p className='text-gray-600 my-10 w-full'>
@@ -21,7 +24,7 @@ export default function NFTs({ selected = 'story', onSelect = () => {} }) {
             </p>
 
             <p className='text-center font-semibold w-full mb-10'>
-                Collection Title - {"'10,000' total NTF's"}
+                Collection Title - {nftVolume} total NTF's
             </p>
 
             <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-6'>
