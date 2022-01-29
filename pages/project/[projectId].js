@@ -29,6 +29,8 @@ export default function ProjectDetails() {
             if (!projectId) return null;
 
             const project = await backend.getProject(projectId);
+
+            console.log(project);
             return project;
         },
         {
