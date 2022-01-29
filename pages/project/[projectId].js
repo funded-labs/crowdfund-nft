@@ -24,13 +24,10 @@ export default function ProjectDetails() {
     } = useQuery(
         ['project-details', projectId, backend],
         async () => {
-            console.log({ backend, projectId });
             if (!backend) return null;
             if (!projectId) return null;
 
             const project = await backend.getProject(projectId);
-
-            console.log(project);
             return project;
         },
         {
