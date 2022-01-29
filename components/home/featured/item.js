@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import Link from 'next/link'
+import { imgInt8ArrayToDataURL } from '../../../helpers/imageHelper'
 
 export default function Item({ item, isLoading = false }) {
     if (isLoading === true) {
@@ -30,7 +31,11 @@ export default function Item({ item, isLoading = false }) {
                         'bg-blue-100'
                     )}>
                     <img
-                        src={item.project.imgUrl}
+                        src={
+                            item.project.coverImg.length > 0
+                                ? imgInt8ArrayToDataURL(item.project.coverImg)
+                                : item.project.coverImgUrl
+                        }
                         className='w-full h-full object-cover'
                     />
                 </figure>
