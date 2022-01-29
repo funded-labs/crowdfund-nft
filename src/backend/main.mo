@@ -79,7 +79,7 @@ actor CrowdFundNFT {
     };
 
     public query func searchProfiles(term: Text): async [Profile] {
-        db.findBy(term)
+        db.findUserBy(term)
     };
 
     // Projects
@@ -95,6 +95,10 @@ actor CrowdFundNFT {
 
     public shared(msg) func createProject(project: NewProject): async Project {
         db.createProject(msg.caller, project)
+    };
+
+    public query func getProject(projectId: ProjectId): async Project {
+        Utils.getProject(db, projectId)
     };
 
     public query func getProjects(userId: UserId): async [Project] {

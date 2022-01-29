@@ -25,6 +25,7 @@ type ProjectWithOwner =
  };
 type ProjectStatus__1 = text;
 type ProjectStatus = text;
+type ProjectId__1 = text;
 type ProjectId = text;
 type Project = 
  record {
@@ -93,6 +94,7 @@ service : {
   getOwnId: () -> (UserId__1) query;
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
+  getProject: (ProjectId__1) -> (Project__1) query;
   getProjects: (UserId__1) -> (vec Project__1) query;
   greet: () -> (text);
   healthcheck: () -> (bool);

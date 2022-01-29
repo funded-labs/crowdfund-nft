@@ -53,6 +53,7 @@ export interface Project {
   'walletId' : string,
 }
 export type ProjectId = string;
+export type ProjectId__1 = string;
 export type ProjectStatus = string;
 export type ProjectStatus__1 = string;
 export interface ProjectWithOwner { 'owner' : Profile__1, 'project' : Project }
@@ -86,6 +87,7 @@ export interface _SERVICE {
   'getOwnId' : () => Promise<UserId__1>,
   'getOwnIdText' : () => Promise<string>,
   'getProfile' : (arg_0: UserId__1) => Promise<Profile>,
+  'getProject' : (arg_0: ProjectId__1) => Promise<Project__1>,
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project__1>>,
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,

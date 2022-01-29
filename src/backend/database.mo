@@ -32,11 +32,11 @@ module {
       userMap.put(userId, profile);
     };
 
-    public func findOne(userId: UserId): ?Profile {
+    public func getUser(userId: UserId): ?Profile {
       userMap.get(userId)
     };
 
-    public func findMany(userIds: [UserId]): [Profile] {
+    public func getMultipleUsers(userIds: [UserId]): [Profile] {
       func getProfile(userId: UserId): Profile {
         switch (userMap.get(userId)) {
           case null {
@@ -54,7 +54,7 @@ module {
       Array.map<UserId, Profile>(userIds, getProfile)
     };
 
-    public func findBy(term: Text): [Profile] {
+    public func findUserBy(term: Text): [Profile] {
       var profiles: [Profile] = [];
       for ((id, profile) in userMap.entries()) {
         let fullName = profile.firstName # " " # profile.lastName;
@@ -75,6 +75,10 @@ module {
         case (?projects) { userToProjectsMap.put(userId, Array.append<ProjectId>(projects, [project.id])); };
       };
       project;
+    };
+
+    public func getProject(projectId: ProjectId): ?Project {
+      projectMap.get(projectId)
     };
 
     public func getProjects(userId: UserId): [Project] {

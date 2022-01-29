@@ -8,13 +8,14 @@ module {
   type NewProfile = Types.NewProfile;
   type Profile = Types.Profile;
   type Project = Types.Project;
+  type ProjectId = Types.ProjectId;
   type ProjectWithOwner = Types.ProjectWithOwner;
   type UserId = Types.UserId;
 
   // Profiles
 
   public func getProfile(db: Database.Directory, userId: UserId): Profile {
-    let existing = db.findOne(userId);
+    let existing = db.getUser(userId);
     switch (existing) {
       case (?existing) { existing };
       case (null) {
@@ -30,6 +31,33 @@ module {
   };
 
   // Projects
+
+  public func getProject(db: Database.Directory, projectId: ProjectId): Project {
+    let existing = db.getProject(projectId);
+    switch (existing) {
+      case (?existing) { existing };
+      case (null) {
+        {
+          category = "";
+          coverImg = [];
+          description = "";
+          discordLink = "";
+          goal = 0;
+          id = "";
+          nftVolume = 0;
+          owner = Principal.fromText("");
+          status= "";
+          story = "";
+          tags = [];
+          title = "";
+          twitterLink = "";
+          walletId = "";
+          wetransferLink = "";
+        }
+      };
+    };
+  };
+
   public func getProjectWithOwner(db: Database.Directory, p: Project): ProjectWithOwner {
     {
       project = p;
