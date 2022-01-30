@@ -1,5 +1,4 @@
 import Link from "next/link";
-import menuItems from "./links";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import End from "./end";
@@ -39,18 +38,36 @@ export default function Navbar() {
                     </div>
 
                     <nav className="hidden lg:flex space-x-10">
-                        {menuItems.map(item => (
-                            <Link href={item.href} key={item.title} passHref as={`${item.href}.html`}>
-                                <a
-                                    className={`
-                                        text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
-                                        transform transition duration-200 cursor-pointer hover:underline
-                                    `}
-                                >
-                                    {item.title}
-                                </a>
-                            </Link>
-                        ))}
+                        <Link href="/about" passHref as="/about.html">
+                            <a
+                                className={`
+                                    text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
+                                    transform transition duration-200 cursor-pointer hover:underline
+                                `}
+                            >
+                                About
+                            </a>
+                        </Link>
+                        <Link href="https://medium.com/@luke_71499/crowdfund-nft-an-alternative-to-traditional-crowdfunding-using-nfts-89ef15bd65d8">
+                            <a
+                                className={`
+                                    text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
+                                    transform transition duration-200 cursor-pointer hover:underline
+                                `}
+                            >
+                                Whitepaper
+                            </a>
+                        </Link>
+                        <Link href="mailto:info@crowdfund-nft.com" passHref>
+                            <a
+                                className={`
+                                    text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
+                                    transform transition duration-200 cursor-pointer hover:underline
+                                `}
+                            >
+                                Contact
+                            </a>
+                        </Link>
                     </nav>
 
                     <End />
