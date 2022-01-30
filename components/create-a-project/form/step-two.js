@@ -74,7 +74,17 @@ export default function StepTwo() {
                         <Select
                             name="projectCategory"
                             value={values.projectCategory}
-                            options={[{ label: "Test", value: "test" }, { label: "Test 2", value: "test2" }]}
+                            options={[
+                                { label: "Gaming", value: "gaming" },
+                                { label: "Art", value: "art" },
+                                { label: "Music", value: "music" },
+                                { label: "Cosmetics", value: "cosmetics" },
+                                { label: "Tech", value: "tech" },
+                                { label: "Web3", value: "web3" },
+                                { label: "IC Projects", value: "ic-projects" },
+                                { label: "Design", value: "design" },
+                                { label: "Other", value: "other" },
+                            ]}
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
