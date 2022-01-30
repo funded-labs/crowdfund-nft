@@ -8,14 +8,18 @@ import { AuthClient } from '@dfinity/auth-client'
 
 const INITIAL_STATE = {
     backend: null,
+    backendWithAuth: null,
     isLoading: true,
     setBackend: () => {},
 }
 
 export const BackendContext = createContext(INITIAL_STATE)
 
-export function BackendProvider({ children, backend }) {
+export function BackendProvider({ children, backend, backendWithAuth }) {
     const [_backend, setBackend] = useState(backend || INITIAL_STATE.backend)
+    const [_backendWithAuth, setBackendWithAuth] = useState(
+        backendWithAuth || INITIAL_STATE.backendWithAuth
+    )
 
     useEffect(() => {
         if (backend) return
@@ -27,17 +31,17 @@ export function BackendProvider({ children, backend }) {
     const login = async () => {
         const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT
 
-        let backend;
+        let backendWithAuth
 
         if (environmentName === 'development') {
-            backend = makeBackendActor()
+            backendWithAuth = makeBackendActor()
         }
 
         if (environmentName !== 'development') {
-            backend = await authClientLogin()
+            backendWithAuth = await authClientLogin()
         }
 
-        setBackend(backend)
+        setBackendWithAuth(backendWithAuth)
     }
 
     const authClientLogin = async () => {
@@ -60,7 +64,11 @@ export function BackendProvider({ children, backend }) {
         })
     }
 
-    const value = { backend: _backend, login }
+    const value = {
+        backend: _backend,
+        backendWithAuth: _backendWithAuth,
+        login,
+    }
 
     return (
         <BackendContext.Provider value={value}>
