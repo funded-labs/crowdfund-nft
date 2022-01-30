@@ -25,7 +25,7 @@ export default function StepFive() {
     const { backend } = useBackend()
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
-    const { profile, project, previousStep } = useProjectForm()
+    const { profile, project, previousStep, setStep } = useProjectForm()
 
     const handleSubmit = async (form) => {
         try {
@@ -64,7 +64,8 @@ export default function StepFive() {
             console.log(error)
             // todo: set form error
         } finally {
-            setLoading(false)
+            setLoading(false);
+            setStep(6);
         }
     }
 
