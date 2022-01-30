@@ -9,6 +9,7 @@ import Footer from '@/components/shared/footer'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import { useBackend } from '@/context/backend'
+import Faqs from '@/components/project/faqs'
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState('campaign-details')
@@ -77,6 +78,9 @@ export default function ProjectDetails() {
             )}
             {selectedTab === 'nft-collection' && (
                 <NFTCollection project={project} />
+            )}
+            {selectedTab === 'faqs' && (
+                <Faqs project={project} />
             )}
 
             <Footer />
