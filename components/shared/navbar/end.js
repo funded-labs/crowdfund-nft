@@ -3,11 +3,13 @@ import Link from "next/link";
 export default function End() {
     return (
         <div className='flex flex-row space-x-4'>
-            <img
-                src='/assets/plug.png'
-                className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
-                alt=''
-            />
+            <a href="https://plugwallet.ooo" rel="noreferrer" target="_blank">
+                <img
+                    src='/assets/plug.png'
+                    className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
+                    alt=''
+                />
+            </a>
             <Link href="/create-a-project" passHref as="/create-a-project.html">
                 <a
                     className={`
