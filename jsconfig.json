@@ -9,7 +9,8 @@
             "@/utils/*": ["utils/*"],
             "@/public/*": ["public/*"],
             "@/ui/*": ["ui/*"],
-            "@/context/*": ["context/*"]
+            "@/context/*": ["context/*"],
+            "@/helpers/*": ["helpers/*"],
         }
     }
   }

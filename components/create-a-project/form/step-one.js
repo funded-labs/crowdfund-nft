@@ -47,9 +47,7 @@ export default function StepOne() {
 
     const handleSubmit = async (form) => {
         try {
-            setLoading(true)
-
-            console.log({ form })
+            setLoading(true);
 
             setProfile((profile) => ({ ...profile, ...form }))
 

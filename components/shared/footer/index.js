@@ -85,7 +85,7 @@ export default function Footer() {
                 <div className="w-full flex flex-col justify-center items-end">
                     <div className="w-full lg:w-4/12 flex flex-col items-center lg:items-end">
                         <img src="/assets/logo.png" className="w-6/12" />
-                        <p className="font-light text-sm mt-2">hello [at] crowdfundnft.com</p>
+                        <p className="font-light text-sm mt-2">info [at] crowdfund-nft.com</p>
                     </div>
                 </div>
             </div>

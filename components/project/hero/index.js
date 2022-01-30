@@ -1,6 +1,11 @@
 import { addDays, differenceInCalendarDays } from "date-fns";
+import { imgInt8ArrayToDataURL } from '@/helpers/imageHelper'
+import { useState } from "react";
+import Modal from "@/components/shared/modal";
+import ExampleModal from "./example-modal";
 
 export default function Hero({ isLoading, project }) {
+    const [showExampleModal, setExampleModal] = useState(false);
 
     const handleShare = () => {
         if (!window) return;
@@ -67,7 +72,16 @@ export default function Hero({ isLoading, project }) {
                 </p>
                 <div className="w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8">
                     <div className="w-full lg:w-7/12 flex flex-col">
-                        <figure className="w-full h-96 bg-yellow-500 rounded-xl mb-1"></figure>
+                        <figure className="w-full h-96 bg-yellow-500 rounded-xl mb-1 overflow-hidden">
+                                <img
+                                    src={
+                                        project.coverImg.length > 0
+                                            ? imgInt8ArrayToDataURL(project.coverImg)
+                                            : project.coverImgUrl
+                                    }
+                                    className="w-full h-full object-cover"
+                                />
+                            </figure>
                     </div>
 
                     <div className="w-full lg:w-5/12 flex flex-col">
@@ -104,9 +118,14 @@ export default function Hero({ isLoading, project }) {
                                     shadow-lg bg-blue-600 text-white text-sm font-medium rounded-full w-full
                                     appearance-none focus:outline-none py-3 px-4 hover:bg-blue-700
                                 `}
+                                type="button"
+                                onClick={() => setExampleModal(true)}
                             >
                                 Back this project
                             </button>
+                            {showExampleModal && (
+                                <ExampleModal onClose={() => setExampleModal(false)} />
+                            )}
                         </div>
 
                         <div className="w-full flex flex-row space-x-8 items-center">

@@ -9,6 +9,7 @@ import Footer from '@/components/shared/footer'
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import { useBackend } from '@/context/backend'
+import Faqs from '@/components/project/faqs'
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState('campaign-details')
@@ -30,7 +31,10 @@ export default function ProjectDetails() {
             const { project, owner } = await backend.getProjectWithOwner(
                 projectId
             )
-            return project
+            return {
+                ...project,
+                owner
+            }
         },
         {
             refetchOnWindowFocus: false,
@@ -73,10 +77,13 @@ export default function ProjectDetails() {
             <TabBar selected={selectedTab} onSelect={setTab} />
 
             {selectedTab === 'campaign-details' && (
-                <CampaignDetails project={project} />
+                <CampaignDetails project={project} author={project.owner} />
             )}
             {selectedTab === 'nft-collection' && (
                 <NFTCollection project={project} />
+            )}
+            {selectedTab === 'faqs' && (
+                <Faqs project={project} />
             )}
 
             <Footer />
