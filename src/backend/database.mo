@@ -118,6 +118,12 @@ module {
       Iter.toArray(projectMap.vals())
     };
 
+    public func updateProjectStatus(projectId: ProjectId, status: ProjectStatus) {
+      let project = projectMap.get(projectId);
+      project.status = status;
+      projectMap.put(projectId, project);
+    };
+
     // Upgrade helpers
 
     public func getUserArray() : [(UserId, Profile)] {

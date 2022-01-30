@@ -97,6 +97,10 @@ actor CrowdFundNFT {
         db.createProject(msg.caller, project)
     };
 
+    public shared(msg) func deleteProject(projectId: ProjectId): async Project {
+        db.deleteProject(msg.caller, projectId)
+    };
+
     public query func getProject(projectId: ProjectId): async Project {
         Utils.getProject(db, projectId)
     };
@@ -123,6 +127,14 @@ actor CrowdFundNFT {
                 };
             }); 
             };
+        };
+    };
+
+    public shared(msg) func updateProjectStatus(pid: ProjectId, status: ProjectStatus): async () {
+        let p = Utils.getProject(db, pid);
+        if (p.id == "") { throw("Project not found"); };
+        if(Utils.hasProjectAccess(msg.caller, p)) {
+            db.updateProjectStatus(pid, status);
         };
     };
 
