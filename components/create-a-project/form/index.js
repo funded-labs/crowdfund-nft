@@ -3,6 +3,7 @@ import { ProjectFormProvider, useProjectForm } from "./project-form-context";
 import StepFive from "./step-five";
 import StepFour from "./step-four";
 import StepOne from "./step-one";
+import StepSix from "./step-six";
 import StepThree from "./step-three";
 import StepTwo from "./step-two";
 
@@ -31,6 +32,7 @@ function Form() {
                     {step === 3 && (<StepThree />)}
                     {step === 4 && (<StepFour />)}
                     {step === 5 && (<StepFive />)}
+                    {step === 6 && (<StepSix />)}
                 </div>
             </div>
         )

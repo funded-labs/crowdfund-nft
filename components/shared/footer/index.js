@@ -21,23 +21,6 @@ const links = [
         ]
     },
     {
-        title: "Categories",
-        items: [
-            {
-                label: "Design",
-                href: ""
-            },
-            {
-                label: "Tech",
-                href: ""
-            },
-            {
-                label: "Crypto",
-                href: ""
-            }
-        ]
-    },
-    {
         title: "Connect with us",
         items: [
             {
