@@ -12,22 +12,15 @@ function HomePage() {
     const [profile, setProfile] = useState({})
     const [profiles, setProfiles] = useState([])
     const [test, setTest] = useState('')
-    const [showWelcomeMessage, setWelcomeMessage] = useState(true);
+    const [showWelcomeMessage, setWelcomeMessage] = useState(true)
 
     useEffect(() => {
-        if (!backend) return
-        backend.getOwnId().then((id) => setTest(id))
-        backend.getMyProfile().then((profile) => setProfile(profile))
-        backend.searchProfiles('s').then((profiles) => setProfiles(profiles))
-    }, [backend])
+        const dontShow = localStorage.getItem(LOCALSTORAGE_KEY)
 
-    useEffect(() => {
-        const dontShow = localStorage.getItem(LOCALSTORAGE_KEY);
-    
-        if (dontShow === "true") {
-          setWelcomeMessage(false);
+        if (dontShow === 'true') {
+            setWelcomeMessage(false)
         }
-      }, [])
+    }, [])
 
     async function sayGreeting() {
         if (!backend) return alert('You must log in for this feature')
@@ -36,8 +29,8 @@ function HomePage() {
     }
 
     if (showWelcomeMessage) {
-        return (<LandingPopup onContinue={() => setWelcomeMessage(false)} />);
-      }
+        return <LandingPopup onContinue={() => setWelcomeMessage(false)} />
+    }
 
     return (
         <div className='w-full'>

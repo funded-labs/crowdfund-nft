@@ -36,7 +36,7 @@ export interface Profile__1 {
   'firstName' : string,
 }
 export interface Project {
-  'id' : ProjectId,
+  'id' : ProjectId__1,
   'status' : ProjectStatus__1,
   'title' : string,
   'wetransferLink' : Link,
@@ -58,7 +58,7 @@ export type ProjectStatus = string;
 export type ProjectStatus__1 = string;
 export interface ProjectWithOwner { 'owner' : Profile__1, 'project' : Project }
 export interface Project__1 {
-  'id' : ProjectId,
+  'id' : ProjectId__1,
   'status' : ProjectStatus__1,
   'title' : string,
   'wetransferLink' : Link,
@@ -87,8 +87,8 @@ export interface _SERVICE {
   'getOwnId' : () => Promise<UserId__1>,
   'getOwnIdText' : () => Promise<string>,
   'getProfile' : (arg_0: UserId__1) => Promise<Profile>,
-  'getProject' : (arg_0: ProjectId__1) => Promise<Project__1>,
-  'getProjectWithOwner' : (arg_0: ProjectId__1) => Promise<ProjectWithOwner>,
+  'getProject' : (arg_0: ProjectId) => Promise<Project__1>,
+  'getProjectWithOwner' : (arg_0: ProjectId) => Promise<ProjectWithOwner>,
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project__1>>,
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
@@ -98,4 +98,7 @@ export interface _SERVICE {
     >,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
   'updateProfile' : (arg_0: Profile) => Promise<undefined>,
+  'updateProjectStatus' : (arg_0: ProjectId, arg_1: ProjectStatus) => Promise<
+      undefined
+    >,
 }

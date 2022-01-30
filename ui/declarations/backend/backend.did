@@ -7,7 +7,7 @@ type Project__1 =
    description: text;
    discordLink: Link;
    goal: float64;
-   id: ProjectId;
+   id: ProjectId__1;
    nftVolume: nat;
    owner: UserId;
    status: ProjectStatus__1;
@@ -34,7 +34,7 @@ type Project =
    description: text;
    discordLink: Link;
    goal: float64;
-   id: ProjectId;
+   id: ProjectId__1;
    nftVolume: nat;
    owner: UserId;
    status: ProjectStatus__1;
@@ -94,8 +94,8 @@ service : {
   getOwnId: () -> (UserId__1) query;
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
-  getProject: (ProjectId__1) -> (Project__1) query;
-  getProjectWithOwner: (ProjectId__1) -> (ProjectWithOwner) query;
+  getProject: (ProjectId) -> (Project__1) query;
+  getProjectWithOwner: (ProjectId) -> (ProjectWithOwner) query;
   getProjects: (UserId__1) -> (vec Project__1) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
@@ -103,4 +103,5 @@ service : {
   listProjects: (vec ProjectStatus) -> (vec ProjectWithOwner) query;
   searchProfiles: (text) -> (vec Profile) query;
   updateProfile: (Profile) -> ();
+  updateProjectStatus: (ProjectId, ProjectStatus) -> ();
 }

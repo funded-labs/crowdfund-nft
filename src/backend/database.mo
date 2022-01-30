@@ -77,6 +77,24 @@ module {
       project;
     };
 
+    // public func deleteProject(projectId: ProjectId) : ?Project {
+    //   let p = projectMap.get(projectId);
+    //   switch (p) {
+    //     case null { };
+    //     case (?project) {
+    //       switch (userToProjectsMap.get(project.owner)) {
+    //         case null { };
+    //         case (?projects) {
+    //           func idsNotEqual (curId: ProjectId) : Bool { isEqProjectId(curId, projectId) != true };
+    //           let newProjects = Array.filter<ProjectId>(projects, idsNotEqual);
+    //           userToProjectsMap.put(project.owner, newProjects);
+    //         };
+    //       };
+    //     };
+    //   };
+    //   projectMap.remove(projectId);
+    // };
+
     public func getProject(projectId: ProjectId): ?Project {
       projectMap.get(projectId)
     };
@@ -118,10 +136,24 @@ module {
       Iter.toArray(projectMap.vals())
     };
 
-    public func updateProjectStatus(projectId: ProjectId, status: ProjectStatus) {
-      let project = projectMap.get(projectId);
-      project.status = status;
-      projectMap.put(projectId, project);
+    public func updateProjectStatus(project: Project, status: ProjectStatus) {
+      projectMap.put(project.id, {
+        category = project.category;
+        coverImg = project.coverImg;
+        description = project.description;
+        discordLink = project.discordLink;
+        goal = project.goal;
+        id = project.id;
+        nftVolume = project.nftVolume;
+        owner = project.owner;
+        status = status;
+        story = project.story;
+        tags = project.tags;
+        title = project.title;
+        twitterLink = project.twitterLink;
+        walletId = project.walletId;
+        wetransferLink = project.wetransferLink;
+      });
     };
 
     // Upgrade helpers

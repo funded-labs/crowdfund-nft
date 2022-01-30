@@ -21,11 +21,11 @@ export const idlFactory = ({ IDL }) => {
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
-  const ProjectId = IDL.Text;
+  const ProjectId__1 = IDL.Text;
   const ProjectStatus__1 = IDL.Text;
   const UserId = IDL.Principal;
   const Project__1 = IDL.Record({
-    'id' : ProjectId,
+    'id' : ProjectId__1,
     'status' : ProjectStatus__1,
     'title' : IDL.Text,
     'wetransferLink' : Link,
@@ -49,7 +49,7 @@ export const idlFactory = ({ IDL }) => {
     'firstName' : IDL.Text,
   });
   const UserId__1 = IDL.Principal;
-  const ProjectId__1 = IDL.Text;
+  const ProjectId = IDL.Text;
   const Profile__1 = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
@@ -58,7 +58,7 @@ export const idlFactory = ({ IDL }) => {
     'firstName' : IDL.Text,
   });
   const Project = IDL.Record({
-    'id' : ProjectId,
+    'id' : ProjectId__1,
     'status' : ProjectStatus__1,
     'title' : IDL.Text,
     'wetransferLink' : Link,
@@ -88,9 +88,9 @@ export const idlFactory = ({ IDL }) => {
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
     'getOwnIdText' : IDL.Func([], [IDL.Text], ['query']),
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
-    'getProject' : IDL.Func([ProjectId__1], [Project__1], ['query']),
+    'getProject' : IDL.Func([ProjectId], [Project__1], ['query']),
     'getProjectWithOwner' : IDL.Func(
-        [ProjectId__1],
+        [ProjectId],
         [ProjectWithOwner],
         ['query'],
       ),
@@ -105,6 +105,7 @@ export const idlFactory = ({ IDL }) => {
       ),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
+    'updateProjectStatus' : IDL.Func([ProjectId, ProjectStatus], [], []),
   });
 };
 export const init = ({ IDL }) => { return []; };
