@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import Link from 'next/link'
-import { imgInt8ArrayToDataURL } from '../../../helpers/imageHelper'
+import { imgInt8ArrayToDataURL } from '@/helpers/imageHelper'
 
 export default function Item({ item, isLoading = false }) {
     if (isLoading === true) {
