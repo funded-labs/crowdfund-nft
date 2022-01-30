@@ -40,7 +40,7 @@ export default function Navbar() {
 
                     <nav className="hidden lg:flex space-x-10">
                         {menuItems.map(item => (
-                            <Link href={item.href} key={item.title} passHref>
+                            <Link href={item.href} key={item.title} passHref as={`${item.href}.html`}>
                                 <a
                                     className={`
                                         text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
