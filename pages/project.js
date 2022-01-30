@@ -31,7 +31,10 @@ export default function ProjectDetails() {
             const { project, owner } = await backend.getProjectWithOwner(
                 projectId
             )
-            return project
+            return {
+                ...project,
+                owner
+            }
         },
         {
             refetchOnWindowFocus: false,
@@ -74,7 +77,7 @@ export default function ProjectDetails() {
             <TabBar selected={selectedTab} onSelect={setTab} />
 
             {selectedTab === 'campaign-details' && (
-                <CampaignDetails project={project} />
+                <CampaignDetails project={project} author={project.owner} />
             )}
             {selectedTab === 'nft-collection' && (
                 <NFTCollection project={project} />

@@ -2,7 +2,7 @@ import AuthorProfile from "./author-profile";
 import Menu from "./menu";
 import Story from "./story";
 
-export default function CampaignDetails({ isLoading, project }) {
+export default function CampaignDetails({ isLoading, project, author }) {
     if (isLoading) {
         return (
             <div className="w-full">
@@ -25,7 +25,7 @@ export default function CampaignDetails({ isLoading, project }) {
             <div className="w-full max-w-5xl mx-auto px-4 flex flex-col md:flex-row py-4 space-y-4 md:space-y-0 md:space-x-4">
                 <div className="w-full md:w-3/12 flex flex-col space-y-4">
                     <Menu />
-                    <AuthorProfile />
+                    <AuthorProfile author={author} />
                 </div>
 
                 <div className="w-full md:w-9/12 flex flex-col">
