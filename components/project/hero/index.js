@@ -1,9 +1,11 @@
 import { addDays, differenceInCalendarDays } from "date-fns";
 import { imgInt8ArrayToDataURL } from '@/helpers/imageHelper'
+import { useState } from "react";
+import Modal from "@/components/shared/modal";
+import ExampleModal from "./example-modal";
 
 export default function Hero({ isLoading, project }) {
-
-    console.log({ project });
+    const [showExampleModal, setExampleModal] = useState(false);
 
     const handleShare = () => {
         if (!window) return;
@@ -116,9 +118,14 @@ export default function Hero({ isLoading, project }) {
                                     shadow-lg bg-blue-600 text-white text-sm font-medium rounded-full w-full
                                     appearance-none focus:outline-none py-3 px-4 hover:bg-blue-700
                                 `}
+                                type="button"
+                                onClick={() => setExampleModal(true)}
                             >
                                 Back this project
                             </button>
+                            {showExampleModal && (
+                                <ExampleModal onClose={() => setExampleModal(false)} />
+                            )}
                         </div>
 
                         <div className="w-full flex flex-row space-x-8 items-center">
