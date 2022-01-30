@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function End() {
     return (
         <div className='flex flex-row space-x-4'>
@@ -6,15 +8,17 @@ export default function End() {
                 className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
                 alt=''
             />
-            <a
-                className={`
-                    appearance-none rounded-lg px-2 py-1 bg-blue-600 text-white font-medium
-                    text-xs flex flex-col justify-center cursor-pointer hover:bg-blue-700
-                `}
-                href="/create-a-project"
-            >
-                Create a project
-            </a>
+            <Link href="/create-a-project" passHref as="/create-a-project.html">
+                <a
+                    className={`
+                        appearance-none rounded-lg px-2 py-1 bg-blue-600 text-white font-medium
+                        text-xs flex flex-col justify-center cursor-pointer hover:bg-blue-700
+                    `}
+                    href="/create-a-project.html"
+                >
+                    Create a project
+                </a>
+            </Link>
             <div className='hidden lg:inline-flex rounded-lg bg-gray-200 px-2 py-1 flex flex-row text-gray-400 items-center'>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
