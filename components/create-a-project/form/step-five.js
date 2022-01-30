@@ -22,7 +22,7 @@ const initialValues = {
 }
 
 export default function StepFive() {
-    const { backend } = useBackend()
+    const backend = useBackend().backendWithAuth
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
     const { profile, project, previousStep, setStep } = useProjectForm()
@@ -64,8 +64,8 @@ export default function StepFive() {
             console.log(error)
             // todo: set form error
         } finally {
-            setLoading(false);
-            setStep(6);
+            setLoading(false)
+            setStep(6)
         }
     }
 
