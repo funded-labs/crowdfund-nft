@@ -14,7 +14,7 @@ export default function NFTCollection({ project }) {
 
                 <div className="w-full md:w-9/12 flex flex-col space-y-8">
                     <NFTs project={project} />
-                    <Rewards />
+                    <Rewards project={project} />
                     <HowItWorks />
                     <ResaleSecondaryMarkets />
                 </div>

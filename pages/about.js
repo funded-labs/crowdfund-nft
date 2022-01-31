@@ -18,18 +18,17 @@ export default function About() {
                                 Proof of Ownership
                             </p>
                             <p className="text-sm text-gray-600 mt-4">
-                                NFT's stores investor's Equity or Reward stake in a
-                                project on the Blockchain.
+                                NFTs provide secure ownership status to backers - so that their equity stake or reward in a project is stored on the IC Blockchain.
                             </p>
                         </div>
 
                         <div className="rounded-xl py-8 px-5 shadow-lg hover:scale-105 duration-300">
                             <p className="w-full text-center text-xl font-medium">
-                                Cheaper Investing
+                                Cheaper and Global Investing
                             </p>
                             <p className="text-sm text-gray-600 mt-4">
-                                Decentralisation allows for cheaper Crowdfunding -
-                                creators take what they raise, without a 5∼20% fee.
+                                Using the IC Blockchain allows us to open up your crowdfunding round to a global audience, for cheaper transaction fees than are charged on traditional platforms.
+                                
                             </p>
                         </div>
 
@@ -38,8 +37,7 @@ export default function About() {
                                 Raise faster
                             </p>
                             <p className="text-sm text-gray-600 mt-4">
-                                Smart contracts enable creators to access funds immediately.
-                                No lags from Crowdfunding intermediaries.
+                                With Blockchain, transaction are instant - raise fast for your project!
                             </p>
                         </div>
                     </div>
@@ -58,9 +56,8 @@ export default function About() {
 
                             <ul className="list-disc list-inside">
                                 <li>Launch your project in less than an hour</li>
-                                <li>Collect what you raise, we do not charge a percentage of what you raise</li>
-                                <li>If your project is fully funded, get access to funds immediately through your PlugWallet</li>
-                                <li>If your project is not fully funded, investors will be reimbursed immediately</li>
+                                <li>If your project is fully funded, get access to funds through your Blockchain Wallet.</li>
+                                <li>If your project is not fully funded, investors will be reimbursed immediately, they will simply pay the flat IC transaction fee, of 0.001 ICP.</li>
                             </ul>
                         </div>
 
@@ -80,7 +77,7 @@ export default function About() {
                         <div className="w-full md:w-6/12 text-gray-600 flex flex-col space-y-4">
                             <p>
                                 With the IC, the platform is hosted entirely on the blockchain.
-                                From NFT's, to backend and frontend. It is fully decentralised.
+                                From NFTs, to backend and frontend. It is fully decentralised.
                             </p>
 
                             <p>
@@ -90,14 +87,13 @@ export default function About() {
                             </p>
 
                             <p>
-                                The IC can connect to your MetaMask or PlugWallet, and
+                                The IC can connect to your PlugWallet, and
                                 you can log in to our platform easily with Internet
                                 Identity.
                             </p>
 
                             <p>
-                                You can resell your NFT's on secondary marketplaces,
-                                like Entrepot or OpenSea.
+                                You can resell your NFTs on secondary marketplaces!
                             </p>
                         </div>
 
@@ -114,7 +110,7 @@ export default function About() {
                         How CrowdFund NFT works?
                     </div>
                     <p className="w-full text-center text-sm">
-                        Crowdfunding on the Blockchain, using the internet computer.
+                        Crowdfunding on the Blockchain, using the Internet Computer.
                     </p>
                     <div className="w-full py-8 grid grid-cols-1 md:grid-cols-3 gap-12">
                         <div className="w-full flex flex-col items-center">
@@ -123,7 +119,7 @@ export default function About() {
                                 Log in with Internet Identity
                             </p>
                             <p className="text-center">
-                                Both investors and creators can access the platform with internet identity, and connect MetaMask or PlugWallet.
+                                Both investors and creators can access the platform with internet identity, and connect with PlugWallet.
                             </p>
                         </div>
 
@@ -133,17 +129,17 @@ export default function About() {
                                 Launch or invest in projects
                             </p>
                             <p className="text-center">
-                                Describe your new venture and how it is going to change the world! Browse projects to invest in.
+                                Describe your new venture and how it is going to help the world! Browse projects to invest in.
                             </p>
                         </div>
 
                         <div className="w-full flex flex-col items-center">
                             <img src="/assets/work_thumb_3.png" className="w-20 h-20" />
                             <p className="text-2xl font-semibold mt-2">
-                                Carry projects to the moon!
+                                Carry projects to their goal!
                             </p>
                             <p className="text-center">
-                                Using NFT's as proof of ownership for investment, support projects through their journey!
+                                Using NFTs as proof of ownership for investment, support projects through their journey!
                             </p>
                         </div>
                     </div>

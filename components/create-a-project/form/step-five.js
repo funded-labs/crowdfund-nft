@@ -42,6 +42,7 @@ export default function StepFive() {
                 discordLink: p.discordLink,
                 goal: p.targetAmount,
                 nftVolume: p.nftVolume,
+                rewards: p.rewards,
                 story: p.story,
                 tags: [],
                 title: p.projectTitle,
