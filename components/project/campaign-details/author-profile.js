@@ -19,9 +19,9 @@ export default function AuthorProfile({ isLoading, author }) {
                 <p className='font-semibold text-black text-lg'>
                     {firstName} {lastName}
                 </p>
-                <p className='font-medium text-black text-sm mb-3'>
+                {/* <p className='font-medium text-black text-sm mb-3'>
                     1 project created
-                </p>
+                </p> */}
                 <p className='text-gray-500 text-xs'>{bio}</p>
                 {/* <Link href="/author/placeholder">
                     <a className="font-bold text-blue-500 text-xs mt-1 py-1 px-2 hover:bg-gray-100 rounded">
