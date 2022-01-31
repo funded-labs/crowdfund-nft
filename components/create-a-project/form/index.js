@@ -23,7 +23,7 @@ function Form() {
                 <div className="bg-white py-8 px-4 flex flex-col space-y-6">
                     <div className="w-full flex flex-col space-y-3">
                         <p className="font-bold text-gray-500 text-xs">
-                            Step {step} of 5
+                            Step {step} of 6
                         </p>
                         <ProgressBar step={step} />
                     </div>
