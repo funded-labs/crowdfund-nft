@@ -1,6 +1,7 @@
 import AuthorProfile from "./author-profile";
 import Menu from "./menu";
 import Story from "./story";
+import Rewards from "./rewards";
 
 export default function CampaignDetails({ isLoading, project, author }) {
     if (isLoading) {
@@ -28,8 +29,9 @@ export default function CampaignDetails({ isLoading, project, author }) {
                     <AuthorProfile author={author} />
                 </div>
 
-                <div className="w-full md:w-9/12 flex flex-col">
+                <div className="w-full md:w-9/12 flex flex-col space-y-8">
                     <Story project={project} />
+                    <Rewards project={project} />
                 </div>
             </div>
         </div>
