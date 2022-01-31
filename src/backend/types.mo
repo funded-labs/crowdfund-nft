@@ -32,6 +32,7 @@ module {
     discordLink: Link;
     goal: Float;
     nftVolume: Nat;
+    rewards: Text;
     story: Text;
     tags: [Text]; 
     title: Text;
@@ -49,6 +50,7 @@ module {
     id: ProjectId;
     nftVolume: Nat;
     owner: UserId;
+    rewards: Text;
     status: ProjectStatus;
     story: Text;
     tags: [Text];

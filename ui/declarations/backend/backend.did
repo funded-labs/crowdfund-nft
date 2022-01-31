@@ -10,6 +10,7 @@ type Project__1 =
    id: ProjectId__1;
    nftVolume: nat;
    owner: UserId;
+   rewards: text;
    status: ProjectStatus__1;
    story: text;
    tags: vec text;
@@ -37,6 +38,7 @@ type Project =
    id: ProjectId__1;
    nftVolume: nat;
    owner: UserId;
+   rewards: text;
    status: ProjectStatus__1;
    story: text;
    tags: vec text;
@@ -69,6 +71,7 @@ type NewProject =
    discordLink: Link;
    goal: float64;
    nftVolume: nat;
+   rewards: text;
    story: text;
    tags: vec text;
    title: text;

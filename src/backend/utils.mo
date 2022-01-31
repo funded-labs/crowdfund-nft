@@ -46,6 +46,7 @@ module {
           id = "";
           nftVolume = 0;
           owner = Principal.fromText("");
+          rewards = "";
           status= "";
           story = "";
           tags = [];
