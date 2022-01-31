@@ -15,7 +15,7 @@ export default function Featured() {
         async () => {
             if (!backend) return []
 
-            const projects = await backend.listProjects(['example'])
+            const projects = await backend.listProjects([])
             return projects
         },
         {

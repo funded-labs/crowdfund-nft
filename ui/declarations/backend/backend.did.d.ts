@@ -82,6 +82,7 @@ export interface _SERVICE {
     >,
   'createProfile' : (arg_0: NewProfile) => Promise<undefined>,
   'createProject' : (arg_0: NewProject) => Promise<Project__1>,
+  'deleteProject' : (arg_0: ProjectId) => Promise<[] | [Project__1]>,
   'getMyProfile' : () => Promise<Profile>,
   'getMyProjects' : () => Promise<Array<Project__1>>,
   'getOwnId' : () => Promise<UserId__1>,

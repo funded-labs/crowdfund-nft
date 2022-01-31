@@ -89,6 +89,7 @@ service : {
   createFirstProject: (NewProfile, NewProject) -> (Project__1);
   createProfile: (NewProfile) -> ();
   createProject: (NewProject) -> (Project__1);
+  deleteProject: (ProjectId) -> (opt Project__1);
   getMyProfile: () -> (Profile) query;
   getMyProjects: () -> (vec Project__1) query;
   getOwnId: () -> (UserId__1) query;
