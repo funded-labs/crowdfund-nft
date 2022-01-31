@@ -20,7 +20,7 @@ export default function HowItWorks() {
                     flat fee per transaction).
                 </p>
                 <p>
-                    If a project does meet its funding goalm then funds are released from The
+                    If a project does meet its funding goal then funds are released from The
                     Crowdfund NFT escroc wallet into the project creator's wallet. Similarly,
                     NFTs are delivered to investor wallets.
                 </p>

@@ -22,11 +22,11 @@ export default function General({ project }) {
                 </p>
                 <p>
                     There is a minimum amount to invest since each project comes with a limited amount
-                    of NTF's.
+                    of NTFs.
                 </p>
                 <p>
                     This means that you can invest, at a minimum, enough to receive one NFT. You can invest
-                    in increments of the amount of NFT's you wish to recieve in exchange for backing a
+                    in increments of the amount of NFTs you wish to receive in exchange for backing a
                     project.
                 </p>
             </div>
@@ -40,7 +40,7 @@ export default function General({ project }) {
                 </p>
                 <p>
                     If you need to contact the project creator, we provide Discord and Twitter links for you
-                    yo get in toch with the projects that are live on CrowdFund NFT.
+                    to get in touch with the projects that are live on CrowdFund NFT.
                 </p>
             </div>
 
