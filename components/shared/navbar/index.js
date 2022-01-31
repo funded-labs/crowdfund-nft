@@ -41,9 +41,7 @@ export default function Navbar() {
                     </div>
 
                     <nav className='hidden lg:flex space-x-10'>
-                        {
-                            //Hiding About link until page is ready.
-                            /* <Link href='/about' passHref as='/about.html'>
+                        <Link href='/about' passHref as='/about.html'>
                             <a
                                 className={`
                                     text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
@@ -51,8 +49,7 @@ export default function Navbar() {
                                 `}>
                                 About
                             </a>
-                        </Link> */
-                        }
+                        </Link>
                         <Link href='https://medium.com/@luke_71499/crowdfund-nft-an-alternative-to-traditional-crowdfunding-using-nfts-89ef15bd65d8'>
                             <a
                                 className={`
