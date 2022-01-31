@@ -107,7 +107,7 @@ export default function StepFour() {
                             {project.nftVolume} NFTs
                         </p>
                         <p className=''>
-                            Please make sure you have the apropriate number of
+                            Please make sure you have the appropriate number of
                             JPG's or PNG's in your upload. These will be minted
                             and randomly allocated to people who invest in your
                             project.
