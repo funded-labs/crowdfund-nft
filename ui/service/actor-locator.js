@@ -14,7 +14,6 @@ export const makeActorWithPrincipal = (
             ...(identity ? { identity } : {}),
         },
     }
-    console.log(options)
     return createActor(canisterId, options)
 }
 
