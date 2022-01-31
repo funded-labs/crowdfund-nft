@@ -5,7 +5,7 @@ export default function Hero() {
                 <h1 className='text-xl lg:text-3xl text-center'>
                     Crowdfunding on the Blockchain,
                     <br />
-                    with NFTs
+                    using NFTs
                 </h1>
 
                 <div className='py-5 flex flex-col items-center'>
