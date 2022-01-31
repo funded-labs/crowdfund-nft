@@ -27,7 +27,7 @@ export default function About() {
                                 Cheaper and Global Investing
                             </p>
                             <p className="text-sm text-gray-600 mt-4">
-                                Using the IC Blockchain allows us to open up your crowdfunding round to a global audience, for cheaper transaction fees than are charged on traditional platforms.
+                                Using the IC Blockchain allows us to open up your crowdfunding round to a global audience, with cheaper transaction fees than are charged on traditional platforms.
                                 
                             </p>
                         </div>
