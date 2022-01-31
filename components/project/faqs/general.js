@@ -40,7 +40,7 @@ export default function General({ project }) {
                 </p>
                 <p>
                     If you need to contact the project creator, we provide Discord and Twitter links for you
-                    yo get in toch with the projects that are live on CrowdFund NFT.
+                    to get in touch with the projects that are live on CrowdFund NFT.
                 </p>
             </div>
 
