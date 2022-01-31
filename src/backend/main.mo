@@ -3,6 +3,7 @@
 import Array "mo:base/Array";
 import Debug "mo:base/Debug";
 import Database "./database";
+import E "mo:base/Error";
 import Principal "mo:base/Principal";
 import Types "./types";
 import Utils "./utils";
@@ -133,9 +134,9 @@ actor CrowdFundNFT {
     };
 
     public shared(msg) func updateProjectStatus(pid: ProjectId, status: ProjectStatus): async () {
-        if (Utils.isAdmin(msg.caller) != true) { return }; // throw("Not authorized"); };
+        if (Utils.isAdmin(msg.caller) != true) { throw(E.reject("Not authorized")); };
         let p = Utils.getProject(db, pid);
-        if (p.id == "") { return; }; //throw("Project not found"); };
+        if (p.id == "") { throw(E.reject("Project doesn't exist")) };
         if(Utils.hasProjectAccess(msg.caller, p)) {
             db.updateProjectStatus(p, status);
         };
