@@ -49,7 +49,10 @@ export default function Item({ item, isLoading = false }) {
                     </p>
                 </div>
                 <p className='text-sm text-indigo-500'>
-                    {Math.floor(item.project.goal * 0.42)} ICP pledged
+                    {item.project.title === 'CrowdFund NFT'
+                        ? 0
+                        : Math.floor(item.project.goal * 0.42)}{' '}
+                    ICP pledged
                 </p>
                 <p className='text-gray-400 text-sm'>
                     by {`${item.owner.firstName} ${item.owner.lastName}`}

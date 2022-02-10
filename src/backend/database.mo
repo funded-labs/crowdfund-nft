@@ -77,23 +77,23 @@ module {
       project;
     };
 
-    // public func deleteProject(projectId: ProjectId) : ?Project {
-    //   let p = projectMap.get(projectId);
-    //   switch (p) {
-    //     case null { };
-    //     case (?project) {
-    //       switch (userToProjectsMap.get(project.owner)) {
-    //         case null { };
-    //         case (?projects) {
-    //           func idsNotEqual (curId: ProjectId) : Bool { isEqProjectId(curId, projectId) != true };
-    //           let newProjects = Array.filter<ProjectId>(projects, idsNotEqual);
-    //           userToProjectsMap.put(project.owner, newProjects);
-    //         };
-    //       };
-    //     };
-    //   };
-    //   projectMap.remove(projectId);
-    // };
+    public func deleteProject(projectId: ProjectId) : ?Project {
+      let p = projectMap.get(projectId);
+      switch (p) {
+        case null { };
+        case (?project) {
+          switch (userToProjectsMap.get(project.owner)) {
+            case null { };
+            case (?projects) {
+              func idsNotEqual (curId: ProjectId) : Bool { isEqProjectId(curId, projectId) != true };
+              let newProjects = Array.filter<ProjectId>(projects, idsNotEqual);
+              userToProjectsMap.put(project.owner, newProjects);
+            };
+          };
+        };
+      };
+      projectMap.remove(projectId);
+    };
 
     public func getProject(projectId: ProjectId): ?Project {
       projectMap.get(projectId)
@@ -115,6 +115,7 @@ module {
                   id = projectId;
                   nftVolume = 0;
                   owner = userId;
+                  rewards = "";
                   status = "";
                   story = "";
                   tags = [];
@@ -146,6 +147,7 @@ module {
         id = project.id;
         nftVolume = project.nftVolume;
         owner = project.owner;
+        rewards = project.rewards;
         status = status;
         story = project.story;
         tags = project.tags;
@@ -212,6 +214,7 @@ module {
         id = Nat.toText(projectIdGenerator);
         nftVolume = project.nftVolume;
         owner = userId;
+        rewards = project.rewards;
         status = "submitted";
         story = project.story;
         tags = project.tags; 

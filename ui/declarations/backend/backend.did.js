@@ -16,6 +16,7 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'discordLink' : Link,
     'story' : IDL.Text,
+    'rewards' : IDL.Text,
     'category' : IDL.Text,
     'coverImg' : Image,
     'nftVolume' : IDL.Nat,
@@ -36,11 +37,13 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'discordLink' : Link,
     'story' : IDL.Text,
+    'rewards' : IDL.Text,
     'category' : IDL.Text,
     'coverImg' : Image,
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
+  const ProjectId = IDL.Text;
   const Profile = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
@@ -49,7 +52,6 @@ export const idlFactory = ({ IDL }) => {
     'firstName' : IDL.Text,
   });
   const UserId__1 = IDL.Principal;
-  const ProjectId = IDL.Text;
   const Profile__1 = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
@@ -69,6 +71,7 @@ export const idlFactory = ({ IDL }) => {
     'description' : IDL.Text,
     'discordLink' : Link,
     'story' : IDL.Text,
+    'rewards' : IDL.Text,
     'category' : IDL.Text,
     'coverImg' : Image,
     'nftVolume' : IDL.Nat,
@@ -83,6 +86,7 @@ export const idlFactory = ({ IDL }) => {
     'createFirstProject' : IDL.Func([NewProfile, NewProject], [Project__1], []),
     'createProfile' : IDL.Func([NewProfile], [], []),
     'createProject' : IDL.Func([NewProject], [Project__1], []),
+    'deleteProject' : IDL.Func([ProjectId], [IDL.Opt(Project__1)], []),
     'getMyProfile' : IDL.Func([], [Profile], ['query']),
     'getMyProjects' : IDL.Func([], [IDL.Vec(Project__1)], ['query']),
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
