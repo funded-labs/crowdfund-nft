@@ -97,7 +97,7 @@ export default function StepThree() {
                             />
                         </div>
                         <p className='bg-gray-50 rounded-2xl text-sm p-4'>
-                            Guide: The average donation in crodfunding is £320.
+                            Guide: The average donation in crowdfunding is £320.
                             So if you would like to raise £100,000 - make sure
                             you set your NFT collection to roughly 312 NFTs.
                         </p>
