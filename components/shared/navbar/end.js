@@ -1,15 +1,50 @@
 import Link from 'next/link'
+import { handleConnect } from '@/helpers/plugwallet'
 
 export default function End() {
     return (
         <div className='flex flex-row space-x-4'>
-            <a href='https://plugwallet.ooo' rel='noreferrer' target='_blank'>
+            <button
+                onClick={() =>
+                    handleConnect((data) => {
+                        console.log(data)
+                        console.log(Buffer.from(data.derKey).toString('hex'))
+                        console.log(Buffer.from(data.rawKey).toString('hex'))
+                        console.log(Object.keys(window.ic.plug))
+                        window.ic.plug
+                            .createAgent()
+                            .then(() => {
+                                return window.ic.plug.agent.getPrincipal()
+                            })
+                            .then((principal) => {
+                                console.log(
+                                    `Plug's user principal Id is ${principal}`
+                                )
+                            })
+
+                        window.ic.plug.requestBalance().then((balance) => {
+                            console.log(balance)
+                        })
+
+                        // GET 1 ICP from wallet
+
+                        const params = {
+                            to: 'lcn6v-rndou-4p3oy-gqxkd-5zmsq-c6qrg-rv746-ojpkq-z6sae-k2gax-tqe',
+                            amount: 100_000,
+                        }
+                        window.ic.plug
+                            .requestTransfer(params)
+                            .then((result) => console.log(result))
+                            .catch((error) => console.error(error))
+                    })
+                }>
                 <img
                     src='/assets/plug.png'
                     className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
                     alt=''
                 />
-            </a>
+            </button>
+
             <Link href='/create-a-project' passHref as='/create-a-project.html'>
                 <a
                     className={`
