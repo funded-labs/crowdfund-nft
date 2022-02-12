@@ -9,15 +9,11 @@ export default function Hero() {
                 </h1>
 
                 <div className='py-5 flex flex-col items-center'>
-                    <p className='text-gray-400 uppercase text-sm'>Built on</p>
                     <img
-                        src='/assets/IClogo.png'
+                        src='/assets/icbadge.svg'
                         className='w-125 h-8 hover:scale-105 duration-200 cursor-pointer'
                         alt=''
                     />
-                    <p className='text-gray-400 uppercase text-sm'>
-                        Internet Computer
-                    </p>
                 </div>
 
                 {/* <div className="w-full max-w-lg mx-auto">
