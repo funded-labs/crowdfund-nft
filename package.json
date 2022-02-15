@@ -42,6 +42,7 @@
         "events": "^3.3.0",
         "formik": "2.2.9",
         "next": "^11.0.1",
+        "qrcode.react": "1.0.1",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-query": "3.34.7",
