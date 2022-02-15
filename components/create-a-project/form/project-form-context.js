@@ -5,7 +5,7 @@ const INITIAL_STATE = {
     setProfile: () => {},
     project: null,
     setProject: () => {},
-    step: 1,
+    step: 6,
     setStep: () => {},
     previousStep: () => {}
 };
