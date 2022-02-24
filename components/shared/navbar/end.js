@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { handleConnect } from '@/helpers/plugwallet'
+import { Principal } from '@dfinity/principal'
 
 export default function End() {
     return (
@@ -10,6 +11,11 @@ export default function End() {
                         console.log(data)
                         console.log(Buffer.from(data.derKey).toString('hex'))
                         console.log(Buffer.from(data.rawKey).toString('hex'))
+                        console.log(
+                            Principal.fromHex(
+                                Buffer.from(data.derKey).toString('hex')
+                            ).toText()
+                        )
                         console.log(Object.keys(window.ic.plug))
                         window.ic.plug
                             .createAgent()
@@ -32,10 +38,10 @@ export default function End() {
                             to: 'lcn6v-rndou-4p3oy-gqxkd-5zmsq-c6qrg-rv746-ojpkq-z6sae-k2gax-tqe',
                             amount: 100_000,
                         }
-                        window.ic.plug
-                            .requestTransfer(params)
-                            .then((result) => console.log(result))
-                            .catch((error) => console.error(error))
+                        // window.ic.plug
+                        //     .requestTransfer(params)
+                        //     .then((result) => console.log(result))
+                        //     .catch((error) => console.error(error))
                     })
                 }>
                 <img
