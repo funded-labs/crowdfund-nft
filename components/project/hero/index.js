@@ -77,13 +77,7 @@ export default function Hero({ isLoading, project }) {
                     <div className='w-full lg:w-7/12 flex flex-col'>
                         <figure className='w-full h-96 bg-yellow-500 rounded-xl mb-1 overflow-hidden'>
                             <img
-                                src={
-                                    project.coverImg.length > 0
-                                        ? imgInt8ArrayToDataURL(
-                                              project.coverImg
-                                          )
-                                        : project.coverImgUrl
-                                }
+                                src={project.cover}
                                 className='w-full h-full object-cover'
                             />
                         </figure>

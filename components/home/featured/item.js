@@ -34,11 +34,7 @@ export default function Item({ item, isLoading = false }) {
                         'bg-blue-100'
                     )}>
                     <img
-                        src={
-                            item.project.coverImg.length > 0
-                                ? imgInt8ArrayToDataURL(item.project.coverImg)
-                                : item.project.coverImgUrl
-                        }
+                        src={item.project.cover}
                         className='w-full h-full object-cover'
                     />
                 </figure>
