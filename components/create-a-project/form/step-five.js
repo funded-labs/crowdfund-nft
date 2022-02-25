@@ -9,6 +9,8 @@ import { useProjectForm } from './project-form-context'
 
 import { imgFileToInt8Array } from '../../../helpers/imageHelper'
 
+import { makeImagesActor, getImageURL } from '@/ui/service/actor-locator'
+
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
     rewards: Yup.string().required(
@@ -33,11 +35,23 @@ export default function StepFive() {
 
             const p = { ...project, ...form }
 
+            const imageActor = makeImagesActor()
+
+            let coverURL = ''
+            if (p.coverImg) {
+                const coverImg = {
+                    name: p.coverImg.name,
+                    payload: {
+                        ctype: p.coverImg.type,
+                        data: [await imgFileToInt8Array(p.coverImg)],
+                    },
+                }
+                coverURL = getImageURL(await imageActor.addAsset(coverImg))
+            }
+
             const payload = {
                 category: p.projectCategory,
-                coverImg: p.coverImg
-                    ? await imgFileToInt8Array(p.coverImg)
-                    : [], // project.coverImgUrl
+                cover: coverURL,
                 description: '',
                 discordLink: p.discordLink,
                 goal: p.targetAmount,
@@ -51,11 +65,23 @@ export default function StepFive() {
                 wetransferLink: p.wetransferLink,
             }
 
+            let profileImgURL = ''
+            if (profile.profileImg) {
+                const profileImg = {
+                    name: profile.profileImg.name,
+                    payload: {
+                        ctype: profile.profileImg.type,
+                        data: [await imgFileToInt8Array(profile.profileImg)],
+                    },
+                }
+                profileImgURL = getImageURL(
+                    await imageActor.addAsset(profileImg)
+                )
+            }
+
             await backend.createProfile({
                 bio: profile.bio,
-                img: profile.profileImg
-                    ? await imgFileToInt8Array(profile.profileImg)
-                    : [],
+                img: profileImgURL,
                 lastName: profile.lastName,
                 firstName: profile.firstName,
             })

@@ -3,7 +3,7 @@ type UserId = principal;
 type Project__1 = 
  record {
    category: text;
-   coverImg: Image;
+   cover: Link;
    description: text;
    discordLink: Link;
    goal: float64;
@@ -24,14 +24,26 @@ type ProjectWithOwner =
    owner: Profile__1;
    project: Project;
  };
-type ProjectStatus__1 = text;
-type ProjectStatus = text;
+type ProjectStatus__1 = 
+ opt variant {
+       approved;
+       fully_funded;
+       live;
+       submitted;
+     };
+type ProjectStatus = 
+ opt variant {
+       approved;
+       fully_funded;
+       live;
+       submitted;
+     };
 type ProjectId__1 = text;
 type ProjectId = text;
 type Project = 
  record {
    category: text;
-   coverImg: Image;
+   cover: Link;
    description: text;
    discordLink: Link;
    goal: float64;
@@ -52,7 +64,7 @@ type Profile__1 =
    bio: text;
    firstName: text;
    id: UserId;
-   img: Image;
+   img: Link;
    lastName: text;
  };
 type Profile = 
@@ -60,13 +72,13 @@ type Profile =
    bio: text;
    firstName: text;
    id: UserId;
-   img: Image;
+   img: Link;
    lastName: text;
  };
 type NewProject = 
  record {
    category: text;
-   coverImg: Image;
+   cover: Link;
    description: text;
    discordLink: Link;
    goal: float64;
@@ -83,12 +95,12 @@ type NewProfile =
  record {
    bio: text;
    firstName: text;
-   img: Image;
+   img: Link;
    lastName: text;
  };
 type Link = text;
-type Image = vec int8;
 service : {
+  approveProject: (ProjectId) -> ();
   createFirstProject: (NewProfile, NewProject) -> (Project__1);
   createProfile: (NewProfile) -> ();
   createProject: (NewProject) -> (Project__1);
@@ -105,7 +117,7 @@ service : {
   healthcheck: () -> (bool);
   isAdmin: () -> (bool) query;
   listProjects: (vec ProjectStatus) -> (vec ProjectWithOwner) query;
+  makeProjectLive: (ProjectId) -> ();
   searchProfiles: (text) -> (vec Profile) query;
   updateProfile: (Profile) -> ();
-  updateProjectStatus: (ProjectId, ProjectStatus) -> ();
 }

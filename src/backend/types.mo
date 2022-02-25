@@ -8,12 +8,17 @@ module {
   // general types
   public type Image = [Int8];
   public type Link = Text;
-  public type ProjectStatus = Text; // Should be any of: submitted, approved, live, fully_funded, example -> need to find a way to enforce this
+  public type ProjectStatus = ?{ 
+    #submitted;
+    #approved; // approved submissions can be shown on frontend
+    #live;
+    #fully_funded
+  };
 
   public type NewProfile = {
     bio: Text;
     firstName: Text;
-    img: Image;
+    img: Link;
     lastName: Text;
   };
 
@@ -21,13 +26,13 @@ module {
     bio: Text;
     firstName: Text;
     id: UserId;
-    img: Image;
+    img: Link;
     lastName: Text;
   };
 
   public type NewProject = {
     category: Text;
-    coverImg: Image;
+    cover: Link;
     description: Text;
     discordLink: Link;
     goal: Float;
@@ -43,7 +48,7 @@ module {
 
   public type Project = {
     category: Text;
-    coverImg: Image;
+    cover: Link;
     description: Text;
     discordLink: Link;
     goal: Float;

@@ -1,13 +1,15 @@
-// Make the Connectd app's public methods available locally
-// import Connectd "canister:connectd";
-import Array "mo:base/Array";
-import Debug "mo:base/Debug";
-import Database "./database";
-import E "mo:base/Error";
-import Principal "mo:base/Principal";
-import Types "./types";
-import Utils "./utils";
-import Text "mo:base/Text";
+import Array            "mo:base/Array";
+import Debug            "mo:base/Debug";
+import Database         "./database";
+import Error            "mo:base/Error";
+import Nat              "mo:base/Nat";
+import Principal        "mo:base/Principal";
+import Text             "mo:base/Text";
+
+import Types            "./types";
+import Utils            "./utils";
+
+import EscrowManager    "canister:escrow-manager";
 
 actor CrowdFundNFT {
 
@@ -21,6 +23,11 @@ actor CrowdFundNFT {
     type ProjectStatus = Types.ProjectStatus;
     type ProjectWithOwner = Types.ProjectWithOwner;
     type UserId = Types.UserId;
+
+    // Escrow Manager Types
+
+    type EMProjectId = Nat;
+    type EMCanisterId = Principal;
 
     // Stable vars used for upgrading 
 
@@ -102,7 +109,7 @@ actor CrowdFundNFT {
         if (Utils.hasProjectAccess(msg.caller, await getProject(projectId))) {
             return db.deleteProject(projectId)
         } else {
-            throw(E.reject("User is not authorized to delete project."))
+            throw(Error.reject("User is not authorized to delete project."))
         };
     };
 
@@ -135,12 +142,33 @@ actor CrowdFundNFT {
         };
     };
 
-    public shared(msg) func updateProjectStatus(pid: ProjectId, status: ProjectStatus): async () {
-        if (Utils.isAdmin(msg.caller) != true) { throw(E.reject("Not authorized")); };
-        let p = Utils.getProject(db, pid);
-        if (p.id == "") { throw(E.reject("Project doesn't exist")) };
-        if(Utils.hasProjectAccess(msg.caller, p)) {
-            db.updateProjectStatus(p, status);
+    public shared(msg) func approveProject(pid: ProjectId): async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                assert(p.status == ?#submitted);
+                db.updateProjectStatus(p, ?#approved);
+            };
+            case null { throw Error.reject("No project with this id.") };
+        };
+    };
+
+    public shared(msg) func makeProjectLive(pid: ProjectId): async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                assert(p.status == ?#approved);
+                switch (db.textToNat(pid)) {
+                    case (?natId) { 
+                        switch (await EscrowManager.getProjectEscrowCanisterPrincipal(natId)) {
+                            case null { throw Error.reject("The project does not have an escrow canister.") };
+                            case _ { db.updateProjectStatus(p, ?#live) };
+                        };
+                    };
+                    case null { throw Error.reject("Project id is not valid.") };
+                };
+            };
+            case null { throw Error.reject("No project with this id.") };
         };
     };
 

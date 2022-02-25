@@ -4,13 +4,14 @@
             "declarations": {
                 "output": "ui/declarations/backend"
             },
+            "dependencies": ["escrow-manager"],
             "main": "src/backend/main.mo"
         },
         "frontend": {
             "declarations": {
                 "output": "ui/declarations/frontend"
             },
-            "dependencies": ["backend"],
+            "dependencies": ["backend", "images"],
             "source": ["out"],
             "type": "assets"
         },
@@ -19,6 +20,12 @@
                 "output": "ui/declarations/escrow-manager"
             },
             "main": "src/escrow-manager/main.mo"
+        },
+        "images": {
+            "declarations": {
+                "output": "ui/declarations/images"
+            },
+            "main": "src/images/main.mo"
         }
     },
     "defaults": {

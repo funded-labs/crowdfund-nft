@@ -1,9 +1,8 @@
 import type { Principal } from '@dfinity/principal';
-export type Image = Array<number>;
 export type Link = string;
 export interface NewProfile {
   'bio' : string,
-  'img' : Image,
+  'img' : Link,
   'lastName' : string,
   'firstName' : string,
 }
@@ -12,27 +11,27 @@ export interface NewProject {
   'wetransferLink' : Link,
   'goal' : number,
   'twitterLink' : Link,
+  'cover' : Link,
   'tags' : Array<string>,
   'description' : string,
   'discordLink' : Link,
   'story' : string,
   'rewards' : string,
   'category' : string,
-  'coverImg' : Image,
   'nftVolume' : bigint,
   'walletId' : string,
 }
 export interface Profile {
   'id' : UserId,
   'bio' : string,
-  'img' : Image,
+  'img' : Link,
   'lastName' : string,
   'firstName' : string,
 }
 export interface Profile__1 {
   'id' : UserId,
   'bio' : string,
-  'img' : Image,
+  'img' : Link,
   'lastName' : string,
   'firstName' : string,
 }
@@ -44,20 +43,30 @@ export interface Project {
   'owner' : UserId,
   'goal' : number,
   'twitterLink' : Link,
+  'cover' : Link,
   'tags' : Array<string>,
   'description' : string,
   'discordLink' : Link,
   'story' : string,
   'rewards' : string,
   'category' : string,
-  'coverImg' : Image,
   'nftVolume' : bigint,
   'walletId' : string,
 }
 export type ProjectId = string;
 export type ProjectId__1 = string;
-export type ProjectStatus = string;
-export type ProjectStatus__1 = string;
+export type ProjectStatus = [] | [
+  { 'fully_funded' : null } |
+    { 'submitted' : null } |
+    { 'live' : null } |
+    { 'approved' : null }
+];
+export type ProjectStatus__1 = [] | [
+  { 'fully_funded' : null } |
+    { 'submitted' : null } |
+    { 'live' : null } |
+    { 'approved' : null }
+];
 export interface ProjectWithOwner { 'owner' : Profile__1, 'project' : Project }
 export interface Project__1 {
   'id' : ProjectId__1,
@@ -67,19 +76,20 @@ export interface Project__1 {
   'owner' : UserId,
   'goal' : number,
   'twitterLink' : Link,
+  'cover' : Link,
   'tags' : Array<string>,
   'description' : string,
   'discordLink' : Link,
   'story' : string,
   'rewards' : string,
   'category' : string,
-  'coverImg' : Image,
   'nftVolume' : bigint,
   'walletId' : string,
 }
 export type UserId = Principal;
 export type UserId__1 = Principal;
 export interface _SERVICE {
+  'approveProject' : (arg_0: ProjectId) => Promise<undefined>,
   'createFirstProject' : (arg_0: NewProfile, arg_1: NewProject) => Promise<
       Project__1
     >,
@@ -100,9 +110,7 @@ export interface _SERVICE {
   'listProjects' : (arg_0: Array<ProjectStatus>) => Promise<
       Array<ProjectWithOwner>
     >,
+  'makeProjectLive' : (arg_0: ProjectId) => Promise<undefined>,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
   'updateProfile' : (arg_0: Profile) => Promise<undefined>,
-  'updateProjectStatus' : (arg_0: ProjectId, arg_1: ProjectStatus) => Promise<
-      undefined
-    >,
 }

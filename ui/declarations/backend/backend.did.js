@@ -1,29 +1,36 @@
 export const idlFactory = ({ IDL }) => {
-  const Image = IDL.Vec(IDL.Int8);
+  const ProjectId = IDL.Text;
+  const Link = IDL.Text;
   const NewProfile = IDL.Record({
     'bio' : IDL.Text,
-    'img' : Image,
+    'img' : Link,
     'lastName' : IDL.Text,
     'firstName' : IDL.Text,
   });
-  const Link = IDL.Text;
   const NewProject = IDL.Record({
     'title' : IDL.Text,
     'wetransferLink' : Link,
     'goal' : IDL.Float64,
     'twitterLink' : Link,
+    'cover' : Link,
     'tags' : IDL.Vec(IDL.Text),
     'description' : IDL.Text,
     'discordLink' : Link,
     'story' : IDL.Text,
     'rewards' : IDL.Text,
     'category' : IDL.Text,
-    'coverImg' : Image,
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
   const ProjectId__1 = IDL.Text;
-  const ProjectStatus__1 = IDL.Text;
+  const ProjectStatus__1 = IDL.Opt(
+    IDL.Variant({
+      'fully_funded' : IDL.Null,
+      'submitted' : IDL.Null,
+      'live' : IDL.Null,
+      'approved' : IDL.Null,
+    })
+  );
   const UserId = IDL.Principal;
   const Project__1 = IDL.Record({
     'id' : ProjectId__1,
@@ -33,21 +40,20 @@ export const idlFactory = ({ IDL }) => {
     'owner' : UserId,
     'goal' : IDL.Float64,
     'twitterLink' : Link,
+    'cover' : Link,
     'tags' : IDL.Vec(IDL.Text),
     'description' : IDL.Text,
     'discordLink' : Link,
     'story' : IDL.Text,
     'rewards' : IDL.Text,
     'category' : IDL.Text,
-    'coverImg' : Image,
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
-  const ProjectId = IDL.Text;
   const Profile = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
-    'img' : Image,
+    'img' : Link,
     'lastName' : IDL.Text,
     'firstName' : IDL.Text,
   });
@@ -55,7 +61,7 @@ export const idlFactory = ({ IDL }) => {
   const Profile__1 = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
-    'img' : Image,
+    'img' : Link,
     'lastName' : IDL.Text,
     'firstName' : IDL.Text,
   });
@@ -67,13 +73,13 @@ export const idlFactory = ({ IDL }) => {
     'owner' : UserId,
     'goal' : IDL.Float64,
     'twitterLink' : Link,
+    'cover' : Link,
     'tags' : IDL.Vec(IDL.Text),
     'description' : IDL.Text,
     'discordLink' : Link,
     'story' : IDL.Text,
     'rewards' : IDL.Text,
     'category' : IDL.Text,
-    'coverImg' : Image,
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
@@ -81,8 +87,16 @@ export const idlFactory = ({ IDL }) => {
     'owner' : Profile__1,
     'project' : Project,
   });
-  const ProjectStatus = IDL.Text;
+  const ProjectStatus = IDL.Opt(
+    IDL.Variant({
+      'fully_funded' : IDL.Null,
+      'submitted' : IDL.Null,
+      'live' : IDL.Null,
+      'approved' : IDL.Null,
+    })
+  );
   return IDL.Service({
+    'approveProject' : IDL.Func([ProjectId], [], []),
     'createFirstProject' : IDL.Func([NewProfile, NewProject], [Project__1], []),
     'createProfile' : IDL.Func([NewProfile], [], []),
     'createProject' : IDL.Func([NewProject], [Project__1], []),
@@ -107,9 +121,9 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Vec(ProjectWithOwner)],
         ['query'],
       ),
+    'makeProjectLive' : IDL.Func([ProjectId], [], []),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
-    'updateProjectStatus' : IDL.Func([ProjectId, ProjectStatus], [], []),
   });
 };
 export const init = ({ IDL }) => { return []; };
