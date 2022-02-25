@@ -2,7 +2,13 @@ import Link from 'next/link'
 import { handleConnect } from '@/helpers/plugwallet'
 import { Principal } from '@dfinity/principal'
 
+import { CanisterRegistry } from '@psychedelic/dab-js'
+
 export default function End() {
+    let test = new CanisterRegistry()
+    test.getAll().then((all) => {
+        console.log(all.map((x) => x.name))
+    })
     return (
         <div className='flex flex-row space-x-4'>
             <button
