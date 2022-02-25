@@ -13,6 +13,12 @@
             "dependencies": ["backend"],
             "source": ["out"],
             "type": "assets"
+        },
+        "escrow-manager": {
+            "declarations": {
+                "output": "ui/declarations/escrow-manager"
+            },
+            "main": "src/escrow-manager/main.mo"
         }
     },
     "defaults": {

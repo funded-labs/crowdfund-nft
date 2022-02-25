@@ -2,10 +2,11 @@ import Link from 'next/link'
 import { handleConnect } from '@/helpers/plugwallet'
 import { Principal } from '@dfinity/principal'
 
-import { CanisterRegistry } from '@psychedelic/dab-js'
+import { CanisterRegistry, getCanisterInfo } from '@psychedelic/dab-js'
 
 export default function End() {
     let test = new CanisterRegistry()
+    console.log(getCanisterInfo({ canisterId: 'kn5ky-6iaaa-aaaai-qbikq-cai' }))
     test.getAll().then((all) => {
         console.log(all.map((x) => x.name))
     })
