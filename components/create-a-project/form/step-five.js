@@ -173,7 +173,7 @@ export default function StepFive() {
                             px-4 font-medium text-base tracking-wider rounded-xl
                             shadow-xl hover:bg-blue-700
                         `}>
-                        {!isLoading && <span>Submit Project</span>}
+                        {!isLoading && <span>Next</span>}
 
                         {isLoading && (
                             <span className='h-5 w-5'>

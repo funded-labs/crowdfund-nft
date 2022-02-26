@@ -7,18 +7,14 @@ export default function Hero() {
                     <br />
                     using NFTs
                 </h1>
-
-                <div className='py-5 flex flex-col items-center'>
-                    <p className='text-gray-400 uppercase text-sm'>Built on</p>
+                <a href='https://dfinity.org' target='_blank' className='text-center mt-4'>
                     <img
-                        src='/assets/IClogo.png'
-                        className='w-125 h-8 hover:scale-105 duration-200 cursor-pointer'
+                        src='/assets/icbadge.svg'
+                        className='w-125 h-8 hover:scale-105 duration-200 cursor-pointer d-inline-block'
+                        style={{ display: 'inline-block' }}
                         alt=''
                     />
-                    <p className='text-gray-400 uppercase text-sm'>
-                        Internet Computer
-                    </p>
-                </div>
+                </a>
 
                 {/* <div className="w-full max-w-lg mx-auto">
                     <div className="w-full flex flex-row justify-between text-sm lg:text-base px-4">

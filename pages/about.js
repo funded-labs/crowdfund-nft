@@ -37,7 +37,7 @@ export default function About() {
                                 Raise faster
                             </p>
                             <p className="text-sm text-gray-600 mt-4">
-                                With Blockchain, transaction are instant - raise fast for your project!
+                                With Blockchain, transactions are instant - raise fast for your project!
                             </p>
                         </div>
                     </div>

@@ -3,6 +3,7 @@ import { ProjectFormProvider, useProjectForm } from "./project-form-context";
 import StepFive from "./step-five";
 import StepFour from "./step-four";
 import StepOne from "./step-one";
+import StepSeven from "./step-seven";
 import StepSix from "./step-six";
 import StepThree from "./step-three";
 import StepTwo from "./step-two";
@@ -23,7 +24,7 @@ function Form() {
                 <div className="bg-white py-8 px-4 flex flex-col space-y-6">
                     <div className="w-full flex flex-col space-y-3">
                         <p className="font-bold text-gray-500 text-xs">
-                            Step {step} of 6
+                            Step {step} of 7
                         </p>
                         <ProgressBar step={step} />
                     </div>
@@ -33,6 +34,7 @@ function Form() {
                     {step === 4 && (<StepFour />)}
                     {step === 5 && (<StepFive />)}
                     {step === 6 && (<StepSix />)}
+                    {step === 7 && (<StepSeven />)}
                 </div>
             </div>
         )
