@@ -1,8 +1,7 @@
 import { addDays, differenceInCalendarDays } from 'date-fns'
 import { imgInt8ArrayToDataURL } from '@/helpers/imageHelper'
 import { useState } from 'react'
-import Modal from '@/components/shared/modal'
-import ExampleModal from './example-modal'
+import InstructionModal from './instruction-modal'
 
 export default function Hero({ isLoading, project }) {
     const [showExampleModal, setExampleModal] = useState(false)
@@ -141,7 +140,7 @@ export default function Hero({ isLoading, project }) {
                                 Back this project
                             </button>
                             {showExampleModal && (
-                                <ExampleModal
+                                <InstructionModal
                                     onClose={() => setExampleModal(false)}
                                 />
                             )}
