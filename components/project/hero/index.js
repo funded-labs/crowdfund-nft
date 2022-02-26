@@ -112,7 +112,7 @@ export default function Hero({ isLoading, project }) {
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {title === 'CrowdFund NFT'
                                     ? 0
-                                    : title.length * 2}ICP
+                                    : title.length * 2} ICP
                             </p>
                             <p className='text-gray-400 text-lg'>price</p>
                         </div>
