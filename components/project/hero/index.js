@@ -112,9 +112,9 @@ export default function Hero({ isLoading, project }) {
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {title === 'CrowdFund NFT'
                                     ? 0
-                                    : title.length * 2}
+                                    : title.length * 2}ICP
                             </p>
-                            <p className='text-gray-400 text-lg'>backers</p>
+                            <p className='text-gray-400 text-lg'>price</p>
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
