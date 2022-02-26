@@ -3,6 +3,7 @@ import Navbar from "@/components/shared/navbar";
 import confetti from "canvas-confetti";
 import { useEffect } from "react";
 import Link from "next/link";
+import Head from "next/head";
 
 export default function Success() {
 
@@ -27,6 +28,9 @@ export default function Success() {
 
     return (
         <div className='w-full flex flex-col'>
+            <Head>
+                <title>You have successfully backed a project on CrowdFund NFT!</title>
+            </Head>
             <Navbar />
 
             <div className="w-screen h-screen bg-white flex flex-col justify-center">

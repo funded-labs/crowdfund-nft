@@ -10,6 +10,7 @@ import { useQuery } from 'react-query'
 import { useRouter } from 'next/router'
 import { useBackend } from '@/context/backend'
 import Faqs from '@/components/project/faqs'
+import Head from 'next/head'
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState('campaign-details')
@@ -68,6 +69,9 @@ export default function ProjectDetails() {
 
     return (
         <div className='w-full bg-gray-50'>
+            <Head>
+                <title>{project.title} on CrowdFund NFT</title>
+            </Head>
             <Navbar />
 
             <Hero project={project} />
