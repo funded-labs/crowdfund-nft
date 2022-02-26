@@ -1,11 +1,14 @@
 import { addDays, differenceInCalendarDays } from 'date-fns'
-import { imgInt8ArrayToDataURL } from '@/helpers/imageHelper'
 import { useState } from 'react'
-import Modal from '@/components/shared/modal'
+import { useBackend } from '@/context/backend'
+// import Modal from '@/components/shared/modal'
 import ExampleModal from './example-modal'
 
 export default function Hero({ isLoading, project }) {
     const [showExampleModal, setExampleModal] = useState(false)
+    const backend = useBackend().backendWithAuth
+
+    const status = Object.keys(project?.status?.[0] || { submitted: null })[0]
 
     const handleShare = () => {
         if (!window) return
@@ -14,6 +17,15 @@ export default function Hero({ isLoading, project }) {
         const url = encodeURI(window.location)
 
         window.location = `https://twitter.com/intent/tweet?text=${message}&url=${url}`
+    }
+
+    const backProject = () => {
+        if (!(status === 'whitelist' || status === 'live'))
+            return alert('This project is not yet live.')
+        if (!backend)
+            alert(
+                'You must sign in with internet identity before you can back a project.'
+            )
     }
 
     if (isLoading) {
@@ -64,13 +76,24 @@ export default function Hero({ isLoading, project }) {
 
     const { title, goal } = project
 
+    const Status = () => {
+        switch (status) {
+            case 'whitelist':
+                return <>open to whitelist</>
+            case 'live':
+                return <>live</>
+            default:
+                return <>not live</>
+        }
+    }
+
     return (
         <section className='w-full bg-white'>
             <div className='w-full max-w-5xl mx-auto flex flex-col px-4 py-5'>
                 <p className='text-2xl font-medium mb-3'>
                     {title}{' '}
                     <span className='text-gray-400 text-sm'>
-                        (DEMO PROJECT)
+                        (<Status />)
                     </span>
                 </p>
                 <div className='w-full flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8'>
@@ -131,7 +154,7 @@ export default function Hero({ isLoading, project }) {
                                     appearance-none focus:outline-none py-3 px-4 hover:bg-blue-700
                                 `}
                                 type='button'
-                                onClick={() => setExampleModal(true)}>
+                                onClick={backProject}>
                                 Back this project
                             </button>
                             {showExampleModal && (
