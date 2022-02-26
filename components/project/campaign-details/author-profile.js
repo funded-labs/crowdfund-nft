@@ -22,7 +22,7 @@ export default function AuthorProfile({ isLoading, author }) {
                 {/* <p className='font-medium text-black text-sm mb-3'>
                     1 project created
                 </p> */}
-                <p className='text-gray-500 text-xs'>{bio}</p>
+                <p className='text-gray-500 text-xs whitespace-pre-line whitespace-pre-wrap'>{bio}</p>
                 {/* <Link href="/author/placeholder">
                     <a className="font-bold text-blue-500 text-xs mt-1 py-1 px-2 hover:bg-gray-100 rounded">
                         See more

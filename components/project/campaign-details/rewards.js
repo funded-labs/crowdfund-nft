@@ -26,7 +26,7 @@ export default function Rewards({ isLoading, project }) {
                 Rewards
             </p>
         
-            <p className="text-gray-600 my-10">
+            <p className="text-gray-600 my-10 whitespace-pre-line whitespace-pre-wrap">
                 {rewards}
             </p>
         </div>
