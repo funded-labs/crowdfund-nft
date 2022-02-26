@@ -11,8 +11,9 @@ module {
   public type ProjectStatus = ?{ 
     #submitted;
     #approved; // approved submissions can be shown on frontend
+    #whitelist;
     #live;
-    #fully_funded
+    #fully_funded;
   };
 
   public type NewProfile = {

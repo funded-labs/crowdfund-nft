@@ -27,6 +27,7 @@ export const idlFactory = ({ IDL }) => {
     IDL.Variant({
       'fully_funded' : IDL.Null,
       'submitted' : IDL.Null,
+      'whitelist' : IDL.Null,
       'live' : IDL.Null,
       'approved' : IDL.Null,
     })
@@ -91,11 +92,13 @@ export const idlFactory = ({ IDL }) => {
     IDL.Variant({
       'fully_funded' : IDL.Null,
       'submitted' : IDL.Null,
+      'whitelist' : IDL.Null,
       'live' : IDL.Null,
       'approved' : IDL.Null,
     })
   );
   return IDL.Service({
+    'addToWhitelist' : IDL.Func([ProjectId, IDL.Principal], [], []),
     'approveProject' : IDL.Func([ProjectId], [], []),
     'createFirstProject' : IDL.Func([NewProfile, NewProject], [Project__1], []),
     'createProfile' : IDL.Func([NewProfile], [], []),
@@ -113,6 +116,7 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project__1)], ['query']),
+    'getWhitelist' : IDL.Func([ProjectId], [IDL.Vec(IDL.Principal)], []),
     'greet' : IDL.Func([], [IDL.Text], []),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
     'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
@@ -122,6 +126,7 @@ export const idlFactory = ({ IDL }) => {
         ['query'],
       ),
     'makeProjectLive' : IDL.Func([ProjectId], [], []),
+    'openProjectToWhiteList' : IDL.Func([ProjectId], [], []),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
   });

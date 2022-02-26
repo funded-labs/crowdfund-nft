@@ -58,12 +58,14 @@ export type ProjectId__1 = string;
 export type ProjectStatus = [] | [
   { 'fully_funded' : null } |
     { 'submitted' : null } |
+    { 'whitelist' : null } |
     { 'live' : null } |
     { 'approved' : null }
 ];
 export type ProjectStatus__1 = [] | [
   { 'fully_funded' : null } |
     { 'submitted' : null } |
+    { 'whitelist' : null } |
     { 'live' : null } |
     { 'approved' : null }
 ];
@@ -89,6 +91,7 @@ export interface Project__1 {
 export type UserId = Principal;
 export type UserId__1 = Principal;
 export interface _SERVICE {
+  'addToWhitelist' : (arg_0: ProjectId, arg_1: Principal) => Promise<undefined>,
   'approveProject' : (arg_0: ProjectId) => Promise<undefined>,
   'createFirstProject' : (arg_0: NewProfile, arg_1: NewProject) => Promise<
       Project__1
@@ -104,6 +107,7 @@ export interface _SERVICE {
   'getProject' : (arg_0: ProjectId) => Promise<Project__1>,
   'getProjectWithOwner' : (arg_0: ProjectId) => Promise<ProjectWithOwner>,
   'getProjects' : (arg_0: UserId__1) => Promise<Array<Project__1>>,
+  'getWhitelist' : (arg_0: ProjectId) => Promise<Array<Principal>>,
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
   'isAdmin' : () => Promise<boolean>,
@@ -111,6 +115,7 @@ export interface _SERVICE {
       Array<ProjectWithOwner>
     >,
   'makeProjectLive' : (arg_0: ProjectId) => Promise<undefined>,
+  'openProjectToWhiteList' : (arg_0: ProjectId) => Promise<undefined>,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
   'updateProfile' : (arg_0: Profile) => Promise<undefined>,
 }

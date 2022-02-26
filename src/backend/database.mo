@@ -203,7 +203,7 @@ module {
       }
     };
 
-    var projectIdGenerator : Nat = 0;
+    public var projectIdGenerator : Nat = 0;
     public func makeProject(userId: UserId, project: NewProject): Project {
       projectIdGenerator += 1;
       {
@@ -247,8 +247,8 @@ module {
     };
 
     public func textToNat(t : Text) : ?Nat {
-      var i : Nat= 0;
-      while (i < projectIdGenerator) {
+      var i : Nat = 0;
+      while (i <= projectIdGenerator) {
         if (t == Nat.toText(i)) { return ?i; };
         i += 1;
       };
