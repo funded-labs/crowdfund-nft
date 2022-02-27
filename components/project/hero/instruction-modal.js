@@ -18,7 +18,7 @@ export default function InstructionModal({ onClose }) {
 
 
     return (
-        <Modal show={true} size="xs">
+        <Modal show={true} size="sm">
             <div className="w-full h-full flex flex-col p-4 md:px-10 md:py-10 items-center justify-center">
                 <div className="w-full mx-auto flex flex-col items-center space-y-4">
 
