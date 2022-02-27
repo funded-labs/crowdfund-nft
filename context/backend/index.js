@@ -73,7 +73,7 @@ export function BackendProvider({
     }
 
     const getPlugPrincipal = async () => {
-        if (plugPrincipal) return plugPrincipal
+        if (_plugPrincipal) return _plugPrincipal
         if (!window?.ic?.plug)
             return alert('Plug is not installed in your browser')
         if (
@@ -92,10 +92,10 @@ export function BackendProvider({
                 })
                 .catch((e) => {
                     console.error(e)
-                    return plugPrincipal
+                    return _plugPrincipal
                 })
         } else {
-            return plugPrincipal
+            return _plugPrincipal
         }
     }
 

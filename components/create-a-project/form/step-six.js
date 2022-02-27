@@ -1,37 +1,79 @@
 import { useState } from 'react'
+import { Principal } from '@dfinity/principal'
 import { Spinner } from '@/components/shared/loading-spinner'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useBackend } from '@/context/backend'
 import { useProjectForm } from './project-form-context'
-import { imgFileToInt8Array } from '@/helpers/imageHelper'
+import { imgFileToInt8Array } from '../../../helpers/imageHelper'
+import { makeImagesActor, getImageURL } from '@/ui/service/actor-locator'
 
 const stepFiveSchema = Yup.object().shape({
-    walletId: Yup.string().required('You must connect your wallet to proceed')
+    // walletId: Yup.string().required('You must connect your wallet to proceed'),
 })
 
 const initialValues = {
-    walletId: null
+    // walletId: null,
 }
 
 export default function StepSix() {
-    const backend = useBackend().backendWithAuth
+    const { backendWithAuth, getPlugPrincipal } = useBackend()
+    const backend = backendWithAuth
     const [isLoading, setLoading] = useState(false)
     const { profile, project, previousStep, setStep } = useProjectForm()
 
     const handleSubmit = async (form) => {
         try {
-            setLoading(true);
+            setLoading(true)
 
-            // @todo: do wallet stuff here
+            const walletId = Principal.from(await getPlugPrincipal()).toText()
 
-            const p = { ...project, ...form }
+            if (process.env.NEXT_PUBLIC_ENVIRONMENT !== 'development') {
+                if (!window?.ic?.plug)
+                    return alert(
+                        'You must install Plug into your browser in order to connect you Plug Wallet to pay the 1 ICP charge and recieve funds once your project is fully funded.'
+                    )
+                const params = {
+                    to: 'fcbe9da2816e5fd62cfb44c2f437fe27a176b6b19f68d55be80d70d5413d1ed7',
+                    amount: 100_000_000,
+                }
+                if (
+                    !(await window.ic.plug
+                        .requestTransfer(params)
+                        .then((plugResult) => {
+                            console.log(plugResult)
+                            return true
+                        })
+                        .catch((error) => {
+                            console.error(error)
+                            alert(
+                                'Something went wrong with Plug. Please try again.'
+                            )
+                            return false
+                        }))
+                )
+                    return
+            }
+
+            const p = { ...project, ...form, walletId }
+
+            const imageActor = makeImagesActor()
+
+            let coverURL = ''
+            if (p.coverImg) {
+                const coverImg = {
+                    name: p.coverImg.name,
+                    payload: {
+                        ctype: p.coverImg.type,
+                        data: [await imgFileToInt8Array(p.coverImg)],
+                    },
+                }
+                coverURL = getImageURL(await imageActor.addAsset(coverImg))
+            }
 
             const payload = {
                 category: p.projectCategory,
-                coverImg: p.coverImg
-                    ? await imgFileToInt8Array(p.coverImg)
-                    : [], // project.coverImgUrl
+                cover: coverURL,
                 description: '',
                 discordLink: p.discordLink,
                 goal: p.targetAmount,
@@ -45,22 +87,35 @@ export default function StepSix() {
                 wetransferLink: p.wetransferLink,
             }
 
+            await backend.createProject(payload)
+
+            let profileImgURL = ''
+            if (profile.profileImg) {
+                const profileImg = {
+                    name: profile.profileImg.name,
+                    payload: {
+                        ctype: profile.profileImg.type,
+                        data: [await imgFileToInt8Array(profile.profileImg)],
+                    },
+                }
+                profileImgURL = getImageURL(
+                    await imageActor.addAsset(profileImg)
+                )
+            }
+
             await backend.createProfile({
                 bio: profile.bio,
-                img: profile.profileImg
-                    ? await imgFileToInt8Array(profile.profileImg)
-                    : [],
+                img: profileImgURL,
                 lastName: profile.lastName,
                 firstName: profile.firstName,
             })
 
-            await backend.createProject(payload)
+            setStep(7)
         } catch (error) {
             console.log(error)
             // todo: set form error
         } finally {
             setLoading(false)
-            setStep(7)
         }
     }
 
@@ -74,30 +129,29 @@ export default function StepSix() {
                     className='w-full flex flex-col space-y-2'
                     onSubmit={handleSubmit}>
                     <div className='w-full flex flex-col space-y-1'>
-                        <p className='font-semibold text-2xl'>
-                            Submission Fee
-                        </p>
+                        <p className='font-semibold text-2xl'>Submission Fee</p>
                         <p className=''>
-                            We charge 1 ICP to submit your project for review. This
-                            does not guarantee that your project will go live on the
-                            platform! We will reimburse you if your project gets
-                            rejected.
+                            We charge 1 ICP to submit your project for review.
+                            This does not guarantee that your project will go
+                            live on the platform! We will however reimburse you
+                            if your project gets rejected.
                         </p>
                         <div className='rounded-2xl w-full bg-blue-100 bg-opacity-30 p-4 flex flex-col space-y-4'>
                             <p className='w-full text-center text-2xl font-semibold'>
                                 1 ICP
                             </p>
                             <p className=''>
-                                To pay our submission fee, please connect either a Plug
-                                Wallet or Stoic Wallet.
+                                To pay our submission fee, you will be prompted
+                                to add a Plug Wallet.
                             </p>
                             <p className=''>
-                                WARNING: This will be used as your project creator wallet
-                                by default - where you will receive your funds if your
-                                crowdfunding project gets successfully funded.
+                                WARNING: This will be used as your project
+                                creator wallet by default - where you will
+                                receive your funds if your crowdfunding project
+                                gets successfully funded.
                             </p>
-                            <a className='bg-blue-300 rounded-xl py-6' />
-                            <a className='bg-blue-300 rounded-xl py-6' />
+                            {/* <a className='bg-blue-300 rounded-xl py-6' />
+                            <a className='bg-blue-300 rounded-xl py-6' /> */}
                         </div>
                     </div>
 
@@ -115,7 +169,9 @@ export default function StepSix() {
                             px-4 font-medium text-base tracking-wider rounded-xl
                             shadow-xl hover:bg-blue-700
                         `}>
-                        {!isLoading && <span>Pay 1 ICP &amp; Submit your project</span>}
+                        {!isLoading && (
+                            <span>Pay 1 ICP &amp; Submit your project</span>
+                        )}
 
                         {isLoading && (
                             <span className='h-5 w-5'>
