@@ -4,10 +4,7 @@ import Textarea from '@/components/forms/textarea'
 import { useRouter } from 'next/router'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { useBackend } from '@/context/backend'
 import { useProjectForm } from './project-form-context'
-
-import { imgFileToInt8Array } from '../../../helpers/imageHelper'
 
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
@@ -22,7 +19,6 @@ const initialValues = {
 }
 
 export default function StepFive() {
-    const backend = useBackend().backendWithAuth
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
     const { profile, project, previousStep, setStep } = useProjectForm()
@@ -31,42 +27,14 @@ export default function StepFive() {
         try {
             setLoading(true)
 
-            const p = { ...project, ...form }
+            setProject((project) => ({ ...project, ...x }))
 
-            const payload = {
-                category: p.projectCategory,
-                coverImg: p.coverImg
-                    ? await imgFileToInt8Array(p.coverImg)
-                    : [], // project.coverImgUrl
-                description: '',
-                discordLink: p.discordLink,
-                goal: p.targetAmount,
-                nftVolume: p.nftVolume,
-                rewards: p.rewards,
-                story: p.story,
-                tags: [],
-                title: p.projectTitle,
-                twitterLink: p.twitterLink,
-                walletId: p.walletId,
-                wetransferLink: p.wetransferLink,
-            }
-
-            await backend.createProfile({
-                bio: profile.bio,
-                img: profile.profileImg
-                    ? await imgFileToInt8Array(profile.profileImg)
-                    : [],
-                lastName: profile.lastName,
-                firstName: profile.firstName,
-            })
-
-            await backend.createProject(payload)
+            setStep(6)
         } catch (error) {
             console.log(error)
-            // todo: set form error
+            // toto: set form error
         } finally {
             setLoading(false)
-            setStep(6)
         }
     }
 
