@@ -33,7 +33,7 @@ export default function ProjectDetails() {
             )
             return {
                 ...project,
-                owner
+                owner,
             }
         },
         {
@@ -82,9 +82,7 @@ export default function ProjectDetails() {
             {selectedTab === 'nft-collection' && (
                 <NFTCollection project={project} />
             )}
-            {selectedTab === 'faqs' && (
-                <Faqs project={project} />
-            )}
+            {selectedTab === 'faqs' && <Faqs project={project} />}
 
             <Footer />
         </div>

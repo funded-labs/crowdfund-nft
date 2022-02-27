@@ -1,0 +1,20 @@
+type Time = int;
+type ProjectId = nat;
+type EscrowStats = 
+ record {
+   endTime: Time;
+   nftNumber: nat;
+   nftPriceE8S: nat;
+   nftsSold: nat;
+   openSubaccounts: nat;
+ };
+type CanisterId = principal;
+type AccountIdText = text;
+service : {
+  cancelTransfer: (ProjectId, AccountIdText) -> ();
+  confirmTransfer: (ProjectId, AccountIdText) -> ();
+  createEscrowCanister: (ProjectId, principal, nat, nat, Time) -> ();
+  getProjectEscrowCanisterPrincipal: (ProjectId) -> (opt CanisterId) query;
+  getProjectStats: (ProjectId) -> (EscrowStats);
+  requestSubaccount: (ProjectId, principal) -> (AccountIdText);
+}

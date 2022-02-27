@@ -4,22 +4,22 @@
             "declarations": {
                 "output": "ui/declarations/backend"
             },
-            "dependencies": ["escrow-manager"],
+            "dependencies": ["escrow_manager"],
             "main": "src/backend/main.mo"
         },
         "frontend": {
             "declarations": {
                 "output": "ui/declarations/frontend"
             },
-            "dependencies": ["backend", "images"],
+            "dependencies": ["backend", "escrow_manager", "images"],
             "source": ["out"],
             "type": "assets"
         },
-        "escrow-manager": {
+        "escrow_manager": {
             "declarations": {
-                "output": "ui/declarations/escrow-manager"
+                "output": "ui/declarations/escrow_manager"
             },
-            "main": "src/escrow-manager/main.mo"
+            "main": "src/escrow_manager/main.mo"
         },
         "images": {
             "declarations": {

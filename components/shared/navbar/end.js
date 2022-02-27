@@ -1,49 +1,30 @@
 import Link from 'next/link'
-import { handleConnect } from '@/helpers/plugwallet'
 import { Principal } from '@dfinity/principal'
+import { useBackend } from '@/context/backend'
 
 export default function End() {
+    const { getPlugPrincipal, plugPrincipal } = useBackend()
     return (
         <div className='flex flex-row space-x-4'>
             <button
-                onClick={() =>
-                    handleConnect((data) => {
-                        console.log(data)
-                        console.log(Buffer.from(data.derKey).toString('hex'))
-                        console.log(Buffer.from(data.rawKey).toString('hex'))
-                        console.log(
-                            Principal.fromHex(
-                                Buffer.from(data.derKey).toString('hex')
-                            ).toText()
-                        )
-                        console.log(Object.keys(window.ic.plug))
-                        window.ic.plug
-                            .createAgent()
-                            .then(() => {
-                                return window.ic.plug.agent.getPrincipal()
-                            })
-                            .then((principal) => {
-                                console.log(
-                                    `Plug's user principal Id is ${principal}`
-                                )
-                            })
+                onClick={async () => {
+                    if (plugPrincipal)
+                        return alert('Plug is already connected.')
 
-                        window.ic.plug.requestBalance().then((balance) => {
-                            console.log(balance)
-                        })
+                    console.log(await getPlugPrincipal())
+                    alert('Thank you for connecting Plug.')
+                    // GET 1 ICP from wallet
 
-                        // GET 1 ICP from wallet
-
-                        const params = {
-                            to: 'lcn6v-rndou-4p3oy-gqxkd-5zmsq-c6qrg-rv746-ojpkq-z6sae-k2gax-tqe',
-                            amount: 100_000,
-                        }
-                        // window.ic.plug
-                        //     .requestTransfer(params)
-                        //     .then((result) => console.log(result))
-                        //     .catch((error) => console.error(error))
-                    })
-                }>
+                    const params = {
+                        // to: 'lcn6v-rndou-4p3oy-gqxkd-5zmsq-c6qrg-rv746-ojpkq-z6sae-k2gax-tqe',
+                        to: '60682264a0ee9db1af3b082a6ee183b6b3a44bd180018b19603d76fde450f580',
+                        amount: 1_000_000,
+                    }
+                    window.ic.plug
+                        .requestTransfer(params)
+                        .then((result) => console.log(result))
+                        .catch((error) => console.error(error))
+                }}>
                 <img
                     src='/assets/plug.png'
                     className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'

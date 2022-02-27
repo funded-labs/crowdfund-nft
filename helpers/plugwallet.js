@@ -1,5 +1,4 @@
 export const handleConnect = async (
-    onConnectCallback,
     whitelist = [],
     host = null,
     timeout = 120000
@@ -16,6 +15,4 @@ export const handleConnect = async (
     })
 
     if (!connected) return
-
-    onConnectCallback(connected)
 }

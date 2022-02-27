@@ -6,6 +6,10 @@ import {
     createActor as createImagesActor,
     canisterId as imagesCanisterId,
 } from '../declarations/images'
+import {
+    createActor as createEscrowActor,
+    canisterId as escrowCanisterId,
+} from '../declarations/escrow_manager'
 
 export const makeActorWithPrincipal = (
     canisterId,
@@ -29,6 +33,9 @@ export const makeBackendActor = () =>
 
 export const makeImagesActor = () =>
     makeActorWithPrincipal(imagesCanisterId, createImagesActor)
+
+export const makeEscrowActor = () =>
+    makeActorWithPrincipal(escrowCanisterId, createEscrowActor)
 
 export const getImageURL = (imageId) =>
     process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'

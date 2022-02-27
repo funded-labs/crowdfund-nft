@@ -3,22 +3,31 @@ import {
     makeBackendActor,
     makeBackendActorWithIdentity,
 } from '@/ui/service/actor-locator'
-
 import { AuthClient } from '@dfinity/auth-client'
+import { handleConnect } from '@/helpers/plugwallet'
 
 const INITIAL_STATE = {
-    backend: null,
+    backend: makeBackendActor(),
     backendWithAuth: null,
     isLoading: true,
+    plugPrincipal: null,
     setBackend: () => {},
 }
 
 export const BackendContext = createContext(INITIAL_STATE)
 
-export function BackendProvider({ children, backend, backendWithAuth }) {
+export function BackendProvider({
+    children,
+    backend,
+    backendWithAuth,
+    plugPrincipal,
+}) {
     const [_backend, setBackend] = useState(backend || INITIAL_STATE.backend)
     const [_backendWithAuth, setBackendWithAuth] = useState(
         backendWithAuth || INITIAL_STATE.backendWithAuth
+    )
+    const [_plugPrincipal, setPlugPrincipal] = useState(
+        plugPrincipal || INITIAL_STATE.plugPrincipal
     )
 
     useEffect(() => {
@@ -35,13 +44,12 @@ export function BackendProvider({ children, backend, backendWithAuth }) {
 
         if (environmentName === 'development') {
             backendWithAuth = makeBackendActor()
-        }
-
-        if (environmentName !== 'development') {
+        } else {
             backendWithAuth = await authClientLogin()
         }
 
         setBackendWithAuth(backendWithAuth)
+        return backendWithAuth
     }
 
     const authClientLogin = async () => {
@@ -64,9 +72,37 @@ export function BackendProvider({ children, backend, backendWithAuth }) {
         })
     }
 
+    const getPlugPrincipal = async () => {
+        if (plugPrincipal) return plugPrincipal
+        if (!window?.ic?.plug)
+            return alert('Plug is not installed in your browser')
+        if (
+            await handleConnect()
+                .then(() => true)
+                .catch(() => false)
+        ) {
+            return window.ic.plug
+                .createAgent()
+                .then(() => {
+                    return window.ic.plug.agent.getPrincipal()
+                })
+                .then((principal) => {
+                    setPlugPrincipal(principal)
+                    return principal
+                })
+                .catch((e) => {
+                    console.error(e)
+                    return plugPrincipal
+                })
+        } else {
+            return plugPrincipal
+        }
+    }
+
     const value = {
         backend: _backend,
         backendWithAuth: _backendWithAuth,
+        getPlugPrincipal,
         login,
     }
 

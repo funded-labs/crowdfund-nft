@@ -1,8 +1,0 @@
-type ProjectId = nat;
-type CanisterId = principal;
-type AccountId = text;
-service : {
-  createEscrowCanister: (ProjectId, principal, nat, nat) -> ();
-  getProjectEscrowCanisterPrincipal: (ProjectId) -> (opt CanisterId) query;
-  requestSubaccount: (ProjectId, principal) -> (AccountId);
-}

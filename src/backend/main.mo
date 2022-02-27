@@ -10,7 +10,7 @@ import Text             "mo:base/Text";
 import Types            "./types";
 import Utils            "./utils";
 
-import EscrowManager    "canister:escrow-manager";
+import EscrowManager    "canister:escrow_manager";
 
 actor CrowdFundNFT {
 
