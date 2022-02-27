@@ -1,0 +1,53 @@
+type HttpStreamingStrategy = variant {
+                               Callback:
+                                record {
+                                  callback:
+                                   func (HttpStreamingCallbackToken) ->
+                                    (HttpStreamingCallbackResponse) query;
+                                  token: HttpStreamingCallbackToken;
+                                };};
+type HttpStreamingCallbackToken = 
+ record {
+   content_encoding: text;
+   index: nat;
+   key: text;
+   sha256: opt blob;
+ };
+type HttpStreamingCallbackResponse = 
+ record {
+   body: blob;
+   token: opt HttpStreamingCallbackToken;
+ };
+type HttpResponse = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   status_code: nat16;
+   streaming_strategy: opt HttpStreamingStrategy;
+ };
+type HttpRequest = 
+ record {
+   body: blob;
+   headers: vec HeaderField;
+   method: text;
+   url: text;
+ };
+type HeaderField = 
+ record {
+   text;
+   text;
+ };
+type File = 
+ record {
+   ctype: text;
+   data: vec blob;
+ };
+type Asset = 
+ record {
+   name: text;
+   payload: File;
+ };
+service : {
+  addAsset: (Asset) -> (nat);
+  http_request: (HttpRequest) -> (HttpResponse) query;
+}

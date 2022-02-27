@@ -17,6 +17,7 @@ module {
   type UserId = Types.UserId;
 
   public class Directory() {
+
     // The "database" is made up of a few hashmaps
     let userMap = HashMap.HashMap<UserId, Profile>(1, isEqUserId, Principal.hash);
     let projectMap = HashMap.HashMap<ProjectId, Project>(1, isEqProjectId, Text.hash);
@@ -43,7 +44,7 @@ module {
             {
               bio = "";
               id = userId;
-              img = [];
+              img = "";
               firstName = "";
               lastName = "";
             };
@@ -108,7 +109,7 @@ module {
               case null {
                 {
                   category = "";
-                  coverImg = [];
+                  cover = "";
                   description = "";
                   discordLink = "";
                   goal = 0;
@@ -116,7 +117,7 @@ module {
                   nftVolume = 0;
                   owner = userId;
                   rewards = "";
-                  status = "";
+                  status = null;
                   story = "";
                   tags = [];
                   title = "";
@@ -140,7 +141,7 @@ module {
     public func updateProjectStatus(project: Project, status: ProjectStatus) {
       projectMap.put(project.id, {
         category = project.category;
-        coverImg = project.coverImg;
+        cover = project.cover;
         description = project.description;
         discordLink = project.discordLink;
         goal = project.goal;
@@ -202,12 +203,12 @@ module {
       }
     };
 
-    var projectIdGenerator : Nat = 0;
+    public var projectIdGenerator : Nat = 0;
     public func makeProject(userId: UserId, project: NewProject): Project {
       projectIdGenerator += 1;
       {
         category = project.category;
-        coverImg = project.coverImg;
+        cover = project.cover;
         description = project.description;
         discordLink = project.discordLink;
         goal = project.goal;
@@ -215,7 +216,7 @@ module {
         nftVolume = project.nftVolume;
         owner = userId;
         rewards = project.rewards;
-        status = "submitted";
+        status = ?#submitted;
         story = project.story;
         tags = project.tags; 
         title = project.title;
@@ -244,6 +245,16 @@ module {
       };
       false
     };
+
+    public func textToNat(t : Text) : ?Nat {
+      var i : Nat = 0;
+      while (i <= projectIdGenerator) {
+        if (t == Nat.toText(i)) { return ?i; };
+        i += 1;
+      };
+      return null;
+    };
+
   };
 
   func isEqUserId(x: UserId, y: UserId): Bool { x == y };

@@ -21,13 +21,13 @@ const initialValues = {
 export default function StepFive() {
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
-    const { profile, project, previousStep, setStep } = useProjectForm()
+    const { setProject, previousStep, setStep } = useProjectForm()
 
     const handleSubmit = async (form) => {
         try {
             setLoading(true)
 
-            setProject((project) => ({ ...project, ...x }))
+            setProject((project) => ({ ...project, ...form }))
 
             setStep(6)
         } catch (error) {
