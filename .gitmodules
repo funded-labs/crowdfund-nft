@@ -1,3 +1,0 @@
-[submodule "src/escrow-manager"]
-	path = src/escrow-manager
-	url = git@github.com:CrowdFund-NFT/escrow-manager.git
