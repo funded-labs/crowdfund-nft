@@ -25,7 +25,10 @@ export default function InstructionModal({ onClose }) {
                     <div className="w-full text-gray-600 text-left">
                         You'll need to authenticate and connect your wallet before you can back this project.
                         The following screens will guide you to login with Internet Identity and connect your Plug Wallet.
-                        Then, you'll be able to back this project.
+                        Then, you'll be able to back this project.<br /><br />
+
+                        If the project reaches its funding goal, your NFT will be transferred to your
+                        wallet - if the project does not get fully funded, you will be reimbursed.
                     </div>
 
                     <div className="w-full flex flex-col items-center">
