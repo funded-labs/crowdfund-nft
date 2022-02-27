@@ -135,6 +135,70 @@ actor CrowdFundNFT {
         };
     };
 
+    type ProjectNoImage = {
+        category: Text;
+        description: Text;
+        discordLink: Types.Link;
+        goal: Float;
+        id: ProjectId;
+        nftVolume: Nat;
+        owner: UserId;
+        rewards: Text;
+        status: ProjectStatus;
+        story: Text;
+        tags: [Text];
+        title: Text;
+        twitterLink: Types.Link;
+        walletId: Text;
+        wetransferLink: Types.Link;
+    };
+    type ProfileNoImage = {
+        bio: Text;
+        firstName: Text;
+        id: UserId;
+        lastName: Text;
+    };
+    type ProjectWithOwnerNoImage = {
+        project: ProjectNoImage;
+        owner: ProfileNoImage;
+    };
+    public query func listProjectsWithoutImages() : async [ProjectWithOwnerNoImage] {
+        func getProjectWithOwner(p: Project) : ProjectWithOwner { 
+            Utils.getProjectWithOwner(db, p);
+        };
+        let projectsWithOwners = Array.map(db.listProjects(), getProjectWithOwner);
+        func getProjectsWithOwnersNoImage(projectsWithOwners : ProjectWithOwner) : ProjectWithOwnerNoImage {
+            let projectNoImage : ProjectNoImage = {
+                category = projectsWithOwners.project.category;
+                description = projectsWithOwners.project.description;
+                discordLink = projectsWithOwners.project.discordLink;
+                goal = projectsWithOwners.project.goal;
+                id = projectsWithOwners.project.id;
+                nftVolume = projectsWithOwners.project.nftVolume;
+                owner = projectsWithOwners.project.owner;
+                rewards = projectsWithOwners.project.rewards;
+                status = projectsWithOwners.project.status;
+                story = projectsWithOwners.project.story;
+                tags = projectsWithOwners.project.tags;
+                title = projectsWithOwners.project.title;
+                twitterLink = projectsWithOwners.project.twitterLink;
+                walletId = projectsWithOwners.project.walletId;
+                wetransferLink = projectsWithOwners.project.wetransferLink;
+            };
+            let profileNoImage : ProfileNoImage = {
+                bio = projectsWithOwners.owner.bio;
+                firstName = projectsWithOwners.owner.firstName;
+                id = projectsWithOwners.owner.id;
+                lastName = projectsWithOwners.owner.lastName;
+            };
+            return {
+                project = projectNoImage;
+                owner = profileNoImage;
+            };
+        };
+        Array.map(projectsWithOwners, getProjectsWithOwnersNoImage); 
+    };
+
     public shared(msg) func updateProjectStatus(pid: ProjectId, status: ProjectStatus): async () {
         if (Utils.isAdmin(msg.caller) != true) { throw(E.reject("Not authorized")); };
         let p = Utils.getProject(db, pid);
