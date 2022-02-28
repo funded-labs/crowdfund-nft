@@ -15,15 +15,15 @@ export default function End() {
                     alert('Thank you for connecting Plug.')
                     // GET 1 ICP from wallet
 
-                    const params = {
-                        // to: 'lcn6v-rndou-4p3oy-gqxkd-5zmsq-c6qrg-rv746-ojpkq-z6sae-k2gax-tqe',
-                        to: '60682264a0ee9db1af3b082a6ee183b6b3a44bd180018b19603d76fde450f580',
-                        amount: 1_000_000,
-                    }
-                    window.ic.plug
-                        .requestTransfer(params)
-                        .then((result) => console.log(result))
-                        .catch((error) => console.error(error))
+                    // const params = {
+                    //     // to: 'lcn6v-rndou-4p3oy-gqxkd-5zmsq-c6qrg-rv746-ojpkq-z6sae-k2gax-tqe',
+                    //     to: '60682264a0ee9db1af3b082a6ee183b6b3a44bd180018b19603d76fde450f580',
+                    //     amount: 1_000_000,
+                    // }
+                    // window.ic.plug
+                    //     .requestTransfer(params)
+                    //     .then((result) => console.log(result))
+                    //     .catch((error) => console.error(error))
                 }}>
                 <img
                     src='/assets/plug.png'

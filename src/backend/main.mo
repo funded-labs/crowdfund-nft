@@ -265,13 +265,8 @@ actor CrowdFundNFT {
 
     // Project whitelists
 
-    public func getWhitelist(pid: ProjectId): async [Principal] {
-        for (pp in Iter.fromArrayMut(whitelists)) {
-            if (pidsAreEqual(pp.0, pid)) {
-                return pp.1;
-            };
-        };
-        return [];
+    public query func getWhitelist(pid: ProjectId): async [Principal] {
+        _getWhitelist(pid);
     };
 
     public shared(msg) func addToWhitelist(pid: ProjectId, principal: Principal): async () {
@@ -287,6 +282,41 @@ actor CrowdFundNFT {
             i += 1;
         };
         whitelists := Array.thaw<(ProjectId, [Principal])>(Array.append<(ProjectId, [Principal])>(Array.freeze<(ProjectId, [Principal])>(whitelists), [(pid, [principal])]));
+    };
+
+    type ProjectState = {
+        #whitelist: [Principal];
+        #live;
+        #closed;
+        #noproject;
+    };
+    public query func getProjectState(pid: ProjectId) : async ProjectState {
+        switch (db.getProject(pid)) {
+            case (?p) {
+                switch (p.status) {
+                    case (?#whitelist) {
+                        let whitelist = _getWhitelist(pid);
+                        #whitelist(whitelist);
+                    };
+                    case (?#live) {
+                        #live;
+                    };
+                    case _ {
+                        #closed;
+                    };
+                };
+            };
+            case null { #noproject };
+        };
+    };
+
+    func _getWhitelist(pid: ProjectId) : [Principal] {
+        for (pp in Iter.fromArrayMut(whitelists)) {
+            if (pidsAreEqual(pp.0, pid)) {
+                return pp.1;
+            };
+        };
+        return [];
     };
 
     func pidsAreEqual(p1: ProjectId, p2: ProjectId) : Bool { p1 == p2 };

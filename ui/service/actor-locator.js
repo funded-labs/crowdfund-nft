@@ -38,9 +38,9 @@ export const makeEscrowActor = () =>
     makeActorWithPrincipal(escrowCanisterId, createEscrowActor)
 
 export const getImageURL = (imageId) =>
-    process.env.NEXT_PUBLIC_ENVIRONMENT === 'production'
-        ? 'https://' + imagesCanisterId + '.raw.ic0.app/id=' + imageId
-        : 'http://127.0.0.1:8000/?canisterId=' +
+    process.env.NEXT_PUBLIC_ENVIRONMENT === 'development'
+        ? 'http://127.0.0.1:8000/?canisterId=' +
           imagesCanisterId +
           '&id=' +
           imageId
+        : 'https://' + imagesCanisterId + '.raw.ic0.app/id=' + imageId
