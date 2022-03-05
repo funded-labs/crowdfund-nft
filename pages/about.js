@@ -1,3 +1,4 @@
+import Team from "@/components/about/team";
 import Footer from "@/components/shared/footer";
 import Navbar from "@/components/shared/navbar";
 import Head from "next/head";
@@ -150,6 +151,8 @@ export default function About() {
                     </div>
                 </div>
             </section>
+
+            <Team />
 
             <Footer />
         </div>
