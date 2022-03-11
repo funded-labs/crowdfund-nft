@@ -1,5 +1,5 @@
 export const idlFactory = ({ IDL }) => {
-  const ProjectId = IDL.Text;
+  const ProjectId__1 = IDL.Text;
   const Link = IDL.Text;
   const NewProfile = IDL.Record({
     'bio' : IDL.Text,
@@ -22,8 +22,8 @@ export const idlFactory = ({ IDL }) => {
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
-  const ProjectId__1 = IDL.Text;
-  const ProjectStatus__1 = IDL.Opt(
+  const ProjectId = IDL.Text;
+  const ProjectStatus = IDL.Opt(
     IDL.Variant({
       'fully_funded' : IDL.Null,
       'submitted' : IDL.Null,
@@ -33,9 +33,9 @@ export const idlFactory = ({ IDL }) => {
     })
   );
   const UserId = IDL.Principal;
-  const Project__1 = IDL.Record({
-    'id' : ProjectId__1,
-    'status' : ProjectStatus__1,
+  const Project = IDL.Record({
+    'id' : ProjectId,
+    'status' : ProjectStatus,
     'title' : IDL.Text,
     'wetransferLink' : Link,
     'owner' : UserId,
@@ -51,6 +51,7 @@ export const idlFactory = ({ IDL }) => {
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
+  const Date = IDL.Text;
   const Profile = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
@@ -58,7 +59,15 @@ export const idlFactory = ({ IDL }) => {
     'lastName' : IDL.Text,
     'firstName' : IDL.Text,
   });
+  const GUID = IDL.Text;
+  const NFTInfo = IDL.Record({ 'index' : IDL.Nat, 'canisterId' : IDL.Text });
   const UserId__1 = IDL.Principal;
+  const ProjectState = IDL.Variant({
+    'closed' : IDL.Null,
+    'whitelist' : IDL.Vec(IDL.Principal),
+    'live' : IDL.Null,
+    'noproject' : IDL.Null,
+  });
   const Profile__1 = IDL.Record({
     'id' : UserId,
     'bio' : IDL.Text,
@@ -66,9 +75,9 @@ export const idlFactory = ({ IDL }) => {
     'lastName' : IDL.Text,
     'firstName' : IDL.Text,
   });
-  const Project = IDL.Record({
-    'id' : ProjectId__1,
-    'status' : ProjectStatus__1,
+  const Project__1 = IDL.Record({
+    'id' : ProjectId,
+    'status' : ProjectStatus,
     'title' : IDL.Text,
     'wetransferLink' : Link,
     'owner' : UserId,
@@ -86,9 +95,9 @@ export const idlFactory = ({ IDL }) => {
   });
   const ProjectWithOwner = IDL.Record({
     'owner' : Profile__1,
-    'project' : Project,
+    'project' : Project__1,
   });
-  const ProjectStatus = IDL.Opt(
+  const ProjectStatus__1 = IDL.Opt(
     IDL.Variant({
       'fully_funded' : IDL.Null,
       'submitted' : IDL.Null,
@@ -97,38 +106,82 @@ export const idlFactory = ({ IDL }) => {
       'approved' : IDL.Null,
     })
   );
+  const ProfileNoImage = IDL.Record({
+    'id' : UserId__1,
+    'bio' : IDL.Text,
+    'lastName' : IDL.Text,
+    'firstName' : IDL.Text,
+  });
+  const ProjectNoImage = IDL.Record({
+    'id' : ProjectId__1,
+    'status' : ProjectStatus__1,
+    'title' : IDL.Text,
+    'wetransferLink' : Link,
+    'owner' : UserId__1,
+    'goal' : IDL.Float64,
+    'twitterLink' : Link,
+    'tags' : IDL.Vec(IDL.Text),
+    'description' : IDL.Text,
+    'discordLink' : Link,
+    'story' : IDL.Text,
+    'rewards' : IDL.Text,
+    'category' : IDL.Text,
+    'nftVolume' : IDL.Nat,
+    'walletId' : IDL.Text,
+  });
+  const ProjectWithOwnerNoImage = IDL.Record({
+    'owner' : ProfileNoImage,
+    'project' : ProjectNoImage,
+  });
   return IDL.Service({
-    'addToWhitelist' : IDL.Func([ProjectId, IDL.Principal], [], []),
-    'approveProject' : IDL.Func([ProjectId], [], []),
-    'createFirstProject' : IDL.Func([NewProfile, NewProject], [Project__1], []),
+    'addToWhitelist' : IDL.Func([ProjectId__1, IDL.Principal], [], []),
+    'adminCreateProfile' : IDL.Func([IDL.Principal, NewProfile], [], []),
+    'adminCreateProject' : IDL.Func([IDL.Principal, NewProject], [Project], []),
+    'approveProject' : IDL.Func([ProjectId__1], [], []),
+    'createFirstProject' : IDL.Func([NewProfile, NewProject], [Project], []),
     'createProfile' : IDL.Func([NewProfile], [], []),
-    'createProject' : IDL.Func([NewProject], [Project__1], []),
-    'deleteProject' : IDL.Func([ProjectId], [IDL.Opt(Project__1)], []),
+    'createProject' : IDL.Func([NewProject], [Project], []),
+    'deleteProject' : IDL.Func([ProjectId__1], [IDL.Opt(Project)], []),
+    'getLaunchDate' : IDL.Func([ProjectId__1], [IDL.Opt(Date)], ['query']),
     'getMyProfile' : IDL.Func([], [Profile], ['query']),
-    'getMyProjects' : IDL.Func([], [IDL.Vec(Project__1)], ['query']),
+    'getMyProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
+    'getNFTInfo' : IDL.Func([GUID], [IDL.Opt(NFTInfo)], ['query']),
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
     'getOwnIdText' : IDL.Func([], [IDL.Text], ['query']),
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
-    'getProject' : IDL.Func([ProjectId], [Project__1], ['query']),
+    'getProject' : IDL.Func([ProjectId__1], [Project], ['query']),
+    'getProjectState' : IDL.Func([ProjectId__1], [ProjectState], ['query']),
     'getProjectWithOwner' : IDL.Func(
-        [ProjectId],
+        [ProjectId__1],
         [ProjectWithOwner],
         ['query'],
       ),
-    'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project__1)], ['query']),
-    'getWhitelist' : IDL.Func([ProjectId], [IDL.Vec(IDL.Principal)], []),
+    'getProjects' : IDL.Func([UserId__1], [IDL.Vec(Project)], ['query']),
+    'getWhitelist' : IDL.Func(
+        [ProjectId__1],
+        [IDL.Vec(IDL.Principal)],
+        ['query'],
+      ),
     'greet' : IDL.Func([], [IDL.Text], []),
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
     'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listProjects' : IDL.Func(
-        [IDL.Vec(ProjectStatus)],
+        [IDL.Vec(ProjectStatus__1)],
         [IDL.Vec(ProjectWithOwner)],
         ['query'],
       ),
-    'makeProjectLive' : IDL.Func([ProjectId], [], []),
-    'openProjectToWhiteList' : IDL.Func([ProjectId], [], []),
+    'listProjectsWithoutImages' : IDL.Func(
+        [],
+        [IDL.Vec(ProjectWithOwnerNoImage)],
+        ['query'],
+      ),
+    'makeProjectLive' : IDL.Func([ProjectId__1], [], []),
+    'openProjectToWhiteList' : IDL.Func([ProjectId__1], [], []),
+    'putLaunchDate' : IDL.Func([ProjectId__1, Date], [], []),
+    'putNFTGUIDs' : IDL.Func([IDL.Vec(IDL.Tuple(GUID, NFTInfo))], [], []),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'updateProfile' : IDL.Func([Profile], [], []),
+    'updateProject' : IDL.Func([Project], [], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

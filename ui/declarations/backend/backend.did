@@ -7,11 +7,11 @@ type Project__1 =
    description: text;
    discordLink: Link;
    goal: float64;
-   id: ProjectId__1;
+   id: ProjectId;
    nftVolume: nat;
    owner: UserId;
    rewards: text;
-   status: ProjectStatus__1;
+   status: ProjectStatus;
    story: text;
    tags: vec text;
    title: text;
@@ -19,10 +19,15 @@ type Project__1 =
    walletId: text;
    wetransferLink: Link;
  };
+type ProjectWithOwnerNoImage = 
+ record {
+   owner: ProfileNoImage;
+   project: ProjectNoImage;
+ };
 type ProjectWithOwner = 
  record {
    owner: Profile__1;
-   project: Project;
+   project: Project__1;
  };
 type ProjectStatus__1 = 
  opt variant {
@@ -40,6 +45,31 @@ type ProjectStatus =
        submitted;
        whitelist;
      };
+type ProjectState = 
+ variant {
+   closed;
+   live;
+   noproject;
+   whitelist: vec principal;
+ };
+type ProjectNoImage = 
+ record {
+   category: text;
+   description: text;
+   discordLink: Link;
+   goal: float64;
+   id: ProjectId__1;
+   nftVolume: nat;
+   owner: UserId__1;
+   rewards: text;
+   status: ProjectStatus__1;
+   story: text;
+   tags: vec text;
+   title: text;
+   twitterLink: Link;
+   walletId: text;
+   wetransferLink: Link;
+ };
 type ProjectId__1 = text;
 type ProjectId = text;
 type Project = 
@@ -49,11 +79,11 @@ type Project =
    description: text;
    discordLink: Link;
    goal: float64;
-   id: ProjectId__1;
+   id: ProjectId;
    nftVolume: nat;
    owner: UserId;
    rewards: text;
-   status: ProjectStatus__1;
+   status: ProjectStatus;
    story: text;
    tags: vec text;
    title: text;
@@ -67,6 +97,13 @@ type Profile__1 =
    firstName: text;
    id: UserId;
    img: Link;
+   lastName: text;
+ };
+type ProfileNoImage = 
+ record {
+   bio: text;
+   firstName: text;
+   id: UserId__1;
    lastName: text;
  };
 type Profile = 
@@ -100,29 +137,48 @@ type NewProfile =
    img: Link;
    lastName: text;
  };
+type NFTInfo = 
+ record {
+   canisterId: text;
+   index: nat;
+ };
 type Link = text;
+type GUID = text;
+type Date = text;
 service : {
-  addToWhitelist: (ProjectId, principal) -> ();
-  approveProject: (ProjectId) -> ();
-  createFirstProject: (NewProfile, NewProject) -> (Project__1);
+  addToWhitelist: (ProjectId__1, principal) -> ();
+  adminCreateProfile: (principal, NewProfile) -> ();
+  adminCreateProject: (principal, NewProject) -> (Project);
+  approveProject: (ProjectId__1) -> ();
+  createFirstProject: (NewProfile, NewProject) -> (Project);
   createProfile: (NewProfile) -> ();
-  createProject: (NewProject) -> (Project__1);
-  deleteProject: (ProjectId) -> (opt Project__1);
+  createProject: (NewProject) -> (Project);
+  deleteProject: (ProjectId__1) -> (opt Project);
+  getLaunchDate: (ProjectId__1) -> (opt Date) query;
   getMyProfile: () -> (Profile) query;
-  getMyProjects: () -> (vec Project__1) query;
+  getMyProjects: () -> (vec Project) query;
+  getNFTInfo: (GUID) -> (opt NFTInfo) query;
   getOwnId: () -> (UserId__1) query;
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
-  getProject: (ProjectId) -> (Project__1) query;
-  getProjectWithOwner: (ProjectId) -> (ProjectWithOwner) query;
-  getProjects: (UserId__1) -> (vec Project__1) query;
-  getWhitelist: (ProjectId) -> (vec principal);
+  getProject: (ProjectId__1) -> (Project) query;
+  getProjectState: (ProjectId__1) -> (ProjectState) query;
+  getProjectWithOwner: (ProjectId__1) -> (ProjectWithOwner) query;
+  getProjects: (UserId__1) -> (vec Project) query;
+  getWhitelist: (ProjectId__1) -> (vec principal) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
   isAdmin: () -> (bool) query;
-  listProjects: (vec ProjectStatus) -> (vec ProjectWithOwner) query;
-  makeProjectLive: (ProjectId) -> ();
-  openProjectToWhiteList: (ProjectId) -> ();
+  listProjects: (vec ProjectStatus__1) -> (vec ProjectWithOwner) query;
+  listProjectsWithoutImages: () -> (vec ProjectWithOwnerNoImage) query;
+  makeProjectLive: (ProjectId__1) -> ();
+  openProjectToWhiteList: (ProjectId__1) -> ();
+  putLaunchDate: (ProjectId__1, Date) -> ();
+  putNFTGUIDs: (vec record {
+                      GUID;
+                      NFTInfo;
+                    }) -> ();
   searchProfiles: (text) -> (vec Profile) query;
   updateProfile: (Profile) -> ();
+  updateProject: (Project) -> ();
 }

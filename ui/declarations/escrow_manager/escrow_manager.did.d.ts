@@ -10,7 +10,15 @@ export interface EscrowStats {
 }
 export type ProjectId = bigint;
 export type Time = bigint;
+export interface definite_canister_settings {
+  'freezing_threshold' : bigint,
+  'controllers' : [] | [Array<Principal>],
+  'memory_allocation' : bigint,
+  'compute_allocation' : bigint,
+}
 export interface _SERVICE {
+  'acceptCycles' : () => Promise<undefined>,
+  'availableCycles' : () => Promise<bigint>,
   'cancelTransfer' : (arg_0: ProjectId, arg_1: AccountIdText) => Promise<
       undefined
     >,
@@ -31,4 +39,6 @@ export interface _SERVICE {
   'requestSubaccount' : (arg_0: ProjectId, arg_1: Principal) => Promise<
       AccountIdText
     >,
+  'test' : () => Promise<definite_canister_settings>,
+  'wallet_receive' : () => Promise<undefined>,
 }

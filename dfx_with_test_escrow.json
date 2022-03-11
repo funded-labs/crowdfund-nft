@@ -1,0 +1,50 @@
+{
+    "canisters": {
+        "backend": {
+            "declarations": {
+                "output": "ui/declarations/backend"
+            },
+            "dependencies": ["escrow_manager"],
+            "main": "src/backend/main.mo"
+        },
+        "frontend": {
+            "declarations": {
+                "output": "ui/declarations/frontend"
+            },
+            "dependencies": ["backend", "escrow_manager", "images"],
+            "source": ["out"],
+            "type": "assets"
+        },
+        "escrow_manager": {
+            "declarations": {
+                "output": "ui/declarations/escrow_manager"
+            },
+            "main": "src/escrow_manager/main.mo"
+        },
+        "images": {
+            "declarations": {
+                "output": "ui/declarations/images"
+            },
+            "main": "src/images/main.mo"
+        },
+        "test_escrow": {
+            "declarations": {
+                "output": "ui/declarations/test_escrow"
+            },
+            "main": "src/escrow_manager/escrow.mo"
+        }
+    },
+    "defaults": {
+        "build": {
+            "packtool": ""
+        }
+    },
+    "dfx": "0.9.1-beta.0",
+    "networks": {
+        "local": {
+            "bind": "127.0.0.1:8000",
+            "type": "ephemeral"
+        }
+    },
+    "version": 1
+}

@@ -6,6 +6,7 @@ import Iter             "mo:base/Iter";
 import Nat              "mo:base/Nat";
 import Principal        "mo:base/Principal";
 import Text             "mo:base/Text";
+import Trie             "mo:base/Trie";
 
 import Types            "./types";
 import Utils            "./utils";
@@ -62,6 +63,41 @@ actor CrowdFundNFT {
         userProjects := [];
     };
 
+    // NFT Page GUID to NFT data
+
+    type GUID = Text;
+    type NFTInfo = { canisterId: Text; index: Nat };
+    stable var nftGUIDs : Trie.Trie<GUID, NFTInfo> = Trie.empty();
+    func eqGUID (a: GUID, b: GUID) : Bool { a == b };
+    func getGUIDkey (guid: GUID) : Trie.Key<GUID> {
+        { key = guid; hash = Text.hash(guid); };
+    };
+    public shared(msg) func putNFTGUIDs(guidsAndInfo : [(GUID, NFTInfo)]) : async () {
+        assert(Utils.isAdmin(msg.caller));
+        for (gi in Iter.fromArray(guidsAndInfo)) {
+            nftGUIDs := Trie.put<GUID, NFTInfo>(nftGUIDs, getGUIDkey(gi.0), eqGUID, gi.1).0;
+        };
+    };
+    public query func getNFTInfo(guid: GUID) : async ?NFTInfo {
+        Trie.get<GUID, NFTInfo>(nftGUIDs, getGUIDkey(guid), eqGUID);
+    };
+
+    // Launch dates
+
+    type Date = Text;
+    stable var launchDates : Trie.Trie<ProjectId, Date> = Trie.empty();
+    func eqDate (a: Date, b: Date) : Bool { a == b };
+    func getProjectIdkey (pid: ProjectId) : Trie.Key<ProjectId> {
+        { key = pid; hash = Text.hash(pid); };
+    };
+    public shared(msg) func putLaunchDate(pid: ProjectId, date: Date) : async () {
+        assert(Utils.isAdmin(msg.caller));
+        launchDates := Trie.put<ProjectId, Date>(launchDates, getProjectIdkey(pid), eqDate, date).0;
+    };
+    public query func getLaunchDate(pid: ProjectId) : async ?Date {
+        Trie.get<ProjectId, Date>(launchDates, getProjectIdkey(pid), eqDate);
+    };
+
     // Healthcheck
 
     public func healthcheck(): async Bool { true };
@@ -80,6 +116,11 @@ actor CrowdFundNFT {
 
     public shared(msg) func createProfile(profile: NewProfile): async () {
         db.createOne(msg.caller, profile);
+    };
+
+    public shared(msg) func adminCreateProfile(principal: Principal, profile: NewProfile): async () {
+        assert(Utils.isAdmin(msg.caller));
+        db.createOne(principal, profile);
     };
 
     public shared(msg) func updateProfile(profile: Profile): async () {
@@ -109,6 +150,17 @@ actor CrowdFundNFT {
 
     public shared(msg) func createProject(project: NewProject): async Project {
         db.createProject(msg.caller, project)
+    };
+
+    public shared(msg) func adminCreateProject(principal: Principal, project: NewProject): async Project {
+        assert(Utils.isAdmin(msg.caller));
+        db.createProject(principal, project)
+    };
+
+    public shared(msg) func updateProject(project: Project): async () {
+        if(Utils.hasProjectAccess(msg.caller, project)) {
+            db.updateProject(project);
+        };
     };
 
     public shared(msg) func deleteProject(projectId: ProjectId): async ?Project {

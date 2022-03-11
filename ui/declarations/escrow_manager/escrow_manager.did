@@ -1,3 +1,10 @@
+type definite_canister_settings = 
+ record {
+   compute_allocation: nat;
+   controllers: opt vec principal;
+   freezing_threshold: nat;
+   memory_allocation: nat;
+ };
 type Time = int;
 type ProjectId = nat;
 type EscrowStats = 
@@ -11,10 +18,14 @@ type EscrowStats =
 type CanisterId = principal;
 type AccountIdText = text;
 service : {
+  acceptCycles: () -> ();
+  availableCycles: () -> (nat) query;
   cancelTransfer: (ProjectId, AccountIdText) -> ();
   confirmTransfer: (ProjectId, AccountIdText) -> ();
   createEscrowCanister: (ProjectId, principal, nat, nat, Time) -> ();
   getProjectEscrowCanisterPrincipal: (ProjectId) -> (opt CanisterId) query;
   getProjectStats: (ProjectId) -> (EscrowStats);
   requestSubaccount: (ProjectId, principal) -> (AccountIdText);
+  test: () -> (definite_canister_settings);
+  wallet_receive: () -> ();
 }

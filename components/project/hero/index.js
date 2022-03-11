@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Principal } from '@dfinity/principal'
 // import { addDays, differenceInCalendarDays } from 'date-fns'
 import { useBackend } from '@/context/backend'
@@ -7,11 +8,14 @@ import { makeEscrowActor } from '@/ui/service/actor-locator'
 // import ExampleModal from './example-modal'
 import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export default function Hero({ isLoading, project }) {
-    const [loading, setLoading] = useState(false)
-    // const [loadingStats, setLoadingStats] = useState(false)
+    const router = useRouter()
     const [hasShownInstructions, setHasShownInstructions] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [loadingMessage, setLoadingMessage] = useState('')
+    // const [loadingStats, setLoadingStats] = useState(false)
     const [showExampleModal, setExampleModal] = useState(false)
     const [stats, setStats] = useState({
         nftNumber: project?.nftVolume ? Number(project.nftVolume) : 0,
@@ -23,14 +27,22 @@ export default function Hero({ isLoading, project }) {
         openSubaccounts: 0,
     })
 
-    const { backendWithAuth, getPlugPrincipal, login } = useBackend()
-    const backend = backendWithAuth
+    const [launchDate, setLaunchDate] = useState(null)
+
+    const [showCaptcha, setShowCaptcha] = useState(false)
+    const [hasPassedCaptcha, setHasPassedCaptcha] = useState(false)
+
+    const { backend, getPlugPrincipal } = useBackend()
     const escrowActor = makeEscrowActor()
 
     const status = Object.keys(project?.status?.[0] || { submitted: null })[0]
 
     useEffect(async () => {
         if (!project) return
+        if (launchDate === null) {
+            const ld = await backend.getLaunchDate(project.id)
+            if (Array.isArray(ld)) setLaunchDate(ld[0])
+        }
         const newStats = await escrowActor.getProjectStats(parseInt(project.id))
         if (newStats?.nftNumber > 0)
             setStats({
@@ -67,25 +79,22 @@ export default function Hero({ isLoading, project }) {
         if (!(status === 'whitelist' || status === 'live'))
             return alert('This project is not yet live.')
 
+        if (!hasPassedCaptcha) return setShowCaptcha(true)
+
         if (hasShownInstructions) return backProject()
         setExampleModal(true)
     }
 
     const backProject = async () => {
-        if (!backend) {
-            const _backend = await login()
-            if (!_backend)
-                return alert(
-                    "You'll need to sign in with internet identity to back this project 1."
-                )
-        }
         setLoading(true)
+        setLoadingMessage('Getting Plug Wallet principal...')
         const plugPrincipal = await getPlugPrincipal()
         if (!plugPrincipal) {
             setLoading(false)
             return alert('You must connect Plug in order to back a project.')
         }
 
+        setLoadingMessage('Loading escrow account id...')
         escrowActor
             .requestSubaccount(
                 parseInt(project.id),
@@ -99,14 +108,20 @@ export default function Hero({ isLoading, project }) {
                     to: accountid,
                     amount: Number(stats.nftPriceE8S),
                 }
+                setLoadingMessage('Requesting transfer from Plug...')
                 return window.ic.plug
                     .requestTransfer(params)
                     .then((plugResult) => {
                         console.log(plugResult)
-                        return escrowActor.confirmTransfer(
-                            parseInt(project.id),
-                            accountid
-                        )
+                        setLoadingMessage('Confirming transfer...')
+                        return escrowActor
+                            .confirmTransfer(parseInt(project.id), accountid)
+                            .then(() =>
+                                router.push(
+                                    '/success?projectId=' + project.id,
+                                    '/success.html?projectId=' + project.id
+                                )
+                            )
                     })
                     .catch((error) => {
                         console.error(error)
@@ -117,6 +132,30 @@ export default function Hero({ isLoading, project }) {
                     })
             })
             .catch((error) => {
+                if (error.message === 'Principal is not on whitelist.') {
+                    return alert(
+                        'Your Plug Wallet is not on the whitelist. Please come back when the project is open to everyone.'
+                    )
+                } else if (
+                    error.message === 'Project is past crowdfund close date.'
+                ) {
+                    return alert(
+                        'This project is past its crowdfund close date. Please refer to our home page for other project to fund.'
+                    )
+                } else if (
+                    error.message ===
+                    'Principal already has an uncancelled subaccount.'
+                ) {
+                    return alert(
+                        'You have already backed this project. This project only allows to be backed once per user.'
+                    )
+                } else if (error.message === 'Not enough subaccounts.') {
+                    return alert(
+                        'This project is fully funded, or enough people are currently completing payments to fund it fully.'
+                    )
+                } else {
+                    return alert(error.message)
+                }
                 console.error(error)
             })
             .finally(() => setLoading(false))
@@ -168,7 +207,7 @@ export default function Hero({ isLoading, project }) {
         )
     }
 
-    const { title, goal, twitterLink, discordLink } = project
+    const { title, twitterLink, discordLink } = project
 
     const Status = () => {
         switch (status) {
@@ -180,6 +219,18 @@ export default function Hero({ isLoading, project }) {
                 return <>not live</>
         }
     }
+
+    console.log(stats)
+    console.log((stats.nftsSold * stats.nftPriceE8S) / 100_000_000)
+    console.log((stats.nftNumber * stats.nftPriceE8S) / 100_000_000)
+    console.log(
+        Math.min(
+            (stats.nftsSold * stats.nftPriceE8S) / 100_000_000,
+            (stats.nftNumber * stats.nftPriceE8S) / 100_000_000
+        )
+    )
+
+    console.log(JSON.stringify(launchDate))
 
     return (
         <section className='w-full bg-white'>
@@ -203,18 +254,23 @@ export default function Hero({ isLoading, project }) {
                     <div className='w-full lg:w-5/12 flex flex-col'>
                         <div className='h-3 bg-gray-200 rounded-full relative overflow-hidden'>
                             <div
-                                className={`absolute left-0 top-0 bg-blue-600 h-3 rounded-full w-${(stats.nftNumber >
-                                0
-                                    ? stats.nftsSold / stats.nftNumber
-                                    : 0
-                                ).toString()}`}
+                                className={`absolute left-0 top-0 bg-blue-600 h-3 rounded-full`}
+                                style={{
+                                    width: `${(stats.nftNumber > 0
+                                        ? (stats.nftsSold / stats.nftNumber) *
+                                          100
+                                        : 0
+                                    ).toString()}%`,
+                                }}
                             />
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {(
+                                {Math.min(
                                     (stats.nftsSold * stats.nftPriceE8S) /
-                                    100_000_000
+                                        100_000_000,
+                                    (stats.nftNumber * stats.nftPriceE8S) /
+                                        100_000_000
                                 ).toString()}{' '}
                                 ICP
                             </p>
@@ -232,7 +288,9 @@ export default function Hero({ isLoading, project }) {
                                 {(stats.nftPriceE8S / 100_000_000).toString()}{' '}
                                 ICP
                             </p>
-                            <p className='text-gray-400 text-lg'>price</p>
+                            <p className='text-gray-400 text-lg'>
+                                price per NFT
+                            </p>
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
@@ -246,23 +304,48 @@ export default function Hero({ isLoading, project }) {
                             <p className='text-gray-400 text-lg'>days to go</p>
                         </div>
                         <div className='w-full py-2'>
-                            <button
-                                disabled={loading || stats.endTime <= 0}
-                                className={`
+                            <div style={{ textAlign: 'center' }}>
+                                {loading && loadingMessage}
+                            </div>
+                            {stats.endTime > 0 &&
+                            stats.nftsSold >= stats.nftNumber ? (
+                                <div style={{ textAlign: 'center' }}>
+                                    This project is now fully funded!
+                                </div>
+                            ) : (
+                                <button
+                                    disabled={loading || stats.endTime <= 0}
+                                    className={`
                                     flex flex-row justify-center shadow-lg bg-blue-600 text-white text-sm 
                                     font-medium rounded-full w-full appearance-none focus:outline-none py-3 
                                     px-4 hover:bg-blue-700
                                 `}
-                                type='button'
-                                onClick={backProjectButtonClick}>
-                                {loading ? (
-                                    <span className='h-5 w-5'>
-                                        <Spinner show={true} />
-                                    </span>
-                                ) : (
-                                    <>Back this project</>
-                                )}
-                            </button>
+                                    type='button'
+                                    onClick={backProjectButtonClick}>
+                                    {loading ? (
+                                        <span className='h-5 w-5'>
+                                            <Spinner show={true} />
+                                        </span>
+                                    ) : launchDate !== null &&
+                                      status === 'approved' ? (
+                                        <>Launching on {launchDate}</>
+                                    ) : (
+                                        <>Crowdfund this project</>
+                                    )}
+                                </button>
+                            )}
+                            {showCaptcha && !hasPassedCaptcha && (
+                                <ReCAPTCHA
+                                    sitekey='6LfzZaceAAAAALKgbi6cblAmKHmIGmzp4CGJ-xEt'
+                                    onChange={() => {
+                                        console.log('captcha successful')
+                                        setHasPassedCaptcha(true)
+                                        if (hasShownInstructions)
+                                            return backProject()
+                                        setExampleModal(true)
+                                    }}
+                                />
+                            )}
                             {showExampleModal && (
                                 <InstructionModal
                                     onClose={() => {

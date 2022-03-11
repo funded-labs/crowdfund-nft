@@ -23,9 +23,8 @@ export default function InstructionModal({ onClose }) {
             <div className='w-full h-full flex flex-col p-4 md:px-10 md:py-10 items-center justify-center'>
                 <div className='w-full mx-auto flex flex-col items-center space-y-4'>
                     <div className='w-full text-gray-600 text-left'>
-                        You'll need to authenticate and connect your wallet
-                        before you can back this project. The following screens
-                        will guide you to login with Internet Identity and
+                        You'll need to connect your wallet before you can back
+                        this project. The following screens will guide you to
                         connect your Plug Wallet. Then, you'll be able to back
                         this project.
                         <br />

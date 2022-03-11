@@ -10,7 +10,15 @@ export const idlFactory = ({ IDL }) => {
     'openSubaccounts' : IDL.Nat,
     'nftsSold' : IDL.Nat,
   });
+  const definite_canister_settings = IDL.Record({
+    'freezing_threshold' : IDL.Nat,
+    'controllers' : IDL.Opt(IDL.Vec(IDL.Principal)),
+    'memory_allocation' : IDL.Nat,
+    'compute_allocation' : IDL.Nat,
+  });
   return IDL.Service({
+    'acceptCycles' : IDL.Func([], [], []),
+    'availableCycles' : IDL.Func([], [IDL.Nat], ['query']),
     'cancelTransfer' : IDL.Func([ProjectId, AccountIdText], [], []),
     'confirmTransfer' : IDL.Func([ProjectId, AccountIdText], [], []),
     'createEscrowCanister' : IDL.Func(
@@ -29,6 +37,8 @@ export const idlFactory = ({ IDL }) => {
         [AccountIdText],
         [],
       ),
+    'test' : IDL.Func([], [definite_canister_settings], []),
+    'wallet_receive' : IDL.Func([], [], []),
   });
 };
 export const init = ({ IDL }) => { return []; };
