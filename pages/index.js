@@ -5,38 +5,21 @@ import Hero from '../components/home/hero'
 // import NearlyFunded from '../components/home/nearly-funded'
 import Navbar from '../components/shared/navbar'
 import Footer from '@/components/shared/footer'
-// import LandingPopup, { LOCALSTORAGE_KEY } from '@/components/home/landing-popup'
 
-function HomePage() {
-    // const [showWelcomeMessage, setWelcomeMessage] = useState(true)
+const HomePage = () => (
+    <div className='w-full'>
+        <Navbar />
 
-    // useEffect(() => {
-    //     const dontShow = localStorage.getItem(LOCALSTORAGE_KEY)
+        <Hero />
 
-    //     if (dontShow === 'true') {
-    //         setWelcomeMessage(false)
-    //     }
-    // }, [])
+        <Featured />
 
-    // if (showWelcomeMessage) {
-    //     return <LandingPopup onContinue={() => setWelcomeMessage(false)} />
-    // }
+        <LiveSoon />
 
-    return (
-        <div className='w-full'>
-            <Navbar />
+        {/* <NearlyFunded /> */}
 
-            <Hero />
-
-            <Featured />
-
-            <LiveSoon />
-
-            {/* <NearlyFunded /> */}
-
-            <Footer />
-        </div>
-    )
-}
+        <Footer />
+    </div>
+)
 
 export default HomePage
