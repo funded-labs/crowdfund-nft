@@ -1,9 +1,15 @@
+import Team from "@/components/about/team";
 import Footer from "@/components/shared/footer";
 import Navbar from "@/components/shared/navbar";
+import Head from "next/head";
 
 export default function About() {
     return (
         <div className='w-full flex flex-col'>
+            <Head>
+                <title>About CrowdFund NFT</title>
+            </Head>
+
             <Navbar />
 
             <section className="w-full py-10">
@@ -145,6 +151,8 @@ export default function About() {
                     </div>
                 </div>
             </section>
+
+            <Team />
 
             <Footer />
         </div>

@@ -12,7 +12,7 @@ const stepTwoSchema = Yup.object().shape({
     projectCategory: Yup.string().required(
         'Select a category for your project'
     ),
-    twitterLink: Yup.string(), //.required("Enter Twitter link for your project"),
+    twitterLink: Yup.string().required("Enter Twitter link for your project"),
     discordLink: Yup.string(), //.required("Enter a Discord link for your project")
 })
 

@@ -7,7 +7,7 @@ import NftPreview from '@/components/view-nft/nft-preview'
 
 export default function ProjectDetails() {
     const router = useRouter()
-    const { nftId } = router.query
+    const { id } = router.query
     const { backend } = useBackend()
 
     const {
@@ -16,13 +16,15 @@ export default function ProjectDetails() {
         isError,
         isFetching,
     } = useQuery(
-        ['nft-details', nftId, backend],
+        ['nft-details', id, backend],
         async () => {
             if (!backend) return null
-            if (!nftId) return null
+            if (!id) return null
+
+            console.log(id)
 
             // @todo: get nft details
-            return null;
+            return null
         },
         {
             refetchOnWindowFocus: false,
@@ -40,8 +42,8 @@ export default function ProjectDetails() {
                     </p>
 
                     <p className='text-center text-xs max-w-lg mx-auto'>
-                        Use this page to explore rewards associated to your
-                        NFT - and your contractual agreement with the project
+                        Use this page to explore rewards associated to your NFT
+                        - and your contractual agreement with the project
                         creator.
                     </p>
                 </div>
@@ -66,8 +68,8 @@ export default function ProjectDetails() {
 
                         <p className='text-center text-xs max-w-lg mx-auto'>
                             Use this page to explore rewards associated to your
-                            NFT - and your contractual agreement with the project
-                            creator.
+                            NFT - and your contractual agreement with the
+                            project creator.
                         </p>
                     </div>
                 </section>

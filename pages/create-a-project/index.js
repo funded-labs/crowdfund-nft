@@ -9,11 +9,7 @@ export default function CreateAProject() {
     const [showLoginModal, setLoginModal] = useState(false)
 
     useEffect(() => {
-        if (backend) {
-            setLoginModal(false)
-            return
-        }
-
+        if (backend) return setLoginModal(false)
         setLoginModal(true)
     }, [backend])
 

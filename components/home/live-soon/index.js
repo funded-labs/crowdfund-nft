@@ -2,7 +2,7 @@ import Grid from './grid'
 import { useQuery } from 'react-query'
 import { useBackend } from '@/context/backend'
 
-export default function Featured() {
+export default function LiveSoon() {
     const { backend } = useBackend()
 
     const {
@@ -11,15 +11,12 @@ export default function Featured() {
         isError,
         isFetching,
     } = useQuery(
-        ['featured-projects', backend],
+        ['live-soon-projects', backend],
         async () => {
             if (!backend) return []
 
-            const projects = await backend.listProjects([
-                [{ live: null }],
-                [{ fully_funded: null }],
-                [{ whitelist: null }],
-            ])
+            const projects = await backend.listProjects([[{ approved: null }]])
+            console.log(projects)
             return projects
         },
         {
@@ -31,7 +28,7 @@ export default function Featured() {
     return (
         <section className='w-full py-10'>
             <div className='px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-2'>
-                Featured Projects
+                Projects Going Live Soon
             </div>
             {!isLoading && (!projects || projects.length === 0) ? (
                 <div className='px-4 w-full max-w-5xl mx-auto'>

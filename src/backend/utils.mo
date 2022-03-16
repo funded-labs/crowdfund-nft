@@ -23,7 +23,7 @@ module {
           bio = "";
           firstName = "";
           id = userId;
-          img = [];
+          img = "";
           lastName = "";
         }
       };
@@ -39,7 +39,7 @@ module {
       case (null) {
         {
           category = "";
-          coverImg = [];
+          cover = "";
           description = "";
           discordLink = "";
           goal = 0;
@@ -47,7 +47,7 @@ module {
           nftVolume = 0;
           owner = Principal.fromText("");
           rewards = "";
-          status= "";
+          status= null;
           story = "";
           tags = [];
           title = "";

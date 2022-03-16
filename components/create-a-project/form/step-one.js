@@ -47,7 +47,7 @@ export default function StepOne() {
 
     const handleSubmit = async (form) => {
         try {
-            setLoading(true);
+            setLoading(true)
 
             setProfile((profile) => ({ ...profile, ...form }))
 
@@ -142,7 +142,7 @@ export default function StepOne() {
                     </button>
 
                     <p className='w-full py-4 px-4 text-xs text-center text-gray-500'>
-                        By continuing, you agree to CrowdFund NFTs Terms and
+                        By continuing, you agree to CrowdFund NFT's Terms and
                         acknowledge receipt of our Privacy Policy.
                     </p>
                 </form>

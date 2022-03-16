@@ -10,6 +10,7 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
+                    <title>CrowdFund NFT</title>
                     <script
                         async
                         src='https://www.googletagmanager.com/gtag/js?id=G-E0X9Z3JTN3'></script>

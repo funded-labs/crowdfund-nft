@@ -4,10 +4,7 @@ import Textarea from '@/components/forms/textarea'
 import { useRouter } from 'next/router'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { useBackend } from '@/context/backend'
 import { useProjectForm } from './project-form-context'
-
-import { imgFileToInt8Array } from '../../../helpers/imageHelper'
 
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
@@ -22,51 +19,22 @@ const initialValues = {
 }
 
 export default function StepFive() {
-    const backend = useBackend().backendWithAuth
     const [isLoading, setLoading] = useState(false)
     const router = useRouter()
-    const { profile, project, previousStep, setStep } = useProjectForm()
+    const { setProject, previousStep, setStep } = useProjectForm()
 
     const handleSubmit = async (form) => {
         try {
             setLoading(true)
 
-            const p = { ...project, ...form }
+            setProject((project) => ({ ...project, ...form }))
 
-            const payload = {
-                category: p.projectCategory,
-                coverImg: p.coverImg
-                    ? await imgFileToInt8Array(p.coverImg)
-                    : [], // project.coverImgUrl
-                description: '',
-                discordLink: p.discordLink,
-                goal: p.targetAmount,
-                nftVolume: p.nftVolume,
-                rewards: p.rewards,
-                story: p.story,
-                tags: [],
-                title: p.projectTitle,
-                twitterLink: p.twitterLink,
-                walletId: p.walletId,
-                wetransferLink: p.wetransferLink,
-            }
-
-            await backend.createProfile({
-                bio: profile.bio,
-                img: profile.profileImg
-                    ? await imgFileToInt8Array(profile.profileImg)
-                    : [],
-                lastName: profile.lastName,
-                firstName: profile.firstName,
-            })
-
-            await backend.createProject(payload)
+            setStep(6)
         } catch (error) {
             console.log(error)
-            // todo: set form error
+            // toto: set form error
         } finally {
             setLoading(false)
-            setStep(6)
         }
     }
 
@@ -147,7 +115,7 @@ export default function StepFive() {
                             px-4 font-medium text-base tracking-wider rounded-xl
                             shadow-xl hover:bg-blue-700
                         `}>
-                        {!isLoading && <span>Submit Project</span>}
+                        {!isLoading && <span>Next</span>}
 
                         {isLoading && (
                             <span className='h-5 w-5'>
