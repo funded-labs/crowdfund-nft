@@ -13,44 +13,12 @@ export default function Hero({ isLoading, project }) {
     // const [loadingStats, setLoadingStats] = useState(false)
     const [hasShownInstructions, setHasShownInstructions] = useState(false)
     const [showExampleModal, setExampleModal] = useState(false)
-    const [stats, setStats] = useState({
-        nftNumber: project?.nftVolume ? Number(project.nftVolume) : 0,
-        nftPriceE8S: project
-            ? Number(BigInt(project?.goal) / project?.nftVolume) * 100_000_000
-            : 0,
-        endTime: 0,
-        nftsSold: 0,
-        openSubaccounts: 0,
-    })
 
     const { backendWithAuth, getPlugPrincipal, login } = useBackend()
     const backend = backendWithAuth
     const escrowActor = makeEscrowActor()
 
     const status = Object.keys(project?.status?.[0] || { submitted: null })[0]
-
-    useEffect(async () => {
-        if (!project) return
-        const newStats = await escrowActor.getProjectStats(parseInt(project.id))
-        if (newStats?.nftNumber > 0)
-            setStats({
-                nftNumber: Number(newStats.nftNumber),
-                nftPriceE8S: Number(newStats.nftPriceE8S),
-                endTime: Number(newStats.endTime),
-                nftsSold: Number(newStats.nftsSold),
-                openSubaccounts: Number(newStats.openSubaccounts),
-            })
-        else
-            setStats({
-                nftNumber: Number(project.nftVolume),
-                nftPriceE8S:
-                    Number(BigInt(project?.goal) / project?.nftVolume) *
-                    100_000_000,
-                endTime: 0,
-                nftsSold: 0,
-                openSubaccounts: 0,
-            })
-    }, [project])
 
     const handleShare = () => {
         if (!window) return
@@ -62,7 +30,7 @@ export default function Hero({ isLoading, project }) {
     }
 
     const backProjectButtonClick = () => {
-        if (stats.endTime === 0) return
+        if (project.stats.endTime === 0) return
 
         if (!(status === 'whitelist' || status === 'live'))
             return alert('This project is not yet live.')
@@ -93,11 +61,11 @@ export default function Hero({ isLoading, project }) {
             )
             .then((accountid) => {
                 console.log(accountid)
-                console.log(Number(stats.nftPriceE8S))
+                console.log(Number(project.stats.nftPriceE8S))
 
                 const params = {
                     to: accountid,
-                    amount: Number(stats.nftPriceE8S),
+                    amount: Number(project.stats.nftPriceE8S),
                 }
                 return window.ic.plug
                     .requestTransfer(params)
@@ -203,9 +171,9 @@ export default function Hero({ isLoading, project }) {
                     <div className='w-full lg:w-5/12 flex flex-col'>
                         <div className='h-3 bg-gray-200 rounded-full relative overflow-hidden'>
                             <div
-                                className={`absolute left-0 top-0 bg-blue-600 h-3 rounded-full w-${(stats.nftNumber >
+                                className={`absolute left-0 top-0 bg-blue-600 h-3 rounded-full w-${(project.stats.nftNumber >
                                 0
-                                    ? stats.nftsSold / stats.nftNumber
+                                    ? project.stats.nftsSold / project.stats.nftNumber
                                     : 0
                                 ).toString()}`}
                             />
@@ -213,7 +181,7 @@ export default function Hero({ isLoading, project }) {
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {(
-                                    (stats.nftsSold * stats.nftPriceE8S) /
+                                    (project.stats.nftsSold * project.stats.nftPriceE8S) /
                                     100_000_000
                                 ).toString()}{' '}
                                 ICP
@@ -221,7 +189,7 @@ export default function Hero({ isLoading, project }) {
                             <p className='text-gray-400 text-lg'>
                                 pledged of{' '}
                                 {(
-                                    (stats.nftNumber * stats.nftPriceE8S) /
+                                    (project.stats.nftNumber * project.stats.nftPriceE8S) /
                                     100_000_000
                                 ).toString()}{' '}
                                 ICP goal
@@ -229,16 +197,16 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {(stats.nftPriceE8S / 100_000_000).toString()}{' '}
+                                {(project.stats.nftPriceE8S / 100_000_000).toString()}{' '}
                                 ICP
                             </p>
                             <p className='text-gray-400 text-lg'>price</p>
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {stats.endTime > 0
+                                {project.stats.endTime > 0
                                     ? Math.round(
-                                          (stats.endTime - Date.now()) /
+                                          (project.stats.endTime - Date.now()) /
                                               (1000 * 60 * 60 * 24)
                                       ).toString()
                                     : '-'}
@@ -247,7 +215,7 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className='w-full py-2'>
                             <button
-                                disabled={loading || stats.endTime <= 0}
+                                disabled={loading || project.stats.endTime <= 0}
                                 className={`
                                     flex flex-row justify-center shadow-lg bg-blue-600 text-white text-sm 
                                     font-medium rounded-full w-full appearance-none focus:outline-none py-3 
