@@ -1,3 +1,4 @@
+import Hero from "@/components/about/hero";
 import Team from "@/components/about/team";
 import Footer from "@/components/shared/footer";
 import Navbar from "@/components/shared/navbar";
@@ -11,6 +12,8 @@ export default function About() {
             </Head>
 
             <Navbar />
+
+            <Hero />
 
             <section className="w-full py-10">
                 <div className="w-full max-w-5xl px-4 mx-auto">
