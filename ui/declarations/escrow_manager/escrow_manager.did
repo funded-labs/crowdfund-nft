@@ -15,17 +15,14 @@ type EscrowStats =
    nftsSold: nat;
    openSubaccounts: nat;
  };
-type CanisterId = principal;
-type AccountIdText = text;
+type CanisterIdText = text;
 service : {
   acceptCycles: () -> ();
   availableCycles: () -> (nat) query;
-  cancelTransfer: (ProjectId, AccountIdText) -> ();
-  confirmTransfer: (ProjectId, AccountIdText) -> ();
-  createEscrowCanister: (ProjectId, principal, nat, nat, Time) -> ();
-  getProjectEscrowCanisterPrincipal: (ProjectId) -> (opt CanisterId) query;
+  createEscrowCanister: (ProjectId, principal, nat, nat, Time, bool) -> ();
+  getProjectEscrowCanisterPrincipal: (ProjectId) ->
+   (opt CanisterIdText) query;
   getProjectStats: (ProjectId) -> (EscrowStats);
-  requestSubaccount: (ProjectId, principal) -> (AccountIdText);
   test: () -> (definite_canister_settings);
   wallet_receive: () -> ();
 }

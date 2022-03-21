@@ -1,6 +1,5 @@
 import type { Principal } from '@dfinity/principal';
-export type AccountIdText = string;
-export type CanisterId = Principal;
+export type CanisterIdText = string;
 export interface EscrowStats {
   'nftNumber' : bigint,
   'endTime' : Time,
@@ -19,26 +18,18 @@ export interface definite_canister_settings {
 export interface _SERVICE {
   'acceptCycles' : () => Promise<undefined>,
   'availableCycles' : () => Promise<bigint>,
-  'cancelTransfer' : (arg_0: ProjectId, arg_1: AccountIdText) => Promise<
-      undefined
-    >,
-  'confirmTransfer' : (arg_0: ProjectId, arg_1: AccountIdText) => Promise<
-      undefined
-    >,
   'createEscrowCanister' : (
       arg_0: ProjectId,
       arg_1: Principal,
       arg_2: bigint,
       arg_3: bigint,
       arg_4: Time,
+      arg_5: boolean,
     ) => Promise<undefined>,
   'getProjectEscrowCanisterPrincipal' : (arg_0: ProjectId) => Promise<
-      [] | [CanisterId]
+      [] | [CanisterIdText]
     >,
   'getProjectStats' : (arg_0: ProjectId) => Promise<EscrowStats>,
-  'requestSubaccount' : (arg_0: ProjectId, arg_1: Principal) => Promise<
-      AccountIdText
-    >,
   'test' : () => Promise<definite_canister_settings>,
   'wallet_receive' : () => Promise<undefined>,
 }

@@ -27,6 +27,10 @@ export default function Item({
         )
     }
 
+    const status = Object.keys(
+        item.project?.status?.[0] || { submitted: null }
+    )[0]
+
     return (
         <Link
             href={`/project?projectId=${item.project.id}`}
@@ -50,14 +54,15 @@ export default function Item({
                     </p>
                 </div>
                 <p className='text-sm text-indigo-500'>
-                    {isLoadingStats ||
+                    {/* {isLoadingStats ||
                     stats?.[item.project.id]?.nftsSold === undefined ||
                     stats?.[item.project.id]?.nftPriceE8S === undefined
                         ? '- '
                         : stats[item.project.id].nftsSold *
                               stats[item.project.id].nftPriceE8S +
                           ' '}
-                    ICP pledged
+                    ICP pledged */}
+                    <StatusText status={status} />
                 </p>
                 <p className='text-gray-400 text-sm'>
                     by {`${item.owner.firstName} ${item.owner.lastName}`}
@@ -65,4 +70,21 @@ export default function Item({
             </a>
         </Link>
     )
+}
+
+const StatusText = (props) => {
+    switch (props.status) {
+        case 'submitted':
+            return 'Not yet approved'
+        case 'approved':
+            return 'Going live soon'
+        case 'whitelist':
+            return 'Open to whitelist'
+        case 'live':
+            return 'Live now'
+        case 'fully_funded':
+            return 'Fully funded!'
+        default:
+            return '- '
+    }
 }

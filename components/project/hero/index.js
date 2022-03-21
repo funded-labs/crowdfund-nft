@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Principal } from '@dfinity/principal'
+import { Actor, HttpAgent } from '@dfinity/agent'
+
 // import { addDays, differenceInCalendarDays } from 'date-fns'
 import { useBackend } from '@/context/backend'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
@@ -9,6 +11,44 @@ import { makeEscrowActor } from '@/ui/service/actor-locator'
 import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
 import ReCAPTCHA from 'react-google-recaptcha'
+import { doesNotThrow } from 'assert'
+
+export const idlFactory = ({ IDL }) => {
+    const AccountIdText = IDL.Text
+    const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
+    const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
+    return IDL.Service({
+        cancelTransfer: IDL.Func([AccountIdText], [], []),
+        confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
+        getNewAccountId: IDL.Func([IDL.Principal], [Result], []),
+    })
+}
+
+const createActor = (canisterId) => {
+    const agent = new HttpAgent({
+        host:
+            process.env.NODE_ENV === 'production'
+                ? 'https://ic0.app'
+                : 'http://127.0.0.1:8000/',
+    })
+
+    // Fetch root key for certificate validation during development
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('here')
+        agent.fetchRootKey().catch((err) => {
+            console.warn(
+                'Unable to fetch root key. Check to ensure that your local replica is running'
+            )
+            console.error(err)
+        })
+    }
+
+    // Creates an actor with using the candid interface and the HttpAgent
+    return Actor.createActor(idlFactory, {
+        agent,
+        canisterId,
+    })
+}
 
 export default function Hero({ isLoading, project }) {
     const router = useRouter()
@@ -87,6 +127,7 @@ export default function Hero({ isLoading, project }) {
 
     const backProject = async () => {
         setLoading(true)
+
         setLoadingMessage('Getting Plug Wallet principal...')
         const plugPrincipal = await getPlugPrincipal()
         if (!plugPrincipal) {
@@ -94,69 +135,72 @@ export default function Hero({ isLoading, project }) {
             return alert('You must connect Plug in order to back a project.')
         }
 
-        setLoadingMessage('Loading escrow account id...')
+        setLoadingMessage('Loading escrow canitser id...')
         escrowActor
-            .requestSubaccount(
-                parseInt(project.id),
-                Principal.from(plugPrincipal)
-            )
-            .then((accountid) => {
-                console.log(accountid)
-                console.log(Number(stats.nftPriceE8S))
+            .getProjectEscrowCanisterPrincipal(parseInt(project.id))
+            .then((canisterPrincipal) => {
+                console.log(canisterPrincipal)
 
-                const params = {
-                    to: accountid,
-                    amount: Number(stats.nftPriceE8S),
-                }
-                setLoadingMessage('Requesting transfer from Plug...')
-                return window.ic.plug
-                    .requestTransfer(params)
-                    .then((plugResult) => {
-                        console.log(plugResult)
-                        setLoadingMessage('Confirming transfer...')
-                        return escrowActor
-                            .confirmTransfer(parseInt(project.id), accountid)
-                            .then(() =>
-                                router.push(
-                                    '/success?projectId=' + project.id,
-                                    '/success.html?projectId=' + project.id
-                                )
-                            )
+                if (
+                    !Array.isArray(canisterPrincipal) ||
+                    canisterPrincipal.length < 1
+                )
+                    throw new Error('Invalid canister principal')
+
+                const newActor = createActor(canisterPrincipal[0])
+
+                setLoadingMessage('Requesting new account id...')
+                console.log(newActor)
+                return newActor
+                    .getNewAccountId(Principal.from(plugPrincipal))
+                    .then((accountIdResult) => {
+                        console.log(accountIdResult)
+                        console.log(Number(stats.nftPriceE8S))
+
+                        if (accountIdResult.hasOwnProperty('err'))
+                            return alert(accountIdResult.err)
+
+                        const accountid = accountIdResult.ok
+
+                        const params = {
+                            to: accountid,
+                            amount: Number(stats.nftPriceE8S),
+                        }
+
+                        setLoadingMessage('Requesting transfer from Plug...')
+                        return window.ic.plug
+                            .requestTransfer(params)
+                            .then((plugResult) => {
+                                console.log(plugResult)
+
+                                setLoadingMessage('Confirming transfer...')
+                                return newActor
+                                    .confirmTransfer(accountid)
+                                    .then((res) => {
+                                        if (res.hasOwnProperty('err'))
+                                            return alert(res.err)
+                                        router.push(
+                                            '/success?projectId=' + project.id,
+                                            '/success.html?projectId=' +
+                                                project.id
+                                        )
+                                    })
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                                return newActor.cancelTransfer(accountid)
+                            })
                     })
                     .catch((error) => {
                         console.error(error)
-                        return escrowActor.cancelTransfer(
-                            parseInt(project.id),
-                            accountid
-                        )
+                        alert('Something went wrong. Please try again later.')
                     })
             })
             .catch((error) => {
-                if (error.message === 'Principal is not on whitelist.') {
-                    return alert(
-                        'Your Plug Wallet is not on the whitelist. Please come back when the project is open to everyone.'
-                    )
-                } else if (
-                    error.message === 'Project is past crowdfund close date.'
-                ) {
-                    return alert(
-                        'This project is past its crowdfund close date. Please refer to our home page for other project to fund.'
-                    )
-                } else if (
-                    error.message ===
-                    'Principal already has an uncancelled subaccount.'
-                ) {
-                    return alert(
-                        'You have already backed this project. This project only allows to be backed once per user.'
-                    )
-                } else if (error.message === 'Not enough subaccounts.') {
-                    return alert(
-                        'This project is fully funded, or enough people are currently completing payments to fund it fully.'
-                    )
-                } else {
-                    return alert(error.message)
-                }
                 console.error(error)
+                alert(
+                    'Something went wrong loading the escrow canister. This project may not have one yet.'
+                )
             })
             .finally(() => setLoading(false))
     }
@@ -220,18 +264,6 @@ export default function Hero({ isLoading, project }) {
         }
     }
 
-    console.log(stats)
-    console.log((stats.nftsSold * stats.nftPriceE8S) / 100_000_000)
-    console.log((stats.nftNumber * stats.nftPriceE8S) / 100_000_000)
-    console.log(
-        Math.min(
-            (stats.nftsSold * stats.nftPriceE8S) / 100_000_000,
-            (stats.nftNumber * stats.nftPriceE8S) / 100_000_000
-        )
-    )
-
-    console.log(JSON.stringify(launchDate))
-
     return (
         <section className='w-full bg-white'>
             <div className='w-full max-w-5xl mx-auto flex flex-col px-4 py-5'>
@@ -256,21 +288,30 @@ export default function Hero({ isLoading, project }) {
                             <div
                                 className={`absolute left-0 top-0 bg-blue-600 h-3 rounded-full`}
                                 style={{
-                                    width: `${(stats.nftNumber > 0
-                                        ? (stats.nftsSold / stats.nftNumber) *
-                                          100
-                                        : 0
-                                    ).toString()}%`,
+                                    width:
+                                        status === 'fully_funded'
+                                            ? '100%'
+                                            : `${(stats.nftNumber > 0
+                                                  ? (stats.nftsSold /
+                                                        stats.nftNumber) *
+                                                    100
+                                                  : 0
+                                              ).toString()}%`,
                                 }}
                             />
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {Math.min(
-                                    (stats.nftsSold * stats.nftPriceE8S) /
-                                        100_000_000,
-                                    (stats.nftNumber * stats.nftPriceE8S) /
-                                        100_000_000
+                                {(status === 'fully_funded'
+                                    ? (stats.nftNumber * stats.nftPriceE8S) /
+                                      100_000_000
+                                    : Math.min(
+                                          (stats.nftsSold * stats.nftPriceE8S) /
+                                              100_000_000,
+                                          (stats.nftNumber *
+                                              stats.nftPriceE8S) /
+                                              100_000_000
+                                      )
                                 ).toString()}{' '}
                                 ICP
                             </p>
@@ -294,10 +335,15 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {stats.endTime > 0
-                                    ? Math.round(
-                                          (stats.endTime - Date.now()) /
-                                              (1000 * 60 * 60 * 24)
+                                {status === 'fully_funded'
+                                    ? 0
+                                    : stats.endTime > 0
+                                    ? Math.max(
+                                          Math.round(
+                                              (stats.endTime - Date.now()) /
+                                                  (1000 * 60 * 60 * 24)
+                                          ),
+                                          0
                                       ).toString()
                                     : '-'}
                             </p>
@@ -307,8 +353,9 @@ export default function Hero({ isLoading, project }) {
                             <div style={{ textAlign: 'center' }}>
                                 {loading && loadingMessage}
                             </div>
-                            {stats.endTime > 0 &&
-                            stats.nftsSold >= stats.nftNumber ? (
+                            {status === 'fully_funded' ||
+                            (stats.endTime > 0 &&
+                                stats.nftsSold >= stats.nftNumber) ? (
                                 <div style={{ textAlign: 'center' }}>
                                     This project is now fully funded!
                                 </div>
@@ -326,7 +373,8 @@ export default function Hero({ isLoading, project }) {
                                         <span className='h-5 w-5'>
                                             <Spinner show={true} />
                                         </span>
-                                    ) : launchDate !== null &&
+                                    ) : launchDate &&
+                                      launchDate !== '' &&
                                       status === 'approved' ? (
                                         <>Launching on {launchDate}</>
                                     ) : (

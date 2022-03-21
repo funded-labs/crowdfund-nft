@@ -17,6 +17,21 @@ export default function NFTs({ project }) {
                       url: 'https://2glp2-eqaaa-aaaak-aajoa-cai.raw.ic0.app/?asset=226',
                   },
               ]
+            : project.id === '4'
+            ? [
+                  {
+                      id: '#0',
+                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=41',
+                  },
+                  {
+                      id: '#1',
+                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=42',
+                  },
+                  {
+                      id: '#2',
+                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=43',
+                  },
+              ]
             : project.id === '6'
             ? [
                   {
@@ -36,15 +51,15 @@ export default function NFTs({ project }) {
             ? [
                   {
                       id: '#0',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=34',
+                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=37',
                   },
                   {
                       id: '#1',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=35',
+                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=39',
                   },
                   {
                       id: '#2',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=36',
+                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=38',
                   },
               ]
             : []
@@ -53,7 +68,7 @@ export default function NFTs({ project }) {
         <div
             id='nft-collection-nfts'
             className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
-            <p className='font-bold text-base text-black'>{'NFTs'}</p>
+            <p className='font-bold text-base text-black'>NFTs</p>
 
             <p className='text-gray-600 my-2 w-full'>
                 When you invest in this project, you will be randomly allocated

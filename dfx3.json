@@ -1,0 +1,20 @@
+{
+    "canisters": {
+        "cosmicrafts_escrow": {
+            "main": "src/escrow_manager/escrow.mo"
+        }
+    },
+    "defaults": {
+        "build": {
+            "packtool": ""
+        }
+    },
+    "dfx": "0.9.1-beta.0",
+    "networks": {
+        "local": {
+            "bind": "127.0.0.1:8000",
+            "type": "ephemeral"
+        }
+    },
+    "version": 1
+}

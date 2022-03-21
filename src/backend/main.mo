@@ -36,7 +36,6 @@ actor CrowdFundNFT {
     stable var users        : [(UserId, Profile)]               = [];
     stable var projects     : [(ProjectId, Project)]            = [];
     stable var userProjects : [(UserId, [ProjectId])]           = [];
-    stable var whitelists   : [var (ProjectId, [Principal])]    = [var];
     stable var nextProject  : Nat                               = 0;
 
     // Main database
@@ -277,6 +276,28 @@ actor CrowdFundNFT {
         };
     };
 
+    public shared(msg) func unapproveProject(pid: ProjectId): async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                assert(p.status == ?#approved);
+                db.updateProjectStatus(p, ?#submitted);
+            };
+            case null { throw Error.reject("No project with this id.") };
+        }; 
+    };
+
+    public shared(msg) func closeProject(pid: ProjectId) : async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                assert(p.status == ?#whitelist or p.status == ?#live);
+                db.updateProjectStatus(p, ?#approved);
+            };
+            case null { throw Error.reject("No project with this id.") };
+        }; 
+    };
+
     public shared(msg) func openProjectToWhiteList(pid: ProjectId) : async () {
         assert(Utils.isAdmin(msg.caller));
         switch (db.getProject(pid)) {
@@ -314,26 +335,40 @@ actor CrowdFundNFT {
             case null { throw Error.reject("No project with this id.") };
         };
     };
+    
+    public shared(msg) func setProjectFullyFunded(pid: ProjectId): async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                assert(p.status == ?#whitelist or p.status == ?#live);
+                db.updateProjectStatus(p, ?#fully_funded);
+            };
+            case null { throw Error.reject("No project with this id.") };
+        };
+    };
 
     // Project whitelists
+
+    stable var whitelists   : Trie.Trie<ProjectId, [Principal]> = Trie.empty();
 
     public query func getWhitelist(pid: ProjectId): async [Principal] {
         _getWhitelist(pid);
     };
-
-    public shared(msg) func addToWhitelist(pid: ProjectId, principal: Principal): async () {
+    public shared(msg) func addWhitelist(pid: ProjectId, principals: [Principal]): async () {
         assert(Utils.isAdmin(msg.caller));
-        var i = 0;
-        while (i < whitelists.size()) {
-            if (pidsAreEqual(whitelists[i].0, pid)) {
-                var principals = whitelists[i].1;
-                principals := Array.append<Principal>(principals, [principal]);
-                whitelists[i] := (pid, principals);
-                return;
+        switch (Trie.get<ProjectId, [Principal]>(whitelists, projectIdKey(pid), Text.equal)) {
+            case (?ps) {
+                let newPs = Array.append<Principal>(ps, principals);
+                whitelists := Trie.put<ProjectId, [Principal]>(whitelists, projectIdKey(pid), pidsAreEqual, newPs).0;
             };
-            i += 1;
+            case null {
+                whitelists := Trie.put<ProjectId, [Principal]>(whitelists, projectIdKey(pid), pidsAreEqual, principals).0;
+            };
         };
-        whitelists := Array.thaw<(ProjectId, [Principal])>(Array.append<(ProjectId, [Principal])>(Array.freeze<(ProjectId, [Principal])>(whitelists), [(pid, [principal])]));
+    };
+    public shared(msg) func resetWhitelist(pid: ProjectId): async () {
+        assert(Utils.isAdmin(msg.caller));
+        whitelists := Trie.put<ProjectId, [Principal]>(whitelists, projectIdKey(pid), pidsAreEqual, []).0;
     };
 
     type ProjectState = {
@@ -363,15 +398,16 @@ actor CrowdFundNFT {
     };
 
     func _getWhitelist(pid: ProjectId) : [Principal] {
-        for (pp in Iter.fromArrayMut(whitelists)) {
-            if (pidsAreEqual(pp.0, pid)) {
-                return pp.1;
-            };
+        switch (Trie.get<ProjectId, [Principal]>(whitelists, projectIdKey(pid), Text.equal)) {
+            case (?principals) { principals;};
+            case null { return []; };
         };
-        return [];
     };
 
     func pidsAreEqual(p1: ProjectId, p2: ProjectId) : Bool { p1 == p2 };
+    func projectIdKey (p: ProjectId) : Trie.Key<ProjectId> {
+        { key = p; hash = Text.hash(p) };
+    };
 
     // User Auth
 
