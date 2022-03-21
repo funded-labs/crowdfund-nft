@@ -50,8 +50,8 @@ export default function Success() {
                         Congratulations!
                     </p>
                     <p className='max-w-xl text-center text-gray-500'>
-                        Thank you for backing this project on CrowdFund NFT! If
-                        the project reaches its funding goal, your NFT will be
+                        Thank you for backing a project on CrowdFund NFT! If the
+                        project reaches its funding goal, your NFT will be
                         transferred to your wallet - if the project does not get
                         fully funded, you will be reimbursed.
                     </p>
