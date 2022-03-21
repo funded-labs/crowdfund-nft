@@ -1,8 +1,7 @@
 export const idlFactory = ({ IDL }) => {
   const ProjectId = IDL.Nat;
-  const AccountIdText = IDL.Text;
   const Time = IDL.Int;
-  const CanisterId = IDL.Principal;
+  const CanisterIdText = IDL.Text;
   const EscrowStats = IDL.Record({
     'nftNumber' : IDL.Nat,
     'endTime' : Time,
@@ -10,25 +9,28 @@ export const idlFactory = ({ IDL }) => {
     'openSubaccounts' : IDL.Nat,
     'nftsSold' : IDL.Nat,
   });
+  const definite_canister_settings = IDL.Record({
+    'freezing_threshold' : IDL.Nat,
+    'controllers' : IDL.Opt(IDL.Vec(IDL.Principal)),
+    'memory_allocation' : IDL.Nat,
+    'compute_allocation' : IDL.Nat,
+  });
   return IDL.Service({
-    'cancelTransfer' : IDL.Func([ProjectId, AccountIdText], [], []),
-    'confirmTransfer' : IDL.Func([ProjectId, AccountIdText], [], []),
+    'acceptCycles' : IDL.Func([], [], []),
+    'availableCycles' : IDL.Func([], [IDL.Nat], ['query']),
     'createEscrowCanister' : IDL.Func(
-        [ProjectId, IDL.Principal, IDL.Nat, IDL.Nat, Time],
+        [ProjectId, IDL.Principal, IDL.Nat, IDL.Nat, Time, IDL.Bool],
         [],
         [],
       ),
     'getProjectEscrowCanisterPrincipal' : IDL.Func(
         [ProjectId],
-        [IDL.Opt(CanisterId)],
+        [IDL.Opt(CanisterIdText)],
         ['query'],
       ),
     'getProjectStats' : IDL.Func([ProjectId], [EscrowStats], []),
-    'requestSubaccount' : IDL.Func(
-        [ProjectId, IDL.Principal],
-        [AccountIdText],
-        [],
-      ),
+    'test' : IDL.Func([], [definite_canister_settings], []),
+    'wallet_receive' : IDL.Func([], [], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

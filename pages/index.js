@@ -6,24 +6,20 @@ import Hero from '../components/home/hero'
 import Navbar from '../components/shared/navbar'
 import Footer from '@/components/shared/footer'
 
+const HomePage = () => (
+    <div className='w-full'>
+        <Navbar />
 
-function HomePage() {
+        <Hero />
 
-    return (
-        <div className='w-full'>
-            <Navbar />
+        <Featured />
 
-            <Hero />
+        <LiveSoon />
 
-            <Featured />
+        {/* <NearlyFunded /> */}
 
-            <LiveSoon />
-
-            {/* <NearlyFunded /> */}
-
-            <Footer />
-        </div>
-    )
-}
+        <Footer />
+    </div>
+)
 
 export default HomePage

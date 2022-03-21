@@ -2,7 +2,12 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { imgInt8ArrayToDataURL } from '@/helpers/imageHelper'
 
-export default function Item({ item, isLoading = false }) {
+export default function Item({
+    item,
+    stats,
+    isLoading = false,
+    isLoadingStats = false,
+}) {
     if (isLoading === true) {
         return (
             <a className='group w-full flex flex-col cursor-pointer'>
@@ -21,6 +26,10 @@ export default function Item({ item, isLoading = false }) {
             </a>
         )
     }
+
+    const status = Object.keys(
+        item.project?.status?.[0] || { submitted: null }
+    )[0]
 
     return (
         <Link
@@ -45,10 +54,15 @@ export default function Item({ item, isLoading = false }) {
                     </p>
                 </div>
                 <p className='text-sm text-indigo-500'>
-                    {item.project.title === 'CrowdFund NFT'
-                        ? 0
-                        : Math.floor(item.project.goal * 0.42)}{' '}
-                    ICP pledged
+                    {/* {isLoadingStats ||
+                    stats?.[item.project.id]?.nftsSold === undefined ||
+                    stats?.[item.project.id]?.nftPriceE8S === undefined
+                        ? '- '
+                        : stats[item.project.id].nftsSold *
+                              stats[item.project.id].nftPriceE8S +
+                          ' '}
+                    ICP pledged */}
+                    <StatusText status={status} />
                 </p>
                 <p className='text-gray-400 text-sm'>
                     by {`${item.owner.firstName} ${item.owner.lastName}`}
@@ -56,4 +70,21 @@ export default function Item({ item, isLoading = false }) {
             </a>
         </Link>
     )
+}
+
+const StatusText = (props) => {
+    switch (props.status) {
+        case 'submitted':
+            return 'Not yet approved'
+        case 'approved':
+            return 'Going live soon'
+        case 'whitelist':
+            return 'Open to whitelist'
+        case 'live':
+            return 'Live now'
+        case 'fully_funded':
+            return 'Fully funded!'
+        default:
+            return '- '
+    }
 }

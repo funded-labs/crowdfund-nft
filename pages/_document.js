@@ -11,6 +11,7 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <title>CrowdFund NFT</title>
+                    <link rel='shortcut icon' href='/assets/favicon.png' />
                     <script
                         async
                         src='https://www.googletagmanager.com/gtag/js?id=G-E0X9Z3JTN3'></script>

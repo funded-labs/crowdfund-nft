@@ -1,4 +1,5 @@
 import Array "mo:base/Array";
+import Buffer "mo:base/Buffer";
 import HashMap "mo:base/HashMap";
 import Iter "mo:base/Iter";
 import Nat "mo:base/Nat";
@@ -56,14 +57,14 @@ module {
     };
 
     public func findUserBy(term: Text): [Profile] {
-      var profiles: [Profile] = [];
+      var profiles : Buffer.Buffer<Profile> = Buffer.Buffer<Profile>(1);
       for ((id, profile) in userMap.entries()) {
         let fullName = profile.firstName # " " # profile.lastName;
         if (includesText(fullName, term)) {
-          profiles := Array.append<Profile>(profiles, [profile]);
+          profiles.add(profile);
         };
       };
-      profiles
+      profiles.toArray();
     };
 
     // Projects 
@@ -136,6 +137,10 @@ module {
 
     public func listProjects() : [Project] {
       Iter.toArray(projectMap.vals())
+    };
+
+    public func updateProject(project: Project) {
+      projectMap.put(project.id, project);
     };
 
     public func updateProjectStatus(project: Project, status: ProjectStatus) {

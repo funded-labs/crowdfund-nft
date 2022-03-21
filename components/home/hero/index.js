@@ -7,7 +7,10 @@ export default function Hero() {
                     <br />
                     using NFTs
                 </h1>
-                <a href='https://dfinity.org' target='_blank' className='text-center mt-4'>
+                <a
+                    href='https://dfinity.org'
+                    target='_blank'
+                    className='text-center mt-4'>
                     <img
                         src='/assets/icbadge.svg'
                         className='w-125 h-8 hover:scale-105 duration-200 cursor-pointer d-inline-block'

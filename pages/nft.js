@@ -11,7 +11,7 @@ export default function ProjectDetails() {
     const { backend } = useBackend()
 
     const {
-        data: project,
+        data: nftInfo,
         isLoading,
         isError,
         isFetching,
@@ -23,13 +23,16 @@ export default function ProjectDetails() {
 
             console.log(id)
 
-            // @todo: get nft details
-            return null
+            const info = await backend.getNFTInfo(id)
+            if (Array.isArray(info)) return info[0]
+            return info
         },
         {
             refetchOnWindowFocus: false,
         }
     )
+
+    console.log(nftInfo)
 
     return (
         <div className='w-full bg-gray-50'>
@@ -46,10 +49,21 @@ export default function ProjectDetails() {
                         - and your contractual agreement with the project
                         creator.
                     </p>
+
+                    {nftInfo &&
+                        nftInfo?.canisterId &&
+                        nftInfo?.index !== undefined && (
+                            <img
+                                src={`https://${
+                                    nftInfo.canisterId
+                                }.raw.ic0.app/?asset=${Number(nftInfo.index)}`}
+                                className='w-full mx-auto mt-5'
+                            />
+                        )}
                 </div>
             </section>
 
-            <NftPreview />
+            {/* <NftPreview /> */}
 
             <Footer />
         </div>

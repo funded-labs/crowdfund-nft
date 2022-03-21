@@ -11,12 +11,14 @@ import { useRouter } from 'next/router'
 import { useBackend } from '@/context/backend'
 import Faqs from '@/components/project/faqs'
 import Head from 'next/head'
+import { makeEscrowActor } from '@/ui/service/actor-locator'
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState('campaign-details')
     const router = useRouter()
     const { projectId } = router.query
     const { backend } = useBackend()
+    const escrowActor = makeEscrowActor()
 
     const {
         data: project,
@@ -24,16 +26,43 @@ export default function ProjectDetails() {
         isError,
         isFetching,
     } = useQuery(
-        ['project-details', projectId, backend],
+        ['project-details', projectId, backend, escrowActor],
         async () => {
             if (!backend) return null
             if (!projectId) return null
+            if (!escrowActor) return null
 
             const { project, owner } = await backend.getProjectWithOwner(
                 projectId
             )
+
+            const newStats = await escrowActor.getProjectStats(+project.id)
+
+            let stats = {}
+
+            if (newStats?.nftNumber > 0) {
+                stats = {
+                    nftNumber: Number(newStats.nftNumber),
+                    nftPriceE8S: Number(newStats.nftPriceE8S),
+                    endTime: Number(newStats.endTime),
+                    nftsSold: Number(newStats.nftsSold),
+                    openSubaccounts: Number(newStats.openSubaccounts),
+                }
+            } else {
+                stats = {
+                    nftNumber: Number(project.nftVolume),
+                    nftPriceE8S:
+                        Number(BigInt(project?.goal) / project?.nftVolume) *
+                        100_000_000,
+                    endTime: 0,
+                    nftsSold: 0,
+                    openSubaccounts: 0,
+                }
+            }
+
             return {
                 ...project,
+                stats,
                 owner,
             }
         },
