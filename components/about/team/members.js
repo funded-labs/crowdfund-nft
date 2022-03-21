@@ -20,7 +20,7 @@ export default [
     {
         name: "Zahid Mahmod",
         imgUrl: "/assets/zahid.png",
-        role: null,
+        role: "Founder & VP Eng",
         links: []
     }
 ]
