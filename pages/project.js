@@ -36,27 +36,30 @@ export default function ProjectDetails() {
                 projectId
             )
 
-            const newStats = await escrowActor.getProjectStats(+project.id)
+            let stats = {
+                nftNumber: Number(project.nftVolume),
+                nftPriceE8S:
+                    Number(BigInt(project?.goal) / project?.nftVolume) *
+                    100_000_000,
+                endTime: 0,
+                nftsSold: 0,
+                openSubaccounts: 0,
+            }
 
-            let stats = {}
+            if (
+                Object.keys(project?.status?.[0] || { submitted: null })[0] !==
+                'fully_funded'
+            ) {
+                const newStats = await escrowActor.getProjectStats(+project.id)
 
-            if (newStats?.nftNumber > 0) {
-                stats = {
-                    nftNumber: Number(newStats.nftNumber),
-                    nftPriceE8S: Number(newStats.nftPriceE8S),
-                    endTime: Number(newStats.endTime),
-                    nftsSold: Number(newStats.nftsSold),
-                    openSubaccounts: Number(newStats.openSubaccounts),
-                }
-            } else {
-                stats = {
-                    nftNumber: Number(project.nftVolume),
-                    nftPriceE8S:
-                        Number(BigInt(project?.goal) / project?.nftVolume) *
-                        100_000_000,
-                    endTime: 0,
-                    nftsSold: 0,
-                    openSubaccounts: 0,
+                if (newStats?.nftNumber > 0) {
+                    stats = {
+                        nftNumber: Number(newStats.nftNumber),
+                        nftPriceE8S: Number(newStats.nftPriceE8S),
+                        endTime: Number(newStats.endTime),
+                        nftsSold: Number(newStats.nftsSold),
+                        openSubaccounts: Number(newStats.openSubaccounts),
+                    }
                 }
             }
 

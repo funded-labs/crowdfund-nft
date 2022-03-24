@@ -119,7 +119,7 @@ export default function Hero({ isLoading, project }) {
                     .getNewAccountId(Principal.from(plugPrincipal))
                     .then((accountIdResult) => {
                         console.log(accountIdResult)
-                        console.log(Number(stats.nftPriceE8S))
+                        console.log(Number(project.stats.nftPriceE8S))
 
                         if (accountIdResult.hasOwnProperty('err'))
                             return alert(accountIdResult.err)
@@ -128,7 +128,7 @@ export default function Hero({ isLoading, project }) {
 
                         const params = {
                             to: accountid,
-                            amount: Number(stats.nftPriceE8S),
+                            amount: Number(project.stats.nftPriceE8S),
                         }
 
                         setLoadingMessage('Requesting transfer from Plug...')
@@ -250,15 +250,24 @@ export default function Hero({ isLoading, project }) {
                     <div className='w-full lg:w-5/12 flex flex-col'>
                         <div className='h-3 bg-gray-200 rounded-full relative overflow-hidden'>
                             <div
-                                className={`absolute left-0 top-0 bg-blue-600 h-3 rounded-full w-${
-                                    status === 'fully_funded'
-                                        ? 1
-                                        : (project.stats.nftNumber > 0
-                                              ? project.stats.nftsSold /
-                                                project.stats.nftNumber
-                                              : 0
-                                          ).toString()
-                                }`}
+                                className={
+                                    'absolute left-0 top-0 bg-blue-600 h-3 rounded-full'
+                                }
+                                style={{
+                                    width:
+                                        status === 'fully_funded'
+                                            ? '100%'
+                                            : `${(project.stats.nftNumber > 0
+                                                  ? Math.round(
+                                                        (project.stats
+                                                            .nftsSold /
+                                                            project.stats
+                                                                .nftNumber) *
+                                                            100
+                                                    )
+                                                  : 0
+                                              ).toString()}%`,
+                                }}
                             />
                         </div>
                         <div className='w-full flex flex-col py-3'>
