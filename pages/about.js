@@ -1,3 +1,4 @@
+import UserGuides from '@/components/about/guide'
 import Hero from '@/components/about/hero'
 import HowItWorks from '@/components/about/how-it-works'
 import Team from '@/components/about/team'
@@ -61,6 +62,8 @@ export default function About() {
                     </div>
                 </div>
             </section>
+
+            <UserGuides />
 
             <section className='w-full py-10 bg-white'>
                 <div className='w-full max-w-5xl mx-auto flex flex-col px-4'>
