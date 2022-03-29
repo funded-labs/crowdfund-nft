@@ -15,14 +15,14 @@ export default function HowItWorks() {
                     meet their funding goal.
                 </p>
                 <p>
-                    If a project does not meet its goal in the specified timeframe, investors
+                    If a project does not meet its goal in the specified timeframe, project backers
                     are reimbursed - they have only lost the transaction fee (only 0.001 ICP
                     flat fee per transaction).
                 </p>
                 <p>
                     If a project does meet its funding goal then funds are released from The
                     Crowdfund NFT escrow wallet into the project creator's wallet. Similarly,
-                    NFTs are delivered to investor wallets.
+                    NFTs are delivered to project backers wallets.
                 </p>
 
                 <img src="/assets/how-it-works.png" className="w-full" />
