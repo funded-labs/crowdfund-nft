@@ -102,8 +102,7 @@ export default function NFTs({ project }) {
 
             <p className='text-gray-600 my-2 w-full'>
                 When you invest in this project, you will be randomly allocated
-                an NFT from the this collection if the project gets fully
-                funded.
+                an NFT from this collection if the project gets fully funded.
             </p>
 
             {/* <p className='text-center font-semibold w-full mb-10'>

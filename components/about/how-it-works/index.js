@@ -15,7 +15,7 @@ export default function HowItWorks() {
                             Log in with Internet Identity
                         </p>
                         <p className="text-center">
-                            Both investors and creators can access the platform with internet identity, and connect with PlugWallet.
+                            Both project backers and creators can access the platform with internet identity, and connect with PlugWallet.
                         </p>
                     </div>
 

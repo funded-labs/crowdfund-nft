@@ -70,7 +70,7 @@ export default function Terms() {
                     <p>This section covers the process for backing a project. It details how money gets collected, what happens when projects get fully funded, or don’t get fully funded, the role of NFT’s in the backing &amp; rewards process, and contact processes for creators to get in touch with backers and provide rewards. </p>
                     <p>When you back a project: </p>
                     <ul>
-                        <li><p>You are transferring ICP tokens into a CrowdFund NFT owned Escroc wallet. To do this, you have to allow access for your PlugWallet, or another Crypto wallet, through the platform. Your payment will be collected - but not delivered to the project creator until the project has reached its fundraising goal. If the project does not reach its funding goal, the ICP tokens will be transferred back into your wallet, minus transaction fees (0.001 ICP). </p>
+                        <li><p>You are transferring ICP tokens into a CrowdFund NFT owned Escrow wallet. To do this, you have to allow access for your PlugWallet, or another Crypto wallet, through the platform. Your payment will be collected - but not delivered to the project creator until the project has reached its fundraising goal. If the project does not reach its funding goal, the ICP tokens will be transferred back into your wallet, minus transaction fees (0.001 ICP). </p>
                         </li>
                         <li><p>You cannot change or cancel your pledge before the project’s funding deadline. </p>
                         </li>
