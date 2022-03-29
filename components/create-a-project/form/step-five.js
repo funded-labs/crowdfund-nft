@@ -9,7 +9,7 @@ import { useProjectForm } from './project-form-context'
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
     rewards: Yup.string().required(
-        'Enter details about the rewards investors will receive'
+        'Enter details about the rewards project backers will receive'
     ),
 })
 
@@ -49,7 +49,7 @@ export default function StepFive() {
                     onSubmit={handleSubmit}>
                     <div className='w-full flex flex-col space-y-1'>
                         <p className='font-semibold text-2xl'>
-                            Project story and investor rewards
+                            Project story and project backer rewards
                         </p>
                         <p className=''>Tell us your project story</p>
                         <Textarea
@@ -58,7 +58,7 @@ export default function StepFive() {
                             onBlur={handleBlur}
                             rows={4}
                         />
-                        <p className=''>Investor rewards</p>
+                        <p className=''>Project backer rewards</p>
                         <Textarea
                             name='rewards'
                             onChange={handleChange}
@@ -72,13 +72,13 @@ export default function StepFive() {
                                 <br />
                                 <a href=''>What you will do with funds</a>
                                 <br />
-                                <a href=''>Perks and rewards for investors</a>
+                                <a href=''>Perks and rewards for project backers</a>
                                 <br />
                                 <a href=''>
                                     Project Timeline and key milestones
                                 </a>
                                 <br />
-                                <a href=''>Challenges & Risks</a>
+                                <a href=''>Challenges &amp; Risks</a>
                                 <br />
                             </p>
                         </div>
