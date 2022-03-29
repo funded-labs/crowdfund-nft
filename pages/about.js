@@ -37,7 +37,7 @@ export default function About() {
 
                         <div className='rounded-xl py-8 px-5 shadow-lg hover:scale-105 duration-300'>
                             <p className='w-full text-center text-xl font-medium'>
-                                Cheaper and Global Investing
+                                Cheap and Global
                             </p>
                             <p className='text-sm text-gray-600 mt-4'>
                                 Using the IC Blockchain allows for you to open
@@ -90,7 +90,7 @@ export default function About() {
 
                         <div className='w-full md:w-6/12'>
                             <img
-                                src='/assets/how-it-works.png'
+                                src='/assets/hhh.svg'
                                 className='object-contain w-full h-full'
                             />
                         </div>
@@ -160,7 +160,7 @@ export default function About() {
                                 Log in with Internet Identity and Plug Wallet
                             </p>
                             <p className='text-center'>
-                                Both investors and creators can access the
+                                Both backers and creators can access the
                                 platform with internet identity, and connect
                                 with PlugWallet.
                             </p>
@@ -176,7 +176,7 @@ export default function About() {
                             </p>
                             <p className='text-center'>
                                 Describe your new venture and how it is going to
-                                help the world! Browse projects to invest in.
+                                help the world! Browse projects to back.
                             </p>
                         </div>
 
@@ -189,7 +189,7 @@ export default function About() {
                                 Carry projects to their goal!
                             </p>
                             <p className='text-center'>
-                                Using NFTs as proof of ownership for investment,
+                                Using NFTs as proof of ownership for backers,
                                 support projects through their journey!
                             </p>
                         </div>
