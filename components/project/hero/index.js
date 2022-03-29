@@ -12,6 +12,7 @@ import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { doesNotThrow } from 'assert'
+import ViewOnMarketplace from '../view-on-marketplace'
 
 export const idlFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
@@ -333,8 +334,9 @@ export default function Hero({ isLoading, project }) {
                             (project.stats.endTime > 0 &&
                                 project.stats.nftsSold >=
                                     project.stats.nftNumber) ? (
-                                <div style={{ textAlign: 'center' }}>
-                                    This project is now fully funded!
+                                <div className='flex flex-col space-y-2'>
+                                    <p className='text-center'>This project is now fully funded!</p>
+                                    <ViewOnMarketplace project={project} />
                                 </div>
                             ) : (
                                 <button

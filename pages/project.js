@@ -12,6 +12,7 @@ import { useBackend } from '@/context/backend'
 import Faqs from '@/components/project/faqs'
 import Head from 'next/head'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
+import project from "mock-data/project";
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState('campaign-details')
@@ -20,84 +21,30 @@ export default function ProjectDetails() {
     const { backend } = useBackend()
     const escrowActor = makeEscrowActor()
 
-    const {
-        data: project,
-        isLoading,
-        isError,
-        isFetching,
-    } = useQuery(
-        ['project-details', projectId, backend, escrowActor],
-        async () => {
-            if (!backend) return null
-            if (!projectId) return null
-            if (!escrowActor) return null
+    // if (isLoading || isError || isFetching || !project) {
+    //     return (
+    //         <div className='w-full bg-gray-50'>
+    //             <Navbar />
 
-            const { project, owner } = await backend.getProjectWithOwner(
-                projectId
-            )
+    //             <Hero isLoading={true} />
 
-            let stats = {
-                nftNumber: Number(project.nftVolume),
-                nftPriceE8S:
-                    Number(BigInt(project?.goal) / project?.nftVolume) *
-                    100_000_000,
-                endTime: 0,
-                nftsSold: 0,
-                openSubaccounts: 0,
-            }
+    //             <Steps />
 
-            if (
-                Object.keys(project?.status?.[0] || { submitted: null })[0] !==
-                'fully_funded'
-            ) {
-                const newStats = await escrowActor.getProjectStats(+project.id)
+    //             <TabBar
+    //                 selected={selectedTab}
+    //                 onSelect={setTab}
+    //                 isLoading={true}
+    //             />
 
-                if (newStats?.nftNumber > 0) {
-                    stats = {
-                        nftNumber: Number(newStats.nftNumber),
-                        nftPriceE8S: Number(newStats.nftPriceE8S),
-                        endTime: Number(newStats.endTime),
-                        nftsSold: Number(newStats.nftsSold),
-                        openSubaccounts: Number(newStats.openSubaccounts),
-                    }
-                }
-            }
+    //             {selectedTab === 'campaign-details' && (
+    //                 <CampaignDetails isLoading={true} />
+    //             )}
+    //             {selectedTab === 'nft-collection' && <NFTCollection />}
 
-            return {
-                ...project,
-                stats,
-                owner,
-            }
-        },
-        {
-            refetchOnWindowFocus: false,
-        }
-    )
-
-    if (isLoading || isError || isFetching || !project) {
-        return (
-            <div className='w-full bg-gray-50'>
-                <Navbar />
-
-                <Hero isLoading={true} />
-
-                <Steps />
-
-                <TabBar
-                    selected={selectedTab}
-                    onSelect={setTab}
-                    isLoading={true}
-                />
-
-                {selectedTab === 'campaign-details' && (
-                    <CampaignDetails isLoading={true} />
-                )}
-                {selectedTab === 'nft-collection' && <NFTCollection />}
-
-                <Footer />
-            </div>
-        )
-    }
+    //             <Footer />
+    //         </div>
+    //     )
+    // }
 
     return (
         <div className='w-full bg-gray-50'>
