@@ -15,6 +15,11 @@
             "source": ["out"],
             "type": "assets"
         },
+        "frontend_staging": {
+            "dependencies": ["backend", "escrow_manager", "images"],
+            "source": ["out"],
+            "type": "assets"
+        },
         "escrow_manager": {
             "declarations": {
                 "output": "ui/declarations/escrow_manager"

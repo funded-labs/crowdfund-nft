@@ -62,6 +62,36 @@ export default function NFTs({ project }) {
                       url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=38',
                   },
               ]
+            : project.id === '8'
+            ? [
+                  {
+                      id: '#1',
+                      url: '/assets/nfts/music-video/1.png',
+                  },
+                  {
+                      id: '#2',
+                      url: '/assets/nfts/music-video/2.png',
+                  },
+                  {
+                      id: '#3',
+                      url: '/assets/nfts/music-video/3.png',
+                  },
+              ]
+            : project.id === '9'
+            ? [
+                  {
+                      id: '#0',
+                      url: '/assets/nfts/icwhiskers/1.png',
+                  },
+                  {
+                      id: '#1',
+                      url: '/assets/nfts/icwhiskers/2.png',
+                  },
+                  {
+                      id: '#2',
+                      url: '/assets/nfts/icwhiskers/3.png',
+                  },
+              ]
             : []
 
     return (
@@ -72,8 +102,7 @@ export default function NFTs({ project }) {
 
             <p className='text-gray-600 my-2 w-full'>
                 When you invest in this project, you will be randomly allocated
-                an NFT from the this collection if the project gets fully
-                funded.
+                an NFT from this collection if the project gets fully funded.
             </p>
 
             {/* <p className='text-center font-semibold w-full mb-10'>

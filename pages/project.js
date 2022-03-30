@@ -39,8 +39,7 @@ export default function ProjectDetails() {
             let stats = {
                 nftNumber: Number(project.nftVolume),
                 nftPriceE8S:
-                    Number(BigInt(project?.goal) / project?.nftVolume) *
-                    100_000_000,
+                    (project?.goal / Number(project?.nftVolume)) * 100_000_000,
                 endTime: 0,
                 nftsSold: 0,
                 openSubaccounts: 0,

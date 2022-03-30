@@ -20,13 +20,24 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li className="flex flex-row items-center">
-                                <Link href="/terms" passHref as="/terms.html">
+                                <Link href="/p/terms" passHref as="/p/terms.html">
                                     <a
                                         className="hover:underline cursor-pointer"
                                         target="_blank"
                                         rel="noreferrer"
                                     >
                                         Terms
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="flex flex-row items-center">
+                                <Link href="/p/project-creator-guide" passHref as="/p/project-creator-guide.html">
+                                    <a
+                                        className="hover:underline cursor-pointer"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Project creator guide
                                     </a>
                                 </Link>
                             </li>
