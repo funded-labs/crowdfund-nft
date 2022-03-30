@@ -74,7 +74,7 @@ export default function Navbar() {
                     <End />
                 </div>
             </div>
-            <div className='h-16' />
+            <div className='h-12' />
         </>
     )
 }
