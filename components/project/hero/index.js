@@ -11,7 +11,7 @@ import { makeEscrowActor } from '@/ui/service/actor-locator'
 import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { doesNotThrow } from 'assert'
+import PricePerNFT from './price-per-nft'
 
 export const idlFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
@@ -297,17 +297,7 @@ export default function Hero({ isLoading, project }) {
                                 ICP goal
                             </p>
                         </div>
-                        <div className='w-full flex flex-col py-3'>
-                            <p className='text-blue-600 text-2xl font-medium'>
-                                {(
-                                    project.stats.nftPriceE8S / 100_000_000
-                                ).toString()}{' '}
-                                ICP
-                            </p>
-                            <p className='text-gray-400 text-lg'>
-                                price per NFT
-                            </p>
-                        </div>
+                        <PricePerNFT nftPriceE8S={project.stats.nftPriceE8S} />
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {status === 'fully_funded'
