@@ -26,11 +26,12 @@ export default function PricePerNFT({ nftPriceE8S, priceTiers = [] }) {
                 </p>
                 <div className="w-full grid grid-cols-3 gap-3">
                     {_priceTiers.map(tier => (
-                        <div className="bg-gray-100 rounded-lg py-4 px-2">
-                            <p className="text-xs text-center text-gray-500">{tier.label}</p>
+                        <div className="bg-gray-50 border rounded-lg py-4 px-2">
+                            <p className="text-xs text-center font-medium text-gray-500">{tier.label}</p>
                             <p className="font-bold text-4xl text-center">
                                 {(tier.price / 100_000_000).toString()}
                                 <span className="text-base font-normal text-gray-500 pl-1">ICP</span>
+                                <p className="text-xs font-light text-center text-gray-400">price per NFT</p>
                             </p>
                         </div>
                     ))}
