@@ -2,7 +2,7 @@ const _priceTiers = [
     {
         id: "bronze",
         label: "Bronze",
-        price: 120000000
+        price: 121000000
     },
     {
         id: "silver",
@@ -29,7 +29,7 @@ export default function PricePerNFT({ nftPriceE8S, priceTiers = [] }) {
                         <div className="bg-gray-50 border rounded-lg py-4 px-2">
                             <p className="text-xs text-center font-medium text-gray-500">{tier.label}</p>
                             <p className="font-bold text-4xl text-center">
-                                {(tier.price / 100_000_000).toString()}
+                                {(tier.price / 100_000_000).toFixed(1).toString()}
                                 <span className="text-base font-normal text-gray-500 pl-1">ICP</span>
                                 <p className="text-xs font-light text-center text-gray-400">price per NFT</p>
                             </p>
