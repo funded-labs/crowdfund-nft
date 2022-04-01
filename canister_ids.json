@@ -1,0 +1,26 @@
+{
+  "backend": {
+    "ic": "54shx-2yaaa-aaaai-qbhyq-cai"
+  },
+  "cnft_escrow": {
+    "ic": "7tt6d-zqaaa-aaaak-aajqa-cai"
+  },
+  "cosmicrafts_escrow": {
+    "ic": "enkh4-3iaaa-aaaak-aalcq-cai"
+  },
+  "escrow_manager": {
+    "ic": "3fhg4-qiaaa-aaaak-aajiq-cai"
+  },
+  "frontend": {
+    "ic": "kn5ky-6iaaa-aaaai-qbikq-cai"
+  },
+  "frontend_staging": {
+    "ic": "l23oo-gaaaa-aaaak-aan2q-cai"
+  },
+  "images": {
+    "ic": "3mena-gaaaa-aaaak-aajja-cai"
+  },
+  "test_escrow": {
+    "ic": "2tm6x-fyaaa-aaaak-aajnq-cai"
+  }
+}
