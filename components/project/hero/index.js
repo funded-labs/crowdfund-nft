@@ -297,7 +297,6 @@ export default function Hero({ isLoading, project }) {
                                 ICP goal
                             </p>
                         </div>
-                        <PricePerNFT nftPriceE8S={project.stats.nftPriceE8S} />
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {status === 'fully_funded'
@@ -315,6 +314,7 @@ export default function Hero({ isLoading, project }) {
                             </p>
                             <p className='text-gray-400 text-lg'>days to go</p>
                         </div>
+                        <PricePerNFT nftPriceE8S={project.stats.nftPriceE8S} />
                         <div className='w-full py-2'>
                             <div style={{ textAlign: 'center' }}>
                                 {loading && loadingMessage}
