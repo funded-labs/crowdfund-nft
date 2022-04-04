@@ -92,6 +92,36 @@ export default function NFTs({ project }) {
                       url: '/assets/nfts/icwhiskers/3.png',
                   },
               ]
+            : project.id === '11'
+            ? [
+                  {
+                      id: '#0',
+                      url: '/assets/nfts/thanat0s/1.jpg',
+                  },
+                  {
+                      id: '#1',
+                      url: '/assets/nfts/thanat0s/2.jpg',
+                  },
+                  {
+                      id: '#2',
+                      url: '/assets/nfts/thanat0s/3.jpg',
+                  },
+              ]
+            : project.id === '13'
+            ? [
+                  {
+                      id: '#0',
+                      url: '/assets/nfts/ic-cutemoon/1.png',
+                  },
+                  {
+                      id: '#1',
+                      url: '/assets/nfts/ic-cutemoon/2.png',
+                  },
+                  {
+                      id: '#2',
+                      url: '/assets/nfts/ic-cutemoon/3.png',
+                  },
+              ]
             : []
 
     return (
