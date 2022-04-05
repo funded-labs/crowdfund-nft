@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Principal } from '@dfinity/principal'
 import { Actor, HttpAgent } from '@dfinity/agent'
@@ -11,7 +11,7 @@ import { makeEscrowActor } from '@/ui/service/actor-locator'
 import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { doesNotThrow } from 'assert'
+import PricePerNFT from './price-per-nft'
 
 export const idlFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
@@ -300,17 +300,6 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {threeDecimals(
-                                    project.stats.nftPriceE8S / 100_000_000
-                                ).toString()}{' '}
-                                ICP
-                            </p>
-                            <p className='text-gray-400 text-lg'>
-                                price per NFT
-                            </p>
-                        </div>
-                        <div className='w-full flex flex-col py-3'>
-                            <p className='text-blue-600 text-2xl font-medium'>
                                 {status === 'fully_funded'
                                     ? 0
                                     : project.stats.endTime > 0
@@ -326,6 +315,7 @@ export default function Hero({ isLoading, project }) {
                             </p>
                             <p className='text-gray-400 text-lg'>days to go</p>
                         </div>
+                        <PricePerNFT nftPriceE8S={project.stats.nftPriceE8S} />
                         <div className='w-full py-2'>
                             <div style={{ textAlign: 'center' }}>
                                 {loading && loadingMessage}
