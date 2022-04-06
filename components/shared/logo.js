@@ -5,7 +5,7 @@ export default function Logo({ width }) {
                 width={width}
                 viewBox='0 0 913 154'
                 xmlns='http://www.w3.org/2000/svg'>
-                <g fill='none' fill-rule='evenodd'>
+                <g fill='none' fillRule='evenodd'>
                     <circle fill='#2757E8' cx='70.5' cy='74.5' r='62.5' />
                     <rect
                         fill='#2757E8'
@@ -60,20 +60,20 @@ export default function Logo({ width }) {
                         r='10'
                     />
                     <text
-                        font-family='Poppins-Bold, Poppins'
-                        font-size='86'
-                        font-weight='bold'
-                        letter-spacing='2.31'
+                        fontFamily='Poppins-Bold, Poppins'
+                        fontSize='86'
+                        fontWeight='bold'
+                        letterSpacing='2.31'
                         fill='#FFF'>
                         <tspan x='37.079' y='104'>
                             C
                         </tspan>
                     </text>
                     <text
-                        font-family='Poppins-Bold, Poppins'
-                        font-size='86'
-                        font-weight='bold'
-                        letter-spacing='2.31'
+                        fontFamily='Poppins-Bold, Poppins'
+                        fontSize='86'
+                        fontWeight='bold'
+                        letterSpacing='2.31'
                         fill='#000'>
                         <tspan x='189.919' y='104'>
                             CrowdFund NFT
