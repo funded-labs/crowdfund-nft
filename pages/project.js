@@ -12,6 +12,7 @@ import { useBackend } from '@/context/backend'
 import Faqs from '@/components/project/faqs'
 import Head from 'next/head'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
+import Evidence from '@/components/project/evidence'
 
 export default function ProjectDetails() {
     const [selectedTab, setTab] = useState('campaign-details')
@@ -118,6 +119,10 @@ export default function ProjectDetails() {
                 <NFTCollection project={project} />
             )}
             {selectedTab === 'faqs' && <Faqs project={project} />}
+
+            {selectedTab === 'evidence' && (
+                <Evidence project={project} />
+            )}
 
             <Footer />
         </div>
