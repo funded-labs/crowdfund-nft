@@ -1,6 +1,12 @@
+import UserGuides from '@/components/about/guide'
 import Hero from '@/components/about/hero'
+import Feature from '@/components/about/feature'
+import Cta from '@/components/about/cta'
+import Banner from '@/components/about/banner'
+import Support from '@/components/about/support'
 import HowItWorks from '@/components/about/how-it-works'
 import Team from '@/components/about/team'
+import Teamtwo from '@/components/about/teamtwo'
 import Footer from '@/components/shared/footer'
 import Navbar from '@/components/shared/navbar'
 import Head from 'next/head'
@@ -14,9 +20,15 @@ export default function About() {
 
             <Navbar />
 
-            <Hero />
+            <Banner />
 
-            <section className='w-full py-10'>
+            <Cta />
+
+            <Feature />
+
+            <Teamtwo />
+
+            {/* <section className='w-full py-10'>
                 <div className='w-full max-w-5xl px-4 mx-auto'>
                     <p className='py-4 w-full text-center text-3xl font-semibold'>
                         What Makes CrowdFund NFT Different?
@@ -37,7 +49,7 @@ export default function About() {
 
                         <div className='rounded-xl py-8 px-5 shadow-lg hover:scale-105 duration-300'>
                             <p className='w-full text-center text-xl font-medium'>
-                                Cheaper and Global Investing
+                                Cheap and Global
                             </p>
                             <p className='text-sm text-gray-600 mt-4'>
                                 Using the IC Blockchain allows for you to open
@@ -61,6 +73,8 @@ export default function About() {
                     </div>
                 </div>
             </section>
+
+            <UserGuides />
 
             <section className='w-full py-10 bg-white'>
                 <div className='w-full max-w-5xl mx-auto flex flex-col px-4'>
@@ -90,7 +104,7 @@ export default function About() {
 
                         <div className='w-full md:w-6/12'>
                             <img
-                                src='/assets/how-it-works.png'
+                                src='/assets/hhh.svg'
                                 className='object-contain w-full h-full'
                             />
                         </div>
@@ -176,7 +190,7 @@ export default function About() {
                             </p>
                             <p className='text-center'>
                                 Describe your new venture and how it is going to
-                                help the world! Browse projects to invest in.
+                                help the world! Browse projects to back.
                             </p>
                         </div>
 
@@ -189,16 +203,16 @@ export default function About() {
                                 Carry projects to their goal!
                             </p>
                             <p className='text-center'>
-                                Using NFTs as proof of ownership for investment,
+                                Using NFTs as proof of ownership for backers,
                                 support projects through their journey!
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
-            {/* <HowItWorks /> */}
-
+            
             <Team />
+            */}
 
             <Footer />
         </div>

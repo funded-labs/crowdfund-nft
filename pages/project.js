@@ -14,6 +14,8 @@ import { ProjectDetailsProvider, useProjectDetails } from '@/context/project-det
 export default function ProjectDetails(props) {
     const router = useRouter()
     const { projectId } = router.query
+    const { backend } = useBackend()
+    const escrowActor = makeEscrowActor()
 
     return (
         <ProjectDetailsProvider projectId={projectId}>

@@ -57,7 +57,7 @@ export default function General({ project }) {
                 </p>
             </div>
 
-            <Link href="/terms" passHref as="/terms.html">
+            <Link href="/p/terms" passHref as="/p/terms.html">
                 <a
                     className={`
                         bg-blue-600 text-white text-sm focus:outline-none hover:bg-blue-700
