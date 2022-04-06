@@ -1,3 +1,4 @@
+import { useQuery } from 'react-query'
 import * as prettyDate from 'pretty-date'
 
 const _records = [
@@ -33,7 +34,22 @@ const _records = [
     },
 ]
 
-export default function Activity({ records = [] }) {
+export default function Activity({ escrowActor, records = [] }) {
+    const {
+        data: project,
+        isLoading,
+        isError,
+        isFetching,
+    } = useQuery(
+        ['escrow-activity', escrowActor],
+        async () => {
+            if (!escrowActor) return null
+        },
+        {
+            refetchOnWindowFocus: false,
+        }
+    )
+
     return (
         <div className='w-full'>
             <div className='w-full max-w-5xl mx-auto'>

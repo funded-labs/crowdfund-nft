@@ -24,6 +24,8 @@ export const idlFactory = ({ IDL }) => {
         nftsSold: IDL.Nat,
     })
     return IDL.Service({
+        getAccountsInfo: IDL.Func([], [IDL.Text], ['query']),
+        getLogs: IDL.Func([], [IDL.Text], ['query']),
         getStats: IDL.Func([], [Stats], ['query']),
     })
 }
@@ -172,7 +174,9 @@ export default function ProjectDetails() {
             )}
             {selectedTab === 'faqs' && <Faqs project={project} />}
 
-            {selectedTab === 'activity' && <Activity project={project} />}
+            {selectedTab === 'activity' && (
+                <Activity project={project} escrowActor={project.escrowActor} />
+            )}
 
             <Footer />
         </div>
