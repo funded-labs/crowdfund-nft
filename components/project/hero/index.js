@@ -272,34 +272,35 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {(status === 'fully_funded'
-                                    ? (project.stats.nftNumber *
-                                          project.stats.nftPriceE8S) /
-                                      100_000_000
-                                    : Math.min(
-                                          (project.stats.nftsSold *
-                                              project.stats.nftPriceE8S) /
-                                              100_000_000,
-                                          (project.stats.nftNumber *
+                                {threeDecimals(
+                                    status === 'fully_funded'
+                                        ? (project.stats.nftNumber *
                                               project.stats.nftPriceE8S) /
                                               100_000_000
-                                      )
+                                        : Math.min(
+                                              (project.stats.nftsSold *
+                                                  project.stats.nftPriceE8S) /
+                                                  100_000_000,
+                                              (project.stats.nftNumber *
+                                                  project.stats.nftPriceE8S) /
+                                                  100_000_000
+                                          )
                                 ).toString()}{' '}
                                 ICP
                             </p>
                             <p className='text-gray-400 text-lg'>
                                 pledged of{' '}
-                                {(
+                                {threeDecimals(
                                     (project.stats.nftNumber *
                                         project.stats.nftPriceE8S) /
-                                    100_000_000
+                                        100_000_000
                                 ).toString()}{' '}
                                 ICP goal
                             </p>
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
-                                {(
+                                {threeDecimals(
                                     project.stats.nftPriceE8S / 100_000_000
                                 ).toString()}{' '}
                                 ICP
@@ -441,3 +442,5 @@ export default function Hero({ isLoading, project }) {
         </section>
     )
 }
+
+const threeDecimals = (number) => Math.round(number * 1000) / 1000
