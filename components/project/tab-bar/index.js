@@ -14,8 +14,8 @@ const tabs = [
         id: "faqs"
     },
     {
-        label: "Evidence",
-        id: "evidence"
+        label: "Activity",
+        id: "activity"
     }
 ]
 

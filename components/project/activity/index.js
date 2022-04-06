@@ -33,7 +33,7 @@ const _records = [
     }
 ]
 
-export default function Evidence({ records = [] }) {
+export default function Activity({ records = [] }) {
     return (
         <div className="w-full">
             <div className="w-full max-w-5xl mx-auto">
