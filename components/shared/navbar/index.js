@@ -2,6 +2,7 @@ import Link from 'next/link'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import End from './end'
+import Logo from '@/components/shared/logo'
 
 export default function Navbar() {
     const [hasScrolled, setScrolled] = useState(false)
@@ -32,11 +33,7 @@ export default function Navbar() {
                 <div className='w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
                         <Link href='/' passHref>
-                            <img
-                                src='/assets/logo.png'
-                                className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
-                                alt=''
-                            />
+                            <Logo width='196' />
                         </Link>
                     </div>
 

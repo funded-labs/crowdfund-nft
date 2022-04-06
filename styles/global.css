@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .scrollbar-hidden {
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -10,4 +9,14 @@
 
 .scrollbar-hidden::-webkit-scrollbar {
     display: none;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: url("fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Poppins-Bold";
+    src: url("fonts/Poppins/Poppins-Bold.ttf") format("truetype");
 }
