@@ -2,7 +2,7 @@ export default function Hero() {
     return (
         <section className='w-full py-20'>
             <div className='w-full max-w-5xl mx-auto flex flex-col'>
-                <h1 className='text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
+                <h1 className='text-center text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-3xl'>
                     Crowdfunding on the Blockchain,
                     <br />
                     using NFTs
@@ -17,7 +17,7 @@ export default function Hero() {
               <h1 className='text-center text-3xl leading-8 font-bold tracking-tight text-blue-400 sm:text-3xl mb-1'>
                     5772
                 </h1>
-                <div className='px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-3'>
+                <div className='px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-4'>
                 ICP towards creative projects
             </div>
                     <img
