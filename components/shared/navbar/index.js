@@ -32,9 +32,9 @@ export default function Navbar() {
                 )}>
                 <div className='w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
-                        <Link href='/' passHref>
+                        <a href='/'>
                             <Logo width='196' />
-                        </Link>
+                        </a>
                     </div>
 
                     <nav className='hidden lg:flex space-x-10'>
