@@ -12,6 +12,10 @@ const tabs = [
     {
         label: "FAQs",
         id: "faqs"
+    },
+    {
+        label: "Activity",
+        id: "activity"
     }
 ]
 
@@ -31,13 +35,13 @@ export default function TabBar({ selected, onSelect = () => {}, isLoading }) {
 
     return (
         <section className="w-full border-b-2 bg-white">
-            <div className="w-full max-w-5xl px-4 mx-auto flex pt-1 text-gray-900">
+            <div className="w-full max-w-5xl px-4 mx-auto flex pt-1 text-gray-900 overflow-x-scroll scrollbar-hidden">
                 {tabs.map(tab => (
                     <button
                         key={tab.id}
                         className={classNames(
                             "appearance-none rounded-none font-medium px-4 text-sm py-4",
-                            "border-b-4 hover:text-gray-500",
+                            "border-b-4 hover:text-gray-500 flex-shrink-0",
                             selected === tab.id ? "border-blue-600" : "border-transparent"
                         )}
                         type="button"
