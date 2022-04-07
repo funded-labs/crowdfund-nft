@@ -48,8 +48,6 @@ export default function Activity({ escrowActor }) {
             return escrowActor
                 .getAccountsInfo()
                 .then((csv) => {
-                    csv =
-                        'accountId, principal, subaccountStatus, subaccountBlob\n4f7a31b5d7eca335d2b9e82ac799231ad842841ce0d9f292ab589cf892a5985c, aalab-lo73x-usxmq-af2lz-ipo4f-xws4l-rmtfk-i2522-tj6u4-hmbuk-gqe, funded, 000000000000000000000000000000000000000000000000000000003b9aca59\n73233b156170678ca3ff16d481f16c890f883a71213f1d9efe62e88498e2c514, tzhlj-a4lbg-wpyr4-b7w2h-ty3mz-lu7rj-rv6sy-t5bdd-l6o4x-2zk4r-pae, funded, 000000000000000000000000000000000000000000000000000000003b9aca61'
                     const rowsStr = csv.split('\n').slice(1)
                     const rows = rowsStr
                         .filter((row) => row.indexOf(',') >= 0)
@@ -98,7 +96,9 @@ export default function Activity({ escrowActor }) {
                         <tbody>
                             {isLoading ? (
                                 <tr className='bg-white border-b'>
-                                    <td colSpan='2' className='text-center'>
+                                    <td
+                                        colSpan='2'
+                                        className='px-6 py-4 truncate whitespace-nowrap text-center'>
                                         Loading...
                                     </td>
                                 </tr>
@@ -106,7 +106,9 @@ export default function Activity({ escrowActor }) {
                               !activity.rows ||
                               activity.rows.length === 0 ? (
                                 <tr className='bg-white border-b'>
-                                    <td colSpan='2' className='text-center'>
+                                    <td
+                                        colSpan='2'
+                                        className='px-6 py-4 truncate whitespace-nowrap text-center'>
                                         No activity yet
                                     </td>
                                 </tr>
