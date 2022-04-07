@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react'
 import Featured from '../components/home/featured'
 import LiveSoon from '../components/home/live-soon'
 import Hero from '../components/home/hero'
+import Entrepot from '@/components/home/entrepot'
 // import NearlyFunded from '../components/home/nearly-funded'
 import Navbar from '../components/shared/navbar'
 import Footer from '@/components/shared/footer'
+import Entrepot2 from '@/components/home/entrepot2'
 
 const HomePage = () => (
     <div className='w-full'>
@@ -15,6 +17,8 @@ const HomePage = () => (
         <Featured />
 
         <LiveSoon />
+
+        <Entrepot2 />
 
         {/* <NearlyFunded /> */}
 
