@@ -3,7 +3,7 @@ export default function Logo({ width }) {
         <div className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'>
             <svg
                 width={width}
-                viewBox='0 0 913 154'
+                viewBox='0 0 1000 168'
                 xmlns='http://www.w3.org/2000/svg'>
                 <g fill='none' fillRule='evenodd'>
                     <circle fill='#2757E8' cx='70.5' cy='74.5' r='62.5' />
