@@ -55,7 +55,7 @@ export default function Featured() {
     )
 
     return (
-        <section className='w-full py-10'>
+        <section className='w-full py-5'>
             <div className='px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-2'>
                 Featured Projects
             </div>
