@@ -33,7 +33,11 @@ export default function Navbar() {
                 <div className='w-full max-w-5xl mx-auto px-4 flex flex-row justify-between items-center'>
                     <div className='flex flex-row'>
                         <a href='/'>
-                            <Logo width='196' />
+                            <img
+                                src='/assets/logo.png'
+                                className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
+                                alt=''
+                            />
                         </a>
                     </div>
 
