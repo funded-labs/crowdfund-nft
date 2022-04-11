@@ -10,7 +10,6 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <title>CrowdFund NFT</title>
                     <link rel='shortcut icon' href='/assets/favicon.png' />
                     <script
                         async
