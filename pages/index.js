@@ -7,6 +7,7 @@ import Entrepot from '@/components/home/entrepot'
 import Navbar from '../components/shared/navbar'
 import Footer from '@/components/shared/footer'
 import Entrepot2 from '@/components/home/entrepot2'
+import Setup from '@/components/home/setup'
 
 const HomePage = () => (
     <div className='w-full'>
@@ -19,6 +20,8 @@ const HomePage = () => (
         <LiveSoon />
 
         <Entrepot2 />
+
+        <Setup />
 
         {/* <NearlyFunded /> */}
 
