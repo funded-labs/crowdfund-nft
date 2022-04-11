@@ -19,11 +19,6 @@ type Project__1 =
    walletId: text;
    wetransferLink: Link;
  };
-type ProjectWithOwnerNoImage = 
- record {
-   owner: ProfileNoImage;
-   project: ProjectNoImage;
- };
 type ProjectWithOwner = 
  record {
    owner: Profile__1;
@@ -52,24 +47,6 @@ type ProjectState =
    noproject;
    whitelist: vec principal;
  };
-type ProjectNoImage = 
- record {
-   category: text;
-   description: text;
-   discordLink: Link;
-   goal: float64;
-   id: ProjectId__1;
-   nftVolume: nat;
-   owner: UserId__1;
-   rewards: text;
-   status: ProjectStatus__1;
-   story: text;
-   tags: vec text;
-   title: text;
-   twitterLink: Link;
-   walletId: text;
-   wetransferLink: Link;
- };
 type ProjectId__1 = text;
 type ProjectId = text;
 type Project = 
@@ -97,13 +74,6 @@ type Profile__1 =
    firstName: text;
    id: UserId;
    img: Link;
-   lastName: text;
- };
-type ProfileNoImage = 
- record {
-   bio: text;
-   firstName: text;
-   id: UserId__1;
    lastName: text;
  };
 type Profile = 
@@ -142,19 +112,28 @@ type NFTInfo =
    canisterId: text;
    index: nat;
  };
+type MarketplaceLinks = vec MarketplaceLink;
+type MarketplaceLink = 
+ variant {
+   ccc: Link;
+   entrepot: Link;
+   other: Link;
+ };
 type Link = text;
 type GUID = text;
 type Date = text;
 service : {
-  addToWhitelist: (ProjectId__1, principal) -> ();
+  addWhitelist: (ProjectId__1, vec principal) -> ();
   adminCreateProfile: (principal, NewProfile) -> ();
   adminCreateProject: (principal, NewProject) -> (Project);
   approveProject: (ProjectId__1) -> ();
+  closeProject: (ProjectId__1) -> ();
   createFirstProject: (NewProfile, NewProject) -> (Project);
   createProfile: (NewProfile) -> ();
   createProject: (NewProject) -> (Project);
   deleteProject: (ProjectId__1) -> (opt Project);
   getLaunchDate: (ProjectId__1) -> (opt Date) query;
+  getMarketplaceLinks: (ProjectId__1) -> (MarketplaceLinks) query;
   getMyProfile: () -> (Profile) query;
   getMyProjects: () -> (vec Project) query;
   getNFTInfo: (GUID) -> (opt NFTInfo) query;
@@ -164,13 +143,18 @@ service : {
   getProject: (ProjectId__1) -> (Project) query;
   getProjectState: (ProjectId__1) -> (ProjectState) query;
   getProjectWithOwner: (ProjectId__1) -> (ProjectWithOwner) query;
+  getProjectWithOwnerAndMarketplace: (ProjectId__1) ->
+   (record {
+      marketplaceLinks: MarketplaceLinks;
+      owner: Profile;
+      project: Project;
+    }) query;
   getProjects: (UserId__1) -> (vec Project) query;
   getWhitelist: (ProjectId__1) -> (vec principal) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
   isAdmin: () -> (bool) query;
   listProjects: (vec ProjectStatus__1) -> (vec ProjectWithOwner) query;
-  listProjectsWithoutImages: () -> (vec ProjectWithOwnerNoImage) query;
   makeProjectLive: (ProjectId__1) -> ();
   openProjectToWhiteList: (ProjectId__1) -> ();
   putLaunchDate: (ProjectId__1, Date) -> ();
@@ -178,7 +162,11 @@ service : {
                       GUID;
                       NFTInfo;
                     }) -> ();
+  resetWhitelist: (ProjectId__1) -> ();
   searchProfiles: (text) -> (vec Profile) query;
+  setMarketplaceLinks: (ProjectId__1, MarketplaceLinks) -> ();
+  setProjectFullyFunded: (ProjectId__1) -> ();
+  unapproveProject: (ProjectId__1) -> ();
   updateProfile: (Profile) -> ();
   updateProject: (Project) -> ();
 }

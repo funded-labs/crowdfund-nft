@@ -335,7 +335,9 @@ export default function Hero({ isLoading, project }) {
                                 project.stats.nftsSold >=
                                     project.stats.nftNumber) ? (
                                 <div className='flex flex-col space-y-2'>
-                                    <p className='text-center'>This project is now fully funded!</p>
+                                    <p className='text-center'>
+                                        This project is now fully funded!
+                                    </p>
                                     <ViewOnMarketplace project={project} />
                                 </div>
                             ) : (
