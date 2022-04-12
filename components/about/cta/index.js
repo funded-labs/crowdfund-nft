@@ -98,29 +98,29 @@ export default function CTA() {
               </p>
               <div className="mt-6 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
                 <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                  <img className="h-12" src="assets/thanatos.png" alt="Tuple" />
+                  <img className="h-12" src="assets/thanatos.svg" alt="Tuple" />
                 </div>
                 <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-                  <img className="h-12" src="assets/cosmicrafts.png" alt="Mirage" />
+                  <img className="h-12" src="assets/Cosmicrafts.svg" alt="Mirage" />
                 </div>
                 <div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
                   <img
                     className="h-12"
-                    src="assets/Canistore.png"
+                    src="assets/Canistore.svg"
                     alt="StaticKit"
                   />
                 </div>
                 <div className="col-span-1 flex justify-center md:col-span-2 md:col-start-2 lg:col-span-1">
                   <img
                     className="h-12"
-                    src="assets/cutemon.png"
+                    src="assets/Cutemon.svg"
                     alt="Transistor"
                   />
                 </div>
                 <div className="col-span-2 flex justify-center md:col-span-2 md:col-start-4 lg:col-span-1">
                   <img
                     className="h-12"
-                    src="assets/Kontribute2.png"
+                    src="assets/Kontribut.svg"
                     alt="Workcation"
                   />
                 </div>
