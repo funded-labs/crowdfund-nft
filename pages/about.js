@@ -10,6 +10,7 @@ import Teamtwo from '@/components/about/teamtwo'
 import Footer from '@/components/shared/footer'
 import Navbar from '@/components/shared/navbar'
 import Head from 'next/head'
+import Escrow from '@/components/about/escrow'
 
 export default function About() {
     return (
@@ -25,6 +26,8 @@ export default function About() {
             <Cta />
 
             <Feature />
+
+            <Escrow />
 
             <Teamtwo />
 
