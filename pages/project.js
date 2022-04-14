@@ -75,9 +75,10 @@ export default function ProjectDetails() {
             if (!projectId) return null
             if (!escrowManagerActor) return null
 
-            const { project, owner } = await backend.getProjectWithOwner(
-                projectId
-            )
+            const { project, owner, marketplaceLinks } =
+                await backend.getProjectWithOwnerAndMarketplace(projectId)
+
+            console.log({ project, owner, marketplaceLinks })
 
             let stats = {
                 nftNumber: Number(project.nftVolume),
@@ -121,6 +122,7 @@ export default function ProjectDetails() {
                 escrowActor,
                 stats,
                 owner,
+                marketplace: marketplaceLinks,
             }
         },
         {

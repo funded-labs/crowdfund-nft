@@ -69,5 +69,14 @@ module {
   public type ProjectWithOwner = {
     project: Project;
     owner: Profile;
-  }
+  };
+
+  // Marketplace stuff
+  public type MarketplaceLink = {
+    #entrepot: Link;
+    #ccc: Link;
+    #other: Link;
+  };
+
+  public type MarketplaceLinks = [MarketplaceLink];
 };
