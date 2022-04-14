@@ -178,6 +178,16 @@ actor CrowdFundNFT {
         Utils.getProjectWithOwner(db, Utils.getProject(db, projectId))
     };
 
+    public query func getProjectWithOwnerAndMarketplace(projectId: ProjectId): async {
+        project: Project; owner: Profile; marketplaceLinks: MarketplaceLinks;
+    } {
+        let pAndO = Utils.getProjectWithOwner(db, Utils.getProject(db, projectId));
+        switch(_getMarketplaceLinks(projectId)) {
+            case (?links) { { project = pAndO.project; owner = pAndO.owner; marketplaceLinks = links; } };
+            case (null) { { project = pAndO.project; owner = pAndO.owner; marketplaceLinks = []; }; };
+        };
+    };
+
     public query func getProjects(userId: UserId): async [Project] {
         db.getProjects(userId)
     };
@@ -197,70 +207,6 @@ actor CrowdFundNFT {
             }); 
             };
         };
-    };
-
-    type ProjectNoImage = {
-        category: Text;
-        description: Text;
-        discordLink: Types.Link;
-        goal: Float;
-        id: ProjectId;
-        nftVolume: Nat;
-        owner: UserId;
-        rewards: Text;
-        status: ProjectStatus;
-        story: Text;
-        tags: [Text];
-        title: Text;
-        twitterLink: Types.Link;
-        walletId: Text;
-        wetransferLink: Types.Link;
-    };
-    type ProfileNoImage = {
-        bio: Text;
-        firstName: Text;
-        id: UserId;
-        lastName: Text;
-    };
-    type ProjectWithOwnerNoImage = {
-        project: ProjectNoImage;
-        owner: ProfileNoImage;
-    };
-    public query func listProjectsWithoutImages() : async [ProjectWithOwnerNoImage] {
-        func getProjectWithOwner(p: Project) : ProjectWithOwner { 
-            Utils.getProjectWithOwner(db, p);
-        };
-        let projectsWithOwners = Array.map(db.listProjects(), getProjectWithOwner);
-        func getProjectsWithOwnersNoImage(projectsWithOwners : ProjectWithOwner) : ProjectWithOwnerNoImage {
-            let projectNoImage : ProjectNoImage = {
-                category = projectsWithOwners.project.category;
-                description = projectsWithOwners.project.description;
-                discordLink = projectsWithOwners.project.discordLink;
-                goal = projectsWithOwners.project.goal;
-                id = projectsWithOwners.project.id;
-                nftVolume = projectsWithOwners.project.nftVolume;
-                owner = projectsWithOwners.project.owner;
-                rewards = projectsWithOwners.project.rewards;
-                status = projectsWithOwners.project.status;
-                story = projectsWithOwners.project.story;
-                tags = projectsWithOwners.project.tags;
-                title = projectsWithOwners.project.title;
-                twitterLink = projectsWithOwners.project.twitterLink;
-                walletId = projectsWithOwners.project.walletId;
-                wetransferLink = projectsWithOwners.project.wetransferLink;
-            };
-            let profileNoImage : ProfileNoImage = {
-                bio = projectsWithOwners.owner.bio;
-                firstName = projectsWithOwners.owner.firstName;
-                id = projectsWithOwners.owner.id;
-                lastName = projectsWithOwners.owner.lastName;
-            };
-            return {
-                project = projectNoImage;
-                owner = profileNoImage;
-            };
-        };
-        Array.map(projectsWithOwners, getProjectsWithOwnersNoImage); 
     };
 
     // Project statuses
@@ -407,6 +353,28 @@ actor CrowdFundNFT {
     func pidsAreEqual(p1: ProjectId, p2: ProjectId) : Bool { p1 == p2 };
     func projectIdKey (p: ProjectId) : Trie.Key<ProjectId> {
         { key = p; hash = Text.hash(p) };
+    };
+
+
+    // Marketplace data
+
+    type MarketplaceLinks = Types.MarketplaceLinks;
+    stable var marketplaceLinks : Trie.Trie<ProjectId, MarketplaceLinks> = Trie.empty();
+
+    public query func getMarketplaceLinks(pid: ProjectId): async MarketplaceLinks {
+        switch (_getMarketplaceLinks(pid)) {
+            case (?links) { links; };
+            case null { []; };
+        };
+    };
+
+    public shared(msg) func setMarketplaceLinks(pid: ProjectId, links: MarketplaceLinks): async () {
+        assert(Utils.isAdmin(msg.caller));
+        marketplaceLinks := Trie.put<ProjectId, MarketplaceLinks>(marketplaceLinks, projectIdKey(pid), Text.equal, links).0;
+    };
+
+    func _getMarketplaceLinks(pid: ProjectId): ?MarketplaceLinks {
+        Trie.get<ProjectId, MarketplaceLinks>(marketplaceLinks, projectIdKey(pid), Text.equal);
     };
 
     // User Auth
