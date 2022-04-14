@@ -76,8 +76,6 @@ export default function ProjectDetails() {
         }
     )
 
-    if (project) project.status = [{ fully_funded: null }]
-
     if (isLoading || isError || isFetching || !project) {
         return (
             <div className='w-full bg-gray-50'>
