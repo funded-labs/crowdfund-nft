@@ -1,9 +1,12 @@
 import Grid from './grid'
 import { useQuery } from 'react-query'
 import { useBackend } from '@/context/backend'
+import { makeEscrowActor } from '@/ui/service/actor-locator'
 
-export default function LiveSoon() {
+export default function ProjectList({ header, statuses, queryName }) {
+    // e.g. "Fully funded projects", ["fully_funded"]
     const { backend } = useBackend()
+    const escrow = makeEscrowActor()
 
     const {
         data: projectData,
@@ -11,26 +14,29 @@ export default function LiveSoon() {
         isError,
         isFetching,
     } = useQuery(
-        ['live-soon-projects', backend],
+        [queryName, backend],
         async () => {
             if (!backend) return []
 
             let newData = {}
 
-            const projects = await backend.listProjects([[{ approved: null }]])
+            const projects = await backend.listProjects(
+                statuses.map((s) => [{ [s]: null }])
+            )
             newData.projects = projects
 
             console.log(projects)
 
             let stats = {}
             projects.forEach(async (project) => {
-                console.log(project.project.id)
+                console.log(parseInt(project.project.id))
                 try {
                     const newStats = await escrow.getProjectStats(
                         parseInt(project.project.id)
                     )
                     stats[project.project.id] = newStats
                 } catch (e) {
+                    console.log(e)
                     stats[project.project.id] = {
                         nftsSold: 0,
                         nftPriceE8S: 0,
@@ -48,14 +54,14 @@ export default function LiveSoon() {
     )
 
     return (
-        <section className='w-full py-5 mb-10'>
+        <section className='w-full py-5'>
             <div className='px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-2'>
-                Projects Going Live Soon
+                {header}
             </div>
             {!isLoading &&
-            (!projectData?.projects || projectData?.projects.length === 0) ? (
+            (!projectData?.projects || projectData?.projects?.length === 0) ? (
                 <div className='px-4 w-full max-w-5xl mx-auto'>
-                    No projects going live soon
+                    No projects in this section
                 </div>
             ) : (
                 <Grid

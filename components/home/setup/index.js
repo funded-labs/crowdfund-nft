@@ -54,7 +54,7 @@ export default function Setup() {
                         <div className='max-w-md mx-auto space-y-4 lg:max-w-5xl lg:grid lg:grid-cols-2 lg:gap-5 lg:space-y-0'>
                             {tiers.map((tier) => (
                                 <div
-                                    key={tier.name}
+                                    key={tier.description}
                                     className='flex flex-col rounded-lg shadow-lg overflow-hidden'>
                                     <div className='px-6 py-8 bg-white sm:p-10 sm:pb-6'>
                                         <div>

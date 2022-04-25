@@ -31,7 +31,7 @@ export default function StepFive() {
 
             setStep(6)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             // toto: set form error
         } finally {
             setLoading(false)
@@ -72,7 +72,9 @@ export default function StepFive() {
                                 <br />
                                 <a href=''>What you will do with funds</a>
                                 <br />
-                                <a href=''>Perks and rewards for project backers</a>
+                                <a href=''>
+                                    Perks and rewards for project backers
+                                </a>
                                 <br />
                                 <a href=''>
                                     Project Timeline and key milestones
