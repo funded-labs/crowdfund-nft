@@ -22,5 +22,8 @@
     },
     "test_escrow": {
       "ic": "2tm6x-fyaaa-aaaak-aajnq-cai"
+    },
+    "kontribute_escrow": {
+      "ic": "f7xab-3yaaa-aaaak-aam2a-cai"
     }
   }

@@ -1,9 +1,6 @@
 {
     "canisters": {
-        "cnft_escrow": {
-            "declarations": {
-                "output": "ui/declarations/test_escrow"
-            },
+        "kontribute_escrow": {
             "main": "src/escrow_manager/escrow.mo"
         }
     },
