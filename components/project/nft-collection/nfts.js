@@ -1,128 +1,11 @@
+import exampleNFTs from './example-nfts'
+
 export default function NFTs({ project }) {
     const { nftVolume } = project
 
-    const nfts =
-        project.id === '1'
-            ? [
-                  {
-                      id: '#79',
-                      url: 'https://2glp2-eqaaa-aaaak-aajoa-cai.raw.ic0.app/?asset=79',
-                  },
-                  {
-                      id: '#160',
-                      url: 'https://2glp2-eqaaa-aaaak-aajoa-cai.raw.ic0.app/?asset=160',
-                  },
-                  {
-                      id: '#226',
-                      url: 'https://2glp2-eqaaa-aaaak-aajoa-cai.raw.ic0.app/?asset=226',
-                  },
-              ]
-            : project.id === '4'
-            ? [
-                  {
-                      id: '#0',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=41',
-                  },
-                  {
-                      id: '#1',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=42',
-                  },
-                  {
-                      id: '#2',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=43',
-                  },
-              ]
-            : project.id === '6'
-            ? [
-                  {
-                      id: '#1',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=27',
-                  },
-                  {
-                      id: '#2',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=28',
-                  },
-                  {
-                      id: '#3',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=29',
-                  },
-              ]
-            : project.id === '7'
-            ? [
-                  {
-                      id: '#0',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=37',
-                  },
-                  {
-                      id: '#1',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=39',
-                  },
-                  {
-                      id: '#2',
-                      url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=38',
-                  },
-              ]
-            : project.id === '8'
-            ? [
-                  {
-                      id: '#1',
-                      url: '/assets/nfts/music-video/1.png',
-                  },
-                  {
-                      id: '#2',
-                      url: '/assets/nfts/music-video/2.png',
-                  },
-                  {
-                      id: '#3',
-                      url: '/assets/nfts/music-video/3.png',
-                  },
-              ]
-            : project.id === '9'
-            ? [
-                  {
-                      id: '#0',
-                      url: '/assets/nfts/icwhiskers/1.png',
-                  },
-                  {
-                      id: '#1',
-                      url: '/assets/nfts/icwhiskers/2.png',
-                  },
-                  {
-                      id: '#2',
-                      url: '/assets/nfts/icwhiskers/3.png',
-                  },
-              ]
-            : project.id === '11'
-            ? [
-                  {
-                      id: '#0',
-                      url: '/assets/nfts/thanat0s/1.jpg',
-                  },
-                  {
-                      id: '#1',
-                      url: '/assets/nfts/thanat0s/2.jpg',
-                  },
-                  {
-                      id: '#2',
-                      url: '/assets/nfts/thanat0s/3.jpg',
-                  },
-              ]
-            : project.id === '13'
-            ? [
-                  {
-                      id: '#0',
-                      url: '/assets/nfts/ic-cutemoon/1.png',
-                  },
-                  {
-                      id: '#1',
-                      url: '/assets/nfts/ic-cutemoon/2.png',
-                  },
-                  {
-                      id: '#2',
-                      url: '/assets/nfts/ic-cutemoon/3.png',
-                  },
-              ]
-            : []
+    const nfts = exampleNFTs.hasOwnProperty(project.id)
+        ? exampleNFTs[project.id]
+        : []
 
     return (
         <div
@@ -131,8 +14,8 @@ export default function NFTs({ project }) {
             <p className='font-bold text-base text-black'>NFTs</p>
 
             <p className='text-gray-600 my-2 w-full'>
-                When you back this project, you will be randomly allocated
-                an NFT from this collection if the project gets fully funded.
+                When you back this project, you will be randomly allocated an
+                NFT from this collection if the project gets fully funded.
             </p>
 
             {/* <p className='text-center font-semibold w-full mb-10'>
