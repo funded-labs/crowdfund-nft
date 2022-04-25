@@ -21,8 +21,6 @@ export default function ProjectDetails() {
             if (!backend) return null
             if (!id) return null
 
-            console.log(id)
-
             const info = await backend.getNFTInfo(id)
             if (Array.isArray(info)) return info[0]
             return info
@@ -31,8 +29,6 @@ export default function ProjectDetails() {
             refetchOnWindowFocus: false,
         }
     )
-
-    console.log(nftInfo)
 
     return (
         <div className='w-full bg-gray-50'>

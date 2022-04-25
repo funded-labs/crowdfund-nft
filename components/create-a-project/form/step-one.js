@@ -53,7 +53,7 @@ export default function StepOne() {
 
             setStep(2)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             // todo: set form error
         } finally {
             setLoading(false)

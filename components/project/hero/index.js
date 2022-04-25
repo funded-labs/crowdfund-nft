@@ -35,7 +35,6 @@ const createActor = (canisterId) => {
 
     // Fetch root key for certificate validation during development
     if (process.env.NODE_ENV !== 'production') {
-        console.log('here')
         agent.fetchRootKey().catch((err) => {
             console.warn(
                 'Unable to fetch root key. Check to ensure that your local replica is running'
@@ -104,8 +103,6 @@ export default function Hero({ isLoading, project }) {
         escrowActor
             .getProjectEscrowCanisterPrincipal(parseInt(project.id))
             .then((canisterPrincipal) => {
-                console.log(canisterPrincipal)
-
                 if (
                     !Array.isArray(canisterPrincipal) ||
                     canisterPrincipal.length < 1
@@ -115,13 +112,9 @@ export default function Hero({ isLoading, project }) {
                 const newActor = createActor(canisterPrincipal[0])
 
                 setLoadingMessage('Requesting new account id...')
-                console.log(newActor)
                 return newActor
                     .getNewAccountId(Principal.from(plugPrincipal))
                     .then((accountIdResult) => {
-                        console.log(accountIdResult)
-                        console.log(Number(project.stats.nftPriceE8S))
-
                         if (accountIdResult.hasOwnProperty('err'))
                             return alert(accountIdResult.err)
 
@@ -135,9 +128,7 @@ export default function Hero({ isLoading, project }) {
                         setLoadingMessage('Requesting transfer from Plug...')
                         return window.ic.plug
                             .requestTransfer(params)
-                            .then((plugResult) => {
-                                console.log(plugResult)
-
+                            .then(() => {
                                 setLoadingMessage('Confirming transfer...')
                                 return newActor
                                     .confirmTransfer(accountid)
@@ -370,7 +361,6 @@ export default function Hero({ isLoading, project }) {
                                 <ReCAPTCHA
                                     sitekey='6LfzZaceAAAAALKgbi6cblAmKHmIGmzp4CGJ-xEt'
                                     onChange={() => {
-                                        console.log('captcha successful')
                                         setHasPassedCaptcha(true)
                                         if (hasShownInstructions)
                                             return backProject()

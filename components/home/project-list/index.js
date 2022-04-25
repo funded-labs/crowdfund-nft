@@ -25,18 +25,15 @@ export default function ProjectList({ header, statuses, queryName }) {
             )
             newData.projects = projects
 
-            console.log(projects)
-
             let stats = {}
             projects.forEach(async (project) => {
-                console.log(parseInt(project.project.id))
                 try {
                     const newStats = await escrow.getProjectStats(
                         parseInt(project.project.id)
                     )
                     stats[project.project.id] = newStats
                 } catch (e) {
-                    console.log(e)
+                    console.error(e)
                     stats[project.project.id] = {
                         nftsSold: 0,
                         nftPriceE8S: 0,

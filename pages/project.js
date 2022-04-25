@@ -40,7 +40,6 @@ const createActor = (canisterId) => {
 
     // Fetch root key for certificate validation during development
     if (process.env.NODE_ENV !== 'production') {
-        console.log('here')
         agent.fetchRootKey().catch((err) => {
             console.warn(
                 'Unable to fetch root key. Check to ensure that your local replica is running'
@@ -77,8 +76,6 @@ export default function ProjectDetails() {
 
             const { project, owner, marketplaceLinks } =
                 await backend.getProjectWithOwnerAndMarketplace(projectId)
-
-            console.log({ project, owner, marketplaceLinks })
 
             let stats = {
                 nftNumber: Number(project.nftVolume),

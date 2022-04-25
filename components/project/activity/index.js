@@ -1,10 +1,7 @@
 import { useQuery } from 'react-query'
 
 export default function Activity({ escrowActor }) {
-    const {
-        data: activity,
-        isLoading
-    } = useQuery(
+    const { data: activity, isLoading } = useQuery(
         ['escrow-activity', escrowActor],
         async () => {
             if (!escrowActor) return null
@@ -23,7 +20,6 @@ export default function Activity({ escrowActor }) {
                             activityObj[row[1]] = 0
                         activityObj[row[1]] += 1
                     })
-                    console.log(Object.entries(activityObj))
                     return {
                         rows: Object.entries(activityObj),
                     }
