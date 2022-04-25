@@ -29,6 +29,9 @@ const HomePage = () => (
             statuses={['fully_funded']}
         />
 
+        <br />
+        <br />
+
         <Entrepot2 />
 
         <Setup />
