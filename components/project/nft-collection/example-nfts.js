@@ -1,3 +1,5 @@
+const range = (n) => Array.from({ length: n }, (_, i) => i)
+
 export default {
     1: [
         {
@@ -55,24 +57,28 @@ export default {
             url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=38',
         },
     ],
-    8: [0, 1, 2].map((i) => ({
+    8: range(3).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/music-video/${i + 1}.png`,
     })),
-    9: [0, 1, 2].map((i) => ({
+    9: range(3).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/icwhiskers/${i + 1}.png`,
     })),
-    11: [0, 1, 2].map((i) => ({
+    11: range(3).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/thanat0s/${i + 1}.jpg`,
     })),
-    13: [0, 1, 2].map((i) => ({
+    13: range(3).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/ic-cutemon/${i + 1}.png`,
     })),
-    15: [0, 1, 2, 3, 4, 5].map((i) => ({
+    15: range(6).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/frontliners/${i + 1}.png`,
+    })),
+    16: range(6).map((i) => ({
+        id: `#${i}`,
+        url: `/assets/nfts/sa-chan/${i + 1}.jpg`,
     })),
 }
