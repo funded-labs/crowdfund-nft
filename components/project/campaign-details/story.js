@@ -1,3 +1,5 @@
+import Linkify from 'react-linkify'
+
 export default function Story({ isLoading, project }) {
     if (isLoading) {
         return (
@@ -25,9 +27,11 @@ export default function Story({ isLoading, project }) {
             <p className='font-bold text-base text-black'>Story</p>
 
             {/* User Input */}
-            <p className='text-gray-600 my-2 whitespace-pre-line whitespace-pre-wrap'>
-                {story}
-            </p>
+            <Linkify>
+                <p className='text-gray-600 my-2 whitespace-pre-line whitespace-pre-wrap'>
+                    {story}
+                </p>
+            </Linkify>
         </div>
     )
 }
