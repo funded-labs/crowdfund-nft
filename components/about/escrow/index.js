@@ -22,7 +22,7 @@ export default function Escrow() {
                 </p>
                 <div className="mt-6">
                   <a
-                    href="#"
+                    href="https://github.com/CrowdFund-NFT/escrow_manager"
                     className="inline-flex px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-500 hover:bg-blue-700"
                   >
                     GitHub Link

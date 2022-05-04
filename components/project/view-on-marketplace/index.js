@@ -14,7 +14,7 @@ export default function ViewOnMarketplace({ project }) {
             <a
                 href={link}
                 target='_blank'
-                className='h-12 bg-[#00d092] mx-10 py-1 px-2 rounded-lg overflow-hidden flex flex-row justify-center hover:opacity-75 cursor-pointer leading-10 font-bold text-sm'>
+                className='h-12 border-2 border-emerald-300 bg-transparent mx-1 py-1 px-2 rounded-lg overflow-hidden flex flex-row justify-center hover:opacity-75 cursor-pointer leading-10 font-bold text-sm text-emerald-400'>
                 Trade on
                 <img
                     src='/assets/entrepot-logo.png'
