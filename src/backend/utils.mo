@@ -79,8 +79,10 @@ module {
   // Authorization
 
   let adminIds: [Text] = [
-    "rwvfd-5wxx6-yeevy-xe4wu-rnywu-nrkxe-vxnup-yg3uz-5rgmo-hvtbd-sqe",
-    "wumae-66jd7-ml547-4s7j2-hvkod-oocmx-sj3tc-6fjhr-cbgvu-thpm3-kae"
+    "rwvfd-5wxx6-yeevy-xe4wu-rnywu-nrkxe-vxnup-yg3uz-5rgmo-hvtbd-sqe", // Max's local cnft-admin
+    "wumae-66jd7-ml547-4s7j2-hvkod-oocmx-sj3tc-6fjhr-cbgvu-thpm3-kae", // Luke's local default
+    "st2gz-phs6f-4w7d2-b625f-rh5vn-lumml-wxbhq-lcxnw-ob7yh-fhhwp-zqe", // Max's internet identity
+    "h4evs-iliqn-ihwf5-4q6lk-dw6ry-hm6go-cazig-qa5t3-ikolx-fbr32-gae", // CrowdfundNFT's internet identity
   ];
 
   public func isAdmin(userId: UserId): Bool {

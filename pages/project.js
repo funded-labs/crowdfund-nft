@@ -14,7 +14,6 @@ import Faqs from '@/components/project/faqs'
 import Head from 'next/head'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
 import Activity from '@/components/project/activity'
-import Linkify from 'react-linkify'
 
 export const idlFactory = ({ IDL }) => {
     const Stats = IDL.Record({

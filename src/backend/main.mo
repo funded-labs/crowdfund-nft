@@ -157,17 +157,14 @@ actor CrowdFundNFT {
     };
 
     public shared(msg) func updateProject(project: Project): async () {
-        if(Utils.hasProjectAccess(msg.caller, project)) {
-            db.updateProject(project);
-        };
+        // assert(Utils.hasProjectAccess(msg.caller, project));
+        assert(Utils.isAdmin(msg.caller));
+        db.updateProject(project);
     };
 
     public shared(msg) func deleteProject(projectId: ProjectId): async ?Project {
-        if (Utils.hasProjectAccess(msg.caller, await getProject(projectId))) {
-            return db.deleteProject(projectId)
-        } else {
-            throw(Error.reject("User is not authorized to delete project."))
-        };
+        assert(Utils.hasProjectAccess(msg.caller, await getProject(projectId)));
+        db.deleteProject(projectId);
     };
 
     public query func getProject(projectId: ProjectId): async Project {
