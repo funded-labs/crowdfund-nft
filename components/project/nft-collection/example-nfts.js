@@ -89,4 +89,8 @@ export default {
         id: `#${i}`,
         url: `/assets/nfts/kyle/${i}.png`,
     })),
+    19: range(3).map((i) => ({
+        id: `#${i}`,
+        url: `/assets/nfts/naaps/naaps-crowdfundnft_${i + 1}.png`,
+    })),
 }
