@@ -36,6 +36,15 @@ const HomePage = () => (
 
         <Setup />
 
+        <ProjectList
+            header='Archived Projects'
+            queryName='archived-projects'
+            statuses={[null]}
+        />
+
+        <br />
+        <br />
+
         <Footer />
     </div>
 )

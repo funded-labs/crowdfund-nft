@@ -1,6 +1,6 @@
 {
     "canisters": {
-        "kontribute_escrow": {
+        "sa_chan_escrow": {
             "main": "src/escrow_manager/escrow.mo"
         }
     },

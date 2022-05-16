@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
 import { Principal } from '@dfinity/principal'
 import { Actor, HttpAgent } from '@dfinity/agent'
 
@@ -11,7 +12,6 @@ import { makeEscrowActor } from '@/ui/service/actor-locator'
 import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { doesNotThrow } from 'assert'
 import ViewOnMarketplace from '../view-on-marketplace'
 
 export const idlFactory = ({ IDL }) => {
@@ -58,15 +58,23 @@ export default function Hero({ isLoading, project }) {
     // const [loadingStats, setLoadingStats] = useState(false)
     const [showExampleModal, setExampleModal] = useState(false)
 
-    const [launchDate, setLaunchDate] = useState(null)
-
     const [showCaptcha, setShowCaptcha] = useState(false)
     const [hasPassedCaptcha, setHasPassedCaptcha] = useState(false)
 
     const { backend, getPlugPrincipal } = useBackend()
     const escrowActor = makeEscrowActor()
 
-    const status = Object.keys(project?.status?.[0] || { submitted: null })[0]
+    const { data: launchDate } = useQuery(['launchDate', project?.id], () => {
+        return backend
+            .getLaunchDate(project.id)
+            .then((r) =>
+                r !== undefined && Array.isArray(r) ? r[0] : undefined
+            )
+    })
+
+    console.log(launchDate)
+
+    const status = Object.keys(project?.status?.[0] || { archived: null })[0]
 
     const handleShare = () => {
         if (!window) return
@@ -215,6 +223,8 @@ export default function Hero({ isLoading, project }) {
                 return <>open to whitelist</>
             case 'live':
                 return <>live</>
+            case 'archived':
+                return <>archived</>
             default:
                 return <>not live</>
         }
@@ -331,6 +341,13 @@ export default function Hero({ isLoading, project }) {
                                         This project is now fully funded!
                                     </p>
                                     <ViewOnMarketplace project={project} />
+                                </div>
+                            ) : status === 'archived' ? (
+                                <div className='flex flex-col space-y-2'>
+                                    <p className='text-center'>
+                                        This project did not reach its funding
+                                        goal.
+                                    </p>
                                 </div>
                             ) : (
                                 <button

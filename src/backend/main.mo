@@ -290,6 +290,17 @@ actor CrowdFundNFT {
         };
     };
 
+    public shared(msg) func archiveProject(pid: ProjectId): async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                assert(p.status == ?#whitelist or p.status == ?#live);
+                db.updateProjectStatus(p, null);
+            };
+            case null { throw Error.reject("No project with this id.") };
+        };
+    };
+
     // Project whitelists
 
     stable var whitelists   : Trie.Trie<ProjectId, [Principal]> = Trie.empty();
