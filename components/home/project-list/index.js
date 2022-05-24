@@ -21,8 +21,9 @@ export default function ProjectList({ header, statuses, queryName }) {
             let newData = {}
 
             const projects = await backend.listProjects(
-                statuses.map((s) => (s === [] ? s : [{ [s]: null }]))
+                statuses.map((s) => (s === null ? [] : [{ [s]: null }]))
             )
+            console.log(projects)
             newData.projects = projects
 
             let stats = {}
