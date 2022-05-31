@@ -97,4 +97,8 @@ export default {
         id: `#${i}`,
         url: `/assets/nfts/operahuadan/${i}.jpg`,
     })),
+    21: range(3).map((i) => ({
+        id: `#${i}`,
+        url: `/assets/nfts/kinic/${i}.png`,
+    })),
 }
