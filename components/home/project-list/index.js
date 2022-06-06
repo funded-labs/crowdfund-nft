@@ -3,7 +3,12 @@ import { useQuery } from 'react-query'
 import { useBackend } from '@/context/backend'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
 
-export default function ProjectList({ header, statuses, queryName }) {
+export default function ProjectList({
+    categories,
+    header,
+    queryName,
+    statuses,
+}) {
     // e.g. "Fully funded projects", ["fully_funded"]
     const { backend } = useBackend()
     const escrow = makeEscrowActor()
@@ -20,9 +25,27 @@ export default function ProjectList({ header, statuses, queryName }) {
 
             let newData = {}
 
-            const projects = await backend.listProjects(
-                statuses.map((s) => (s === null ? [] : [{ [s]: null }]))
+            const projects = (
+                await backend.listProjects(
+                    statuses
+                        ? statuses.map((s) =>
+                              s === null ? [] : [{ [s]: null }]
+                          )
+                        : []
+                )
             )
+                .filter(
+                    (p) =>
+                        categories === undefined ||
+                        (Array.isArray(categories) &&
+                            categories.includes(p.project.category))
+                )
+                .filter(
+                    (p) =>
+                        Object.keys(
+                            p.project?.status?.[0] || { submitted: null }
+                        )[0] !== 'submitted'
+                )
             console.log(projects)
             newData.projects = projects
 

@@ -2,9 +2,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { useBackend } from '@/context/backend'
-import { ProjectFormProvider, useProjectForm } from './project-form-context'
+import { ProjectFormProvider } from './project-form-context'
 import Input from '@/components/forms/input'
-import Select from '@/components/forms/select'
 import Textarea from '@/components/forms/textarea'
 import { Spinner } from '@/components/shared/loading-spinner'
 import { Formik } from 'formik'
@@ -125,25 +124,14 @@ const Form = () => {
                                 placeholder='Project name'
                             />
                             <p>Category</p>
-                            <Select
+                            <Input
+                                id='projectCategory'
                                 name='projectCategory'
                                 value={values.projectCategory}
-                                options={[
-                                    { label: 'Gaming', value: 'gaming' },
-                                    { label: 'Art', value: 'art' },
-                                    { label: 'Music', value: 'music' },
-                                    { label: 'Cosmetics', value: 'cosmetics' },
-                                    { label: 'Tech', value: 'tech' },
-                                    { label: 'Web3', value: 'web3' },
-                                    {
-                                        label: 'IC Projects',
-                                        value: 'ic-projects',
-                                    },
-                                    { label: 'Design', value: 'design' },
-                                    { label: 'Other', value: 'other' },
-                                ]}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
+                                type='text'
+                                placeholder='Category'
                             />
                             <p>Social Media Links</p>
                             <div className='w-full grid grid-cols-2 gap-4'>

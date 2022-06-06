@@ -18,6 +18,12 @@ const HomePage = () => (
         />
 
         <ProjectList
+            header='Supernova Projects'
+            queryName='supernova-projects'
+            categories={['supernova']}
+        />
+
+        <ProjectList
             header='Projects Going Live Soon'
             queryName='live-soon-projects'
             statuses={['approved']}
