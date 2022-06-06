@@ -37,7 +37,7 @@ export default function StepThree() {
 
             setStep(4)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             // todo: set form error
         } finally {
             setLoading(false)

@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react'
-import Featured from '../components/home/featured'
-import LiveSoon from '../components/home/live-soon'
+import ProjectList from '../components/home/project-list'
 import Hero from '../components/home/hero'
-// import NearlyFunded from '../components/home/nearly-funded'
 import Navbar from '../components/shared/navbar'
 import Footer from '@/components/shared/footer'
+import Entrepot2 from '@/components/home/entrepot2'
+import Setup from '@/components/home/setup'
 
 const HomePage = () => (
     <div className='w-full'>
@@ -12,11 +11,45 @@ const HomePage = () => (
 
         <Hero />
 
-        <Featured />
+        <ProjectList
+            header='Live Projects'
+            queryName='live-projects'
+            statuses={['whitelist', 'live']}
+        />
 
-        <LiveSoon />
+        <ProjectList
+            header='Supernova Projects'
+            queryName='supernova-projects'
+            categories={['supernova']}
+        />
 
-        {/* <NearlyFunded /> */}
+        <ProjectList
+            header='Projects Going Live Soon'
+            queryName='live-soon-projects'
+            statuses={['approved']}
+        />
+
+        <ProjectList
+            header='Fully Funded Projects'
+            queryName='fully-funded-projects'
+            statuses={['fully_funded']}
+        />
+
+        <br />
+        <br />
+
+        <Entrepot2 />
+
+        <Setup />
+
+        <ProjectList
+            header='Archived Projects'
+            queryName='archived-projects'
+            statuses={[null]}
+        />
+
+        <br />
+        <br />
 
         <Footer />
     </div>

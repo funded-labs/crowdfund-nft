@@ -27,7 +27,7 @@ export default function HowItWorks() {
                     project backers wallets.
                 </p>
 
-                <img src='/assets/how-it-works.png' className='w-full' />
+                <img src='/assets/hhh8.png' className='w-full' />
             </div>
         </div>
     )

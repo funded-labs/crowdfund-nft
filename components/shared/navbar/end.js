@@ -11,7 +11,7 @@ export default function End() {
                     if (plugPrincipal)
                         return alert('Plug is already connected.')
 
-                    console.log(await getPlugPrincipal())
+                    await getPlugPrincipal()
                     alert('Thank you for connecting Plug.')
                     // GET 1 ICP from wallet
 
@@ -22,7 +22,6 @@ export default function End() {
                     // }
                     // window.ic.plug
                     //     .requestTransfer(params)
-                    //     .then((result) => console.log(result))
                     //     .catch((error) => console.error(error))
                 }}>
                 <img

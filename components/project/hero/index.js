@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
 import { Principal } from '@dfinity/principal'
 import { Actor, HttpAgent } from '@dfinity/agent'
 
@@ -12,6 +13,7 @@ import { Spinner } from '@/components/shared/loading-spinner'
 import InstructionModal from './instruction-modal'
 import ReCAPTCHA from 'react-google-recaptcha'
 import PricePerNFT from './price-per-nft'
+import ViewOnMarketplace from '../view-on-marketplace'
 
 export const idlFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
@@ -34,7 +36,6 @@ const createActor = (canisterId) => {
 
     // Fetch root key for certificate validation during development
     if (process.env.NODE_ENV !== 'production') {
-        console.log('here')
         agent.fetchRootKey().catch((err) => {
             console.warn(
                 'Unable to fetch root key. Check to ensure that your local replica is running'
@@ -58,15 +59,23 @@ export default function Hero({ isLoading, project }) {
     // const [loadingStats, setLoadingStats] = useState(false)
     const [showExampleModal, setExampleModal] = useState(false)
 
-    const [launchDate, setLaunchDate] = useState(null)
-
     const [showCaptcha, setShowCaptcha] = useState(false)
     const [hasPassedCaptcha, setHasPassedCaptcha] = useState(false)
 
     const { backend, getPlugPrincipal } = useBackend()
     const escrowActor = makeEscrowActor()
 
-    const status = Object.keys(project?.status?.[0] || { submitted: null })[0]
+    const { data: launchDate } = useQuery(['launchDate', project?.id], () => {
+        return backend
+            .getLaunchDate(project.id)
+            .then((r) =>
+                r !== undefined && Array.isArray(r) ? r[0] : undefined
+            )
+    })
+
+    console.log(launchDate)
+
+    const status = Object.keys(project?.status?.[0] || { archived: null })[0]
 
     const handleShare = () => {
         if (!window) return
@@ -103,8 +112,6 @@ export default function Hero({ isLoading, project }) {
         escrowActor
             .getProjectEscrowCanisterPrincipal(parseInt(project.id))
             .then((canisterPrincipal) => {
-                console.log(canisterPrincipal)
-
                 if (
                     !Array.isArray(canisterPrincipal) ||
                     canisterPrincipal.length < 1
@@ -114,13 +121,9 @@ export default function Hero({ isLoading, project }) {
                 const newActor = createActor(canisterPrincipal[0])
 
                 setLoadingMessage('Requesting new account id...')
-                console.log(newActor)
                 return newActor
                     .getNewAccountId(Principal.from(plugPrincipal))
                     .then((accountIdResult) => {
-                        console.log(accountIdResult)
-                        console.log(Number(project.stats.nftPriceE8S))
-
                         if (accountIdResult.hasOwnProperty('err'))
                             return alert(accountIdResult.err)
 
@@ -134,9 +137,7 @@ export default function Hero({ isLoading, project }) {
                         setLoadingMessage('Requesting transfer from Plug...')
                         return window.ic.plug
                             .requestTransfer(params)
-                            .then((plugResult) => {
-                                console.log(plugResult)
-
+                            .then(() => {
                                 setLoadingMessage('Confirming transfer...')
                                 return newActor
                                     .confirmTransfer(accountid)
@@ -223,6 +224,8 @@ export default function Hero({ isLoading, project }) {
                 return <>open to whitelist</>
             case 'live':
                 return <>live</>
+            case 'archived':
+                return <>archived</>
             default:
                 return <>not live</>
         }
@@ -324,8 +327,18 @@ export default function Hero({ isLoading, project }) {
                             (project.stats.endTime > 0 &&
                                 project.stats.nftsSold >=
                                     project.stats.nftNumber) ? (
-                                <div style={{ textAlign: 'center' }}>
-                                    This project is now fully funded!
+                                <div className='flex flex-col space-y-2'>
+                                    <p className='text-center'>
+                                        This project is now fully funded!
+                                    </p>
+                                    <ViewOnMarketplace project={project} />
+                                </div>
+                            ) : status === 'archived' ? (
+                                <div className='flex flex-col space-y-2'>
+                                    <p className='text-center'>
+                                        This project did not reach its funding
+                                        goal.
+                                    </p>
                                 </div>
                             ) : (
                                 <button
@@ -356,7 +369,6 @@ export default function Hero({ isLoading, project }) {
                                 <ReCAPTCHA
                                     sitekey='6LfzZaceAAAAALKgbi6cblAmKHmIGmzp4CGJ-xEt'
                                     onChange={() => {
-                                        console.log('captcha successful')
                                         setHasPassedCaptcha(true)
                                         if (hasShownInstructions)
                                             return backProject()

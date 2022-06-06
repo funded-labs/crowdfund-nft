@@ -4,9 +4,7 @@ export const handleConnect = async (whitelist = []) => {
         return
     }
 
-    const connected = await window?.ic?.plug?.requestConnect({
+    await window?.ic?.plug?.requestConnect({
         whitelist,
     })
-
-    if (!connected) return
 }

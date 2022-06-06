@@ -12,7 +12,7 @@ const stepTwoSchema = Yup.object().shape({
     projectCategory: Yup.string().required(
         'Select a category for your project'
     ),
-    twitterLink: Yup.string().required("Enter Twitter link for your project"),
+    twitterLink: Yup.string().required('Enter Twitter link for your project'),
     discordLink: Yup.string(), //.required("Enter a Discord link for your project")
 })
 
@@ -36,7 +36,7 @@ export default function StepTwo() {
 
             setStep(3)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             // todo: set form error
         } finally {
             setLoading(false)
@@ -69,14 +69,15 @@ export default function StepTwo() {
                             name='projectCategory'
                             value={values.projectCategory}
                             options={[
-                                { label: 'Gaming', value: 'gaming' },
                                 { label: 'Art', value: 'art' },
-                                { label: 'Music', value: 'music' },
                                 { label: 'Cosmetics', value: 'cosmetics' },
+                                { label: 'Design', value: 'design' },
+                                { label: 'Gaming', value: 'gaming' },
+                                { label: 'IC Projects', value: 'ic-projects' },
+                                { label: 'Music', value: 'music' },
+                                { label: 'Supernova', value: 'supernova' },
                                 { label: 'Tech', value: 'tech' },
                                 { label: 'Web3', value: 'web3' },
-                                { label: 'IC Projects', value: 'ic-projects' },
-                                { label: 'Design', value: 'design' },
                                 { label: 'Other', value: 'other' },
                             ]}
                             onChange={handleChange}

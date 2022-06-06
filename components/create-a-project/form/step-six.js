@@ -40,8 +40,7 @@ export default function StepSix() {
                 if (
                     !(await window.ic.plug
                         .requestTransfer(params)
-                        .then((plugResult) => {
-                            console.log(plugResult)
+                        .then(() => {
                             return true
                         })
                         .catch((error) => {
@@ -112,7 +111,7 @@ export default function StepSix() {
 
             setStep(7)
         } catch (error) {
-            console.log(error)
+            console.error(error)
             // todo: set form error
         } finally {
             setLoading(false)

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="913px" height="154px" viewBox="0 0 913 154" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Artboard</title>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" fill="#2757E8" cx="70.5" cy="74.5" r="62.5"></circle>
+        <rect id="Rectangle" fill="#2757E8" transform="translate(110.748075, 31.474058) rotate(44.000000) translate(-110.748075, -31.474058) " x="86.7480747" y="-1.5259418" width="48" height="66" rx="24"></rect>
+        <rect id="Rectangle" fill="#2757E8" transform="translate(38.156521, 113.411553) rotate(44.000000) translate(-38.156521, -113.411553) " x="14.1565215" y="71.9115535" width="48" height="83" rx="24"></rect>
+        <rect id="Rectangle" fill="#2757E8" transform="translate(106.569573, 115.927454) rotate(44.000000) translate(-106.569573, -115.927454) " x="68.0695729" y="91.9274536" width="77" height="48" rx="24"></rect>
+        <rect id="Rectangle" fill="#2757E8" transform="translate(36.430427, 35.072546) rotate(44.000000) translate(-36.430427, -35.072546) " x="-2.0695729" y="11.0725464" width="77" height="48" rx="24"></rect>
+        <circle id="Oval" fill="#000000" opacity="0.711146763" cx="26" cy="24" r="10"></circle>
+        <circle id="Oval" fill="#000000" opacity="0.71" cx="26" cy="126" r="10"></circle>
+        <circle id="Oval" fill="#FFFFFF" opacity="0.707217262" cx="116" cy="24" r="10"></circle>
+        <circle id="Oval" fill="#FFFFFF" opacity="0.707217262" cx="116" cy="126" r="10"></circle>
+        <text id="C" font-family="Poppins-Bold, Poppins" font-size="86" font-weight="bold" letter-spacing="2.31037176" fill="#FFFFFF">
+            <tspan x="37.0788141" y="104">C</tspan>
+        </text>
+        <text id="CrowdFund-NFT" font-family="Poppins-Bold, Poppins" font-size="86" font-weight="bold" letter-spacing="2.31037176" fill="#000000">
+            <tspan x="189.918584" y="104">CrowdFund NFT</tspan>
+        </text>
+    </g>
+</svg>

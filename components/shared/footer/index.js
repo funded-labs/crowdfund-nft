@@ -31,6 +31,17 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li className="flex flex-row items-center">
+                                <Link href="/p/privacy" passHref as="/p/privacy.html">
+                                    <a
+                                        className="hover:underline cursor-pointer"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Privacy Policy
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="flex flex-row items-center">
                                 <Link href="/p/project-creator-guide" passHref as="/p/project-creator-guide.html">
                                     <a
                                         className="hover:underline cursor-pointer"
