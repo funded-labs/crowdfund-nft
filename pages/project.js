@@ -30,7 +30,25 @@ export const idlFactory = ({ IDL }) => {
     })
 }
 
-const createActor = (canisterId) => {
+export const newIdlFactory = ({ IDL }) => {
+    const NFTStats = IDL.Record({
+        number: IDL.Nat,
+        priceE8S: IDL.Nat,
+        sold: IDL.Nat,
+        openSubaccounts: IDL.Nat,
+    })
+    const EscrowStats = IDL.Record({
+        endTime: IDL.Int,
+        nftStats: IDL.Vec(NFTStats),
+    })
+    return IDL.Service({
+        getAccountsInfo: IDL.Func([], [IDL.Text], ['query']),
+        getLogs: IDL.Func([], [IDL.Text], ['query']),
+        getStats: IDL.Func([], [EscrowStats], ['query']),
+    })
+}
+
+const createActor = (canisterId, idlFactory = idlFactory) => {
     const agent = new HttpAgent({
         host:
             process.env.NODE_ENV === 'production'
@@ -100,16 +118,39 @@ export default function ProjectDetails() {
                 if (!Array.isArray(escrowCanister) || escrowCanister.length < 1)
                     return { ...project, escrowActor, stats, owner }
 
+                let isNewEscrow = false
                 escrowActor = createActor(escrowCanister[0])
-                const newStats = await escrowActor.getStats()
+                try {
+                    const newStats = await escrowActor.getStats()
+                } catch (e) {
+                    isNewEscrow = true
+                    escrowActor = createActor(escrowCanister[0], newIdlFactory)
+                    const newStats = await escrowActor.getStats()
+                }
 
-                if (newStats?.nftNumber > 0) {
+                if (!isNewEscrow && newStats?.nftNumber > 0) {
                     stats = {
-                        nftNumber: Number(newStats.nftNumber),
-                        nftPriceE8S: Number(newStats.nftPriceE8S),
                         endTime: Number(newStats.endTime),
-                        nftsSold: Number(newStats.nftsSold),
-                        openSubaccounts: Number(newStats.openSubaccounts),
+                        nftStats: [
+                            {
+                                number: Number(newStats.nftNumber),
+                                priceE8S: Number(newStats.nftPriceE8S),
+                                sold: Number(newStats.nftsSold),
+                                openSubaccounts: Number(
+                                    newStats.openSubaccounts
+                                ),
+                            },
+                        ],
+                    }
+                } else if (isNewEscrow && newStats?.nftStats.length > 0) {
+                    stats = {
+                        endTime: Number(newStats.endTime),
+                        nftStats: newStats.nftStats.map((nft) => ({
+                            number: Number(nft.number),
+                            priceE8S: Number(nft.priceE8S),
+                            sold: Number(nft.sold),
+                            openSubaccounts: Number(nft.openSubaccounts),
+                        })),
                     }
                 }
             }
