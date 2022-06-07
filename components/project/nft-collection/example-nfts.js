@@ -105,4 +105,8 @@ export default {
         id: `#${i}`,
         url: `/assets/nfts/ic-footprint/0.png`,
     })),
+    26: range(3).map((i) => ({
+        id: `#${i}`,
+        url: `/assets/nfts/icapps/1.jpg`,
+    })),
 }
