@@ -26,7 +26,18 @@ export const idlFactory = ({ IDL }) => {
     })
 }
 
-const createActor = (canisterId) => {
+export const newIdlFactory = ({ IDL }) => {
+    const AccountIdText = IDL.Text
+    const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
+    const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
+    return IDL.Service({
+        cancelTransfer: IDL.Func([AccountIdText], [], []),
+        confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
+        getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat], [Result], []),
+    })
+}
+
+const createActor = (canisterId, idlFactory = idlFactory) => {
     const agent = new HttpAgent({
         host:
             process.env.NODE_ENV === 'production'
@@ -119,6 +130,10 @@ export default function Hero({ isLoading, project }) {
                     throw new Error('Invalid canister principal')
 
                 const newActor = createActor(canisterPrincipal[0])
+                const newEscrowActor = createActor(
+                    canisterPrincipal[0],
+                    newIdlFactory
+                )
 
                 setLoadingMessage('Requesting new account id...')
                 return newActor
