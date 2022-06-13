@@ -1,7 +1,36 @@
 {
     "canisters": {
-        "test_escrow": {
-            "main": "src/escrow_manager/escrow.mo"
+        "backend": {
+            "declarations": {
+                "output": "ui/declarations/backend"
+            },
+            "dependencies": ["escrow_manager"],
+            "main": "src/backend/main.mo"
+        },
+        "frontend": {
+            "declarations": {
+                "output": "ui/declarations/frontend"
+            },
+            "dependencies": ["backend", "escrow_manager", "images"],
+            "source": ["out"],
+            "type": "assets"
+        },
+        "frontend_staging": {
+            "dependencies": ["backend", "escrow_manager", "images"],
+            "source": ["out"],
+            "type": "assets"
+        },
+        "escrow_manager": {
+            "declarations": {
+                "output": "ui/declarations/escrow_manager"
+            },
+            "main": "src/escrow_manager/main.mo"
+        },
+        "images": {
+            "declarations": {
+                "output": "ui/declarations/images"
+            },
+            "main": "src/images/main.mo"
         }
     },
     "defaults": {

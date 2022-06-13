@@ -46,7 +46,6 @@ export default function ProjectList({
                             p.project?.status?.[0] || { submitted: null }
                         )[0] !== 'submitted'
                 )
-            console.log(projects)
             newData.projects = projects
 
             let stats = {}

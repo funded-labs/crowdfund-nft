@@ -74,8 +74,6 @@ const Form = () => {
 
         const newProject = { ...project, ...form }
 
-        console.log(await backend.getOwnIdText())
-
         backend
             .updateProject(newProject)
             .catch((e) => console.error(e))

@@ -1,0 +1,95 @@
+type Time = int;
+type SubaccountBlob = blob;
+type Result_1 = 
+ variant {
+   err: text;
+   ok;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok: AccountIdText;
+ };
+type ProjectState = 
+ variant {
+   closed;
+   live;
+   noproject;
+   whitelist: vec principal;
+ };
+type ProjectId__1 = nat;
+type ProjectId = nat;
+type NFTStats = 
+ record {
+   number: nat;
+   openSubaccounts: nat;
+   priceE8S: nat;
+   sold: nat;
+ };
+type NFTInfo__1 = 
+ record {
+   number: nat;
+   priceE8S: nat;
+ };
+type NFTInfoIndex = nat;
+type NFTInfo = 
+ record {
+   number: nat;
+   priceE8S: nat;
+ };
+type EscrowStats = 
+ record {
+   endTime: Time;
+   nftStats: vec NFTStats;
+ };
+type EscrowCanister = 
+ service {
+   addConfirmedAccountsToConfirmedAccountsArray: () -> ();
+   cancelTransfer: (AccountIdText) -> ();
+   confirmTransfer: (AccountIdText) -> (Result_1);
+   getAccountsInfo: () -> (text) query;
+   getConfirmedAccountsArray: () -> (vec AccountIdAndTime) query;
+   getDisbursements: () -> (text) query;
+   getLogs: () -> (text) query;
+   getMetadata: () ->
+    (record {
+       endTime: Time;
+       maxNFTsPerWallet: nat;
+       nfts: vec NFTInfo__1;
+       projectId: ProjectId__1;
+       recipient: principal;
+     }) query;
+   getNewAccountId: (principal, NFTInfoIndex) -> (Result);
+   getProjectState: () -> (ProjectState) query;
+   getStats: () -> (EscrowStats) query;
+   getSubaccountsInfo: () ->
+    (record {
+       toDrain: record {
+                  arr: vec APS;
+                  count: nat;
+                  index: nat;
+                };
+       toRefund: record {
+                   arr: vec APS;
+                   count: nat;
+                   index: nat;
+                 };
+     }) query;
+   releaseFunds: () -> ();
+   returnFunds: () -> ();
+   testHasCNFT: (principal) -> (bool);
+   updateProjectState: () -> (ProjectState);
+ };
+type AccountIdText = text;
+type AccountIdAndTime = 
+ record {
+   accountId: AccountIdText;
+   time: Time;
+ };
+type APS = 
+ record {
+   AccountIdText;
+   principal;
+   SubaccountBlob;
+ };
+service : (ProjectId, principal, vec NFTInfo, Time, nat) -> EscrowCanister

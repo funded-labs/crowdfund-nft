@@ -15,7 +15,7 @@ import ReCAPTCHA from 'react-google-recaptcha'
 import PricePerNFT from './price-per-nft'
 import ViewOnMarketplace from '../view-on-marketplace'
 
-export const idlFactory = ({ IDL }) => {
+export const oldIdlFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
     const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
     const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
@@ -26,7 +26,7 @@ export const idlFactory = ({ IDL }) => {
     })
 }
 
-export const newIdlFactory = ({ IDL }) => {
+export const idlFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
     const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
     const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
@@ -37,7 +37,7 @@ export const newIdlFactory = ({ IDL }) => {
     })
 }
 
-const createActor = (canisterId, idlFactory = idlFactory) => {
+const createActor = (canisterId, idlFactory) => {
     const agent = new HttpAgent({
         host:
             process.env.NODE_ENV === 'production'
@@ -70,6 +70,7 @@ export default function Hero({ isLoading, project }) {
     // const [loadingStats, setLoadingStats] = useState(false)
     const [showExampleModal, setExampleModal] = useState(false)
 
+    const selectedTierState = useState(0)
     const [showCaptcha, setShowCaptcha] = useState(false)
     const [hasPassedCaptcha, setHasPassedCaptcha] = useState(false)
 
@@ -83,8 +84,6 @@ export default function Hero({ isLoading, project }) {
                 r !== undefined && Array.isArray(r) ? r[0] : undefined
             )
     })
-
-    console.log(launchDate)
 
     const status = Object.keys(project?.status?.[0] || { archived: null })[0]
 
@@ -121,7 +120,7 @@ export default function Hero({ isLoading, project }) {
 
         setLoadingMessage('Loading escrow canitser id...')
         escrowActor
-            .getProjectEscrowCanisterPrincipal(parseInt(project.id))
+            .getProjectEscrowCanisterPrincipal(+project.id)
             .then((canisterPrincipal) => {
                 if (
                     !Array.isArray(canisterPrincipal) ||
@@ -129,15 +128,24 @@ export default function Hero({ isLoading, project }) {
                 )
                     throw new Error('Invalid canister principal')
 
-                const newActor = createActor(canisterPrincipal[0])
-                const newEscrowActor = createActor(
-                    canisterPrincipal[0],
-                    newIdlFactory
-                )
+                let actor
+                let isNewActor = true
+                try {
+                    actor = createActor(canisterPrincipal[0], idlFactory)
+                } catch (e) {
+                    actor = createActor(canisterPrincipal[0], oldIdlFactory)
+                    isNewActor = false
+                }
 
                 setLoadingMessage('Requesting new account id...')
-                return newActor
-                    .getNewAccountId(Principal.from(plugPrincipal))
+
+                let accountIdPromise = isNewActor
+                    ? actor.getNewAccountId(
+                          Principal.from(plugPrincipal),
+                          selectedTierState[0]
+                      )
+                    : actor.getNewAccountId(Principal.from(plugPrincipal))
+                return accountIdPromise
                     .then((accountIdResult) => {
                         if (accountIdResult.hasOwnProperty('err'))
                             return alert(accountIdResult.err)
@@ -146,7 +154,10 @@ export default function Hero({ isLoading, project }) {
 
                         const params = {
                             to: accountid,
-                            amount: Number(project.stats.nftPriceE8S),
+                            amount: Number(
+                                project.stats.nftStats[selectedTierState[0]]
+                                    .priceE8S
+                            ),
                         }
 
                         setLoadingMessage('Requesting transfer from Plug...')
@@ -154,7 +165,7 @@ export default function Hero({ isLoading, project }) {
                             .requestTransfer(params)
                             .then(() => {
                                 setLoadingMessage('Confirming transfer...')
-                                return newActor
+                                return actor
                                     .confirmTransfer(accountid)
                                     .then((res) => {
                                         if (res.hasOwnProperty('err'))
@@ -168,7 +179,7 @@ export default function Hero({ isLoading, project }) {
                             })
                             .catch((error) => {
                                 console.error(error)
-                                return newActor.cancelTransfer(accountid)
+                                return actor.cancelTransfer(accountid)
                             })
                     })
                     .catch((error) => {
@@ -246,6 +257,13 @@ export default function Hero({ isLoading, project }) {
         }
     }
 
+    const goal = (
+        project?.stats?.nftStats ?? [{ number: 0, priceE8S: 0 }]
+    ).reduce((acc, cur) => acc + cur.number * cur.priceE8S, 0)
+    const pledged = (
+        project?.stats?.nftStats ?? [{ sold: 0, priceE8S: 0 }]
+    ).reduce((acc, cur) => acc + cur.sold * cur.priceE8S, 0)
+
     return (
         <section className='w-full bg-white'>
             <div className='w-full max-w-5xl mx-auto flex flex-col px-4 py-5'>
@@ -275,15 +293,9 @@ export default function Hero({ isLoading, project }) {
                                     width:
                                         status === 'fully_funded'
                                             ? '100%'
-                                            : `${(project.stats.nftNumber > 0
-                                                  ? Math.round(
-                                                        (project.stats
-                                                            .nftsSold /
-                                                            project.stats
-                                                                .nftNumber) *
-                                                            100
-                                                    )
-                                                  : 0
+                                            : `${(
+                                                  (pledged / goal) *
+                                                  100
                                               ).toString()}%`,
                                 }}
                             />
@@ -292,27 +304,19 @@ export default function Hero({ isLoading, project }) {
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {threeDecimals(
                                     status === 'fully_funded'
-                                        ? (project.stats.nftNumber *
-                                              project.stats.nftPriceE8S) /
-                                              100_000_000
-                                        : Math.min(
-                                              (project.stats.nftsSold *
-                                                  project.stats.nftPriceE8S) /
-                                                  100_000_000,
-                                              (project.stats.nftNumber *
-                                                  project.stats.nftPriceE8S) /
+                                        ? threeDecimals(
+                                              goal / 100_000_000
+                                          ).toString()
+                                        : threeDecimals(
+                                              Math.min(goal, pledged) /
                                                   100_000_000
-                                          )
+                                          ).toString()
                                 ).toString()}{' '}
                                 ICP
                             </p>
                             <p className='text-gray-400 text-lg'>
                                 pledged of{' '}
-                                {threeDecimals(
-                                    (project.stats.nftNumber *
-                                        project.stats.nftPriceE8S) /
-                                        100_000_000
-                                ).toString()}{' '}
+                                {threeDecimals(goal / 100_000_000).toString()}{' '}
                                 ICP goal
                             </p>
                         </div>
@@ -333,15 +337,17 @@ export default function Hero({ isLoading, project }) {
                             </p>
                             <p className='text-gray-400 text-lg'>days to go</p>
                         </div>
-                        <PricePerNFT nftPriceE8S={project.stats.nftPriceE8S} />
+                        <PricePerNFT
+                            stats={project.stats}
+                            {...{ selectedTierState }}
+                        />
+                        {/* project.stats} /> */}
                         <div className='w-full py-2'>
                             <div style={{ textAlign: 'center' }}>
                                 {loading && loadingMessage}
                             </div>
                             {status === 'fully_funded' ||
-                            (project.stats.endTime > 0 &&
-                                project.stats.nftsSold >=
-                                    project.stats.nftNumber) ? (
+                            (project.stats.endTime > 0 && pledged >= goal) ? (
                                 <div className='flex flex-col space-y-2'>
                                     <p className='text-center'>
                                         This project is now fully funded!
@@ -401,7 +407,6 @@ export default function Hero({ isLoading, project }) {
                                 />
                             )}
                         </div>
-
                         <div className='w-full flex flex-row space-x-8 items-center'>
                             <div className='w-6/12 p-3'>
                                 <button

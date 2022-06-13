@@ -7,22 +7,18 @@ type definite_canister_settings =
  };
 type Time = int;
 type ProjectId = nat;
-type EscrowStats = 
+type NFTInfo = 
  record {
-   endTime: Time;
-   nftNumber: nat;
-   nftPriceE8S: nat;
-   nftsSold: nat;
-   openSubaccounts: nat;
+   number: nat;
+   priceE8S: nat;
  };
 type CanisterIdText = text;
 service : {
   acceptCycles: () -> ();
   availableCycles: () -> (nat) query;
-  createEscrowCanister: (ProjectId, principal, nat, nat, Time, bool) -> ();
+  createEscrowCanister: (ProjectId, principal, vec NFTInfo, Time, nat) -> ();
   getProjectEscrowCanisterPrincipal: (ProjectId) ->
    (opt CanisterIdText) query;
-  getProjectStats: (ProjectId) -> (EscrowStats);
   test: () -> (definite_canister_settings);
   wallet_receive: () -> ();
 }
