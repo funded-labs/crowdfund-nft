@@ -37,4 +37,4 @@ export const createActor = (canisterId, options) => {
 //  * A ready-to-use agent for the escrow_manager canister
 //  * @type {import("@dfinity/agent").ActorSubclass<import("./escrow_manager.did.js")._SERVICE>}
 //  */
-//  export const escrow_manager = createActor(canisterId);
+// export const escrow_manager = createActor(canisterId)

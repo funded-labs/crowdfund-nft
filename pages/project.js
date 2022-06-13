@@ -15,7 +15,7 @@ import Head from 'next/head'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
 import Activity from '@/components/project/activity'
 
-export const idlFactory = ({ IDL }) => {
+export const oldIdlFactory = ({ IDL }) => {
     const Stats = IDL.Record({
         nftNumber: IDL.Nat,
         endTime: IDL.Int,
@@ -30,7 +30,27 @@ export const idlFactory = ({ IDL }) => {
     })
 }
 
-const createActor = (canisterId) => {
+export const idlFactory = ({ IDL }) => {
+    const NFTStats = IDL.Record({
+        sold: IDL.Nat,
+        openSubaccounts: IDL.Nat,
+        number: IDL.Nat,
+        priceE8S: IDL.Nat,
+    })
+    const EscrowStats = IDL.Record({
+        endTime: IDL.Int,
+        nftStats: IDL.Vec(NFTStats),
+    })
+    return IDL.Service({
+        getAccountsInfo: IDL.Func([], [IDL.Text], ['query']),
+        getLogs: IDL.Func([], [IDL.Text], ['query']),
+        getStats: IDL.Func([], [EscrowStats], ['query']),
+    })
+}
+
+const createActor = (canisterId, idlFactory) => {
+    console.log(idlFactory)
+
     const agent = new HttpAgent({
         host:
             process.env.NODE_ENV === 'production'
@@ -77,13 +97,20 @@ export default function ProjectDetails() {
             const { project, owner, marketplaceLinks } =
                 await backend.getProjectWithOwnerAndMarketplace(projectId)
 
+            console.log(project)
+
             let stats = {
-                nftNumber: Number(project.nftVolume),
-                nftPriceE8S:
-                    (project?.goal / Number(project?.nftVolume)) * 100_000_000,
                 endTime: 0,
-                nftsSold: 0,
-                openSubaccounts: 0,
+                nftStats: [
+                    {
+                        number: Number(project.nftVolume),
+                        priceE8S:
+                            (project?.goal / Number(project?.nftVolume)) *
+                            100_000_000,
+                        sold: 0,
+                        openSubaccounts: 0,
+                    },
+                ],
             }
 
             let escrowActor
@@ -92,24 +119,68 @@ export default function ProjectDetails() {
                 Object.keys(project?.status?.[0] || { submitted: null })[0] !==
                 'fully_funded'
             ) {
+                console.log(project.id)
                 const escrowCanister =
                     await escrowManagerActor.getProjectEscrowCanisterPrincipal(
                         +project.id
                     )
 
+                console.log(escrowCanister)
+
                 if (!Array.isArray(escrowCanister) || escrowCanister.length < 1)
                     return { ...project, escrowActor, stats, owner }
 
-                escrowActor = createActor(escrowCanister[0])
-                const newStats = await escrowActor.getStats()
+                let isNewEscrow = true
+                let newStats
+                try {
+                    escrowActor = createActor(escrowCanister[0], idlFactory)
+                    newStats = await escrowActor.getStats()
+                } catch (e) {
+                    console.error(e)
+                    isNewEscrow = false
+                    try {
+                        escrowActor = createActor(
+                            escrowCanister[0],
+                            oldIdlFactory
+                        )
+                        newStats = await escrowActor.getStats()
+                    } catch (e2) {
+                        console.error(e2)
+                        return { ...project, escrowActor, stats, owner }
+                    }
+                }
 
-                if (newStats?.nftNumber > 0) {
+                if (newStats === undefined)
+                    return { ...project, escrowActor, stats, owner }
+
+                if (!isNewEscrow && newStats?.nftNumber > 0) {
                     stats = {
-                        nftNumber: Number(newStats.nftNumber),
-                        nftPriceE8S: Number(newStats.nftPriceE8S),
                         endTime: Number(newStats.endTime),
-                        nftsSold: Number(newStats.nftsSold),
-                        openSubaccounts: Number(newStats.openSubaccounts),
+                        nftStats: [
+                            {
+                                number: Number(newStats.nftNumber),
+                                priceE8S: Number(newStats.nftPriceE8S),
+                                sold: Number(newStats.nftsSold),
+                                openSubaccounts: Number(
+                                    newStats.openSubaccounts
+                                ),
+                            },
+                        ],
+                    }
+                } else if (
+                    isNewEscrow &&
+                    newStats?.nftStats &&
+                    Array.isArray(newStats.nftStats) &&
+                    newStats.nftStats.length > 0
+                ) {
+                    stats = {
+                        endTime: Number(newStats.endTime),
+                        nftStats: newStats.nftStats.map((nft) => ({
+                            number: Number(nft.number),
+                            priceE8S: Number(nft.priceE8S),
+                            sold: Number(nft.sold),
+                            openSubaccounts: Number(nft.openSubaccounts),
+                        })),
                     }
                 }
             }
@@ -126,6 +197,8 @@ export default function ProjectDetails() {
             refetchOnWindowFocus: false,
         }
     )
+
+    console.log(project)
 
     if (isLoading || isError || isFetching || !project) {
         return (

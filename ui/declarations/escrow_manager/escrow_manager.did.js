@@ -1,14 +1,8 @@
 export const idlFactory = ({ IDL }) => {
   const ProjectId = IDL.Nat;
+  const NFTInfo = IDL.Record({ 'number' : IDL.Nat, 'priceE8S' : IDL.Nat });
   const Time = IDL.Int;
   const CanisterIdText = IDL.Text;
-  const EscrowStats = IDL.Record({
-    'nftNumber' : IDL.Nat,
-    'endTime' : Time,
-    'nftPriceE8S' : IDL.Nat,
-    'openSubaccounts' : IDL.Nat,
-    'nftsSold' : IDL.Nat,
-  });
   const definite_canister_settings = IDL.Record({
     'freezing_threshold' : IDL.Nat,
     'controllers' : IDL.Opt(IDL.Vec(IDL.Principal)),
@@ -19,7 +13,7 @@ export const idlFactory = ({ IDL }) => {
     'acceptCycles' : IDL.Func([], [], []),
     'availableCycles' : IDL.Func([], [IDL.Nat], ['query']),
     'createEscrowCanister' : IDL.Func(
-        [ProjectId, IDL.Principal, IDL.Nat, IDL.Nat, Time, IDL.Bool],
+        [ProjectId, IDL.Principal, IDL.Vec(NFTInfo), Time, IDL.Nat],
         [],
         [],
       ),
@@ -28,7 +22,6 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Opt(CanisterIdText)],
         ['query'],
       ),
-    'getProjectStats' : IDL.Func([ProjectId], [EscrowStats], []),
     'test' : IDL.Func([], [definite_canister_settings], []),
     'wallet_receive' : IDL.Func([], [], []),
   });
