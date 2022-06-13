@@ -42,10 +42,14 @@ export default function ProjectList({
                 )
                 .filter(
                     (p) =>
+                        (p.project?.status &&
+                            Array.isArray(p.project.status) &&
+                            p.project.status.length === 0) ||
                         Object.keys(
                             p.project?.status?.[0] || { submitted: null }
                         )[0] !== 'submitted'
                 )
+
             newData.projects = projects
 
             let stats = {}
