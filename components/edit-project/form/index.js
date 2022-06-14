@@ -10,13 +10,11 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 
 const formSchema = Yup.object().shape({
-    projectTitle: Yup.string().required('Enter a title for your project'),
-    projectCategory: Yup.string().required(
-        'Select a category for your project'
-    ),
+    title: Yup.string().required('Enter a title for your project'),
+    category: Yup.string().required('Select a category for your project'),
     twitterLink: Yup.string().required('Enter Twitter link for your project'),
     discordLink: Yup.string(),
-    targetAmount: Yup.number()
+    goal: Yup.number()
         .positive('Target raise must be greater than zero')
         .integer('Target raise must be a whole number')
         .required('Enter a raise amount'),
@@ -81,11 +79,11 @@ const Form = () => {
     }
 
     const initialValues = {
-        projectTitle: project.title,
-        projectCategory: project.category,
+        title: project.title,
+        category: project.category,
         twitterLink: project.twitterLink,
         discordLink: project.discordLink,
-        targetAmount: Number(project.goal),
+        goal: Number(project.goal),
         nftVolume: Number(project.nftVolume),
         walletId: project.walletId,
         wetransferLink: project.wetransferLink,
@@ -114,8 +112,8 @@ const Form = () => {
                             <p>Title</p>
                             <Input
                                 id='projectTitle'
-                                name='projectTitle'
-                                value={values.projectTitle}
+                                name='title'
+                                value={values.title}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 type='text'
@@ -124,8 +122,8 @@ const Form = () => {
                             <p>Category</p>
                             <Input
                                 id='projectCategory'
-                                name='projectCategory'
-                                value={values.projectCategory}
+                                name='category'
+                                value={values.category}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 type='text'
@@ -154,8 +152,8 @@ const Form = () => {
                             </div>
                             <p>Goal</p>
                             <Input
-                                name='targetAmount'
-                                value={values.targetAmount}
+                                name='goal'
+                                value={values.goal}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 placeholder='Enter target amount'
