@@ -6,7 +6,7 @@ const products = [
         id: 1,
         name: 'Crowdfund NFT',
         by: 'Crowdfund NFT',
-        href: 'https://entrepot.app/marketplace/crowdfundnft',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=crowdfundnft',
         description:
             'Our own collection of NFTs. Get early access to all future CrowdFund NFT projects by holding one of these.',
         imageSrc:
@@ -17,7 +17,7 @@ const products = [
         id: 2,
         name: 'Cosmicrafts',
         by: 'Omar Hernandez Salmeron',
-        href: 'https://entrepot.app/marketplace/cosmicrafts',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=cosmicrafts',
         description:
             'Cosmicrafts is the first Real-Time Strategy game on the Internet Computer by using the latest Blockchain technology. The funds will go to research and development to create sophisticated and first-class game assets as NFTs, being able to assemble them in parts and upgrade its properties. We are rewarding our investors with our first collection of original and unique artwork NFTs. Created out of our most attractive game assets, each NFT is handcrafted and layered out from its conception as technical drawing, rendering 3D models and stunning visual effects. Cosmicrafts RoadMap for Q2 2022 is important step towards the consolidation of the project on the ecosystem, we are challenged by the new technology that Internet Computer brings in.',
         imageSrc:
@@ -28,7 +28,7 @@ const products = [
         id: 3,
         name: 'IC Whiskers',
         by: 'catpirate.icp',
-        href: 'https://entrepot.app/marketplace/ic-whiskers',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
         description:
             'Our project’s first collection will be sold on the CCC NFT marketplace. ICWhiskers will be user’s pass into our project and future airdrops. Izzy, the founder and lead-artist of ICWhiskers has been drawing from 9 years and is learning to use different programs as well. Currently we are focussed on finishing the art. The artist is also working on 10,000 NFT collection called Metacats, which will be airdropped to DSCVR users and certain whitelisted users from our community.',
         imageSrc:
@@ -43,10 +43,10 @@ export default function Entrepot2() {
             <div className='max-w-5xl mx-auto pb-10 pt-12 px-4 sm:px-6 lg:pt-24 lg:px-8 lg:flex lg:items-center lg:justify-between'>
                 <h2 className='text-3xl font-bold tracking-tight text-gray-900 md:text-3xl'>
                     <span className='block'>
-                        Trade NFTs on secondary marketplace
+                        Trade NFTs
                     </span>
-                    <span className='block text-teal-400'>
-                        in partnership with Entrepot
+                    <span className='block text-blue-700'>
+                        on the CrowdFund NFT Marketplace
                     </span>
                 </h2>
                 {/* <div className='mt-8 flex lg:mt-0 lg:flex-shrink-0'>
