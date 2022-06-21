@@ -55,10 +55,10 @@ const products = [
             'The IC footprint uses verified carbon credits to offset IC project cycles on-chain. We have developed a proprietary coefficient which calculates estimated carbon emissions per cycle. Once the IC footprint of a project is calculated, it can be offset using CORSIA eligible, nature-based carbon credits from VERRA',
         imageSrc:
             'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
-        imageAlt: 'Kinic logo',
+        imageAlt: 'Ic Footprint logo',
     },
     {
-        id: 5,
+        id: 6,
         name: 'Sa-Chan',
         by: 'Sa-Chan',
         href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
@@ -66,7 +66,7 @@ const products = [
             'ICPs first live-action NFT, brought to you by Sa-chan, a lover of strawberries',
         imageSrc:
             'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
-        imageAlt: 'Kinic logo',
+        imageAlt: 'Sa-Chan logo',
     },
 ]
 
