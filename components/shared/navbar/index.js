@@ -26,7 +26,7 @@ export default function Navbar() {
         <>
             <div
                 className={classNames(
-                    'py-1 pt-3 fixed z-20 w-full text-white bg-white',
+                    'py-2 pt-3 fixed z-20 w-full text-white bg-white',
                     'transition-all duration-300 border-b',
                     hasScrolled ? 'border-gray-200' : 'border-transparent'
                 )}>

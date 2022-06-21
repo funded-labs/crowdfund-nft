@@ -1,7 +1,7 @@
 export default function Hero() {
     return (
-        <section className='w-full py-15'>
-            <div className='w-full max-w-5xl mx-auto flex flex-col'>
+        <section className='w-full'>
+            <div className='w-full py-10 max-w-5xl mx-auto flex flex-col'>
                 <h1 className='text-center text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-3xl'>
                     Crowdfunding on the Blockchain,
                     <br />
