@@ -4,10 +4,13 @@ import Navbar from '../components/shared/navbar'
 import Footer from '@/components/shared/footer'
 import Entrepot2 from '@/components/home/entrepot2'
 import Setup from '@/components/home/setup'
+import Banner from '@/components/home/banner'
 
 const HomePage = () => (
     <div className='w-full'>
         <Navbar />
+
+        <Banner />
 
         <Hero />
 
