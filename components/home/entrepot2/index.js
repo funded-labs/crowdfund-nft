@@ -35,6 +35,39 @@ const products = [
             'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
         imageAlt: 'ICWhiskers logo',
     },
+    {
+        id: 4,
+        name: 'Kinic',
+        by: 'Wyatt Benno',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
+        description:
+            'Kinic is a search engine for web3 content',
+        imageSrc:
+            'public/assets/nfts/kinic/1.png',
+        imageAlt: 'Kinic logo',
+    },
+    {
+        id: 5,
+        name: 'Ic Footprint',
+        by: 'Orlando Hutchings',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
+        description:
+            'The IC footprint uses verified carbon credits to offset IC project cycles on-chain. We have developed a proprietary coefficient which calculates estimated carbon emissions per cycle. Once the IC footprint of a project is calculated, it can be offset using CORSIA eligible, nature-based carbon credits from VERRA',
+        imageSrc:
+            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
+        imageAlt: 'Kinic logo',
+    },
+    {
+        id: 5,
+        name: 'Sa-Chan',
+        by: 'Sa-Chan',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
+        description:
+            'ICPs first live-action NFT, brought to you by Sa-chan, a lover of strawberries',
+        imageSrc:
+            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
+        imageAlt: 'Kinic logo',
+    },
 ]
 
 export default function Entrepot2() {
