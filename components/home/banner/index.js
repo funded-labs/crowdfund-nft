@@ -10,7 +10,7 @@ export default function Example() {
             <span className="md:hidden">We have launched our marketplace!</span>
             <span className="hidden md:inline">Big news! You can now trade on our new secondary marketplace.</span>
             <span className="block sm:ml-2 sm:inline-block">
-              <a href="#" className="text-white font-bold underline">
+              <a href="https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app" target="_blank" className="text-white font-bold underline">
                 {' '}
                 Explore our marketplace <span aria-hidden="true">&rarr;</span>
               </a>
