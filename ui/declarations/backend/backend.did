@@ -132,6 +132,7 @@ service : {
   createProfile: (NewProfile) -> ();
   createProject: (NewProject) -> (Project);
   deleteProject: (ProjectId__1) -> (opt Project);
+  findProjects: (text) -> (vec ProjectWithOwner) query;
   getLaunchDate: (ProjectId__1) -> (opt Date) query;
   getMarketplaceLinks: (ProjectId__1) -> (MarketplaceLinks) query;
   getMyProfile: () -> (Profile) query;
