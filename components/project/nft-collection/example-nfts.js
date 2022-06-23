@@ -73,6 +73,10 @@ export default {
         id: `#${i}`,
         url: `/assets/nfts/ic-cutemon/${i + 1}.png`,
     })),
+    14: range(2).map((i) => ({
+        id: `Tier ${i + 1}`,
+        url: `/assets/nfts/decentrafive/${i}.png`,
+    })),
     15: range(6).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/frontliners/${i + 1}.png`,
@@ -108,5 +112,13 @@ export default {
     26: range(3).map((i) => ({
         id: `#${i}`,
         url: `/assets/nfts/icapps/1.jpg`,
+    })),
+    29: range(3).map((i) => ({
+        id: `#${i}`,
+        url: `/assets/nfts/icplat/${i + 1}.jpg`,
+    })),
+    30: range(3).map((i) => ({
+        id: `#${i + 1}`,
+        url: `/assets/nfts/ichotel/${i + 1}.png`,
     })),
 }

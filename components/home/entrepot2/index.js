@@ -9,8 +9,7 @@ const products = [
         href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=crowdfundnft',
         description:
             'Our own collection of NFTs. Get early access to all future CrowdFund NFT projects by holding one of these.',
-        imageSrc:
-            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-02/sa431zk/3.jpg',
+        imageSrc: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=16',
         imageAlt: 'Crowdfund NFT logo',
     },
     {
@@ -20,8 +19,7 @@ const products = [
         href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=cosmicrafts',
         description:
             'Cosmicrafts is the first Real-Time Strategy game on the Internet Computer by using the latest Blockchain technology. The funds will go to research and development to create sophisticated and first-class game assets as NFTs, being able to assemble them in parts and upgrade its properties. We are rewarding our investors with our first collection of original and unique artwork NFTs. Created out of our most attractive game assets, each NFT is handcrafted and layered out from its conception as technical drawing, rendering 3D models and stunning visual effects. Cosmicrafts RoadMap for Q2 2022 is important step towards the consolidation of the project on the ecosystem, we are challenged by the new technology that Internet Computer brings in.',
-        imageSrc:
-            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-25/9s43ybs/33.jpg',
+        imageSrc: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/?id=32',
         imageAlt: 'Cosmicrafts logo',
     },
     {
@@ -31,42 +29,37 @@ const products = [
         href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
         description:
             'Our project’s first collection will be sold on the CCC NFT marketplace. ICWhiskers will be user’s pass into our project and future airdrops. Izzy, the founder and lead-artist of ICWhiskers has been drawing from 9 years and is learning to use different programs as well. Currently we are focussed on finishing the art. The artist is also working on 10,000 NFT collection called Metacats, which will be airdropped to DSCVR users and certain whitelisted users from our community.',
-        imageSrc:
-            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
+        imageSrc: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=45',
         imageAlt: 'ICWhiskers logo',
     },
     {
         id: 4,
-        name: 'Kinic',
-        by: 'Wyatt Benno',
-        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
+        name: 'Sa-chan',
+        by: 'Sa-chan',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=sachan',
         description:
-            'Kinic is a search engine for web3 content',
-        imageSrc:
-            'public/assets/nfts/kinic/1.png',
-        imageAlt: 'Kinic logo',
+            'ICPs first live-action NFT, brought to you by Sa-chan, a lover of strawberries',
+        imageSrc: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=57',
+        imageAlt: 'Sa-Chan cover',
     },
     {
         id: 5,
-        name: 'Ic Footprint',
-        by: 'Orlando Hutchings',
-        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
-        description:
-            'The IC footprint uses verified carbon credits to offset IC project cycles on-chain. We have developed a proprietary coefficient which calculates estimated carbon emissions per cycle. Once the IC footprint of a project is calculated, it can be offset using CORSIA eligible, nature-based carbon credits from VERRA',
+        name: 'Kinic',
+        by: 'Wyatt Benno',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=kinic',
+        description: 'Kinic is a search engine for web3 content.',
         imageSrc:
-            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
-        imageAlt: 'Ic Footprint logo',
+            'https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/assets/nfts/kinic/cover.png',
+        imageAlt: 'Kinic logo',
     },
     {
         id: 6,
-        name: 'Sa-Chan',
-        by: 'Sa-Chan',
-        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icwhiskers',
-        description:
-            'ICPs first live-action NFT, brought to you by Sa-chan, a lover of strawberries',
-        imageSrc:
-            'https://s3.amazonaws.com/pf-user-files-01/u-166728/uploads/2022-03-28/du33y3t/w3.png',
-        imageAlt: 'Sa-Chan logo',
+        name: 'Internet Computer Footprint',
+        by: 'Orlando Hutchings',
+        href: 'https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/project.html?p=icfootprint',
+        description: 'IC Footprint NFT',
+        imageSrc: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=69',
+        imageAlt: 'IC Footprint logo',
     },
 ]
 
@@ -75,9 +68,7 @@ export default function Entrepot2() {
         <div className='bg-slate-50'>
             <div className='max-w-5xl mx-auto pb-10 pt-12 px-4 sm:px-6 lg:pt-24 lg:px-8 lg:flex lg:items-center lg:justify-between'>
                 <h2 className='text-3xl font-bold tracking-tight text-gray-900 md:text-3xl'>
-                    <span className='block'>
-                        Trade NFTs
-                    </span>
+                    <span className='block'>Trade NFTs</span>
                     <span className='block text-blue-700'>
                         on the CrowdFund NFT Marketplace
                     </span>

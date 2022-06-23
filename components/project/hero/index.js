@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { Principal } from '@dfinity/principal'
@@ -64,6 +64,7 @@ const createActor = (canisterId, idlFactory) => {
 
 export default function Hero({ isLoading, project }) {
     const router = useRouter()
+    const [now, setNow] = useState(Date.now())
     const [hasShownInstructions, setHasShownInstructions] = useState(false)
     const [loading, setLoading] = useState(false)
     const [loadingMessage, setLoadingMessage] = useState('')
@@ -76,6 +77,10 @@ export default function Hero({ isLoading, project }) {
 
     const { backend, getPlugPrincipal } = useBackend()
     const escrowActor = makeEscrowActor()
+
+    useEffect(() => {
+        setInterval(() => setNow(Date.now()), 1000)
+    }, [])
 
     const { data: launchDate } = useQuery(['launchDate', project?.id], () => {
         return backend
@@ -247,13 +252,33 @@ export default function Hero({ isLoading, project }) {
     const Status = () => {
         switch (status) {
             case 'whitelist':
-                return <>open to whitelist</>
+                return project.stats.endTime > 0 ? (
+                    <>
+                        live in{' '}
+                        {remainingTimeString(
+                            project.stats.endTime -
+                                30 * 1000 * 24 * 60 * 60 +
+                                2 * 1000 * 60 * 60
+                        )}
+                    </>
+                ) : (
+                    <>open to whitelist</>
+                )
             case 'live':
                 return <>live</>
             case 'archived':
                 return <>archived</>
             default:
-                return <>not live</>
+                return project.stats.endTime > 0 ? (
+                    <>
+                        whitelist in{' '}
+                        {remainingTimeString(
+                            project.stats.endTime - 30 * 1000 * 24 * 60 * 60
+                        )}
+                    </>
+                ) : (
+                    <>not live</>
+                )
         }
     }
 
@@ -263,6 +288,20 @@ export default function Hero({ isLoading, project }) {
     const pledged = (
         project?.stats?.nftStats ?? [{ sold: 0, priceE8S: 0 }]
     ).reduce((acc, cur) => acc + cur.sold * cur.priceE8S, 0)
+
+    const remainingTimeString = (endTime) => {
+        const diff = endTime - now
+        const days = Math.floor(diff / 1000 / 60 / 60 / 24)
+        const hours = Math.floor(diff / 1000 / 60 / 60) - days * 24
+        const minutes =
+            Math.floor(diff / 1000 / 60 - days * 24 * 60) - hours * 60
+        const seconds =
+            Math.floor(diff / 1000 - days * 24 * 60 * 60 - hours * 60 * 60) -
+            minutes * 60
+        return `${days > 0 ? `${days}d ` : ''}${hours}:${
+            minutes < 10 ? '0' : ''
+        }${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+    }
 
     return (
         <section className='w-full bg-white'>
@@ -324,23 +363,46 @@ export default function Hero({ isLoading, project }) {
                             <p className='text-blue-600 text-2xl font-medium'>
                                 {status === 'fully_funded'
                                     ? 0
-                                    : project.stats.endTime > 0
-                                    ? Math.max(
-                                          Math.round(
-                                              (project.stats.endTime -
-                                                  Date.now()) /
-                                                  (1000 * 60 * 60 * 24)
-                                          ),
-                                          0
-                                      ).toString()
-                                    : '-'}
+                                    : (status === 'whitelist' ||
+                                          status === 'live') &&
+                                      project?.stats?.endTime > 0
+                                    ? remainingTimeString(
+                                          Math.max(
+                                              project.stats.endTime,
+                                              Date.now()
+                                          )
+                                      )
+                                    : '- --:--:--'}
                             </p>
-                            <p className='text-gray-400 text-lg'>days to go</p>
+                            <p className='text-gray-400 text-lg'>to go</p>
                         </div>
                         <PricePerNFT
                             stats={project.stats}
                             {...{ selectedTierState }}
                         />
+                        {(status === 'approved' || status === 'whitelist') &&
+                            project?.stats?.endTime > 0 && (
+                                <div className='mt-2 text-xs text-center'>
+                                    {status === 'approved' ? (
+                                        <>
+                                            Whitelist opens in{' '}
+                                            {remainingTimeString(
+                                                project.stats.endTime -
+                                                    30 * 1000 * 60 * 60 * 24
+                                            )}
+                                        </>
+                                    ) : (
+                                        <>
+                                            Public release starts in{' '}
+                                            {remainingTimeString(
+                                                project.stats.endTime -
+                                                    30 * 1000 * 60 * 60 * 24 +
+                                                    2 * 1000 * 60 * 60
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+                            )}
                         {/* project.stats} /> */}
                         <div className='w-full py-2'>
                             <div style={{ textAlign: 'center' }}>
