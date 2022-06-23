@@ -92,142 +92,182 @@ const Form = () => {
     }
 
     return (
-        <div className='w-full sm:mx-auto sm:max-w-md px-4'>
-            <div className='bg-white py-8 px-4 flex flex-col space-y-6'>
-                <Formik
-                    initialValues={initialValues}
-                    onSubmit={handleSubmit}
-                    validationSchema={formSchema}>
-                    {({
-                        handleSubmit,
-                        handleBlur,
-                        handleChange,
-                        setFieldValue,
-                        errors,
-                        values,
-                    }) => (
-                        <form
-                            className='w-full flex flex-col space-y-2'
-                            onSubmit={handleSubmit}>
-                            <p>Title</p>
-                            <Input
-                                id='projectTitle'
-                                name='title'
-                                value={values.title}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                type='text'
-                                placeholder='Project name'
-                            />
-                            <p>Category</p>
-                            <Input
-                                id='projectCategory'
-                                name='category'
-                                value={values.category}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                type='text'
-                                placeholder='Category'
-                            />
-                            <p>Social Media Links</p>
-                            <div className='w-full grid grid-cols-2 gap-4'>
-                                <Input
-                                    id='twitterLink'
-                                    name='twitterLink'
-                                    value={values.twitterLink}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    type='text'
-                                    placeholder='Twitter link'
-                                />
-                                <Input
-                                    id='discordLink'
-                                    name='discordLink'
-                                    value={values.discordLink}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    type='text'
-                                    placeholder='Discord link'
-                                />
-                            </div>
-                            <p>Goal</p>
-                            <Input
-                                name='goal'
-                                value={values.goal}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                placeholder='Enter target amount'
-                                type='number'
-                                endItem={() => (
-                                    <p className='font-bold text-black'>ICP</p>
-                                )}
-                            />
-                            <p>NFT volume</p>
-                            <Input
-                                name='nftVolume'
-                                value={values.nftVolume}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                placeholder='Enter target amount'
-                                type='number'
-                                endItem={() => (
-                                    <p className='font-bold text-black'>NFTs</p>
-                                )}
-                            />
-                            <p>Wallet ID</p>
-                            <Input
-                                id='walletId'
-                                name='walletId'
-                                value={values.walletId}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                type='text'
-                                placeholder='Wallet ID'
-                            />
-                            <p>Wetransfer link</p>
-                            <Input
-                                name='wetransferLink'
-                                value={values.wetransferLink}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                type='text'
-                                placeholder='WeTransfer link for your NFT'
-                            />
-                            <p>Project story</p>
-                            <Textarea
-                                name='story'
-                                value={values.story}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                rows={4}
-                            />
-                            <p>Project rewards</p>
-                            <Textarea
-                                name='rewards'
-                                value={values.rewards}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                rows={4}
-                            />
-                            <button
-                                disabled={loading === true}
-                                type='submit'
-                                className={`
+        <div className='w-full sm:mx-auto sm:max-w-lg px-4'>
+            <div className='bg-white pt-8 px-4 flex flex-col space-y-6'>
+                <div className='border border-slate-400 rounded-lg bg-slate-100'>
+                    <Formik
+                        initialValues={initialValues}
+                        onSubmit={handleSubmit}
+                        validationSchema={formSchema}>
+                        {({
+                            handleSubmit,
+                            handleBlur,
+                            handleChange,
+                            setFieldValue,
+                            errors,
+                            values,
+                        }) => (
+                            <form
+                                className='w-full flex flex-col'
+                                onSubmit={handleSubmit}>
+                                <div className='px-4 py-4'>
+                                    Edit Project
+                                    <div className='text-xs'>
+                                        You can edit the project as the owner or
+                                        an admin.
+                                    </div>
+                                </div>
+                                <div className='px-4 py-4 border-t border-slate-300 space-y-2'>
+                                    <p className='text-sm'>Title</p>
+                                    <Input
+                                        id='projectTitle'
+                                        name='title'
+                                        value={values.title}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        type='text'
+                                        placeholder='Project name'
+                                    />
+                                    <p className='text-sm'>Category</p>
+                                    <Input
+                                        id='projectCategory'
+                                        name='category'
+                                        value={values.category}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        type='text'
+                                        placeholder='Category'
+                                    />
+                                    <p className='text-sm'>
+                                        Social Media Links
+                                    </p>
+                                    <div className='w-full grid grid-cols-2 gap-4'>
+                                        <Input
+                                            id='twitterLink'
+                                            name='twitterLink'
+                                            value={values.twitterLink}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            type='text'
+                                            placeholder='Twitter link'
+                                        />
+                                        <Input
+                                            id='discordLink'
+                                            name='discordLink'
+                                            value={values.discordLink}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            type='text'
+                                            placeholder='Discord link'
+                                        />
+                                    </div>
+                                    <p className='text-sm'>Goal</p>
+                                    <Input
+                                        name='goal'
+                                        value={values.goal}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder='Enter target amount'
+                                        type='number'
+                                        endItem={() => (
+                                            <p className='font-bold text-black'>
+                                                ICP
+                                            </p>
+                                        )}
+                                    />
+                                    <p className='text-sm'>NFT volume</p>
+                                    <Input
+                                        name='nftVolume'
+                                        value={values.nftVolume}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        placeholder='Enter target amount'
+                                        type='number'
+                                        endItem={() => (
+                                            <p className='font-bold text-black'>
+                                                NFTs
+                                            </p>
+                                        )}
+                                    />
+                                    <p className='text-sm'>Wallet ID</p>
+                                    <Input
+                                        id='walletId'
+                                        name='walletId'
+                                        value={values.walletId}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        type='text'
+                                        placeholder='Wallet ID'
+                                    />
+                                    <p className='text-sm'>Wetransfer link</p>
+                                    <Input
+                                        name='wetransferLink'
+                                        value={values.wetransferLink}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        type='text'
+                                        placeholder='WeTransfer link for your NFT'
+                                    />
+                                    <p className='text-sm'>Project story</p>
+                                    <Textarea
+                                        name='story'
+                                        value={values.story}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        rows={4}
+                                    />
+                                    <p className='text-sm'>Project rewards</p>
+                                    <Textarea
+                                        name='rewards'
+                                        value={values.rewards}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        rows={4}
+                                    />
+                                </div>
+                                <div className='px-4 py-4 border-t border-slate-300 '>
+                                    <button
+                                        disabled={loading === true}
+                                        type='submit'
+                                        className={`
                             flex flex-row justify-center w-full bg-blue-600 text-white py-3 
                             px-4 font-medium text-base tracking-wider rounded-xl
                             shadow-xl hover:bg-blue-700
                         `}>
-                                {!loading && <span>Next</span>}
+                                        {!loading && <>Save</>}
 
-                                {loading && (
-                                    <span className='h-5 w-5'>
-                                        <Spinner show={true} />
-                                    </span>
-                                )}
-                            </button>
-                        </form>
-                    )}
-                </Formik>
+                                        {loading && (
+                                            <span className='h-5 w-5'>
+                                                <Spinner show={true} />
+                                            </span>
+                                        )}
+                                    </button>
+                                </div>
+                            </form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+            <div className='bg-white py-4 px-4 flex flex-col space-y-6'>
+                <div className='border border-red-400 rounded-lg bg-red-100'>
+                    <div className='px-4 py-4'>
+                        Admin Functions
+                        <div className='text-xs'>
+                            You will only be able to call these functions as an
+                            admin.
+                        </div>
+                    </div>
+                    <div className='px-4 py-4 border-t border-red-200'>
+                        <button
+                            className={`
+                                flex flex-row justify-center w-full 
+                                bg-black text-white py-2 font-medium 
+                                text-sm tracking-wider rounded-xl shadow-xl 
+                                hover:bg-gray-800`}>
+                            Approve Project
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     )
