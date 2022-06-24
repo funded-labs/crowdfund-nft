@@ -254,7 +254,7 @@ export default function Hero({ isLoading, project }) {
             case 'whitelist':
                 return project.stats.endTime > 0 ? (
                     <>
-                        live in{' '}
+                        Open to whitelist. Public sale in{' '}
                         {remainingTimeString(
                             project.stats.endTime -
                                 30 * 1000 * 24 * 60 * 60 +
@@ -271,7 +271,7 @@ export default function Hero({ isLoading, project }) {
             default:
                 return project.stats.endTime > 0 ? (
                     <>
-                        whitelist in{' '}
+                        Not live. Whitelist in{' '}
                         {remainingTimeString(
                             project.stats.endTime - 30 * 1000 * 24 * 60 * 60
                         )}
@@ -308,7 +308,7 @@ export default function Hero({ isLoading, project }) {
             <div className='w-full max-w-5xl mx-auto flex flex-col px-4 py-5'>
                 <p className='text-2xl font-medium mb-3'>
                     {title}{' '}
-                    <span className='text-gray-400 text-sm'>
+                    <span className='text-gray-400 text-sm uppercase'>
                         (<Status />)
                     </span>
                 </p>
@@ -393,7 +393,8 @@ export default function Hero({ isLoading, project }) {
                                         </>
                                     ) : (
                                         <>
-                                            Public release starts in{' '}
+                                            Whitelist open! Public release
+                                            starts in{' '}
                                             {remainingTimeString(
                                                 project.stats.endTime -
                                                     30 * 1000 * 60 * 60 * 24 +

@@ -1,6 +1,6 @@
 {
     "canisters": {
-        "cosmicrafts_escrow": {
+        "decentrafive_escrow": {
             "main": "src/escrow_manager/escrow.mo"
         }
     },
