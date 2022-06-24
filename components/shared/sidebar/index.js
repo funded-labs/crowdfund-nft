@@ -13,7 +13,7 @@ function classNames(...classes) {
 }
 
 export default function Sidebar({ show, onClose }) {
-    const { getPlugPrincipal, plugPrincipal } = useBackend();
+    const { getPlugPrincipal, plugPrincipalText } = useBackend()
 
     useEffect(() => {
         if (show === false) return
@@ -28,9 +28,10 @@ export default function Sidebar({ show, onClose }) {
         <>
             <div
                 className={classNames(
-                    'absolute top-0 left-0 z-30 w-screen h-screen bg-blue-700 opacity-50 duration-200',
-                    show === false ? 'hidden' : "null"
+                    'absolute top-0 left-0 z-30 w-screen h-screen bg-blue-700 opacity-50 duration-200 cursor-pointer',
+                    show === false ? 'hidden' : null
                 )}
+                onClick={onClose}
             />
             <aside
                 className={classNames(
@@ -60,7 +61,7 @@ export default function Sidebar({ show, onClose }) {
                     <img
                         className='h-8 w-auto'
                         src='/assets/logo.png'
-                        alt='Logo'
+                        alt='Workflow'
                     />
                 </div>
                 <div className='mt-5 flex-grow flex flex-col'>
@@ -74,28 +75,44 @@ export default function Sidebar({ show, onClose }) {
                                 Connect your wallet
                             </h3>
                             <h3 className='group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md'>
-                                Connect your wallet to contribute to projects and list your own.
+                                Connect your wallet to buy and sell NFTs from
+                                the crowdfund NFT marketplace.
                             </h3>
-                            <div className='w-full flex flex-col items-center space-y-2'>
-                                <button
-                                    type='button'
-                                    className={`
-                                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent rounded rounded font-medium text-black hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
-                                    `}
-                                    onClick={async () => {
-                                        if (plugPrincipal)
-                                            return alert('Plug is already connected.')
-                    
-                                        await getPlugPrincipal()
-                                        alert('Thank you for connecting Plug.')
-                                    }}
-                                >
-                                    <img src='/assets/plug.png' className='h-8' />
-                                    <span className='px-2 font-medium text-white'>
-                                        Connect Plug Wallet
-                                    </span>
-                                </button>
-                                <Link href='/create-a-project' passHref as='/create-a-project.html'>
+                            <div className='w-full flex flex-col items-center'>
+                                {plugPrincipalText ? (
+                                    <div className='flex items-center text-black'>
+                                        <img
+                                            src='/assets/plug.png'
+                                            className='h-8'
+                                        />{' '}
+                                        <span className='px-2'>
+                                            {plugPrincipalText.substring(0, 5)}
+                                            ...
+                                            {plugPrincipalText.substring(
+                                                plugPrincipalText.length - 3
+                                            )}
+                                        </span>
+                                    </div>
+                                ) : (
+                                    <button
+                                        type='button'
+                                        className={`
+                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent rounded rounded font-medium text-black hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
+                    `}
+                                        onClick={getPlugPrincipal}>
+                                        <img
+                                            src='/assets/plug.png'
+                                            className='h-8'
+                                        />
+                                        <span className='px-2 font-medium text-white'>
+                                            Connect Plug Wallet
+                                        </span>
+                                    </button>
+                                )}
+                                <Link
+                                    href='/create-a-project'
+                                    passHref
+                                    as='/create-a-project.html'>
                                     <a
                                         className={`
                                             py-2 mx-4 text-gray-500 justify-center items-center
@@ -115,26 +132,29 @@ export default function Sidebar({ show, onClose }) {
                         </div>
                         <div className='py-12 space-y-1'>
                             {navigation.map((item) => (
-                                <a
+                                <Link
                                     key={item.name}
                                     href={item.href}
-                                    className={classNames(
-                                        item.current
-                                            ? 'bg-gray-100 text-gray-900'
-                                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-                                        'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
-                                    )}>
-                                    <item.icon
+                                    as={item.href + '.html'}>
+                                    <a
                                         className={classNames(
                                             item.current
-                                                ? 'text-gray-500'
-                                                : 'text-gray-400 group-hover:text-gray-500',
-                                            'mr-3 flex-shrink-0 h-6 w-6'
-                                        )}
-                                        aria-hidden='true'
-                                    />
-                                    {item.name}
-                                </a>
+                                                ? 'bg-gray-100 text-gray-900'
+                                                : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+                                            'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
+                                        )}>
+                                        <item.icon
+                                            className={classNames(
+                                                item.current
+                                                    ? 'text-gray-500'
+                                                    : 'text-gray-400 group-hover:text-gray-500',
+                                                'mr-3 flex-shrink-0 h-6 w-6'
+                                            )}
+                                            aria-hidden='true'
+                                        />
+                                        {item.name}
+                                    </a>
+                                </Link>
                             ))}
                         </div>
                     </nav>
