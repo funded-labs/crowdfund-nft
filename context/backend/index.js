@@ -4,6 +4,7 @@ import {
     makeBackendActorWithIdentity,
 } from '@/ui/service/actor-locator'
 import { AuthClient } from '@dfinity/auth-client'
+import { Principal } from '@dfinity/principal'
 import { handleConnect } from '@/helpers/plugwallet'
 
 const INITIAL_STATE = {
@@ -104,6 +105,10 @@ export function BackendProvider({
         backendWithAuth: _backendWithAuth,
         getPlugPrincipal,
         login,
+        plugPrincipal: _plugPrincipal,
+        plugPrincipalText: _plugPrincipal
+            ? Principal.from(_plugPrincipal).toText()
+            : null,
     }
 
     return (
