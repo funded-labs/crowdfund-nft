@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import { useEffect, useState } from 'react'
 import End from './end'
 import Logo from '@/components/shared/logo'
+import Search from './search'
 
 export default function Navbar() {
     const [hasScrolled, setScrolled] = useState(false)
@@ -72,7 +73,11 @@ export default function Navbar() {
                         </Link>
                     </nav>
 
-                    <End />
+                    <div className='flex flex-row items-center'>
+                        <Search/>
+                        <End />
+                    </div>
+                    
                 </div>
             </div>
             <div className='h-12' />

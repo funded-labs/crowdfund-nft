@@ -206,6 +206,13 @@ actor CrowdFundNFT {
         };
     };
 
+    public query func findProjects(term: Text): async [ProjectWithOwner] {
+        func getProjectWithOwner(p: Project) : ProjectWithOwner { 
+            Utils.getProjectWithOwner(db, p);
+        };
+        Array.map(db.findProjectsByTerm(term), getProjectWithOwner);
+    };
+
     // Project statuses
 
     public shared(msg) func approveProject(pid: ProjectId): async () {
