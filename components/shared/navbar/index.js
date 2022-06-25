@@ -73,9 +73,9 @@ export default function Navbar() {
                         </Link>
                     </nav>
 
-                    <div className='flex flex-row'>
-                        <End />
+                    <div className='flex flex-row items-center'>
                         <Search/>
+                        <End />
                     </div>
                     
                 </div>
