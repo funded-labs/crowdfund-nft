@@ -24,7 +24,7 @@ const Search = () => {
       </Head>
       <Navbar />
 
-      <div className='px-4 w-full max-w-5xl mx-auto uppercase font-medium text-gray-500 mt-4 mb-2'>
+      <div className='px-4 w-full max-w-5xl mx-auto uppercase font-medium text-gray-500 mt-20 mb-2'>
         {search && <p className="">Search results for: <b>{search}</b></p>}
       </div>
 
