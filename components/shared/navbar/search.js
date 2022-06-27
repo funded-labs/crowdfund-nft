@@ -29,7 +29,7 @@ const Search = () => {
 
         return (
             <div className='origin-top-right absolute right-0 mt-2 w-80 p-3 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'>
-                <div className='py-1'>
+                <div>
                     {foundProjects
                         ?.slice(0, VISIBLE_SEARCH_ITEMS)
                         .map(({ project: { title, cover, id }, owner }) => {
@@ -39,10 +39,10 @@ const Search = () => {
                                     passHref={true}
                                     as={`/project.html?projectId=${id}`}
                                     key={id}>
-                                    <a className='flex flex-row items-center'>
+                                    <a className='flex flex-row items-center rounded py-2 hover:bg-slate-100'>
                                         <img
                                             src={cover}
-                                            className='w-12 h-12 ml-2 rounded-md'
+                                            className='w-12 h-12 ml-2 rounded-md object-cover'
                                         />
                                         <div className='ml-3'>
                                             <p className='text-gray-700 text-sm'>
