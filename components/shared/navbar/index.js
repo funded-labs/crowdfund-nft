@@ -62,13 +62,13 @@ export default function Navbar() {
                                 Whitepaper
                             </a>
                         </Link>
-                        <Link href='mailto:info@crowdfund-nft.com' passHref>
+                        <Link href='https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app' passHref>
                             <a
                                 className={`
                                     text-gray-500 text-sm bg-transparent px-2 py-px hover:text-gray-700
                                     transform transition duration-200 cursor-pointer hover:underline
                                 `}>
-                                Contact
+                                Marketplace
                             </a>
                         </Link>
                     </nav>

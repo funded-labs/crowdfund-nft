@@ -27,7 +27,7 @@ export default function End() {
                         d='M4 6h16M4 12h16M4 18h16'
                     />
                 </svg>
-                <span>Menu</span>
+                <span>Create a Project / Login</span>
             </button>
             <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
         </div>

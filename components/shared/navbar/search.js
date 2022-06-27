@@ -65,7 +65,7 @@ const Search = () => {
     return (
         <div className='hidden md:block relative text-gray-600 ml-3'>
             <input
-                className='border border-gray-300 bg-white h-8 px-2 rounded-lg text-sm focus:outline-none'
+                className='border border-gray-100 bg-gray-100 h-8 px-2 rounded-lg text-sm focus:outline-none'
                 type='search'
                 name='search'
                 placeholder='Search projects'
