@@ -189,28 +189,19 @@ actor CrowdFundNFT {
         db.getProjects(userId)
     };
 
-    public query func listProjects(statuses: [ProjectStatus]): async [ProjectWithOwner] {
+    public query func listProjects(statuses: [ProjectStatus], term: Text, categories: [Text]): async [ProjectWithOwner] {
         func getProjectWithOwner(p: Project) : ProjectWithOwner { 
             Utils.getProjectWithOwner(db, p);
         };
-        let projectsWithOwners = Array.map(db.listProjects(), getProjectWithOwner);
-        switch (statuses.size()) { 
-            case 0 { projectsWithOwners };
-            case _ { Array.filter(projectsWithOwners, func (p: ProjectWithOwner) : Bool { 
-                switch(Array.find(statuses, func (s: ProjectStatus) : Bool { s == p.project.status })) {
-                    case null { false };
-                    case _ { true };
-                };
-            }); 
-            };
-        };
-    };
 
-    public query func findProjects(term: Text): async [ProjectWithOwner] {
-        func getProjectWithOwner(p: Project) : ProjectWithOwner { 
-            Utils.getProjectWithOwner(db, p);
-        };
-        Array.map(db.findProjectsByTerm(term), getProjectWithOwner);
+        let projects = if (term == "") { db.listProjects() } else { db.findProjects(term) };
+        let projectsWithOwners = Array.map(projects, getProjectWithOwner);
+        
+        Array.filter(projectsWithOwners, func (p: ProjectWithOwner) : Bool {
+            if (statuses.size() > 0 and Array.find(statuses, func (s: ProjectStatus) : Bool { s == p.project.status }) == null) { return false };
+            if (categories.size() > 0 and Array.find(categories, func (cat: Text) : Bool { cat == p.project.category }) == null) { return false };
+            return true
+        })
     };
 
     // Project statuses

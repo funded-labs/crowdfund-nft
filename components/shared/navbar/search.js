@@ -2,7 +2,8 @@ import { useBackend } from '@/context/backend'
 import { data } from 'autoprefixer'
 import useDebouncedState from 'hooks/useDebouncedState'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useMemo } from "react"
+import { useRouter } from "next/router"
 import { useQuery } from 'react-query'
 
 const VISIBLE_SEARCH_ITEMS = 5
@@ -13,13 +14,18 @@ const Search = () => {
         300
     )
     const { backend } = useBackend()
+    const router = useRouter()
+
+    const allStatuses = useMemo(() => {
+        return ['whitelist', 'live', 'approved', 'fully_funded'].map((s) => s === null ? [] : [{ [s]: null }])
+      }, [])
 
     const { data: foundProjects } = useQuery(
         ['find-projects-with-owner', debouncedSearchTerm, backend],
         async () => {
             if (!debouncedSearchTerm || !backend) return []
 
-            const projects = await backend.findProjects(debouncedSearchTerm)
+            const projects = await backend.listProjects(allStatuses, debouncedSearchTerm, [])
             return projects
         }
     )
@@ -71,6 +77,12 @@ const Search = () => {
                 placeholder='Search projects'
                 value={searchTerm}
                 onChange={({ target: { value } }) => setSearchTerm(value)}
+                onKeyDown={({ key }) => {
+                    if (key === 'Enter') {
+                        router.push(`/search?search=${searchTerm}`)
+                        setSearchTerm()
+                    }
+                }}
             />
             {renderSearchResults()}
         </div>

@@ -6,6 +6,7 @@ import { useProjectForm } from './project-form-context'
 import Select from '@/components/forms/select'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
+import projectCategories from '@/helpers/projectCategories'
 
 const stepTwoSchema = Yup.object().shape({
     projectTitle: Yup.string().required('Enter a title for your project'),
@@ -68,18 +69,7 @@ export default function StepTwo() {
                         <Select
                             name='projectCategory'
                             value={values.projectCategory}
-                            options={[
-                                { label: 'Art', value: 'art' },
-                                { label: 'Cosmetics', value: 'cosmetics' },
-                                { label: 'Design', value: 'design' },
-                                { label: 'Gaming', value: 'gaming' },
-                                { label: 'IC Projects', value: 'ic-projects' },
-                                { label: 'Music', value: 'music' },
-                                { label: 'Supernova', value: 'supernova' },
-                                { label: 'Tech', value: 'tech' },
-                                { label: 'Web3', value: 'web3' },
-                                { label: 'Other', value: 'other' },
-                            ]}
+                            options={projectCategories}
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
