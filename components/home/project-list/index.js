@@ -4,6 +4,7 @@ import { useBackend } from '@/context/backend'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
 
 export default function ProjectList({
+    searchTerm,
     categories,
     header,
     queryName,
@@ -19,7 +20,7 @@ export default function ProjectList({
         isError,
         isFetching,
     } = useQuery(
-        [queryName, backend],
+        [queryName, backend, categories, searchTerm],
         async () => {
             if (!backend) return []
 
@@ -31,24 +32,11 @@ export default function ProjectList({
                         ? statuses.map((s) =>
                               s === null ? [] : [{ [s]: null }]
                           )
-                        : []
+                        : [],
+                    searchTerm || '',
+                    categories || []
                 )
             )
-                .filter(
-                    (p) =>
-                        categories === undefined ||
-                        (Array.isArray(categories) &&
-                            categories.includes(p.project.category))
-                )
-                .filter(
-                    (p) =>
-                        (p.project?.status &&
-                            Array.isArray(p.project.status) &&
-                            p.project.status.length === 0) ||
-                        Object.keys(
-                            p.project?.status?.[0] || { submitted: null }
-                        )[0] !== 'submitted'
-                )
 
             newData.projects = projects
 

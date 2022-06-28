@@ -122,7 +122,6 @@ export const idlFactory = ({ IDL }) => {
     'createProfile' : IDL.Func([NewProfile], [], []),
     'createProject' : IDL.Func([NewProject], [Project], []),
     'deleteProject' : IDL.Func([ProjectId__1], [IDL.Opt(Project)], []),
-    'findProjects' : IDL.Func([IDL.Text], [IDL.Vec(ProjectWithOwner)], ['query']),
     'getLaunchDate' : IDL.Func([ProjectId__1], [IDL.Opt(Date)], ['query']),
     'getMarketplaceLinks' : IDL.Func(
         [ProjectId__1],
@@ -163,7 +162,7 @@ export const idlFactory = ({ IDL }) => {
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
     'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listProjects' : IDL.Func(
-        [IDL.Vec(ProjectStatus__1)],
+        [IDL.Vec(ProjectStatus__1), IDL.Text, IDL.Vec(IDL.Text)],
         [IDL.Vec(ProjectWithOwner)],
         ['query'],
       ),

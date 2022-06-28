@@ -165,13 +165,13 @@ module {
       });
     };
 
-    public func findProjectsByTerm(term: Text) : [Project] {
+    public func findProjects(term: Text) : [Project] {
       var projects : Buffer.Buffer<Project> = Buffer.Buffer<Project>(1);
       for ((id, project) in projectMap.entries()) {
-        if (project.status != ?#submitted and includesText(project.title, term)) {
-            projects.add(project);
-          };
+        if (includesText(project.title, term)) {
+          projects.add(project);
         };
+      };
       projects.toArray();
     };
 

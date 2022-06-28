@@ -122,7 +122,6 @@ export interface _SERVICE {
   'createProfile' : (arg_0: NewProfile) => Promise<undefined>,
   'createProject' : (arg_0: NewProject) => Promise<Project>,
   'deleteProject' : (arg_0: ProjectId__1) => Promise<[] | [Project]>,
-  'findProjects' : (arg_0: string) => Promise<Array<ProjectWithOwner>>,
   'getLaunchDate' : (arg_0: ProjectId__1) => Promise<[] | [Date]>,
   'getMarketplaceLinks' : (arg_0: ProjectId__1) => Promise<MarketplaceLinks>,
   'getMyProfile' : () => Promise<Profile>,
@@ -146,7 +145,7 @@ export interface _SERVICE {
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
   'isAdmin' : () => Promise<boolean>,
-  'listProjects' : (arg_0: Array<ProjectStatus__1>) => Promise<
+  'listProjects' : (arg_0: Array<ProjectStatus__1>, arg_1: string, arg_2: Array<string>) => Promise<
       Array<ProjectWithOwner>
     >,
   'makeProjectLive' : (arg_0: ProjectId__1) => Promise<undefined>,
