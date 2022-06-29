@@ -341,6 +341,10 @@ export default function Hero({ isLoading, project }) {
                         </div>
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-2xl font-medium'>
+                                <img
+                                    src='/assets/IClogo.png'
+                                    className='h-3 inline-block'
+                                />{' '}
                                 {threeDecimals(
                                     status === 'fully_funded'
                                         ? threeDecimals(
