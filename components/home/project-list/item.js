@@ -28,7 +28,7 @@ export default function Item({
     }
 
     const status = Object.keys(
-        item.project?.status?.[0] || { submitted: null }
+        item.project?.status?.[0] || { archived: null }
     )[0]
 
     return (
@@ -84,6 +84,8 @@ const StatusText = (props) => {
             return 'Live now'
         case 'fully_funded':
             return 'Fully funded!'
+        case 'archived':
+            return 'Archived'
         default:
             return '- '
     }

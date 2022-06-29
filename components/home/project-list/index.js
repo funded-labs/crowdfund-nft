@@ -26,19 +26,21 @@ export default function ProjectList({
 
             let newData = {}
 
-            const projects = (
-                await backend.listProjects(
-                    statuses
-                        ? statuses.map((s) =>
-                              s === null ? [] : [{ [s]: null }]
-                          )
-                        : [],
-                    searchTerm || '',
-                    categories || []
-                )
+            const projects = await backend.listProjects(
+                statuses
+                    ? statuses.map((s) => (s === null ? [] : [{ [s]: null }]))
+                    : [],
+                searchTerm || '',
+                categories || []
             )
 
-            newData.projects = projects
+            console.log({ projects })
+
+            newData.projects = projects.filter(
+                (p) =>
+                    p.project.status.length === 0 ||
+                    !p.project.status[0].hasOwnProperty('submitted')
+            )
 
             let stats = {}
             projects.forEach(async (project) => {

@@ -97,7 +97,7 @@ export default function Sidebar({ show, onClose }) {
                                     <button
                                         type='button'
                                         className={`
-                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent rounded rounded font-medium text-black hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
+                        flex flex-row space-x-1 justify-center items-center bg-slate-600 border border-transparent rounded rounded font-medium text-black hover:bg-slate-400 px-4 py-2 mt-5 shadow-xl
                     `}
                                         onClick={getPlugPrincipal}>
                                         <img
@@ -115,7 +115,8 @@ export default function Sidebar({ show, onClose }) {
                                     as='/create-a-project.html'>
                                     <a
                                         className={`
-                                            py-2 mx-4 text-gray-500 justify-center items-center
+                                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent rounded rounded font-medium hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
+                                            py-2 mx-4 justify-center items-center text-white h-12
                                         `}
                                         href='/create-a-project.html'>
                                         Create a project

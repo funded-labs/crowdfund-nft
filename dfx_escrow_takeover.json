@@ -1,6 +1,6 @@
 {
     "canisters": {
-        "decentrafive_escrow": {
+        "ichotel_escrow": {
             "main": "src/escrow_manager/escrow.mo"
         }
     },
