@@ -162,7 +162,7 @@ export const idlFactory = ({ IDL }) => {
     'healthcheck' : IDL.Func([], [IDL.Bool], []),
     'isAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listProjects' : IDL.Func(
-        [IDL.Vec(ProjectStatus__1)],
+        [IDL.Vec(ProjectStatus__1), IDL.Text, IDL.Vec(IDL.Text)],
         [IDL.Vec(ProjectWithOwner)],
         ['query'],
       ),

@@ -8,6 +8,9 @@
     "cosmicrafts_escrow": {
       "ic": "enkh4-3iaaa-aaaak-aalcq-cai"
     },
+    "decentrafive_escrow": {
+      "ic": "ejiyh-piaaa-aaaak-abw7q-cai"
+    },
     "escrow_manager": {
       "ic": "3fhg4-qiaaa-aaaak-aajiq-cai"
     },
@@ -16,6 +19,9 @@
     },
     "frontend_staging": {
       "ic": "l23oo-gaaaa-aaaak-aan2q-cai"
+    },
+    "ichotel_escrow": {
+      "ic": "qotnr-eiaaa-aaaak-acc6q-cai"
     },
     "images": {
       "ic": "3mena-gaaaa-aaaak-aajja-cai"
@@ -28,5 +34,8 @@
     },
     "sa_chan_escrow": {
       "ic": "4abzf-3iaaa-aaaak-aaraq-cai"
+    },
+    "icplat_escrow": {
+      "ic": "qhqgn-saaaa-aaaak-acc7a-cai"
     }
   }

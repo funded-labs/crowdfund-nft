@@ -7,6 +7,7 @@ import Option "mo:base/Option";
 import Principal "mo:base/Principal";
 import Types "./types";
 import Text "mo:base/Text";
+import Prim "mo:prim";
 
 module {
   type NewProfile = Types.NewProfile;
@@ -164,6 +165,16 @@ module {
       });
     };
 
+    public func findProjects(term: Text) : [Project] {
+      var projects : Buffer.Buffer<Project> = Buffer.Buffer<Project>(1);
+      for ((id, project) in projectMap.entries()) {
+        if (includesText(project.title, term)) {
+          projects.add(project);
+        };
+      };
+      projects.toArray();
+    };
+
     // Upgrade helpers
 
     public func getUserArray() : [(UserId, Profile)] {
@@ -232,8 +243,11 @@ module {
     };
 
     func includesText(string: Text, term: Text): Bool {
-      let stringArray = Iter.toArray<Char>(string.chars());
-      let termArray = Iter.toArray<Char>(term.chars());
+      let stringLowercase = Text.map(string, Prim.charToLower);
+      let termLowercase = Text.map(term, Prim.charToLower);
+
+      let stringArray = Iter.toArray<Char>(stringLowercase.chars());
+      let termArray = Iter.toArray<Char>(termLowercase.chars());
 
       var i = 0;
       var j = 0;

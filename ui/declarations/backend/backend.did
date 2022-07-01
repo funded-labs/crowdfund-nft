@@ -154,7 +154,7 @@ service : {
   greet: () -> (text);
   healthcheck: () -> (bool);
   isAdmin: () -> (bool) query;
-  listProjects: (vec ProjectStatus__1) -> (vec ProjectWithOwner) query;
+  listProjects: (vec ProjectStatus__1, text, vec text) -> (vec ProjectWithOwner) query;
   makeProjectLive: (ProjectId__1) -> ();
   openProjectToWhiteList: (ProjectId__1) -> ();
   putLaunchDate: (ProjectId__1, Date) -> ();

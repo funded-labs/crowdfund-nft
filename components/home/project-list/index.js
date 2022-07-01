@@ -4,6 +4,7 @@ import { useBackend } from '@/context/backend'
 import { makeEscrowActor } from '@/ui/service/actor-locator'
 
 export default function ProjectList({
+    searchTerm,
     categories,
     header,
     queryName,
@@ -19,38 +20,27 @@ export default function ProjectList({
         isError,
         isFetching,
     } = useQuery(
-        [queryName, backend],
+        [queryName, backend, categories, searchTerm],
         async () => {
             if (!backend) return []
 
             let newData = {}
 
-            const projects = (
-                await backend.listProjects(
-                    statuses
-                        ? statuses.map((s) =>
-                              s === null ? [] : [{ [s]: null }]
-                          )
-                        : []
-                )
+            const projects = await backend.listProjects(
+                statuses
+                    ? statuses.map((s) => (s === null ? [] : [{ [s]: null }]))
+                    : [],
+                searchTerm || '',
+                categories || []
             )
-                .filter(
-                    (p) =>
-                        categories === undefined ||
-                        (Array.isArray(categories) &&
-                            categories.includes(p.project.category))
-                )
-                .filter(
-                    (p) =>
-                        (p.project?.status &&
-                            Array.isArray(p.project.status) &&
-                            p.project.status.length === 0) ||
-                        Object.keys(
-                            p.project?.status?.[0] || { submitted: null }
-                        )[0] !== 'submitted'
-                )
 
-            newData.projects = projects
+            console.log({ projects })
+
+            newData.projects = projects.filter(
+                (p) =>
+                    p.project.status.length === 0 ||
+                    !p.project.status[0].hasOwnProperty('submitted')
+            )
 
             let stats = {}
             projects.forEach(async (project) => {

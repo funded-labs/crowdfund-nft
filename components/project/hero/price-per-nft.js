@@ -60,6 +60,7 @@ export default function PricePerNFT({ stats, selectedTierState }) {
     return (
         <div className='w-full flex flex-col py-3'>
             <p className='text-blue-600 text-2xl font-medium'>
+                <img src='/assets/IClogo.png' className='h-3 inline-block' />{' '}
                 {(stats.nftStats[0].priceE8S / 100_000_000).toString()} ICP
             </p>
             <p className='text-gray-400 text-lg'>price per NFT</p>

@@ -1,6 +1,6 @@
 {
     "canisters": {
-        "cosmicrafts_escrow": {
+        "icplat_escrow": {
             "main": "src/escrow_manager/escrow.mo"
         }
     },

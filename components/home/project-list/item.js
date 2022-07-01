@@ -28,7 +28,7 @@ export default function Item({
     }
 
     const status = Object.keys(
-        item.project?.status?.[0] || { submitted: null }
+        item.project?.status?.[0] || { archived: null }
     )[0]
 
     return (
@@ -50,6 +50,10 @@ export default function Item({
                 <div className='w-full flex flex-row justify-between text-sm mt-2'>
                     <p className='font-semibold'>{item.project.title}</p>
                     <p className='text-indigo-500'>
+                        <img
+                            src='/assets/IClogo.png'
+                            className='h-2 inline-block'
+                        />{' '}
                         {item.project.goal} ICP goal
                     </p>
                 </div>
@@ -84,6 +88,8 @@ const StatusText = (props) => {
             return 'Live now'
         case 'fully_funded':
             return 'Fully funded!'
+        case 'archived':
+            return 'Archived'
         default:
             return '- '
     }

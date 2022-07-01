@@ -145,7 +145,7 @@ export interface _SERVICE {
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
   'isAdmin' : () => Promise<boolean>,
-  'listProjects' : (arg_0: Array<ProjectStatus__1>) => Promise<
+  'listProjects' : (arg_0: Array<ProjectStatus__1>, arg_1: string, arg_2: Array<string>) => Promise<
       Array<ProjectWithOwner>
     >,
   'makeProjectLive' : (arg_0: ProjectId__1) => Promise<undefined>,
