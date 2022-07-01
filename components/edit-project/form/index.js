@@ -41,18 +41,26 @@ export default function EditProjectForm({ instruction, onSuccess }) {
 }
 
 const Form = () => {
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState({
+        saveButton: false,
+        approveButton: false,
+        unapproveButton: false,
+        whitelistButton: false,
+        liveButton: false,
+    })
     const backend = useBackend().backendWithAuth
+
+    const setLoadingState = (key, value) => {
+        setLoading({
+            ...loading,
+            [key]: value,
+        })
+    }
 
     const router = useRouter()
     const { projectId } = router.query
 
-    const {
-        data: project,
-        isLoading,
-        isError,
-        isFetching,
-    } = useQuery(
+    const { data: project } = useQuery(
         ['project-details', projectId, backend],
         async () => {
             if (!backend) return null
@@ -68,14 +76,25 @@ const Form = () => {
     if (!project) return <></>
 
     const handleSubmit = async (form) => {
-        setLoading(true)
+        setLoadingState('saveButton', true)
 
         const newProject = { ...project, ...form }
 
         backend
             .updateProject(newProject)
             .catch((e) => console.error(e))
-            .finally(() => setLoading(false))
+            .finally(() => setLoadingState('saveButton', false))
+    }
+
+    const updateStatus = (func, key) => {
+        setLoadingState(key, true)
+        func(project.id)
+            .then(() => alert('Done!'))
+            .catch((e) => {
+                console.error(e)
+                alert(e)
+            })
+            .finally(() => setLoadingState(key, false))
     }
 
     const initialValues = {
@@ -234,12 +253,12 @@ const Form = () => {
                             px-4 font-medium text-base tracking-wider rounded-xl
                             shadow-xl hover:bg-blue-700
                         `}>
-                                        {!loading && <>Save</>}
-
-                                        {loading && (
+                                        {loading.saveButton ? (
                                             <span className='h-5 w-5'>
                                                 <Spinner show={true} />
                                             </span>
+                                        ) : (
+                                            <>Save</>
                                         )}
                                     </button>
                                 </div>
@@ -257,14 +276,88 @@ const Form = () => {
                             admin.
                         </div>
                     </div>
-                    <div className='px-4 py-4 border-t border-red-200'>
+                    <div className='px-4 py-4 border-t border-red-300'>
                         <button
                             className={`
                                 flex flex-row justify-center w-full 
-                                bg-black text-white py-2 font-medium 
+                                bg-slate-900 text-white py-2 font-medium 
                                 text-sm tracking-wider rounded-xl shadow-xl 
-                                hover:bg-gray-800`}>
-                            Approve Project
+                                hover:bg-gray-800`}
+                            onClick={() =>
+                                updateStatus(
+                                    backend.approveProject,
+                                    'approveButton'
+                                )
+                            }>
+                            {loading.approveButton ? (
+                                <span className='h-5 w-5'>
+                                    <Spinner show={true} />
+                                </span>
+                            ) : (
+                                <>Approve Project</>
+                            )}
+                        </button>
+                        <button
+                            className={`
+                                flex flex-row justify-center w-full 
+                                bg-slate-900 text-white py-2 font-medium 
+                                text-sm tracking-wider rounded-xl shadow-xl 
+                                hover:bg-gray-800 mt-2`}
+                            onClick={() =>
+                                updateStatus(
+                                    backend.unapproveProject,
+                                    'unapproveButton'
+                                )
+                            }>
+                            {loading.unapproveButton ? (
+                                <span className='h-5 w-5'>
+                                    <Spinner show={true} />
+                                </span>
+                            ) : (
+                                <>Unapprove Project</>
+                            )}
+                        </button>
+                    </div>
+                    <div className='px-4 py-4 border-t border-red-300'>
+                        <button
+                            className={`
+                                flex flex-row justify-center w-full 
+                                bg-slate-900 text-white py-2 font-medium 
+                                text-sm tracking-wider rounded-xl shadow-xl 
+                                hover:bg-gray-800`}
+                            onClick={() =>
+                                updateStatus(
+                                    backend.openProjectToWhiteList,
+                                    'whitelistButton'
+                                )
+                            }>
+                            {loading.whitelistButton ? (
+                                <span className='h-5 w-5'>
+                                    <Spinner show={true} />
+                                </span>
+                            ) : (
+                                <>Open Project to Whitelist</>
+                            )}
+                        </button>
+                        <button
+                            className={`
+                                flex flex-row justify-center w-full 
+                                bg-slate-900 text-white py-2 font-medium 
+                                text-sm tracking-wider rounded-xl shadow-xl 
+                                hover:bg-gray-800 mt-2`}
+                            onClick={() =>
+                                updateStatus(
+                                    backend.makeProjectLive,
+                                    'liveButton'
+                                )
+                            }>
+                            {loading.liveButton ? (
+                                <span className='h-5 w-5'>
+                                    <Spinner show={true} />
+                                </span>
+                            ) : (
+                                <>Make Project Live</>
+                            )}
                         </button>
                     </div>
                 </div>
