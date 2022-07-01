@@ -34,5 +34,8 @@
     },
     "sa_chan_escrow": {
       "ic": "4abzf-3iaaa-aaaak-aaraq-cai"
+    },
+    "icplat_escrow": {
+      "ic": "qhqgn-saaaa-aaaak-acc7a-cai"
     }
   }
