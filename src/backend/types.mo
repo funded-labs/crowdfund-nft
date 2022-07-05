@@ -79,4 +79,9 @@ module {
   };
 
   public type MarketplaceLinks = [MarketplaceLink];
+
+  public type NFTexample = {
+    id: Nat;
+    img: Link;
+  };
 };

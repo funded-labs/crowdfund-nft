@@ -67,6 +67,7 @@ export const idlFactory = ({ IDL }) => {
   });
   const GUID = IDL.Text;
   const NFTInfo = IDL.Record({ 'index' : IDL.Nat, 'canisterId' : IDL.Text });
+  const NFTexample = IDL.Record({ 'id' : IDL.Nat, 'img' : Link });
   const UserId__1 = IDL.Principal;
   const ProjectState = IDL.Variant({
     'closed' : IDL.Null,
@@ -117,6 +118,7 @@ export const idlFactory = ({ IDL }) => {
     'adminCreateProfile' : IDL.Func([IDL.Principal, NewProfile], [], []),
     'adminCreateProject' : IDL.Func([IDL.Principal, NewProject], [Project], []),
     'approveProject' : IDL.Func([ProjectId__1], [], []),
+    'archiveProject' : IDL.Func([ProjectId__1], [], []),
     'closeProject' : IDL.Func([ProjectId__1], [], []),
     'createFirstProject' : IDL.Func([NewProfile, NewProject], [Project], []),
     'createProfile' : IDL.Func([NewProfile], [], []),
@@ -131,6 +133,11 @@ export const idlFactory = ({ IDL }) => {
     'getMyProfile' : IDL.Func([], [Profile], ['query']),
     'getMyProjects' : IDL.Func([], [IDL.Vec(Project)], ['query']),
     'getNFTInfo' : IDL.Func([GUID], [IDL.Opt(NFTInfo)], ['query']),
+    'getNFTexamples' : IDL.Func(
+        [ProjectId__1],
+        [IDL.Vec(NFTexample)],
+        ['query'],
+      ),
     'getOwnId' : IDL.Func([], [UserId__1], ['query']),
     'getOwnIdText' : IDL.Func([], [IDL.Text], ['query']),
     'getProfile' : IDL.Func([UserId__1], [Profile], ['query']),
@@ -170,6 +177,7 @@ export const idlFactory = ({ IDL }) => {
     'openProjectToWhiteList' : IDL.Func([ProjectId__1], [], []),
     'putLaunchDate' : IDL.Func([ProjectId__1, Date], [], []),
     'putNFTGUIDs' : IDL.Func([IDL.Vec(IDL.Tuple(GUID, NFTInfo))], [], []),
+    'putNFTexamples' : IDL.Func([ProjectId__1, IDL.Vec(NFTexample)], [], []),
     'resetWhitelist' : IDL.Func([ProjectId__1], [], []),
     'searchProfiles' : IDL.Func([IDL.Text], [IDL.Vec(Profile)], ['query']),
     'setMarketplaceLinks' : IDL.Func([ProjectId__1, MarketplaceLinks], [], []),

@@ -7,6 +7,7 @@ export type MarketplaceLink = { 'ccc' : Link } |
   { 'entrepot' : Link };
 export type MarketplaceLinks = Array<MarketplaceLink>;
 export interface NFTInfo { 'index' : bigint, 'canisterId' : string }
+export interface NFTexample { 'id' : bigint, 'img' : Link }
 export interface NewProfile {
   'bio' : string,
   'img' : Link,
@@ -115,6 +116,7 @@ export interface _SERVICE {
       Project
     >,
   'approveProject' : (arg_0: ProjectId__1) => Promise<undefined>,
+  'archiveProject' : (arg_0: ProjectId__1) => Promise<undefined>,
   'closeProject' : (arg_0: ProjectId__1) => Promise<undefined>,
   'createFirstProject' : (arg_0: NewProfile, arg_1: NewProject) => Promise<
       Project
@@ -127,6 +129,7 @@ export interface _SERVICE {
   'getMyProfile' : () => Promise<Profile>,
   'getMyProjects' : () => Promise<Array<Project>>,
   'getNFTInfo' : (arg_0: GUID) => Promise<[] | [NFTInfo]>,
+  'getNFTexamples' : (arg_0: ProjectId__1) => Promise<Array<NFTexample>>,
   'getOwnId' : () => Promise<UserId__1>,
   'getOwnIdText' : () => Promise<string>,
   'getProfile' : (arg_0: UserId__1) => Promise<Profile>,
@@ -145,13 +148,18 @@ export interface _SERVICE {
   'greet' : () => Promise<string>,
   'healthcheck' : () => Promise<boolean>,
   'isAdmin' : () => Promise<boolean>,
-  'listProjects' : (arg_0: Array<ProjectStatus__1>, arg_1: string, arg_2: Array<string>) => Promise<
-      Array<ProjectWithOwner>
-    >,
+  'listProjects' : (
+      arg_0: Array<ProjectStatus__1>,
+      arg_1: string,
+      arg_2: Array<string>,
+    ) => Promise<Array<ProjectWithOwner>>,
   'makeProjectLive' : (arg_0: ProjectId__1) => Promise<undefined>,
   'openProjectToWhiteList' : (arg_0: ProjectId__1) => Promise<undefined>,
   'putLaunchDate' : (arg_0: ProjectId__1, arg_1: Date) => Promise<undefined>,
   'putNFTGUIDs' : (arg_0: Array<[GUID, NFTInfo]>) => Promise<undefined>,
+  'putNFTexamples' : (arg_0: ProjectId__1, arg_1: Array<NFTexample>) => Promise<
+      undefined
+    >,
   'resetWhitelist' : (arg_0: ProjectId__1) => Promise<undefined>,
   'searchProfiles' : (arg_0: string) => Promise<Array<Profile>>,
   'setMarketplaceLinks' : (

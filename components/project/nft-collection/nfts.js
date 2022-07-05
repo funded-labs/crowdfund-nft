@@ -1,7 +1,17 @@
+import { useQuery } from 'react-query'
+import { useBackend } from '@/context/backend'
 import exampleNFTs from './example-nfts'
 
 export default function NFTs({ project }) {
-    const { nftVolume } = project
+    const { backend } = useBackend()
+
+    const { data: nftsBackend } = useQuery(['nft-examples', project], () => {
+        console.log({ project })
+        if (!project?.id) return
+        return backend.getNFTexamples(project.id)
+    })
+
+    console.log({ nftsBackend })
 
     const nfts = exampleNFTs.hasOwnProperty(project.id)
         ? exampleNFTs[project.id]
@@ -12,16 +22,10 @@ export default function NFTs({ project }) {
             id='nft-collection-nfts'
             className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
             <p className='font-bold text-base text-black'>NFTs</p>
-
             <p className='text-gray-600 my-2 w-full'>
                 When you back this project, you will be randomly allocated an
                 NFT from this collection if the project gets fully funded.
             </p>
-
-            {/* <p className='text-center font-semibold w-full mb-10'>
-                Collection Title - {nftVolume} total NTF's
-            </p> */}
-
             {nfts.length > 0 && (
                 <div className='w-full grid grid-cols-1 lg:grid-cols-3 gap-6'>
                     {nfts.map((nft) => (

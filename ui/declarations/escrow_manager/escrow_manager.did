@@ -17,8 +17,9 @@ service : {
   acceptCycles: () -> ();
   availableCycles: () -> (nat) query;
   createEscrowCanister: (ProjectId, principal, vec NFTInfo, Time, nat) -> ();
+  dissociateEscrowCanister: (ProjectId) -> ();
   getProjectEscrowCanisterPrincipal: (ProjectId) ->
    (opt CanisterIdText) query;
-  test: () -> (definite_canister_settings);
+  takeover: (text) -> (definite_canister_settings);
   wallet_receive: () -> ();
 }

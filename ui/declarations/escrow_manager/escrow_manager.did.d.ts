@@ -19,9 +19,10 @@ export interface _SERVICE {
       arg_3: Time,
       arg_4: bigint,
     ) => Promise<undefined>,
+  'dissociateEscrowCanister' : (arg_0: ProjectId) => Promise<undefined>,
   'getProjectEscrowCanisterPrincipal' : (arg_0: ProjectId) => Promise<
       [] | [CanisterIdText]
     >,
-  'test' : () => Promise<definite_canister_settings>,
+  'takeover' : (arg_0: string) => Promise<definite_canister_settings>,
   'wallet_receive' : () => Promise<undefined>,
 }

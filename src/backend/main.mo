@@ -19,6 +19,7 @@ actor CrowdFundNFT {
 
     type NewProfile = Types.NewProfile;
     type NewProject = Types.NewProject;
+    type NFTexample = Types.NFTexample;
     type Profile = Types.Profile;
     type Project = Types.Project;
     type ProjectId = Types.ProjectId;
@@ -41,6 +42,10 @@ actor CrowdFundNFT {
     // Main database
 
     var db: Database.Directory = Database.Directory();
+
+    // NFT examples
+
+    var nftExamples : Trie.Trie<ProjectId, [NFTexample]> = Trie.empty();
 
     // Upgrade functions
 
@@ -381,6 +386,20 @@ actor CrowdFundNFT {
 
     func _getMarketplaceLinks(pid: ProjectId): ?MarketplaceLinks {
         Trie.get<ProjectId, MarketplaceLinks>(marketplaceLinks, projectIdKey(pid), Text.equal);
+    };
+
+    // NFT Examples
+
+    public shared(msg) func putNFTexamples(pid: ProjectId, nfts: [NFTexample]): async () {
+        assert(Utils.isAdmin(msg.caller));
+        nftExamples := Trie.put<ProjectId, [NFTexample]>(nftExamples, projectIdKey(pid), Text.equal, nfts).0;
+    };
+
+    public query func getNFTexamples(pid: ProjectId): async [NFTexample] {
+        switch (Trie.get<ProjectId, [NFTexample]>(nftExamples, projectIdKey(pid), Text.equal)) {
+            case (?nfts) { nfts; };
+            case null { []; };
+        };
     };
 
     // User Auth

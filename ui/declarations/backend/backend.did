@@ -107,6 +107,11 @@ type NewProfile =
    img: Link;
    lastName: text;
  };
+type NFTexample = 
+ record {
+   id: nat;
+   img: Link;
+ };
 type NFTInfo = 
  record {
    canisterId: text;
@@ -127,6 +132,7 @@ service : {
   adminCreateProfile: (principal, NewProfile) -> ();
   adminCreateProject: (principal, NewProject) -> (Project);
   approveProject: (ProjectId__1) -> ();
+  archiveProject: (ProjectId__1) -> ();
   closeProject: (ProjectId__1) -> ();
   createFirstProject: (NewProfile, NewProject) -> (Project);
   createProfile: (NewProfile) -> ();
@@ -137,6 +143,7 @@ service : {
   getMyProfile: () -> (Profile) query;
   getMyProjects: () -> (vec Project) query;
   getNFTInfo: (GUID) -> (opt NFTInfo) query;
+  getNFTexamples: (ProjectId__1) -> (vec NFTexample) query;
   getOwnId: () -> (UserId__1) query;
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
@@ -154,7 +161,8 @@ service : {
   greet: () -> (text);
   healthcheck: () -> (bool);
   isAdmin: () -> (bool) query;
-  listProjects: (vec ProjectStatus__1, text, vec text) -> (vec ProjectWithOwner) query;
+  listProjects: (vec ProjectStatus__1, text, vec text) ->
+   (vec ProjectWithOwner) query;
   makeProjectLive: (ProjectId__1) -> ();
   openProjectToWhiteList: (ProjectId__1) -> ();
   putLaunchDate: (ProjectId__1, Date) -> ();
@@ -162,6 +170,7 @@ service : {
                       GUID;
                       NFTInfo;
                     }) -> ();
+  putNFTexamples: (ProjectId__1, vec NFTexample) -> ();
   resetWhitelist: (ProjectId__1) -> ();
   searchProfiles: (text) -> (vec Profile) query;
   setMarketplaceLinks: (ProjectId__1, MarketplaceLinks) -> ();
