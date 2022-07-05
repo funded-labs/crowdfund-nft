@@ -123,6 +123,6 @@ export default {
     })),
     31: range(3).map((i) => ({
         id: `#${i}`,
-        url: `/assets/nfts/iusd/${i}.png`,
+        url: `/assets/nfts/iusd/${i}.jpg`,
     })),
 }
