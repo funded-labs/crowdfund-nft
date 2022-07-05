@@ -298,9 +298,9 @@ export default function Hero({ isLoading, project }) {
         const seconds =
             Math.floor(diff / 1000 - days * 24 * 60 * 60 - hours * 60 * 60) -
             minutes * 60
-        return `${days > 0 ? `${days}d ` : ''}${hours}:${
+        return `${days > 0 ? `${days}d ` : ''}${hours}h ${
             minutes < 10 ? '0' : ''
-        }${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
+        }${minutes}m ${seconds < 10 ? '0' : ''}${seconds}s`
     }
 
     return (
