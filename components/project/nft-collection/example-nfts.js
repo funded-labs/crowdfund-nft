@@ -125,4 +125,10 @@ export default {
         id: `#${i}`,
         url: `/assets/nfts/iusd/${i}.jpg`,
     })),
+    33: [
+        {
+            id: '#0',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=94',
+        },
+    ],
 }

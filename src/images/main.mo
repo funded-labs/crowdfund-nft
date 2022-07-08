@@ -3,6 +3,7 @@ import Blob         "mo:base/Blob";
 import Debug        "mo:base/Debug";
 import Iter         "mo:base/Iter";
 import Nat          "mo:base/Nat";
+import Option       "mo:base/Option";
 import Principal    "mo:base/Principal";
 import Text         "mo:base/Text";
 
@@ -23,6 +24,20 @@ actor Images {
         Debug.print(Principal.toText(msg.caller));
         _assets := Array.append(_assets, [asset]);
         _assets.size() - 1;
+    };
+
+    public shared(msg) func streamAsset(id : Nat, payload : Blob) : async () {
+        var tassets : [var Asset]  = Array.thaw<Asset>(_assets);
+        var asset : Asset = tassets[id];
+        asset := {
+            name = asset.name;
+            payload = {
+                ctype = asset.payload.ctype;
+                data = Array.append(asset.payload.data, [payload]);
+            };
+        };
+        tassets[id] := asset;
+        _assets := Array.freeze(tassets);
     };
 
     // http
@@ -65,12 +80,7 @@ actor Images {
                 switch (_getAssetId(idText)) {
                     case (?id) {
                         let asset : Asset = _assets[id];
-                        return {
-                            status_code = 200;
-                            headers = [("content-type", asset.payload.ctype), ("cache-control", "public, max-age=15552000")];
-                            body = asset.payload.data[0];
-                            streaming_strategy = null;
-                        }
+                        return _processFile(Nat.toText(id), asset.payload);
                     };
                     case _ { return NOT_FOUND; };
                 };
@@ -83,6 +93,20 @@ actor Images {
             headers = [("content-type", "text/plain")];
             body = Text.encodeUtf8("Number of images: " # Nat.toText(_assets.size()));
             streaming_strategy = null;
+        };
+    };
+
+    public query func http_request_streaming_callback(token : HttpStreamingCallbackToken) : async HttpStreamingCallbackResponse {
+        switch(_getAssetId(token.key)) {
+            case null return {body = Blob.fromArray([]); token = null};
+            case (?assetid) {
+                let asset : Asset = _assets[assetid];
+                let res = _streamContent(token.key, token.index, asset.payload.data);
+                return {
+                    body = res.0;
+                    token = res.1;
+                };
+            };
         };
     };
 
@@ -114,6 +138,44 @@ actor Images {
             };
         });
         return t;
+    };
+
+    private func _processFile(id : Text, file : File) : HttpResponse {
+        if (file.data.size() > 1 ) {
+            let (payload, token) = _streamContent(id, 0, file.data);
+            return {
+                status_code = 200;
+                headers = [("Content-Type", file.ctype), ("cache-control", "public, max-age=15552000")];
+                body = payload;
+                streaming_strategy = ?#Callback({
+                token = Option.unwrap(token);
+                callback = http_request_streaming_callback;
+                });
+            };
+        } else {
+            return {
+                status_code = 200;
+                headers = [("content-type", file.ctype), ("cache-control", "public, max-age=15552000")];
+                body = file.data[0];
+                streaming_strategy = null;
+            };
+        };
+    };
+
+    private func _streamContent(id : Text, idx : Nat, data : [Blob]) : (Blob, ?HttpStreamingCallbackToken) {
+        let payload = data[idx];
+        let size = data.size();
+
+        if (idx + 1 == size) {
+            return (payload, null);
+        };
+
+        return (payload, ?{
+            content_encoding = "gzip";
+            index = idx + 1;
+            sha256 = null;
+            key = id;
+        });
     };
 
 }

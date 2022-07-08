@@ -12,6 +12,7 @@ import * as Yup from 'yup'
 const formSchema = Yup.object().shape({
     title: Yup.string().required('Enter a title for your project'),
     category: Yup.string().required('Select a category for your project'),
+    cover: Yup.string().required('Input a cover image url'),
     twitterLink: Yup.string().required('Enter Twitter link for your project'),
     discordLink: Yup.string(),
     goal: Yup.number()
@@ -100,6 +101,7 @@ const Form = () => {
     const initialValues = {
         title: project.title,
         category: project.category,
+        cover: project.cover,
         twitterLink: project.twitterLink,
         discordLink: project.discordLink,
         goal: Number(project.goal),
@@ -156,6 +158,16 @@ const Form = () => {
                                         onBlur={handleBlur}
                                         type='text'
                                         placeholder='Category'
+                                    />
+                                    <p className='text-sm'>Cover Image</p>
+                                    <Input
+                                        id='projectCover'
+                                        name='cover'
+                                        value={values.cover}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        type='text'
+                                        placeholder='Cover Image'
                                     />
                                     <p className='text-sm'>
                                         Social Media Links
