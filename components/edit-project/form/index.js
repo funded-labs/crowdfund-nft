@@ -2,6 +2,7 @@ import { useRouter } from 'next/router'
 import { useBackend } from '@/context/backend'
 
 import EditProjectForm from './edit-project'
+import NFTexamples from './nft-examples'
 import AdminButtons from './admin-buttons'
 
 const EditProjectPage = () => {
@@ -11,6 +12,7 @@ const EditProjectPage = () => {
     return (
         <div className='w-full sm:mx-auto sm:max-w-lg px-4'>
             <EditProjectForm {...{ backend, projectId }} />
+            <NFTexamples {...{ backend, projectId }} />
             <AdminButtons {...{ backend, projectId }} />
         </div>
     )
