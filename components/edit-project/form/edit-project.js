@@ -178,6 +178,10 @@ const Form = ({ backend, projectId }) => {
                                         </p>
                                     )}
                                 />
+                                <p className='text-sm text-center'>
+                                    Price per NFT:{' '}
+                                    {values.goal / values.nftVolume} ICP
+                                </p>
                                 <p className='text-sm'>Wallet ID</p>
                                 <Input
                                     id='walletId'
