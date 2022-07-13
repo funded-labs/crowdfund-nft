@@ -17,7 +17,7 @@ export default function Hero() {
                                 src='/assets/IClogo.png'
                                 className='h-4 inline-block'
                             />{' '}
-                            10,169 ICP
+                            11,169 ICP
                         </div>
                     </div>
                     <div className='px-4 w-full max-w-5xl mx-auto text-gray-400 uppercase font-semibold text-sm mb-4'>
