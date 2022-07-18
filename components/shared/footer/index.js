@@ -26,7 +26,7 @@ export default function Footer() {
                                         target="_blank"
                                         rel="noreferrer"
                                     >
-                                        Terms
+                                        General Terms
                                     </a>
                                 </Link>
                             </li>
@@ -38,6 +38,17 @@ export default function Footer() {
                                         rel="noreferrer"
                                     >
                                         Privacy Policy
+                                    </a>
+                                </Link>
+                            </li>
+                            <li className="flex flex-row items-center">
+                                <Link href="/p/marketplaceterms" passHref as="/p/marketplaceterms.html">
+                                    <a
+                                        className="hover:underline cursor-pointer"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        Marketplace Terms
                                     </a>
                                 </Link>
                             </li>
