@@ -198,8 +198,6 @@ export default function ProjectDetails() {
         }
     )
 
-    console.log(project)
-
     if (isLoading || isError || isFetching || !project) {
         return (
             <div className='w-full bg-gray-50'>
