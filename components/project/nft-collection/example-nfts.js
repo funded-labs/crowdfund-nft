@@ -131,4 +131,14 @@ export default {
             url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=94',
         },
     ],
+    37: [
+        {
+            id: '#0',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=108',
+        },
+        {
+            id: '#21',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=109',
+        },
+    ],
 }
