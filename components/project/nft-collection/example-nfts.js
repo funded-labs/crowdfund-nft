@@ -131,6 +131,10 @@ export default {
             url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=94',
         },
     ],
+    35: range(6).map((i) => ({
+        id: `#${i}`,
+        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=11${3 + i}`,
+    })),
     37: [
         {
             id: '#0',
