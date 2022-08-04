@@ -258,7 +258,7 @@ export default function Hero({ isLoading, project }) {
                         {remainingTimeString(
                             project.stats.endTime -
                                 30 * 1000 * 24 * 60 * 60 +
-                                2 * 1000 * 60 * 60
+                                (project.id === '40' ? 3 : 2) * 1000 * 60 * 60
                         )}
                     </>
                 ) : (
@@ -402,7 +402,12 @@ export default function Hero({ isLoading, project }) {
                                             {remainingTimeString(
                                                 project.stats.endTime -
                                                     30 * 1000 * 60 * 60 * 24 +
-                                                    2 * 1000 * 60 * 60
+                                                    (project.id === '40'
+                                                        ? 3
+                                                        : 2) *
+                                                        1000 *
+                                                        60 *
+                                                        60
                                             )}
                                         </>
                                     )}

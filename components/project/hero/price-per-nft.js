@@ -32,10 +32,11 @@ export default function PricePerNFT({ stats, selectedTierState }) {
                                             : 'text-black'
                                     }`}>
                                     <p className='text-xs font-light text-center text-gray-400'>
-                                        Price per NFT
+                                        Tier price
                                     </p>
                                     {(tier.priceE8S / 100_000_000)
                                         .toFixed(1)
+                                        .replace(/\.?0+$/, '')
                                         .toString()}
                                     <span
                                         className={`text-base font-normal pl-1 ${

@@ -135,6 +135,12 @@ export default {
         id: `#${i}`,
         url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=11${3 + i}`,
     })),
+    36: [
+        {
+            id: '#0',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=132',
+        },
+    ],
     37: [
         {
             id: '#0',
