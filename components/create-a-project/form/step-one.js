@@ -105,7 +105,7 @@ export default function StepOne() {
                             name='bio'
                             onChange={handleChange}
                             value={values.bio}
-
+                            exclude={["image"]}
                         />
                         <p className=''>Upload a profile picture (optional)</p>
                         <Input
