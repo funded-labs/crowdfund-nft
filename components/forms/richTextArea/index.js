@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
-import styles from './RichTextArea.module.scss'
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false })
 
@@ -13,7 +12,7 @@ export default function RichTextArea({ onChange, value, name, label }) {
               </label>
           )}
 
-        <ReactQuill name={name} onChange={onChange(name)} value={value} className={styles.richTextEditor} theme="snow" />
+        <ReactQuill name={name} onChange={onChange(name)} value={value} className="h-[300px] mb-[60px]" theme="snow" />
       </div>
   )
 }
