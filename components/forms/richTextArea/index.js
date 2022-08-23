@@ -14,9 +14,23 @@ const ALL_TOOLBAR_OPTIONS = [
 ];
 
 export default function RichTextArea({ onChange, value, name, label, exclude = [] }) {
-  console.log({exclude, ALL_TOOLBAR_OPTIONS});
   const TOOLBAR_OPTIONS = ALL_TOOLBAR_OPTIONS.filter(o => {
-    return o.some(x => !exclude.includes(x));
+
+    return o.some(x => {
+      if (typeof x === "string") {
+        return !exclude.includes(x);
+      }
+
+      if (typeof o === "object" && !Array.isArray(o)) {
+        return Object.keys(o).some(x => !exclude.includes(x));
+      }
+
+      if (typeof o === "object" && Array.isArray(o)) {
+        return o.some(a => Object.values(a).some(b => exclude.includes(b)));
+      }
+
+      return true;
+    });
 });
   
   return (
