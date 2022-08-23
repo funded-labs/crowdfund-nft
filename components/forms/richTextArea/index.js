@@ -52,6 +52,8 @@ export default function RichTextArea({ onChange, value, name, label, exclude = [
             container: TOOLBAR_OPTIONS,
             handlers: {
               image: function (value) {
+                // todo: logic here to upload image to chain instead of
+                // asking the user for a URL
                 var range = this.quill.getSelection();
                 var value = prompt('Enter the image URL here');
                 if(value){
