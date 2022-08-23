@@ -12,7 +12,7 @@ export default function RichTextArea({ onChange, value, name, label }) {
               </label>
           )}
 
-        <ReactQuill name={name} onChange={onChange(name)} value={value} className="h-[300px] mb-[60px]" theme="snow" />
+        <ReactQuill name={name} onChange={onChange} value={value} className="h-[300px] mb-[60px]" theme="snow" />
       </div>
   )
 }
