@@ -131,4 +131,22 @@ export default {
             url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=94',
         },
     ],
+    35: range(6).map((i) => ({
+        id: `#${i}`,
+        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=11${3 + i}`,
+    })),
+    37: [
+        {
+            id: '#0',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=108',
+        },
+        {
+            id: '#21',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=109',
+        },
+    ],
+    40: range(13).map((i) => ({
+        id: `#${i}`,
+        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=11${9 + i}`,
+    })),
 }
