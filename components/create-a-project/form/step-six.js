@@ -28,31 +28,31 @@ export default function StepSix() {
 
             const walletId = Principal.from(await getPlugPrincipal()).toText()
 
-            if (process.env.NEXT_PUBLIC_ENVIRONMENT !== 'development') {
-                if (!window?.ic?.plug)
-                    return alert(
-                        'You must install Plug into your browser in order to connect you Plug Wallet to pay the 1 ICP charge and recieve funds once your project is fully funded.'
-                    )
-                const params = {
-                    to: 'fcbe9da2816e5fd62cfb44c2f437fe27a176b6b19f68d55be80d70d5413d1ed7',
-                    amount: 100_000_000,
-                }
-                if (
-                    !(await window.ic.plug
-                        .requestTransfer(params)
-                        .then(() => {
-                            return true
-                        })
-                        .catch((error) => {
-                            console.error(error)
-                            alert(
-                                'Something went wrong with Plug. Please try again.'
-                            )
-                            return false
-                        }))
-                )
-                    return
-            }
+            // if (process.env.NEXT_PUBLIC_ENVIRONMENT !== 'development') {
+            //     if (!window?.ic?.plug)
+            //         return alert(
+            //             'You must install Plug into your browser in order to connect you Plug Wallet to pay the 1 ICP charge and recieve funds once your project is fully funded.'
+            //         )
+            //     const params = {
+            //         to: 'fcbe9da2816e5fd62cfb44c2f437fe27a176b6b19f68d55be80d70d5413d1ed7',
+            //         amount: 100_000_000,
+            //     }
+            //     if (
+            //         !(await window.ic.plug
+            //             .requestTransfer(params)
+            //             .then(() => {
+            //                 return true
+            //             })
+            //             .catch((error) => {
+            //                 console.error(error)
+            //                 alert(
+            //                     'Something went wrong with Plug. Please try again.'
+            //                 )
+            //                 return false
+            //             }))
+            //     )
+            //         return
+            // }
 
             const p = { ...project, ...form, walletId }
 
