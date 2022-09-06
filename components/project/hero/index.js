@@ -249,6 +249,8 @@ export default function Hero({ isLoading, project }) {
 
     const { title, twitterLink, discordLink } = project
 
+    const customWLprojects = ['35', '40', '41', '43']
+
     const Status = () => {
         switch (status) {
             case 'whitelist':
@@ -258,7 +260,12 @@ export default function Hero({ isLoading, project }) {
                         {remainingTimeString(
                             project.stats.endTime -
                                 30 * 1000 * 24 * 60 * 60 +
-                                2 * 1000 * 60 * 60
+                                (customWLprojects.includes(project.id)
+                                    ? 3
+                                    : 2) *
+                                    1000 *
+                                    60 *
+                                    60
                         )}
                     </>
                 ) : (
@@ -402,7 +409,14 @@ export default function Hero({ isLoading, project }) {
                                             {remainingTimeString(
                                                 project.stats.endTime -
                                                     30 * 1000 * 60 * 60 * 24 +
-                                                    2 * 1000 * 60 * 60
+                                                    (customWLprojects.includes(
+                                                        project.id
+                                                    )
+                                                        ? 3
+                                                        : 2) *
+                                                        1000 *
+                                                        60 *
+                                                        60
                                             )}
                                         </>
                                     )}
