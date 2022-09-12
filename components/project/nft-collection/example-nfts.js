@@ -125,6 +125,12 @@ export default {
         id: `#${i}`,
         url: `/assets/nfts/iusd/${i}.jpg`,
     })),
+    32: [
+        {
+            id: '#0',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=148',
+        },
+    ],
     33: [
         {
             id: '#0',
@@ -135,6 +141,12 @@ export default {
         id: `#${i}`,
         url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=11${3 + i}`,
     })),
+    36: [
+        {
+            id: '#0',
+            url: 'https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=132',
+        },
+    ],
     37: [
         {
             id: '#0',
@@ -147,6 +159,14 @@ export default {
     ],
     40: range(13).map((i) => ({
         id: `#${i}`,
-        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=11${9 + i}`,
+        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=${119 + i}`,
+    })),
+    42: range(6).map((i) => ({
+        id: `#${i}`,
+        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=${141 + i}`,
+    })),
+    43: range(3).map((i) => ({
+        id: `#${i}`,
+        url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=${137 + i}`,
     })),
 }

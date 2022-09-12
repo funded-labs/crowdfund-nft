@@ -1,6 +1,6 @@
 {
     "canisters": {
-        "icplat_escrow": {
+        "takeover_escrow": {
             "main": "src/escrow_manager/escrow.mo"
         }
     },

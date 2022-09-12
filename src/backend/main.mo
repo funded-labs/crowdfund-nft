@@ -104,7 +104,8 @@ actor CrowdFundNFT {
     // Testing
 
     public shared(msg) func greet(): async Text {
-        "Hello " # Utils.getProfile(db, msg.caller).firstName # "!"
+        "Hello " # Principal.toText(msg.caller) # "!";
+        // "Hello " # Utils.getProfile(db, msg.caller).firstName # "!"
     };
 
     // Profiles
@@ -205,6 +206,16 @@ actor CrowdFundNFT {
     };
 
     // Project statuses
+
+    public shared(msg) func updateProjectStatus(pid: ProjectId, status: ProjectStatus): async () {
+        assert(Utils.isAdmin(msg.caller));
+        switch (db.getProject(pid)) {
+            case (?p) { 
+                db.updateProjectStatus(p, status);
+            };
+            case null { throw Error.reject("No project with this id.") };
+        };
+    };
 
     public shared(msg) func approveProject(pid: ProjectId): async () {
         assert(Utils.isAdmin(msg.caller));
