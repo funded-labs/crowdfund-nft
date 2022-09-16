@@ -5,6 +5,7 @@ import { useProjectForm } from './project-form-context'
 import Textarea from '@/components/forms/textarea'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import RichTextArea from '@/components/forms/richTextArea'
 
 Yup.setLocale({
     mixed: {
@@ -100,12 +101,11 @@ export default function StepOne() {
                             />
                         </div>
                         <p className=''>Tell us about yourself</p>
-                        <Textarea
+                        <RichTextArea
                             name='bio'
-                            onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.bio}
-                            rows={4}
+
                         />
                         <p className=''>Upload a profile picture (optional)</p>
                         <Input

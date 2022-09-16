@@ -62,9 +62,7 @@ export default function Story({ isLoading, project }) {
 
             {/* User Input */}
             <Linkify>
-                <p className='text-gray-600 my-2 whitespace-pre-line whitespace-pre-wrap'>
-                    {story}
-                </p>
+                <div className='text-gray-600 my-2 whitespace-pre-line whitespace-pre-wrap' dangerouslySetInnerHTML={{ __html: story }}/>
                 {storyLanguage !== 'EN' && (
                     <div>
                         <div>
@@ -76,9 +74,7 @@ export default function Story({ isLoading, project }) {
                             </button>
                         </div>
                         {showTranslation && (
-                            <p className='text-gray-600 my-2 whitespace-pre-line whitespace-pre-wrap'>
-                                {storyTranslation}
-                            </p>
+                            <div className='text-gray-600 my-2 whitespace-pre-line whitespace-pre-wrap' dangerouslySetInnerHTML={{ __html: storyTranslation }}/>
                         )}
                     </div>
                 )}

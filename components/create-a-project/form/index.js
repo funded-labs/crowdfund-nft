@@ -20,7 +20,7 @@ function Form() {
     const { step } = useProjectForm();
 
     return (
-            <div className="w-full sm:mx-auto sm:max-w-md px-4">
+            <div className="w-full sm:mx-auto sm:max-w-xl px-4">
                 <div className="bg-white py-8 px-4 flex flex-col space-y-6">
                     <div className="w-full flex flex-col space-y-3">
                         <p className="font-bold text-gray-500 text-xs">
