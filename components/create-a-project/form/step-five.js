@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { useProjectForm } from './project-form-context'
+import RichTextArea from '@/components/forms/richTextArea'
 
 const stepFiveSchema = Yup.object().shape({
     story: Yup.string().required('Enter details about your project'),
@@ -52,19 +53,19 @@ export default function StepFive() {
                             Project story and project backer rewards
                         </p>
                         <p className=''>Tell us your project story</p>
-                        <Textarea
+                        <RichTextArea
                             name='story'
+                            value={values.story}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            rows={4}
                         />
+
                         <p className=''>Project backer rewards</p>
-                        <Textarea
+                        <RichTextArea
                             name='rewards'
+                            value={values.rewards}
                             onChange={handleChange}
-                            onBlur={handleBlur}
-                            rows={4}
                         />
+
                         <div className='rounded-2xl w-full bg-blue-100 bg-opacity-30 p-4'>
                             Tips! Be sure to mention:
                             <p className='text-center text-blue-600 underline'>
