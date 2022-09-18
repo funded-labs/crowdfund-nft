@@ -11,7 +11,6 @@ export default function Activity({ project, escrowActor }) {
                 .then((csv) => {
                     const rowsStr = csv.split('\n').slice(1)
                     const isNewEscrow = rowsStr[0].indexOf(', ') === -1
-                    console.log({ isNewEscrow })
                     const rows = rowsStr
                         .filter((row) => row.indexOf(',') >= 0)
                         .map((row) => row.split(isNewEscrow ? ',' : ', '))
@@ -38,8 +37,6 @@ export default function Activity({ project, escrowActor }) {
             refetchOnWindowFocus: true,
         }
     )
-
-    console.log(activity)
 
     return (
         <div className='w-full'>

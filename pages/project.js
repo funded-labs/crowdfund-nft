@@ -49,8 +49,6 @@ export const idlFactory = ({ IDL }) => {
 }
 
 const createActor = (canisterId, idlFactory) => {
-    console.log(idlFactory)
-
     const agent = new HttpAgent({
         host:
             process.env.NODE_ENV === 'production'
@@ -97,8 +95,6 @@ export default function ProjectDetails() {
             const { project, owner, marketplaceLinks } =
                 await backend.getProjectWithOwnerAndMarketplace(projectId)
 
-            console.log(project)
-
             let stats = {
                 endTime: 0,
                 nftStats: [
@@ -119,13 +115,10 @@ export default function ProjectDetails() {
                 Object.keys(project?.status?.[0] || { submitted: null })[0] !==
                 'fully_funded'
             ) {
-                console.log(project.id)
                 const escrowCanister =
                     await escrowManagerActor.getProjectEscrowCanisterPrincipal(
                         +project.id
                     )
-
-                console.log(escrowCanister)
 
                 if (!Array.isArray(escrowCanister) || escrowCanister.length < 1)
                     return { ...project, escrowActor, stats, owner }
@@ -197,8 +190,6 @@ export default function ProjectDetails() {
             refetchOnWindowFocus: false,
         }
     )
-
-    console.log(project)
 
     if (isLoading || isError || isFetching || !project) {
         return (
