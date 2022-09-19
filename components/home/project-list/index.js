@@ -34,8 +34,6 @@ export default function ProjectList({
                 categories || []
             )
 
-            console.log({ projects })
-
             newData.projects = projects.filter(
                 (p) =>
                     p.project.status.length === 0 ||

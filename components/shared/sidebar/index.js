@@ -13,7 +13,7 @@ function classNames(...classes) {
 }
 
 export default function Sidebar({ show, onClose }) {
-    const { getPlugPrincipal, plugPrincipalText } = useBackend()
+    const { wallets } = useBackend()
 
     useEffect(() => {
         if (show === false) return
@@ -79,36 +79,37 @@ export default function Sidebar({ show, onClose }) {
                                 the crowdfund NFT marketplace.
                             </h3>
                             <div className='w-full flex flex-col items-center'>
-                                {plugPrincipalText ? (
-                                    <div className='flex items-center text-black'>
-                                        <img
-                                            src='/assets/plug.png'
-                                            className='h-8'
-                                        />{' '}
-                                        <span className='px-2'>
-                                            {plugPrincipalText.substring(0, 5)}
-                                            ...
-                                            {plugPrincipalText.substring(
-                                                plugPrincipalText.length - 3
-                                            )}
-                                        </span>
-                                    </div>
-                                ) : (
-                                    <button
-                                        type='button'
-                                        className={`
-                        flex flex-row space-x-1 justify-center items-center bg-slate-600 border border-transparent rounded rounded font-medium text-black hover:bg-slate-400 px-4 py-2 mt-5 shadow-xl
-                    `}
-                                        onClick={getPlugPrincipal}>
-                                        <img
-                                            src='/assets/plug.png'
-                                            className='h-8'
-                                        />
-                                        <span className='px-2 font-medium text-white'>
-                                            Connect Plug Wallet
-                                        </span>
-                                    </button>
-                                )}
+                                {Object.keys(wallets).map(w => (
+                                    wallets[w]['principal'] ?
+                                    (
+                                        <div key={w} className='flex items-center text-black py-3'>
+                                            <img
+                                                src={'/assets/' + w + '.png'}
+                                                className='h-8'
+                                            />{' '}
+                                            <span className='px-2'>
+                                                {wallets[w]['principal'].substring(0, 5)}
+                                                ...
+                                                {wallets[w]['principal'].substring(wallets[w]['principal'].length - 3)}
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <button
+                                            key={w}
+                                            type='button'
+                                            className={`flex flex-row space-x-1 justify-center items-center bg-slate-600 
+                                            border border-transparent rounded rounded font-medium text-black hover:bg-slate-400 px-4 py-2 mt-5 shadow-xl`}
+                                            onClick={wallets[w]['getPrincipal']}
+                                        >
+                                            <img
+                                                src={'/assets/' + w + '.png'}
+                                                className='h-8'
+                                            />
+                                            <span className='px-2 font-medium text-white'>
+                                                {'Connect ' + w[0].toUpperCase() + w.slice(1) + ' Wallet'}
+                                            </span>
+                                        </button>
+                                    )))}
                                 <Link
                                     href='/create-a-project'
                                     passHref

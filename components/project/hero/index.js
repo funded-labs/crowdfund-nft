@@ -3,6 +3,10 @@ import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { Principal } from '@dfinity/principal'
 import { Actor, HttpAgent } from '@dfinity/agent'
+import { selectWalletModalPromise } from '../../shared/select-wallet-modal'
+import ledgerIdlFactory from '../../../idls/nns_ledger.did'
+import escrowIdlFactory from '../../../idls/escrow.did'
+import { AccountIdentifier } from "@dfinity/nns";
 
 // import { addDays, differenceInCalendarDays } from 'date-fns'
 import { useBackend } from '@/context/backend'
@@ -75,7 +79,7 @@ export default function Hero({ isLoading, project }) {
     const [showCaptcha, setShowCaptcha] = useState(false)
     const [hasPassedCaptcha, setHasPassedCaptcha] = useState(false)
 
-    const { backend, getPlugPrincipal } = useBackend()
+    const { backend } = useBackend()
     const escrowActor = makeEscrowActor()
 
     useEffect(() => {
@@ -115,90 +119,143 @@ export default function Hero({ isLoading, project }) {
 
     const backProject = async () => {
         setLoading(true)
-
-        setLoadingMessage('Getting Plug Wallet principal...')
-        const plugPrincipal = await getPlugPrincipal()
-        if (!plugPrincipal) {
+        setLoadingMessage('Getting Wallet principal...')
+        const wallet = await selectWalletModalPromise().catch(err => '')
+        if (!wallet) {
             setLoading(false)
-            return alert('You must connect Plug in order to back a project.')
+            return alert('You must connect a wallet in order to back a project.')
         }
 
-        setLoadingMessage('Loading escrow canitser id...')
-        escrowActor
-            .getProjectEscrowCanisterPrincipal(+project.id)
-            .then((canisterPrincipal) => {
-                if (
-                    !Array.isArray(canisterPrincipal) ||
-                    canisterPrincipal.length < 1
-                )
-                    throw new Error('Invalid canister principal')
+        setLoadingMessage('Loading escrow canister id...')
+        const canisterPrincipal = await escrowActor.getProjectEscrowCanisterPrincipal(+project.id).catch((error) => {
+            console.error(error)
+            setLoading(false)
+            return alert('Something went wrong loading the escrow canister. This project may not have one yet.')
+        })
+        if (
+            !Array.isArray(canisterPrincipal) ||
+            canisterPrincipal.length < 1
+        ) {
+            setLoading(false)
+            throw new Error('Invalid canister principal')
+        }
+        let actor
+        let isNewActor = true
+        try {
+            actor = createActor(canisterPrincipal[0], idlFactory)
+        } catch (e) {
+            actor = createActor(canisterPrincipal[0], oldIdlFactory)
+            isNewActor = false
+        }
 
-                let actor
-                let isNewActor = true
-                try {
-                    actor = createActor(canisterPrincipal[0], idlFactory)
-                } catch (e) {
-                    actor = createActor(canisterPrincipal[0], oldIdlFactory)
-                    isNewActor = false
-                }
+        setLoadingMessage('Requesting new account id...')
+        let accountIdPromise = isNewActor
+            ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0])
+            : actor.getNewAccountId(Principal.from(wallet.id))
+        const accountIdResult = await accountIdPromise
+        if (accountIdResult.hasOwnProperty('err')) {
+            setLoading(false)
+            return alert(accountIdResult.err)
+        }
+        const accountid = accountIdResult.ok
 
-                setLoadingMessage('Requesting new account id...')
-
-                let accountIdPromise = isNewActor
-                    ? actor.getNewAccountId(
-                          Principal.from(plugPrincipal),
-                          selectedTierState[0]
-                      )
-                    : actor.getNewAccountId(Principal.from(plugPrincipal))
-                return accountIdPromise
-                    .then((accountIdResult) => {
-                        if (accountIdResult.hasOwnProperty('err'))
-                            return alert(accountIdResult.err)
-
-                        const accountid = accountIdResult.ok
-
-                        const params = {
-                            to: accountid,
-                            amount: Number(
-                                project.stats.nftStats[selectedTierState[0]]
-                                    .priceE8S
-                            ),
-                        }
-
-                        setLoadingMessage('Requesting transfer from Plug...')
-                        return window.ic.plug
-                            .requestTransfer(params)
-                            .then(() => {
-                                setLoadingMessage('Confirming transfer...')
-                                return actor
-                                    .confirmTransfer(accountid)
-                                    .then((res) => {
-                                        if (res.hasOwnProperty('err'))
-                                            return alert(res.err)
-                                        router.push(
-                                            '/success?projectId=' + project.id,
-                                            '/success.html?projectId=' +
-                                                project.id
-                                        )
-                                    })
-                            })
-                            .catch((error) => {
-                                console.error(error)
-                                return actor.cancelTransfer(accountid)
-                            })
-                    })
-                    .catch((error) => {
-                        console.error(error)
-                        alert('Something went wrong. Please try again later.')
-                    })
-            })
-            .catch((error) => {
+        setLoadingMessage('Requesting transfer from ' + wallet.wallet + '...')
+        if (wallet === 'plug') {
+            const params = {
+                to: accountid,
+                amount: Number(
+                    project.stats.nftStats[selectedTierState[0]]
+                        .priceE8S
+                ),
+            }
+            return window.ic.plug
+                .requestTransfer(params)
+                .then(() => {
+                    setLoadingMessage('Confirming transfer...')
+                    return actor
+                        .confirmTransfer(accountid)
+                        .then((res) => {
+                            if (res.hasOwnProperty('err'))
+                                return alert(res.err)
+                            setLoading(false)
+                            router.push(
+                                '/success?projectId=' + project.id,
+                                '/success.html?projectId=' +
+                                project.id
+                            )
+                        })
+                })
+                .catch((error) => {
+                    console.error(error)
+                    setLoading(false)
+                    return actor.cancelTransfer(accountid)
+                })
+        } else if (wallet === 'infinity') {
+            let accountIdBlob = AccountIdentifier.fromHex(accountid)
+            accountIdBlob = accountIdBlob.bytes
+            accountIdBlob = Object.keys(accountIdBlob).map(m => accountIdBlob[m])
+            const TRANSFER_ICP_TX = {
+                idl: ledgerIdlFactory,
+                canisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai',
+                methodName: 'transfer',
+                args: [{
+                    to:  accountIdBlob,
+                    fee: { e8s: 10000 },
+                    amount: {e8s: Number(
+                        project.stats.nftStats[selectedTierState[0]]
+                            .priceE8S
+                    ),},
+                    memo: Math.floor(Math.random() * 1000),
+                    from_subaccount: [], // For now, using default subaccount to handle ICP
+                    created_at_time: [],
+                }],
+                onSuccess: async (res) => {
+                    console.log('transferred icp successfully');
+                },
+                onFail: (res) => {
+                    console.log('transfer icp error', res);
+                },
+            };
+            return window.ic.infinityWallet.batchTransactions([TRANSFER_ICP_TX]).then(() => {
+                const CONFIRM = {
+                    idl: escrowIdlFactory,
+                    canisterId: canisterPrincipal[0],
+                    methodName: 'confirmTransfer',
+                    args: [accountid],
+                    onSuccess: async (res) => {
+                        console.log('confirmed successfully');
+                    },
+                    onFail: (res) => {
+                        console.log('confirm error', res);
+                    },
+                };
+                return window.ic.infinityWallet.batchTransactions([CONFIRM]).then(() => {
+                    setLoading(false)
+                    router.push(
+                        '/success?projectId=' + project.id,
+                        '/success.html?projectId=' +
+                        project.id
+                    )
+                })
+            }).catch((error) => {
                 console.error(error)
-                alert(
-                    'Something went wrong loading the escrow canister. This project may not have one yet.'
-                )
+                const CANCEL = {
+                    idl: escrowIdlFactory,
+                    canisterId: canisterPrincipal[0],
+                    methodName: 'cancelTransfer',
+                    args: [accountid],
+                    onSuccess: async (res) => {
+                        console.log('cancelled successfully');
+                    },
+                    onFail: (res) => {
+                        console.log('cancel error', res);
+                    },
+                }
+                return window.ic.infinityWallet.batchTransactions([CANCEL]).then(() => {
+                    setLoading(false)
+                })
             })
-            .finally(() => setLoading(false))
+        }
     }
 
     if (isLoading) {

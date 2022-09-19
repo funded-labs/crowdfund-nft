@@ -5,13 +5,24 @@ import {
 } from '@/ui/service/actor-locator'
 import { AuthClient } from '@dfinity/auth-client'
 import { Principal } from '@dfinity/principal'
-import { handleConnect } from '@/helpers/plugwallet'
+import { handlePlugConnect, handleInfinityConnect } from '@/helpers/wallets'
+import _ from 'lodash'
 
 const INITIAL_STATE = {
     backend: makeBackendActor(),
     backendWithAuth: null,
     isLoading: true,
-    plugPrincipal: null,
+    wallets: {
+        'plug': {
+            'principal': null,
+        },
+        'infinity': {
+            'principal': null
+        },
+        //'stoic': {
+        //    'principal': null
+        //}
+    },
     setBackend: () => {},
 }
 
@@ -21,15 +32,79 @@ export function BackendProvider({
     children,
     backend,
     backendWithAuth,
-    plugPrincipal,
+    wallets,
 }) {
     const [_backend, setBackend] = useState(backend || INITIAL_STATE.backend)
     const [_backendWithAuth, setBackendWithAuth] = useState(
         backendWithAuth || INITIAL_STATE.backendWithAuth
     )
-    const [_plugPrincipal, setPlugPrincipal] = useState(
-        plugPrincipal || INITIAL_STATE.plugPrincipal
+
+    let [_wallets, setWallets] = useState(
+        wallets || _.merge(INITIAL_STATE.wallets, {
+            'plug': {
+                'getPrincipal': () => {return getPlugPrincipal()}
+            },
+            'infinity': {
+                'getPrincipal': () => {return getInfinityPrincipal()}
+            }
+            /*
+            'stoic':
+            */
+        })
     )
+
+    const getPlugPrincipal = async () => {
+        let newWallets = _wallets
+        if (_wallets['plug']['principal']) return _wallets['plug']['principal']
+        if (!window?.ic?.plug)
+            return alert('Plug is not installed in your browser')
+        if (
+            await handlePlugConnect()
+                .then(() => true)
+                .catch(() => false)
+        ) {
+            return window.ic.plug
+                .createAgent()
+                .then(() => {
+                    return window.ic.plug.agent.getPrincipal()
+                })
+                .then((principal) => {
+                    newWallets['plug']['principal'] = Principal.from(principal).toText()
+                    setWallets({...newWallets})
+                    return principal
+                })
+                .catch((e) => {
+                    console.error(e)
+                    return _wallets['plug']['principal']
+                })
+        } else {
+            return _wallets['plug']['principal']
+        }
+    }
+    const getInfinityPrincipal = async () => {
+        let newWallets = _wallets
+        if (_wallets['infinity']['principal']) return _wallets['infinity']['principal']
+        if (!window?.ic?.infinityWallet)
+            return alert('Infinity is not installed in your browser')
+        if (
+            await handleInfinityConnect()
+                .then(() => true)
+                .catch(() => false)
+        ) {
+            return window.ic.infinityWallet.getPrincipal()
+                .then((principal) => {
+                    newWallets['infinity']['principal'] = Principal.from(principal).toText()
+                    setWallets({...newWallets})
+                    return principal
+                })
+                .catch((e) => {
+                    console.error(e)
+                    return _wallets['infinity']['principal']
+                })
+        } else {
+            return _wallets['infinity']['principal']
+        }
+    }
 
     useEffect(() => {
         if (backend) return
@@ -73,42 +148,11 @@ export function BackendProvider({
         })
     }
 
-    const getPlugPrincipal = async () => {
-        if (_plugPrincipal) return _plugPrincipal
-        if (!window?.ic?.plug)
-            return alert('Plug is not installed in your browser')
-        if (
-            await handleConnect()
-                .then(() => true)
-                .catch(() => false)
-        ) {
-            return window.ic.plug
-                .createAgent()
-                .then(() => {
-                    return window.ic.plug.agent.getPrincipal()
-                })
-                .then((principal) => {
-                    setPlugPrincipal(principal)
-                    return principal
-                })
-                .catch((e) => {
-                    console.error(e)
-                    return _plugPrincipal
-                })
-        } else {
-            return _plugPrincipal
-        }
-    }
-
     const value = {
         backend: _backend,
         backendWithAuth: _backendWithAuth,
-        getPlugPrincipal,
-        login,
-        plugPrincipal: _plugPrincipal,
-        plugPrincipalText: _plugPrincipal
-            ? Principal.from(_plugPrincipal).toText()
-            : null,
+        wallets: _wallets,
+        login
     }
 
     return (
