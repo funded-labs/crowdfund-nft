@@ -160,7 +160,7 @@ export default function Hero({ isLoading, project }) {
         const accountid = accountIdResult.ok
 
         setLoadingMessage('Requesting transfer from ' + wallet.wallet + '...')
-        if (wallet === 'plug') {
+        if (wallet.wallet === 'plug') {
             const params = {
                 to: accountid,
                 amount: Number(
@@ -190,7 +190,7 @@ export default function Hero({ isLoading, project }) {
                     setLoading(false)
                     return actor.cancelTransfer(accountid)
                 })
-        } else if (wallet === 'infinity') {
+        } else if (wallet.wallet === 'infinity') {
             let accountIdBlob = AccountIdentifier.fromHex(accountid)
             accountIdBlob = accountIdBlob.bytes
             accountIdBlob = Object.keys(accountIdBlob).map(m => accountIdBlob[m])
@@ -217,6 +217,7 @@ export default function Hero({ isLoading, project }) {
                 },
             };
             return window.ic.infinityWallet.batchTransactions([TRANSFER_ICP_TX]).then(() => {
+                /*
                 const CONFIRM = {
                     idl: escrowIdlFactory,
                     canisterId: canisterPrincipal[0],
@@ -237,7 +238,21 @@ export default function Hero({ isLoading, project }) {
                         project.id
                     )
                 })
+                 */
+                return actor
+                        .confirmTransfer(accountid)
+                        .then((res) => {
+                            if (res.hasOwnProperty('err'))
+                                return alert(res.err)
+                            setLoading(false)
+                            router.push(
+                                '/success?projectId=' + project.id,
+                                '/success.html?projectId=' +
+                                project.id
+                            )
+                        })
             }).catch((error) => {
+                /*
                 console.error(error)
                 const CANCEL = {
                     idl: escrowIdlFactory,
@@ -254,6 +269,10 @@ export default function Hero({ isLoading, project }) {
                 return window.ic.infinityWallet.batchTransactions([CANCEL]).then(() => {
                     setLoading(false)
                 })
+                 */
+                console.error(error)
+                setLoading(false)
+                return actor.cancelTransfer(accountid)
             })
         }
     }
