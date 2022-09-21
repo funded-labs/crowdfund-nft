@@ -5,6 +5,7 @@ import { useProjectForm } from './project-form-context'
 import Textarea from '@/components/forms/textarea'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import RichTextArea from '@/components/forms/richTextArea'
 
 Yup.setLocale({
     mixed: {
@@ -44,6 +45,8 @@ const initialValues = {
 export default function StepOne() {
     const { setProfile, setStep } = useProjectForm()
     const [isLoading, setLoading] = useState(false)
+
+    const bioQillExclude = ["image", { "list": "ordered"}, {"list": "bullet"}, "font", "clean"]
 
     const handleSubmit = async (form) => {
         try {
@@ -100,12 +103,11 @@ export default function StepOne() {
                             />
                         </div>
                         <p className=''>Tell us about yourself</p>
-                        <Textarea
+                        <RichTextArea
                             name='bio'
-                            onBlur={handleBlur}
                             onChange={handleChange}
                             value={values.bio}
-                            rows={4}
+                            exclude={bioQillExclude}
                         />
                         <p className=''>Upload a profile picture (optional)</p>
                         <Input

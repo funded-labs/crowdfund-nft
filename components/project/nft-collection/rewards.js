@@ -24,9 +24,7 @@ export default function Rewards({ isLoading, project }) {
         <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
             <p className='font-bold text-base text-black'>Rewards</p>
 
-            <p className='text-gray-600 my-10 whitespace-pre-line whitespace-pre-wrap'>
-                {rewards}
-            </p>
+            <div className='text-gray-600 my-10 whitespace-pre-line whitespace-pre-wrap' dangerouslySetInnerHTML={{ __html: rewards }}/>
         </div>
     )
 }
