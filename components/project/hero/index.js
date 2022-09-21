@@ -161,6 +161,7 @@ export default function Hero({ isLoading, project }) {
         const accountid = accountIdResult.ok
 
         setLoadingMessage('Requesting transfer from ' + wallet.wallet + '...')
+        let res
         if (wallet.wallet === 'plug') {
             const params = {
                 to: accountid,
@@ -169,128 +170,16 @@ export default function Hero({ isLoading, project }) {
                         .priceE8S
                 ),
             }
-            return window.ic.plug
-                .requestTransfer(params)
-                .then(() => {
-                    setLoadingMessage('Confirming transfer...')
-                    return actor
-                        .confirmTransfer(accountid)
-                        .then((res) => {
-                            if (res.hasOwnProperty('err'))
-                                return alert(res.err)
-                            setLoading(false)
-                            router.push(
-                                '/success?projectId=' + project.id,
-                                '/success.html?projectId=' +
-                                project.id
-                            )
-                        })
-                })
-                .catch((error) => {
-                    console.error(error)
-                    setLoading(false)
-                    return actor.cancelTransfer(accountid)
-                })
-        } else if (wallet.wallet === 'infinity') {
+            res = await window.ic.plug.requestTransfer(params).catch((error) => {
+                console.error(error)
+                setLoading(false)
+                return {Err: error}
+            })
+        } else if (wallet.wallet === 'infinity' || wallet.wallet === 'stoic') {
             let accountIdBlob = AccountIdentifier.fromHex(accountid)
             accountIdBlob = accountIdBlob.bytes
             accountIdBlob = Object.keys(accountIdBlob).map(m => accountIdBlob[m])
-            const TRANSFER_ICP_TX = {
-                idl: ledgerIdlFactory,
-                canisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai',
-                methodName: 'transfer',
-                args: [{
-                    to:  accountIdBlob,
-                    fee: { e8s: 10000 },
-                    amount: {e8s: Number(
-                        project.stats.nftStats[selectedTierState[0]]
-                            .priceE8S
-                    ),},
-                    memo: Math.floor(Math.random() * 1000),
-                    from_subaccount: [], // For now, using default subaccount to handle ICP
-                    created_at_time: [],
-                }],
-                onSuccess: async (res) => {
-                    console.log('transferred icp successfully');
-                },
-                onFail: (res) => {
-                    console.log('transfer icp error', res);
-                },
-            };
-            return window.ic.infinityWallet.batchTransactions([TRANSFER_ICP_TX]).then(() => {
-                /*
-                const CONFIRM = {
-                    idl: escrowIdlFactory,
-                    canisterId: canisterPrincipal[0],
-                    methodName: 'confirmTransfer',
-                    args: [accountid],
-                    onSuccess: async (res) => {
-                        console.log('confirmed successfully');
-                    },
-                    onFail: (res) => {
-                        console.log('confirm error', res);
-                    },
-                };
-                return window.ic.infinityWallet.batchTransactions([CONFIRM]).then(() => {
-                    setLoading(false)
-                    router.push(
-                        '/success?projectId=' + project.id,
-                        '/success.html?projectId=' +
-                        project.id
-                    )
-                })
-                 */
-                return actor
-                        .confirmTransfer(accountid)
-                        .then((res) => {
-                            if (res.hasOwnProperty('err'))
-                                return alert(res.err)
-                            setLoading(false)
-                            router.push(
-                                '/success?projectId=' + project.id,
-                                '/success.html?projectId=' +
-                                project.id
-                            )
-                        })
-            }).catch((error) => {
-                /*
-                console.error(error)
-                const CANCEL = {
-                    idl: escrowIdlFactory,
-                    canisterId: canisterPrincipal[0],
-                    methodName: 'cancelTransfer',
-                    args: [accountid],
-                    onSuccess: async (res) => {
-                        console.log('cancelled successfully');
-                    },
-                    onFail: (res) => {
-                        console.log('cancel error', res);
-                    },
-                }
-                return window.ic.infinityWallet.batchTransactions([CANCEL]).then(() => {
-                    setLoading(false)
-                })
-                 */
-                console.error(error)
-                setLoading(false)
-                return actor.cancelTransfer(accountid)
-            })
-        } else if (wallet.wallet === 'stoic') {
-            const identity = await handleStoicConnect()
-            if (identity === false) {
-                setLoading(false)
-                return alert('You must connect stoic wallet')
-            }
-            const ledgerActor = Actor.createActor(ledgerIdlFactory, {
-                agent: new HttpAgent({
-                    identity,
-                }),
-                canisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai'
-            })
-            let accountIdBlob = AccountIdentifier.fromHex(accountid)
-            accountIdBlob = accountIdBlob.bytes
-            accountIdBlob = Object.keys(accountIdBlob).map(m => accountIdBlob[m])
-            return ledgerActor.transfer({
+            const transferArgs = {
                 to: accountIdBlob,
                 fee: {e8s: 10000},
                 amount: {
@@ -301,34 +190,66 @@ export default function Hero({ isLoading, project }) {
                 },
                 memo: Math.floor(Math.random() * 1000),
                 from_subaccount: [], // For now, using default subaccount to handle ICP
-                created_at_time: []
-            }).then((res) => {
-                if (res.Err) {
+                created_at_time: [],
+            }
+            if (wallet.wallet === 'infinity') {
+                const TRANSFER_ICP_TX = {
+                    idl: ledgerIdlFactory,
+                    canisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai',
+                    methodName: 'transfer',
+                    args: [transferArgs],
+                    onSuccess: async (r) => {
+                        res = r
+                    },
+                    onFail: (r) => {
+                        res = r
+                    },
+                };
+                await window.ic.infinityWallet.batchTransactions([TRANSFER_ICP_TX]).catch((error) => {
+                    console.error(error)
                     setLoading(false)
-                    if (res.Err.InsufficientFunds) {
-                        alert('Insufficient Funds')
-                    }
-                    console.log(res.Err)
-                    return actor.cancelTransfer(accountid)
+                    res = {Err: error}
+                })
+            } else if (wallet.wallet === 'stoic') {
+                const identity = await handleStoicConnect()
+                if (identity === false) {
+                    setLoading(false)
+                    return alert('You must connect stoic wallet')
                 }
-                return actor
-                    .confirmTransfer(accountid)
-                    .then((res) => {
-                        if (res.hasOwnProperty('err'))
-                            return alert(res.err)
-                        setLoading(false)
-                        router.push(
-                            '/success?projectId=' + project.id,
-                            '/success.html?projectId=' +
-                            project.id
-                        )
-                    })
-            }).catch(error => {
-                console.error(error)
-                setLoading(false)
-                return actor.cancelTransfer(accountid)
-            })
+                const ledgerActor = Actor.createActor(ledgerIdlFactory, {
+                    agent: new HttpAgent({
+                        identity,
+                    }),
+                    canisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai'
+                })
+                res = await ledgerActor.transfer(transferArgs).catch((error) => {
+                    console.error(error)
+                    setLoading(false)
+                    return {Err: error}
+                })
+            }
         }
+        if (res.Err || res.err) {
+            setLoading(false)
+            if (res.hasOwnProperty('Err') && res.Err.InsufficientFunds) {
+                alert('Insufficient Funds')
+            }
+            console.log(res.hasOwnProperty('Err') ? res.Err : res.Err)
+            return actor.cancelTransfer(accountid)
+        }
+        setLoadingMessage('Confirming transfer...')
+        return actor
+            .confirmTransfer(accountid)
+            .then((res) => {
+                if (res.hasOwnProperty('err'))
+                    return alert(res.err)
+                setLoading(false)
+                router.push(
+                    '/success?projectId=' + project.id,
+                    '/success.html?projectId=' +
+                    project.id
+                )
+            })
     }
 
     if (isLoading) {
