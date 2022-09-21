@@ -54,7 +54,7 @@ export default function Story({ isLoading, project }) {
         )
     }
 
-    const { story } = project
+    const { story, video } = project
 
     return (
         <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
@@ -79,6 +79,12 @@ export default function Story({ isLoading, project }) {
                     </div>
                 )}
             </Linkify>
+
+            {video[0] && (
+                <video type="video/mp4" controls>
+                    <source src={video[0]}/>
+                </video>
+            )}
         </div>
     )
 }
