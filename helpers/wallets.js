@@ -23,9 +23,10 @@ export const handleInfinityConnect = async (whitelist = []) => {
 export const handleStoicConnect = async (whitelist=[]) => {
     const { StoicIdentity } = await import('ic-stoic-identity')
 
-    await StoicIdentity.load().then(async identity => {
+    return StoicIdentity.load().then(async identity => {
         if (identity === false) {
-            await StoicIdentity.connect()
+            identity = await StoicIdentity.connect()
         }
+        return identity
     })
 }

@@ -5,7 +5,7 @@ import {
 } from '@/ui/service/actor-locator'
 import { AuthClient } from '@dfinity/auth-client'
 import { Principal } from '@dfinity/principal'
-import { handlePlugConnect, handleInfinityConnect } from '@/helpers/wallets'
+import { handlePlugConnect, handleInfinityConnect, handleStoicConnect } from '@/helpers/wallets'
 import _ from 'lodash'
 
 const INITIAL_STATE = {
@@ -19,9 +19,9 @@ const INITIAL_STATE = {
         'infinity': {
             'principal': null
         },
-        //'stoic': {
-        //    'principal': null
-        //}
+        'stoic': {
+            'principal': null
+        }
     },
     setBackend: () => {},
 }
@@ -46,10 +46,10 @@ export function BackendProvider({
             },
             'infinity': {
                 'getPrincipal': () => {return getInfinityPrincipal()}
+            },
+            'stoic': {
+                'getPrincipal': () => getStoicPrincipal()
             }
-            /*
-            'stoic':
-            */
         })
     )
 
@@ -104,6 +104,19 @@ export function BackendProvider({
         } else {
             return _wallets['infinity']['principal']
         }
+    }
+    const getStoicPrincipal = () => {
+        let newWallets = _wallets
+        if (_wallets['stoic']['principal']) return _wallets['stoic']['principal']
+        return handleStoicConnect().then((identity) => {
+            const principal = identity.getPrincipal().toText()
+            newWallets['stoic']['principal'] = principal
+            setWallets({...newWallets})
+            return principal
+        }).catch((e) => {
+            console.error(e)
+            return _wallets['stoic']['principal']
+        })
     }
 
     useEffect(() => {
