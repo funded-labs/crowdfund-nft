@@ -6,7 +6,8 @@ import { Actor, HttpAgent } from '@dfinity/agent'
 import { selectWalletModalPromise } from '../../shared/select-wallet-modal'
 import ledgerIdlFactory from '../../../idls/nns_ledger.did'
 import escrowIdlFactory from '../../../idls/escrow.did'
-import { AccountIdentifier } from "@dfinity/nns";
+import { AccountIdentifier } from '@dfinity/nns'
+import { handleStoicConnect } from '@/helpers/wallets'
 
 // import { addDays, differenceInCalendarDays } from 'date-fns'
 import { useBackend } from '@/context/backend'
@@ -270,6 +271,59 @@ export default function Hero({ isLoading, project }) {
                     setLoading(false)
                 })
                  */
+                console.error(error)
+                setLoading(false)
+                return actor.cancelTransfer(accountid)
+            })
+        } else if (wallet.wallet === 'stoic') {
+            const identity = await handleStoicConnect()
+            if (identity === false) {
+                setLoading(false)
+                return alert('You must connect stoic wallet')
+            }
+            const ledgerActor = Actor.createActor(ledgerIdlFactory, {
+                agent: new HttpAgent({
+                    identity,
+                }),
+                canisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai'
+            })
+            let accountIdBlob = AccountIdentifier.fromHex(accountid)
+            accountIdBlob = accountIdBlob.bytes
+            accountIdBlob = Object.keys(accountIdBlob).map(m => accountIdBlob[m])
+            return ledgerActor.transfer({
+                to: accountIdBlob,
+                fee: {e8s: 10000},
+                amount: {
+                    e8s: Number(
+                        project.stats.nftStats[selectedTierState[0]]
+                            .priceE8S
+                    ),
+                },
+                memo: Math.floor(Math.random() * 1000),
+                from_subaccount: [], // For now, using default subaccount to handle ICP
+                created_at_time: []
+            }).then((res) => {
+                if (res.Err) {
+                    setLoading(false)
+                    if (res.Err.InsufficientFunds) {
+                        alert('Insufficient Funds')
+                    }
+                    console.log(res.Err)
+                    return actor.cancelTransfer(accountid)
+                }
+                return actor
+                    .confirmTransfer(accountid)
+                    .then((res) => {
+                        if (res.hasOwnProperty('err'))
+                            return alert(res.err)
+                        setLoading(false)
+                        router.push(
+                            '/success?projectId=' + project.id,
+                            '/success.html?projectId=' +
+                            project.id
+                        )
+                    })
+            }).catch(error => {
                 console.error(error)
                 setLoading(false)
                 return actor.cancelTransfer(accountid)
