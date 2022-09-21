@@ -6,8 +6,8 @@ import { Actor, HttpAgent } from '@dfinity/agent'
 import { selectWalletModalPromise } from '../../shared/select-wallet-modal'
 import ledgerIdlFactory from '../../../idls/nns_ledger.did'
 import escrowIdlFactory from '../../../idls/escrow.did'
-import { AccountIdentifier } from "@dfinity/nns";
-import { handleStoicConnect } from '@/helpers/wallets';
+import { AccountIdentifier } from '@dfinity/nns'
+import { handleStoicConnect } from '@/helpers/wallets'
 
 // import { addDays, differenceInCalendarDays } from 'date-fns'
 import { useBackend } from '@/context/backend'
@@ -277,7 +277,10 @@ export default function Hero({ isLoading, project }) {
             })
         } else if (wallet.wallet === 'stoic') {
             const identity = await handleStoicConnect()
-            console.log("IDENTITY: ", identity)
+            if (identity === false) {
+                setLoading(false)
+                return alert('You must connect stoic wallet')
+            }
             const ledgerActor = Actor.createActor(ledgerIdlFactory, {
                 agent: new HttpAgent({
                     identity,
