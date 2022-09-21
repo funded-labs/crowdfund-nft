@@ -34,11 +34,13 @@ const HomePage = () => {
                 statuses={['whitelist', 'live']}
             />
 
+            {/*
             <ProjectList
                 header='Supernova Projects'
                 queryName='supernova-projects'
                 categories={['supernova']}
             />
+            */}
 
             <ProjectList
                 header='Projects Going Live Soon'
