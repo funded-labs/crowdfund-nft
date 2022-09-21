@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
 
@@ -31,27 +31,31 @@ const ALL_TOOLBAR_OPTIONS = [
   ['image']
 ];
 
-export default function RichTextArea({ name, onChange, value, label, exclude = [] }) {
+export default function RichTextArea({ name, onChange, value, label, exclude }) {
   const toolbarOptions = useMemo(() => {
     return ALL_TOOLBAR_OPTIONS.filter(o => {
 
       return o.some(x => {
         if (typeof x === "string") {
-          return !exclude.includes(x);
+          return !(exclude || []).includes(x);
         }
   
         if (typeof o === "object" && !Array.isArray(o)) {
-          return Object.keys(o).some(x => !exclude.includes(x));
+          return Object.keys(o).some(x => !(exclude || []).includes(x));
         }
   
         if (typeof o === "object" && Array.isArray(o)) {
-          return o.some(a => Object.values(a).some(b => exclude.includes(b)));
+          return o.some(a => Object.values(a).some(b => (exclude || []).includes(b)));
         }
   
         return true;
       })
     })
   }, [exclude])
+
+  useEffect(() => {
+    console.log('QILL MODULES CHANGED - toolbarOptions', toolbarOptions)
+  }, [toolbarOptions])
 
   const uploadImage = useCallback(async (file) => {
     const imageActor = makeImagesActor()
@@ -66,6 +70,19 @@ export default function RichTextArea({ name, onChange, value, label, exclude = [
 
     return getImageURL(await imageActor.addAsset(image))
   }, [])
+
+  const quillModules = useMemo(() => {
+    return {
+      toolbar: {
+        container: toolbarOptions,
+      },
+      imageUploader: {
+        upload: (file) => {
+          return uploadImage(file)
+        },
+      },
+    }
+  }, [toolbarOptions, uploadImage])
   
   return (
     <div className="w-full">
@@ -80,16 +97,7 @@ export default function RichTextArea({ name, onChange, value, label, exclude = [
         value={value}
         className="h-[300px] mb-[60px]"
         theme="snow"
-        modules={{
-          toolbar: {
-            container: toolbarOptions,
-          },
-          imageUploader: {
-            upload: (file) => {
-              return uploadImage(file)
-            },
-          },
-        }}
+        modules={quillModules}
       />
     </div>
   )

@@ -46,6 +46,8 @@ export default function StepOne() {
     const { setProfile, setStep } = useProjectForm()
     const [isLoading, setLoading] = useState(false)
 
+    const bioQillExclude = ["image", { "list": "ordered"}, {"list": "bullet"}, "font", "clean"]
+
     const handleSubmit = async (form) => {
         try {
             setLoading(true)
@@ -105,7 +107,7 @@ export default function StepOne() {
                             name='bio'
                             onChange={handleChange}
                             value={values.bio}
-                            exclude={["image", { "list": "ordered"}, {"list": "bullet"}, "font", "clean"]}
+                            exclude={bioQillExclude}
                         />
                         <p className=''>Upload a profile picture (optional)</p>
                         <Input
