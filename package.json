@@ -43,6 +43,7 @@
         "@psychedelic/dab-js": "^1.0.2",
         "@psychedelic/plug-connect": "^0.1.4",
         "@tailwindcss/line-clamp": "^0.3.1",
+        "@writergate/quill-image-uploader-nextjs": "^0.1.8",
         "assert": "^2.0.0",
         "buffer": "^6.0.3",
         "canvas-confetti": "1.5.1",

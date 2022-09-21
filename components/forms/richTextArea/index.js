@@ -1,8 +1,26 @@
+import React, { useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic'
-import { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css'
 
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import '@writergate/quill-image-uploader-nextjs/dist/quill.imageUploader.min.css';
+import { makeImagesActor, getImageURL } from '@/ui/service/actor-locator'
+import { imgFileToInt8Array } from '@/helpers/imageHelper';
+
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill")
+    const { default: ImageUploader } = await import("@writergate/quill-image-uploader-nextjs")
+    
+    RQ.Quill.register("modules/imageUploader", ImageUploader)
+    
+    return function forwardRef({ forwardedRef, ...props }) {
+      return <RQ ref={forwardedRef} {...props} />;
+    };
+  },
+  {
+    ssr: false,
+  }
+);
 
 const ALL_TOOLBAR_OPTIONS = [
   ['bold', 'italic', 'underline', 'strike'],          // custom button values
@@ -13,25 +31,41 @@ const ALL_TOOLBAR_OPTIONS = [
   ['image']
 ];
 
-export default function RichTextArea({ onChange, value, name, label, exclude = [] }) {
-  const TOOLBAR_OPTIONS = ALL_TOOLBAR_OPTIONS.filter(o => {
+export default function RichTextArea({ name, onChange, value, label, exclude = [] }) {
+  const toolbarOptions = useMemo(() => {
+    return ALL_TOOLBAR_OPTIONS.filter(o => {
 
-    return o.some(x => {
-      if (typeof x === "string") {
-        return !exclude.includes(x);
-      }
+      return o.some(x => {
+        if (typeof x === "string") {
+          return !exclude.includes(x);
+        }
+  
+        if (typeof o === "object" && !Array.isArray(o)) {
+          return Object.keys(o).some(x => !exclude.includes(x));
+        }
+  
+        if (typeof o === "object" && Array.isArray(o)) {
+          return o.some(a => Object.values(a).some(b => exclude.includes(b)));
+        }
+  
+        return true;
+      })
+    })
+  }, [exclude])
 
-      if (typeof o === "object" && !Array.isArray(o)) {
-        return Object.keys(o).some(x => !exclude.includes(x));
-      }
+  const uploadImage = useCallback(async (file) => {
+    const imageActor = makeImagesActor()
+                  
+    const image = {
+      name: file.name,
+      payload: {
+          ctype: file.type,
+          data: [await imgFileToInt8Array(file)],
+      },
+    }
 
-      if (typeof o === "object" && Array.isArray(o)) {
-        return o.some(a => Object.values(a).some(b => exclude.includes(b)));
-      }
-
-      return true;
-    });
-});
+    return getImageURL(await imageActor.addAsset(image))
+  }, [])
   
   return (
     <div className="w-full">
@@ -42,26 +76,19 @@ export default function RichTextArea({ onChange, value, name, label, exclude = [
       )}
 
       <ReactQuill
-        name={name}
-        onChange={onChange}
+        onChange={onChange(name)}
         value={value}
         className="h-[300px] mb-[60px]"
         theme="snow"
         modules={{
           toolbar: {
-            container: TOOLBAR_OPTIONS,
-            handlers: {
-              image: function (value) {
-                // todo: logic here to upload image to chain instead of
-                // asking the user for a URL
-                var range = this.quill.getSelection();
-                var value = prompt('Enter the image URL here');
-                if(value){
-                    this.quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
-                }
-              }
-            }
-          }
+            container: toolbarOptions,
+          },
+          imageUploader: {
+            upload: (file) => {
+              return uploadImage(file)
+            },
+          },
         }}
       />
     </div>
