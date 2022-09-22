@@ -40,6 +40,12 @@ export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     'addAsset' : IDL.Func([Asset], [IDL.Nat], []),
     'http_request' : IDL.Func([HttpRequest], [HttpResponse], ['query']),
+    'http_request_streaming_callback' : IDL.Func(
+        [HttpStreamingCallbackToken],
+        [HttpStreamingCallbackResponse],
+        ['query'],
+      ),
+    'streamAsset' : IDL.Func([IDL.Nat, IDL.Vec(IDL.Nat8)], [], []),
   });
 };
 export const init = ({ IDL }) => { return []; };

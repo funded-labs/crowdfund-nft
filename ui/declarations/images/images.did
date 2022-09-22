@@ -50,4 +50,7 @@ type Asset =
 service : {
   addAsset: (Asset) -> (nat);
   http_request: (HttpRequest) -> (HttpResponse) query;
+  http_request_streaming_callback: (HttpStreamingCallbackToken) ->
+   (HttpStreamingCallbackResponse) query;
+  streamAsset: (nat, blob) -> ();
 }

@@ -1,6 +1,7 @@
 import Linkify from 'react-linkify'
 import { useEffect, useState } from 'react'
 import translations from './translations'
+import { useBackend } from '@/context/backend'
 // import fetch from 'node-fetch'
 
 export default function Story({ isLoading, project }) {
@@ -8,6 +9,8 @@ export default function Story({ isLoading, project }) {
     const [storyLanguage, setStoryLanguage] = useState('EN')
     const [storyTranslation, setStoryTranslation] = useState('')
     const [showTranslation, setShowTranslation] = useState(false)
+    const [video, setVideo] = useState()
+    const { backend } = useBackend()
 
     // useEffect(() => {
     //     if (isLoading || storyTranslation !== '' || loadingTranslations) return
@@ -34,6 +37,14 @@ export default function Story({ isLoading, project }) {
         setStoryLanguage('NOT EN')
         setStoryTranslation(translations[project.id].story)
     }, [project])
+
+    useEffect(() => {
+        if (!project) return
+        backend
+            .getProjectVideo(project.id)
+            .then(setVideo)
+            .catch(console.log)
+    }, [backend, project])
 
     if (isLoading) {
         return (
@@ -79,6 +90,12 @@ export default function Story({ isLoading, project }) {
                     </div>
                 )}
             </Linkify>
+
+            {video && (
+                <video controls>
+                    <source src={video}/>
+                </video>
+            )}
         </div>
     )
 }

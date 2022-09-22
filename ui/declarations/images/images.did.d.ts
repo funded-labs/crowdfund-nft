@@ -1,4 +1,6 @@
 import type { Principal } from '@dfinity/principal';
+import type { ActorMethod } from '@dfinity/agent';
+
 export interface Asset { 'name' : string, 'payload' : File }
 export interface File { 'data' : Array<Array<number>>, 'ctype' : string }
 export type HeaderField = [string, string];
@@ -31,6 +33,11 @@ export type HttpStreamingStrategy = {
     }
   };
 export interface _SERVICE {
-  'addAsset' : (arg_0: Asset) => Promise<bigint>,
-  'http_request' : (arg_0: HttpRequest) => Promise<HttpResponse>,
+  'addAsset' : ActorMethod<[Asset], bigint>,
+  'http_request' : ActorMethod<[HttpRequest], HttpResponse>,
+  'http_request_streaming_callback' : ActorMethod<
+    [HttpStreamingCallbackToken],
+    HttpStreamingCallbackResponse,
+  >,
+  'streamAsset' : ActorMethod<[bigint, Array<number>], undefined>,
 }

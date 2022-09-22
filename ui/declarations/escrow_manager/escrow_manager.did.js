@@ -17,12 +17,13 @@ export const idlFactory = ({ IDL }) => {
         [],
         [],
       ),
+    'dissociateEscrowCanister' : IDL.Func([ProjectId], [], []),
     'getProjectEscrowCanisterPrincipal' : IDL.Func(
         [ProjectId],
         [IDL.Opt(CanisterIdText)],
         ['query'],
       ),
-    'test' : IDL.Func([], [definite_canister_settings], []),
+    'takeover' : IDL.Func([IDL.Text], [definite_canister_settings], []),
     'wallet_receive' : IDL.Func([], [], []),
   });
 };

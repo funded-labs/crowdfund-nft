@@ -25,6 +25,7 @@ actor CrowdFundNFT {
     type ProjectStatus = Types.ProjectStatus;
     type ProjectWithOwner = Types.ProjectWithOwner;
     type UserId = Types.UserId;
+    type Link = Types.Link;
 
     // Escrow Manager Types
 
@@ -33,10 +34,11 @@ actor CrowdFundNFT {
 
     // Stable vars used for upgrading 
 
-    stable var users        : [(UserId, Profile)]               = [];
-    stable var projects     : [(ProjectId, Project)]            = [];
-    stable var userProjects : [(UserId, [ProjectId])]           = [];
-    stable var nextProject  : Nat                               = 0;
+    stable var users         : [(UserId, Profile)]               = [];
+    stable var projects      : [(ProjectId, Project)]            = [];
+    stable var userProjects  : [(UserId, [ProjectId])]           = [];
+    stable var nextProject   : Nat                               = 0;
+    stable var projectVideos : [(ProjectId, Link)]               = [];
 
     // Main database
 
@@ -49,12 +51,14 @@ actor CrowdFundNFT {
         projects        := db.getProjectArray();
         userProjects    := db.getUserToProjectArray();
         nextProject     := db.projectIdGenerator;
+        projectVideos   := db.getVideoArray();
     };
 
     system func postupgrade() {
         db.initializeUserMap(users);
         db.initializeProjectMap(projects);
         db.initializeUserToProjectMap(userProjects);
+        db.initializeVideoProjectMap(projectVideos);
         db.projectIdGenerator := nextProject;
         Debug.print(Nat.toText(nextProject));
         users := [];
@@ -170,6 +174,10 @@ actor CrowdFundNFT {
 
     public query func getProject(projectId: ProjectId): async Project {
         Utils.getProject(db, projectId)
+    };
+
+    public query func getProjectVideo(projectId: ProjectId): async ?Link {
+        db.getProjectVideo(projectId);
     };
 
     public query func getProjectWithOwner(projectId: ProjectId): async ProjectWithOwner {

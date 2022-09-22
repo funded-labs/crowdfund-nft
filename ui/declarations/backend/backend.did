@@ -7,11 +7,11 @@ type Project__1 =
    description: text;
    discordLink: Link;
    goal: float64;
-   id: ProjectId;
+   id: ProjectId__1;
    nftVolume: nat;
    owner: UserId;
    rewards: text;
-   status: ProjectStatus;
+   status: ProjectStatus__1;
    story: text;
    tags: vec text;
    title: text;
@@ -56,11 +56,11 @@ type Project =
    description: text;
    discordLink: Link;
    goal: float64;
-   id: ProjectId;
+   id: ProjectId__1;
    nftVolume: nat;
    owner: UserId;
    rewards: text;
-   status: ProjectStatus;
+   status: ProjectStatus__1;
    story: text;
    tags: vec text;
    title: text;
@@ -97,6 +97,7 @@ type NewProject =
    tags: vec text;
    title: text;
    twitterLink: Link;
+   video: opt text;
    walletId: text;
    wetransferLink: Link;
  };
@@ -119,54 +120,59 @@ type MarketplaceLink =
    entrepot: Link;
    other: Link;
  };
+type Link__1 = text;
 type Link = text;
 type GUID = text;
 type Date = text;
 service : {
-  addWhitelist: (ProjectId__1, vec principal) -> ();
+  addWhitelist: (ProjectId, vec principal) -> ();
   adminCreateProfile: (principal, NewProfile) -> ();
   adminCreateProject: (principal, NewProject) -> (Project);
-  approveProject: (ProjectId__1) -> ();
-  closeProject: (ProjectId__1) -> ();
+  approveProject: (ProjectId) -> ();
+  archiveProject: (ProjectId) -> ();
+  closeProject: (ProjectId) -> ();
   createFirstProject: (NewProfile, NewProject) -> (Project);
   createProfile: (NewProfile) -> ();
   createProject: (NewProject) -> (Project);
-  deleteProject: (ProjectId__1) -> (opt Project);
-  getLaunchDate: (ProjectId__1) -> (opt Date) query;
-  getMarketplaceLinks: (ProjectId__1) -> (MarketplaceLinks) query;
+  deleteProject: (ProjectId) -> (opt Project);
+  getLaunchDate: (ProjectId) -> (opt Date) query;
+  getMarketplaceLinks: (ProjectId) -> (MarketplaceLinks) query;
   getMyProfile: () -> (Profile) query;
   getMyProjects: () -> (vec Project) query;
   getNFTInfo: (GUID) -> (opt NFTInfo) query;
   getOwnId: () -> (UserId__1) query;
   getOwnIdText: () -> (text) query;
   getProfile: (UserId__1) -> (Profile) query;
-  getProject: (ProjectId__1) -> (Project) query;
-  getProjectState: (ProjectId__1) -> (ProjectState) query;
-  getProjectWithOwner: (ProjectId__1) -> (ProjectWithOwner) query;
-  getProjectWithOwnerAndMarketplace: (ProjectId__1) ->
+  getProject: (ProjectId) -> (Project) query;
+  getProjectState: (ProjectId) -> (ProjectState) query;
+  getProjectVideo: (ProjectId) -> (opt Link__1) query;
+  getProjectWithOwner: (ProjectId) -> (ProjectWithOwner) query;
+  getProjectWithOwnerAndMarketplace: (ProjectId) ->
    (record {
       marketplaceLinks: MarketplaceLinks;
       owner: Profile;
       project: Project;
     }) query;
   getProjects: (UserId__1) -> (vec Project) query;
-  getWhitelist: (ProjectId__1) -> (vec principal) query;
+  getWhitelist: (ProjectId) -> (vec principal) query;
   greet: () -> (text);
   healthcheck: () -> (bool);
   isAdmin: () -> (bool) query;
-  listProjects: (vec ProjectStatus__1, text, vec text) -> (vec ProjectWithOwner) query;
-  makeProjectLive: (ProjectId__1) -> ();
-  openProjectToWhiteList: (ProjectId__1) -> ();
-  putLaunchDate: (ProjectId__1, Date) -> ();
+  listProjects: (vec ProjectStatus, text, vec text) ->
+   (vec ProjectWithOwner) query;
+  makeProjectLive: (ProjectId) -> ();
+  openProjectToWhiteList: (ProjectId) -> ();
+  putLaunchDate: (ProjectId, Date) -> ();
   putNFTGUIDs: (vec record {
                       GUID;
                       NFTInfo;
                     }) -> ();
-  resetWhitelist: (ProjectId__1) -> ();
+  resetWhitelist: (ProjectId) -> ();
   searchProfiles: (text) -> (vec Profile) query;
-  setMarketplaceLinks: (ProjectId__1, MarketplaceLinks) -> ();
-  setProjectFullyFunded: (ProjectId__1) -> ();
-  unapproveProject: (ProjectId__1) -> ();
+  setMarketplaceLinks: (ProjectId, MarketplaceLinks) -> ();
+  setProjectFullyFunded: (ProjectId) -> ();
+  unapproveProject: (ProjectId) -> ();
   updateProfile: (Profile) -> ();
   updateProject: (Project) -> ();
+  updateProjectStatus: (ProjectId, ProjectStatus) -> ();
 }

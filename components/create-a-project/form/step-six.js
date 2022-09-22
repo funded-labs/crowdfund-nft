@@ -41,6 +41,20 @@ export default function StepSix() {
                     }
                     coverURL = getImageURL(await imageActor.addAsset(coverImg))
                 }
+
+                let videoUrl = ''
+                if (p.video) {
+                    const video = {
+                        name: p.video.name,
+                        payload: {
+                            ctype: p.video.type,
+                            data: [await imgFileToInt8Array(p.video)]
+                        }
+                    }
+
+                    videoUrl = getImageURL(await imageActor.addAsset(video))
+                }
+
                 const payload = {
                     category: p.projectCategory,
                     cover: coverURL,
@@ -55,6 +69,7 @@ export default function StepSix() {
                     twitterLink: p.twitterLink,
                     walletId: p.walletId,
                     wetransferLink: p.wetransferLink,
+                    video: videoUrl ? [videoUrl] : []
                 }
                 await backend.createProject(payload)
 
