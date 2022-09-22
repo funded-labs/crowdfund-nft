@@ -8,7 +8,9 @@ import * as Yup from 'yup'
 import classNames from 'classnames'
 
 const SUPPORTED_FILE_FORMATS = ['image/png', 'image/jpeg', 'image/jpg']
+const SUPPORTED_VIDEO_FORMATS = ['video/mp4', 'video/ogg', 'video/webm']
 const FILE_SIZE = 500000
+const VIDEO_FILE_SIZE = 30 * 1000000
 
 const stepFourSchema = Yup.object().shape({
     coverImg: Yup.mixed()
@@ -23,6 +25,19 @@ const stepFourSchema = Yup.object().shape({
             'fileSize',
             'Please select a file smaller than 500KB.',
             (value) => value === null || (value && value.size <= FILE_SIZE)
+        ),
+    video: Yup.mixed()
+        .test(
+            'fileFormat',
+            'Only mp4, ogg, webm video formats are supported',
+            (value) =>
+                value === null ||
+                (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
+        )
+        .test(
+            'fileSize',
+            'Please select a file smaller than 30 MB.',
+            (value) => value === null || (value && value.size <= VIDEO_FILE_SIZE)
         ),
     wetransferLink: Yup.string().required(
         'You must enter a valid WeTransfer for your NFT art.'
@@ -82,6 +97,18 @@ export default function StepFour() {
                             name='coverImg'
                             onChange={(e) =>
                                 setFieldValue('coverImg', e.target.files[0])
+                            }
+                            onBlur={handleBlur}
+                            type='file'
+                        />
+
+                        <p className='font-semibold text-2xl'>
+                            Add your project video
+                        </p>
+                        <Input
+                            name='video'
+                            onChange={(e) =>
+                                setFieldValue('video', e.target.files[0])
                             }
                             onBlur={handleBlur}
                             type='file'

@@ -126,6 +126,7 @@ module {
                   twitterLink = "";
                   walletId = "";
                   wetransferLink = "";
+                  video = null;
                 };
               };
               case (?project) { project };
@@ -162,6 +163,7 @@ module {
         twitterLink = project.twitterLink;
         walletId = project.walletId;
         wetransferLink = project.wetransferLink;
+        video = project.video;
       });
     };
 
@@ -239,6 +241,7 @@ module {
         twitterLink = project.twitterLink;
         walletId = project.walletId;
         wetransferLink = project.wetransferLink;
+        video = project.video;
       };
     };
 

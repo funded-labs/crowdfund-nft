@@ -45,6 +45,7 @@ module {
     twitterLink: Link;
     walletId: Text;
     wetransferLink: Link;
+    video: ?Link;
   };
 
   public type Project = {
@@ -64,6 +65,7 @@ module {
     twitterLink: Link;
     walletId: Text;
     wetransferLink: Link;
+    video: ?Link;
   };
 
   public type ProjectWithOwner = {
