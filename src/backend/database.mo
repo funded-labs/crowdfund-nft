@@ -17,6 +17,7 @@ module {
   type ProjectId = Types.ProjectId;
   type ProjectStatus = Types.ProjectStatus;
   type UserId = Types.UserId;
+  type Link = Types.Link;
 
   public class Directory() {
 
@@ -24,6 +25,7 @@ module {
     let userMap = HashMap.HashMap<UserId, Profile>(1, isEqUserId, Principal.hash);
     let projectMap = HashMap.HashMap<ProjectId, Project>(1, isEqProjectId, Text.hash);
     let userToProjectsMap = HashMap.HashMap<UserId, [ProjectId]>(1, isEqUserId, Principal.hash);
+    let projectVideoMap = HashMap.HashMap<ProjectId, Link>(1, isEqProjectId, Text.hash);
 
     // Users
 
@@ -73,6 +75,15 @@ module {
     public func createProject(userId: UserId, newProject: NewProject): Project {
       let project = makeProject(userId, newProject);
       projectMap.put(project.id, project);
+
+      switch (newProject.video) {
+        case (null) { };
+        case (?video) {
+          projectVideoMap.put(project.id, video);
+        }
+      };
+
+
       switch (userToProjectsMap.get(userId)) {
         case (null) { userToProjectsMap.put(userId, [project.id]); };
         case (?projects) { userToProjectsMap.put(userId, Array.append<ProjectId>(projects, [project.id])); };
@@ -100,6 +111,10 @@ module {
 
     public func getProject(projectId: ProjectId): ?Project {
       projectMap.get(projectId)
+    };
+
+    public func getProjectVideo(projectId: ProjectId): ?Link {
+      projectVideoMap.get(projectId);
     };
 
     public func getProjects(userId: UserId): [Project] {
@@ -185,6 +200,10 @@ module {
       Iter.toArray(projectMap.entries())
     };
 
+    public func getVideoArray() : [(ProjectId, Link)] {
+      Iter.toArray(projectVideoMap.entries())
+    };
+
     public func getUserToProjectArray() : [(UserId, [ProjectId])] {
       Iter.toArray(userToProjectsMap.entries())
     };
@@ -204,6 +223,12 @@ module {
     public func initializeUserToProjectMap(userToProjects: [(UserId, [ProjectId])]) {
       for ((userId, projects) in userToProjects.vals()) {
         userToProjectsMap.put(userId, projects);
+      };
+    };
+
+    public func initializeVideoProjectMap(videos: [(ProjectId, Link)]) {
+      for ((projectId, link) in videos.vals()) {
+        projectVideoMap.put(projectId, link);
       };
     };
 

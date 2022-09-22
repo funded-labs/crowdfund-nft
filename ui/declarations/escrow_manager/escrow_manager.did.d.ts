@@ -1,4 +1,6 @@
 import type { Principal } from '@dfinity/principal';
+import type { ActorMethod } from '@dfinity/agent';
+
 export type CanisterIdText = string;
 export interface NFTInfo { 'number' : bigint, 'priceE8S' : bigint }
 export type ProjectId = bigint;
@@ -10,18 +12,17 @@ export interface definite_canister_settings {
   'compute_allocation' : bigint,
 }
 export interface _SERVICE {
-  'acceptCycles' : () => Promise<undefined>,
-  'availableCycles' : () => Promise<bigint>,
-  'createEscrowCanister' : (
-      arg_0: ProjectId,
-      arg_1: Principal,
-      arg_2: Array<NFTInfo>,
-      arg_3: Time,
-      arg_4: bigint,
-    ) => Promise<undefined>,
-  'getProjectEscrowCanisterPrincipal' : (arg_0: ProjectId) => Promise<
-      [] | [CanisterIdText]
-    >,
-  'test' : () => Promise<definite_canister_settings>,
-  'wallet_receive' : () => Promise<undefined>,
+  'acceptCycles' : ActorMethod<[], undefined>,
+  'availableCycles' : ActorMethod<[], bigint>,
+  'createEscrowCanister' : ActorMethod<
+    [ProjectId, Principal, Array<NFTInfo>, Time, bigint],
+    undefined,
+  >,
+  'dissociateEscrowCanister' : ActorMethod<[ProjectId], undefined>,
+  'getProjectEscrowCanisterPrincipal' : ActorMethod<
+    [ProjectId],
+    [] | [CanisterIdText],
+  >,
+  'takeover' : ActorMethod<[string], definite_canister_settings>,
+  'wallet_receive' : ActorMethod<[], undefined>,
 }

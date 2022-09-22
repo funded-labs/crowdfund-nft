@@ -45,6 +45,7 @@ module {
     twitterLink: Link;
     walletId: Text;
     wetransferLink: Link;
+    video: ?Text;
   };
 
   public type Project = {

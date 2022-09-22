@@ -53,10 +53,6 @@ export default function RichTextArea({ name, onChange, value, label, exclude }) 
     })
   }, [exclude])
 
-  useEffect(() => {
-    console.log('QILL MODULES CHANGED - toolbarOptions', toolbarOptions)
-  }, [toolbarOptions])
-
   const uploadImage = useCallback(async (file) => {
     const imageActor = makeImagesActor()
                   
