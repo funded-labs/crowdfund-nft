@@ -162,8 +162,7 @@ actor CrowdFundNFT {
     };
 
     public shared(msg) func updateProject(project: Project): async () {
-        // assert(Utils.hasProjectAccess(msg.caller, project));
-        assert(Utils.isAdmin(msg.caller));
+        assert(Utils.hasProjectAccess(msg.caller, project));
         db.updateProject(project);
     };
 
