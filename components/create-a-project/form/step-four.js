@@ -10,7 +10,7 @@ import classNames from 'classnames'
 const SUPPORTED_FILE_FORMATS = ['image/png', 'image/jpeg', 'image/jpg']
 const SUPPORTED_VIDEO_FORMATS = ['video/mp4', 'video/ogg', 'video/webm']
 const FILE_SIZE = 500000
-const VIDEO_FILE_SIZE = 30 * 1000000
+const VIDEO_FILE_SIZE = 2 * 1000000
 
 const stepFourSchema = Yup.object().shape({
     coverImg: Yup.mixed()
@@ -31,13 +31,13 @@ const stepFourSchema = Yup.object().shape({
             'fileFormat',
             'Only mp4, ogg, webm video formats are supported',
             (value) =>
-                value === null ||
+                !value ||
                 (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
         )
         .test(
             'fileSize',
-            'Please select a file smaller than 30 MB.',
-            (value) => value === null || (value && value.size <= VIDEO_FILE_SIZE)
+            'Please select a file smaller than 2 MB.',
+            (value) => !value || (value && value.size <= VIDEO_FILE_SIZE)
         ),
     wetransferLink: Yup.string().required(
         'You must enter a valid WeTransfer for your NFT art.'

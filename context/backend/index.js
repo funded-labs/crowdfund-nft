@@ -69,9 +69,10 @@ export function BackendProvider({
                     return window.ic.plug.agent.getPrincipal()
                 })
                 .then((principal) => {
-                    newWallets['plug']['principal'] = Principal.from(principal).toText()
+                    const newPrincipal = Principal.from(principal).toText()
+                    newWallets['plug']['principal'] = newPrincipal
                     setWallets({...newWallets})
-                    return principal
+                    return newPrincipal
                 })
                 .catch((e) => {
                     console.error(e)
@@ -93,9 +94,10 @@ export function BackendProvider({
         ) {
             return window.ic.infinityWallet.getPrincipal()
                 .then((principal) => {
-                    newWallets['infinity']['principal'] = Principal.from(principal).toText()
+                    const newPrincipal = Principal.from(principal).toText()
+                    newWallets['infinity']['principal'] = newPrincipal
                     setWallets({...newWallets})
-                    return principal
+                    return newPrincipal
                 })
                 .catch((e) => {
                     console.error(e)

@@ -42,7 +42,7 @@ export default function Story({ isLoading, project }) {
         if (!project) return
         backend
             .getProjectVideo(project.id)
-            .then(setVideo)
+            .then((video) => setVideo(video?.[0]))
             .catch(console.log)
     }, [backend, project])
 

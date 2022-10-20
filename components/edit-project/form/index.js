@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { useBackend } from '@/context/backend'
@@ -8,6 +8,12 @@ import Textarea from '@/components/forms/textarea'
 import { Spinner } from '@/components/shared/loading-spinner'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import RichTextArea from '@/components/forms/richTextArea'
+import Select from '@/components/forms/select'
+import projectCategories from '@/helpers/projectCategories'
+import { getImageURL, makeImagesActor } from '@/ui/service/actor-locator'
+import { imgFileToInt8Array } from '@/helpers/imageHelper'
+import UserForm from '@/components/edit-user/form'
 
 const formSchema = Yup.object().shape({
     title: Yup.string().required('Enter a title for your project'),
@@ -33,15 +39,15 @@ const formSchema = Yup.object().shape({
     ),
 })
 
-export default function EditProjectForm({ instruction, onSuccess }) {
+export default function EditProjectForm({ instruction, onSuccess, admin }) {
     return (
         <ProjectFormProvider>
-            <Form />
+            <Form admin={admin}/>
         </ProjectFormProvider>
     )
 }
 
-const Form = () => {
+const Form = ({ admin }) => {
     const [loading, setLoading] = useState({
         saveButton: false,
         approveButton: false,
@@ -50,6 +56,7 @@ const Form = () => {
         liveButton: false,
     })
     const backend = useBackend().backendWithAuth
+    const imageActor = makeImagesActor()
 
     const setLoadingState = (key, value) => {
         setLoading({
@@ -61,7 +68,7 @@ const Form = () => {
     const router = useRouter()
     const { projectId } = router.query
 
-    const { data: project } = useQuery(
+    const { data: project, error } = useQuery(
         ['project-details', projectId, backend],
         async () => {
             if (!backend) return null
@@ -73,6 +80,18 @@ const Form = () => {
             refetchOnWindowFocus: false,
         }
     )
+
+    const uploadImage = useCallback(async (image) => {
+        const coverImg = {
+            name: image.name,
+            payload: {
+                ctype: image.type,
+                data: [await imgFileToInt8Array(image)],
+            },
+        }
+        const imageUrl = getImageURL(await imageActor.addAsset(coverImg))
+        return imageUrl
+    }, [imageActor, getImageURL, imgFileToInt8Array])
 
     if (!project) return <></>
 
@@ -115,6 +134,7 @@ const Form = () => {
     return (
         <div className='w-full sm:mx-auto sm:max-w-lg px-4'>
             <div className='bg-white pt-8 px-4 flex flex-col space-y-6'>
+                <UserForm userId={project?.owner} uploadImage={uploadImage} />
                 <div className='border border-slate-400 rounded-lg bg-slate-100'>
                     <Formik
                         initialValues={initialValues}
@@ -150,24 +170,26 @@ const Form = () => {
                                         placeholder='Project name'
                                     />
                                     <p className='text-sm'>Category</p>
-                                    <Input
-                                        id='projectCategory'
+                                    <Select
                                         name='category'
                                         value={values.category}
+                                        options={projectCategories}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        type='text'
-                                        placeholder='Category'
                                     />
                                     <p className='text-sm'>Cover Image</p>
+                                    <img className='w-100' src={values.cover}/>
                                     <Input
-                                        id='projectCover'
-                                        name='cover'
-                                        value={values.cover}
-                                        onChange={handleChange}
+                                        name='projectCover'
+                                        onChange={(e) => {
+                                            uploadImage(e.target.files[0])
+                                                .then(imageUrl => {
+                                                    setFieldValue('cover', imageUrl)
+                                                })
+                                                .catch(console.log)
+                                        }}
                                         onBlur={handleBlur}
-                                        type='text'
-                                        placeholder='Cover Image'
+                                        type='file'
                                     />
                                     <p className='text-sm'>
                                         Social Media Links
@@ -229,6 +251,7 @@ const Form = () => {
                                         onBlur={handleBlur}
                                         type='text'
                                         placeholder='Wallet ID'
+                                        disabled={!admin}
                                     />
                                     <p className='text-sm'>Wetransfer link</p>
                                     <Input
@@ -238,22 +261,21 @@ const Form = () => {
                                         onBlur={handleBlur}
                                         type='text'
                                         placeholder='WeTransfer link for your NFT'
+                                        disabled={!admin}
                                     />
                                     <p className='text-sm'>Project story</p>
-                                    <Textarea
+                                    <RichTextArea
                                         name='story'
                                         value={values.story}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        rows={4}
                                     />
                                     <p className='text-sm'>Project rewards</p>
-                                    <Textarea
+                                    <RichTextArea
                                         name='rewards'
                                         value={values.rewards}
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        rows={4}
                                     />
                                 </div>
                                 <div className='px-4 py-4 border-t border-slate-300 '>
@@ -279,7 +301,7 @@ const Form = () => {
                     </Formik>
                 </div>
             </div>
-            <div className='bg-white py-4 px-4 flex flex-col space-y-6'>
+            {admin && <div className='bg-white py-4 px-4 flex flex-col space-y-6'>
                 <div className='border border-red-400 rounded-lg bg-red-100'>
                     <div className='px-4 py-4'>
                         Admin Functions
@@ -374,6 +396,7 @@ const Form = () => {
                     </div>
                 </div>
             </div>
+            }
         </div>
     )
 }
