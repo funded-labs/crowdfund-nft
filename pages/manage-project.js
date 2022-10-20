@@ -4,6 +4,7 @@ import { useBackend } from '@/context/backend'
 import { useEffect, useState } from 'react'
 import SidebarMenu from '@/components/shared/sidebar-menu'
 import MyProject from '@/components/manage-project/my-project'
+import Messaging from '@/components/manage-project/messaging'
 
 const menuItems = [
     {
@@ -13,6 +14,10 @@ const menuItems = [
     {
         label: "NFTs & reward tracking",
         id: "nfts-reward-tracking"
+    },
+    {
+        label: 'Messaging',
+        id: 'messaging'
     }
 ];
 
@@ -50,6 +55,10 @@ export default function ManageProject() {
 
                             {displaySection === "nft-rewards-tracking" && (
                                 <MyProject />
+                            )}
+
+                            {displaySection === 'messaging' && (
+                                <Messaging />
                             )}
                     </div>
                 </div>
