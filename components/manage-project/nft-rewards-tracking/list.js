@@ -2,18 +2,18 @@ import classNames from "classnames";
 import {tokenIdentifierFromIndex} from "@/helpers/tokenid";
 import {createActor} from '../../../hooks/use-project';
 
-export function List({ rewards = [], tokens=[] }) {
+export function List({ rewards = [], tokens=[], selectedToken='', nftCanister }) {
     if (rewards.length === 0 && tokens.length === 0) {
         return <></>
     }
 
-    function setRewardRedeemed(canister, tokenIndex, rewardIndex, value) {
+    function setRewardRedeemed(tokenIndex, rewardIndex, value) {
         const actor = createActor(
            process.env.NODE_ENV !== 'production'
                 ? 'qhbym-qaaaa-aaaaa-aaafq-cai' // local test nft canister
-                : canister
+                : nftCanister
         )
-        const tokenIdentifier = tokenIdentifierFromIndex(canister, tokenIndex)
+        const tokenIdentifier = tokenIdentifierFromIndex(nftCanister, tokenIndex)
         return actor.setRewardRedeemed(tokenIdentifier, rewardIndex, value).catch((err) => {
             console.log("set reward error: ", err)
         })
@@ -21,7 +21,7 @@ export function List({ rewards = [], tokens=[] }) {
 
     return (
         <div className="w-full flex flex-col space-y-4">
-            {tokens.map((item) => (
+            {tokens.map((item, index) => ((selectedToken === '' || parseInt(selectedToken) === index) &&
                 <article key={item[0]} className="w-full flex flex-row space-x-4">
                     <div className="w-60 h-60 shrink-0 rounded bg-gray-300 overflow-hidden rounded">
                         <img className="object-cover h-full w-full" src={""} />
@@ -51,7 +51,7 @@ export function List({ rewards = [], tokens=[] }) {
                                                 "hover:border-gray-300"
                                             )}
                                             type="button"
-                                            onClick={() => setRewardRedeemed('qaa6y-5yaaa-aaaaa-aaafa-cai', item[0], idx, true)}
+                                            onClick={() => setRewardRedeemed(item[0], idx, true)}
                                         >
                                             Mark as redeemed
                                         </button>
@@ -71,7 +71,7 @@ export function List({ rewards = [], tokens=[] }) {
                                                     "text-gray-500", "hover:border-gray-300"
                                                 )}
                                                 type="button"
-                                                onClick={() => setRewardRedeemed('qaa6y-5yaaa-aaaaa-aaafa-cai', item[0], idx, false)}
+                                                onClick={() => setRewardRedeemed(item[0], idx, false)}
                                             >
                                                 Undo
                                             </button>

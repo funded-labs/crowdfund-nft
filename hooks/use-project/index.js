@@ -1,8 +1,11 @@
 import { Actor, HttpAgent } from '@dfinity/agent'
 import { useQuery } from 'react-query'
+import { Principal } from '@dfinity/principal'
 
 export const idlFactory = ({ IDL }) => {
     const TokenIdentifier = IDL.Text
+    const ProjectId = IDL.Nat
+    const CanisterId = IDL.Principal
     const Rewards = IDL.Vec(IDL.Text)
     const RewardIndex = IDL.Nat
     const RewardValue = IDL.Bool
@@ -49,6 +52,11 @@ export const idlFactory = ({ IDL }) => {
         getRewards: IDL.Func(
             [],
             [Rewards],
+            ['query']
+        ),
+        getProjectNFTCanisterPrincipal: IDL.Func(
+            [ProjectId],
+            [IDL.Opt(CanisterId)],
             ['query']
         ),
         setRewardRedeemed: IDL.Func([TokenIdentifier, RewardIndex, RewardValue], [Result_1], []),
@@ -185,6 +193,31 @@ export function useProjectRewards(canister) {
             return await actor.getRewards()
         },
         {
+            placeholderData: defaultReturn,
+        }
+    )
+}
+
+export function useProjectNFTCanister(projectId) {
+    const defaultReturn = ''
+
+    const actor = createActor(
+        process.env.NODE_ENV !== 'production'
+            ? 'rdmx6-jaaaa-aaaaa-aaadq-cai' // local nft manager canister
+            : 'q4qsw-gyaaa-aaaak-aaixq-cai'
+    )
+
+    return useQuery(
+        ['project-canister'],
+        async () => {
+            if (!projectId) return defaultReturn
+            return actor.getProjectNFTCanisterPrincipal(parseInt(projectId)).then(principal => {
+                return Principal.fromUint8Array(principal[0]._arr).toText()
+            })
+        },
+        {
+            refetchOnWindowFocus: false,
+            refetchIntervalInBackground: false,
             placeholderData: defaultReturn,
         }
     )
