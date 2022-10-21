@@ -24,6 +24,7 @@ const INITIAL_STATE = {
         }
     },
     setBackend: () => {},
+    nnsIdentity: null
 }
 
 export const BackendContext = createContext(INITIAL_STATE)
@@ -38,6 +39,7 @@ export function BackendProvider({
     const [_backendWithAuth, setBackendWithAuth] = useState(
         backendWithAuth || INITIAL_STATE.backendWithAuth
     )
+    const [_nnsIdentity, setNnsIdentity] = useState()
 
     let [_wallets, setWallets] = useState(
         wallets || _.merge(INITIAL_STATE.wallets, {
@@ -156,6 +158,7 @@ export function BackendProvider({
                     }
 
                     const backend = makeBackendActorWithIdentity(identity)
+                    setNnsIdentity(identity)
 
                     resolve(backend)
                 },
@@ -167,6 +170,7 @@ export function BackendProvider({
         backend: _backend,
         backendWithAuth: _backendWithAuth,
         wallets: _wallets,
+        nnsIdentity: _nnsIdentity,
         login
     }
 
