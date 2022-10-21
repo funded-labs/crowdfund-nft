@@ -142,7 +142,7 @@ export function useProjectListings(canister) {
 
     const actor = createActor(
         process.env.NODE_ENV !== 'production'
-            ? 'qoctq-giaaa-aaaaa-aaaea-cai' // local test nft canister
+            ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
             : canister
     )
     return useQuery(
@@ -162,7 +162,7 @@ export function useProjectTokens(canister) {
 
     const actor = createActor(
         process.env.NODE_ENV !== 'production'
-            ? 'qhbym-qaaaa-aaaaa-aaafq-cai' // local test nft canister
+            ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
             : canister
     )
     return useQuery(
@@ -183,7 +183,7 @@ export function useProjectRewards(canister) {
 
     const actor = createActor(
         process.env.NODE_ENV !== 'production'
-            ? 'qhbym-qaaaa-aaaaa-aaafq-cai' // local test nft canister
+            ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
             : canister
     )
     return useQuery(
@@ -203,7 +203,7 @@ export function useProjectNFTCanister(projectId) {
 
     const actor = createActor(
         process.env.NODE_ENV !== 'production'
-            ? 'rdmx6-jaaaa-aaaaa-aaadq-cai' // local nft manager canister
+            ? 'qoctq-giaaa-aaaaa-aaaea-cai' // local nft manager canister
             : 'q4qsw-gyaaa-aaaak-aaixq-cai'
     )
 
