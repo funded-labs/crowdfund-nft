@@ -1,5 +1,6 @@
 const DFXWebPackConfig = require("./dfx.webpack.config")
 DFXWebPackConfig.initCanisterIds()
+const withTM = require('next-transpile-modules')(['messity-client']);
 
 const webpack = require("webpack")
 
@@ -8,7 +9,7 @@ const EnvPlugin = new webpack.EnvironmentPlugin({
     DFX_NETWORK: "local",
 })
 
-module.exports = {
+module.exports = withTM({
     webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
         // Plugin
         config.plugins.push(EnvPlugin)
@@ -16,4 +17,4 @@ module.exports = {
         // Important: return the modified config
         return config
     },
-}
+})

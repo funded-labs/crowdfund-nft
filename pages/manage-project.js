@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react'
 import SidebarMenu from '@/components/shared/sidebar-menu'
 import MyProject from '@/components/manage-project/my-project'
 import NftRewardsTracking from '@/components/manage-project/nft-rewards-tracking'
+import Messaging from '@/components/manage-project/messaging'
+import { useRouter } from 'next/router'
 
 const menuItems = [
     {
@@ -14,22 +16,46 @@ const menuItems = [
     {
         label: "NFTs & reward tracking",
         id: "nft-rewards-tracking"
+    },
+    {
+        label: 'Messaging',
+        id: 'messaging'
     }
 ];
 
 export default function ManageProject() {
     const backend = useBackend().backendWithAuth
     const [showLoginModal, setLoginModal] = useState(false);
-    const [displaySection, setDisplaySection] = useState("my-project");
+    const [displaySection, setDisplaySection] = useState("my-project")
+
+    const { query, replace } = useRouter()
+    const { projectId } = query
 
     useEffect(() => {
         if (backend) return setLoginModal(false)
         setLoginModal(true)
     }, [backend])
 
+    useEffect(() => {
+        if (!backend || projectId) return
+
+        backend
+            .getMyProjects()
+            .then((projects) => {
+                if (projects.length === 0) {
+                    replace(`/create-a-project`, `/create-a-project.html`)
+                } else {
+                    replace(`/manage-project?projectId=${projects[0].id}`, `/manage-project.html?projectId=${projects[0].id}`)
+                }
+            })
+            .catch(console.log)
+    }, [backend, projectId])
+
     if (showLoginModal === true) {
         return <PromptLoginModal />
     }
+
+    if (!projectId) return <></>
 
     return (
         <div className='w-full'>
@@ -51,6 +77,10 @@ export default function ManageProject() {
 
                             {displaySection === "nft-rewards-tracking" && (
                                 <NftRewardsTracking />
+                            )}
+
+                            {displaySection === 'messaging' && (
+                                <Messaging />
                             )}
                     </div>
                 </div>
