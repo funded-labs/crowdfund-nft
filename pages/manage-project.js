@@ -5,9 +5,6 @@ import { useEffect, useState } from 'react'
 import SidebarMenu from '@/components/shared/sidebar-menu'
 import MyProject from '@/components/manage-project/my-project'
 import NftRewardsTracking from '@/components/manage-project/nft-rewards-tracking'
-import { useRouter } from 'next/router'
-import { useProjectStats } from 'hooks/use-project'
-import { useProjectDetails } from 'hooks/use-project/useProjectDetails'
 import Messaging from '@/components/manage-project/messaging'
 
 const menuItems = [
