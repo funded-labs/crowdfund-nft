@@ -67,7 +67,7 @@ const createActor = (canisterId, idlFactory) => {
     })
 }
 
-export default function Hero({ isLoading, project }) {
+export default function Hero({ isLoading, project, adminView }) {
     const router = useRouter()
     const [now, setNow] = useState(Date.now())
     const [hasShownInstructions, setHasShownInstructions] = useState(false)
@@ -493,7 +493,7 @@ export default function Hero({ isLoading, project }) {
                                         goal.
                                     </p>
                                 </div>
-                            ) : (
+                            ) : !adminView && (
                                 <button
                                     disabled={
                                         loading || project.stats.endTime <= 0
@@ -539,7 +539,7 @@ export default function Hero({ isLoading, project }) {
                                 />
                             )}
                         </div>
-                        <div className='w-full flex flex-row space-x-8 items-center'>
+                        {!adminView && <div className='w-full flex flex-row space-x-8 items-center'>
                             <div className='w-6/12 p-3'>
                                 <button
                                     className={`
@@ -589,7 +589,7 @@ export default function Hero({ isLoading, project }) {
                                     </a>
                                 )}
                             </div>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
