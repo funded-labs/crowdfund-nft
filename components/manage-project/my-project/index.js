@@ -11,15 +11,13 @@ export default function MyProject() {
     const {
         data: project,
         isLoading,
-        isError,
-        isFetching,
     } = useProjectDetails(projectId)
 
     const renderButton = (title, href, as, primary) => (
         <Link href={href} as={as}>
             <button
                 className={`
-                    flex flex-row justify-center w-full bg-blue-${primary ? '800' : '500'} text-white py-3 
+                    flex flex-row justify-center w-full bg-blue-${primary ? '700' : '500'} text-white py-3 
                     px-4 mx-2 font-medium text-base tracking-wider rounded-xl
                     shadow-xl hover:bg-blue-700`
                 }
