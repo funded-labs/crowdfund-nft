@@ -126,20 +126,7 @@ export function useProjectStats(canister) {
 }
 
 export function useProjectListings(canister) {
-    const defaultReturn = [
-        [
-            0,
-            {
-                locked: [false],
-                seller: 'aaaaa-aa',
-                price: 100_000_000,
-            },
-            {
-                nonfungible: { metadata: [[]] },
-            },
-        ],
-    ]
-
+    const defaultReturn = []
     const actor = createActor(
         process.env.NODE_ENV !== 'production'
             ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
@@ -159,12 +146,14 @@ export function useProjectListings(canister) {
 
 export function useProjectTokens(canister) {
     const defaultReturn = []
-
-    const actor = createActor(
-        process.env.NODE_ENV !== 'production'
-            ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
-            : canister
-    )
+    let actor = ''
+    try {
+        actor = createActor(
+            process.env.NODE_ENV !== 'production'
+                ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
+                : canister
+        )
+    } catch {}
     return useQuery(
         ['project-tokens', canister],
         async () => {
@@ -181,11 +170,14 @@ export function useProjectTokens(canister) {
 export function useProjectRewards(canister) {
     const defaultReturn = []
 
-    const actor = createActor(
-        process.env.NODE_ENV !== 'production'
-            ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
-            : canister
-    )
+    let actor = ''
+    try {
+        actor = createActor(
+            process.env.NODE_ENV !== 'production'
+                ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
+                : canister
+        )
+    } catch {}
     return useQuery(
         ['project-rewards', canister],
         async () => {
@@ -194,6 +186,8 @@ export function useProjectRewards(canister) {
         },
         {
             placeholderData: defaultReturn,
+            refetchOnWindowFocus: false,
+            refetchIntervalInBackground: false,
         }
     )
 }

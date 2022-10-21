@@ -10,7 +10,6 @@ export default function NftRewardsTracking() {
     const { data: nftCanister } = useProjectNFTCanister(projectId)
     const { data: tokens } = useProjectTokens(nftCanister ?? null)
     const { data: rewards } = useProjectRewards(nftCanister ?? null)
-
     const [selectedToken, setSelectedToken] = useState('')
 
     return (

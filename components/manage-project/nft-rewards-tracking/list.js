@@ -24,7 +24,7 @@ export function List({ rewards = [], tokens=[], selectedToken='', nftCanister })
             {tokens.map((item, index) => ((selectedToken === '' || parseInt(selectedToken) === index) &&
                 <article key={item[0]} className="w-full flex flex-row space-x-4">
                     <div className="w-60 h-60 shrink-0 rounded bg-gray-300 overflow-hidden rounded">
-                        <img className="object-cover h-full w-full" src={""} />
+                        <img className="object-cover h-full w-full" src={"https://" + nftCanister + ".raw.ic0.app/?asset=" + index.toString()} />
                     </div>
                     <div className="w-full flex flex-col">
                         <p className="font-semibold text-lg">
