@@ -10,10 +10,11 @@ export function List({ rewards = [], tokens=[], selectedToken='', nftCanister })
     function setRewardRedeemed(tokenIndex, rewardIndex, value) {
         const actor = createActor(
            process.env.NODE_ENV !== 'production'
-                ? 'qhbym-qaaaa-aaaaa-aaafq-cai' // local test nft canister
+                ? 'qjdve-lqaaa-aaaaa-aaaeq-cai' // local test nft canister
                 : nftCanister
         )
         const tokenIdentifier = tokenIdentifierFromIndex(nftCanister, tokenIndex)
+        console.log(tokenIdentifier)
         return actor.setRewardRedeemed(tokenIdentifier, rewardIndex, value).catch((err) => {
             console.log("set reward error: ", err)
         })

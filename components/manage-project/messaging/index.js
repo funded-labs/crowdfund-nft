@@ -6,91 +6,41 @@ import { Principal } from '@dfinity/principal'
 import classNames from 'classnames'
 import { Spinner } from '@/components/shared/loading-spinner'
 import { format } from 'date-fns'
+import useMessityMessaging from 'hooks/useMessityMessaging'
 
 const CROWDFUND_DBOX_PRINCIPAL = 't7nd7-e6xre-bhvzd-vyxtg-i2kw3-qthtj-ymlj4-bqmfu-rlu5d-ziuwk-dqe'
 
-const Messaging = () => {
-  const [sentMessages, setSentMessages] = useState([])
-  const [receivedMessages, setReceivedMessages] = useState([])
+const Messaging = ({ otherPartyPrincipal }) => {
+  const [allMessages, setMessages] = useState([])
+  const { loadConversation, sendMessage, refreshMessages } = useMessityMessaging()
   const [saving, setSaving] = useState(false)
-  const { nnsIdentity } = useBackend()
   const [message, setMessage] = useState()
   const bottomRef = useRef()
-
-  const agent = useMemo(() => {
-    if (!nnsIdentity) return null
-    
-    return new HttpAgent({
-      host: 'https://ic0.app',
-      identity: nnsIdentity
-    })
-  }, [nnsIdentity])
-
-  const allMessages = useMemo(() => {
-    return [
-      ...sentMessages.map(m => ({ ...m, type: 'mine' })),
-      ...receivedMessages.map(m => ({ ...m, type: 'theirs' }))
-    ].sort((a, b) => {
-      const aTimestamp = Number(a.header.timestamp)
-      const bTimestamp = Number(b.header.timestamp)
-
-      if(aTimestamp > bTimestamp) return 1
-      if(aTimestamp < bTimestamp) return -1
-      return 0
-    })
-  }, [sentMessages, receivedMessages])
-
-  const messityClient = useMemo(() => {
-    if (!agent) return null
-
-    return new Messity(agent)
-  }, [agent])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [allMessages, bottomRef])
 
   const loadMessages = useCallback(() => {
-    if (!messityClient) return
-
-    messityClient
-      .getReceivedMessages(Principal.fromText(CROWDFUND_DBOX_PRINCIPAL))
-      .then(setReceivedMessages)
-      .catch(console.log)
-
-    messityClient
-      .getSentMessages(Principal.fromText(CROWDFUND_DBOX_PRINCIPAL))
-      .then(setSentMessages)
-      .catch(console.log)
-  }, [messityClient])
+    setMessages(loadConversation(otherPartyPrincipal || CROWDFUND_DBOX_PRINCIPAL) || [])
+  }, [otherPartyPrincipal, loadConversation])
 
   useEffect(() => {
     loadMessages()
   }, [loadMessages])
 
-  const sendMessage = () => {
+  const send = () => {
     setSaving(true)
-    
-    messityClient?.sendMessage({
-      to: [Principal.fromText(CROWDFUND_DBOX_PRINCIPAL)],
-      from: [],
-      messageChain: [],
-      reference: [],
-      messageType: [{
-        mail: null
-      }],
-      externalId: [],
-      subject: [],
-      body: message
-    })
-    .then(() => {
-      setMessage('')
-      loadMessages()
-    })
-    .catch(console.log)
-    .finally(() => {
-      setSaving(false)
-    })
+
+    sendMessage({ toPrincipal: otherPartyPrincipal || CROWDFUND_DBOX_PRINCIPAL, message })
+      .then(() => {
+        setMessage('')
+        refreshMessages()
+      })
+      .catch(console.log)
+      .finally(() => {
+        setSaving(false)
+      })
   }
 
   const renderMessage = ({ type, body, header: { timestamp } }) => {
@@ -119,7 +69,7 @@ const Messaging = () => {
         <div className='flex p-3'>
           <input className='bg-gray-200 rounded-full p-3 flex-1 focus:outline-0' value={message} onChange={(event) => setMessage(event.target.value)}></input>
           <button
-            onClick={sendMessage}
+            onClick={send}
             disabled={saving}
             className={`
               flex flex-row justify-center bg-blue-600 text-white py-3 

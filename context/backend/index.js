@@ -162,6 +162,7 @@ export function BackendProvider({
 
                     resolve(backend)
                 },
+                onError: reject
             })
         })
     }
