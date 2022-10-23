@@ -8,7 +8,7 @@ import { Spinner } from '@/components/shared/loading-spinner'
 import { format } from 'date-fns'
 import useMessityMessaging from 'hooks/useMessityMessaging'
 
-const CROWDFUND_DBOX_PRINCIPAL = 't7nd7-e6xre-bhvzd-vyxtg-i2kw3-qthtj-ymlj4-bqmfu-rlu5d-ziuwk-dqe'
+const CROWDFUND_DBOX_PRINCIPAL = 'ufwav-jci66-7ag3c-7yulf-6ofg3-halah-z3lbs-sfeke-dvkrt-33xs4-qae'
 
 const Messaging = ({ otherPartyPrincipal }) => {
   const [allMessages, setMessages] = useState([])
