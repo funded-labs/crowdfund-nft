@@ -37,8 +37,7 @@ const Messaging = () => {
     const _conversations = principals.map(principal => {
       return { principal, messages: loadConversation(principal) }
     })
-    
-    setConversations(_conversations.filter(conv => conv.messages.length > 0))
+    setConversations(_conversations.filter(conv => conv.messages && conv.messages.length > 0))
   }, [principals, loadConversation])
 
   const columns = ['Principal', 'Project', 'Number of messages']
