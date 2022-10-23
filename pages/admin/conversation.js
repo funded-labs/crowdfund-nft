@@ -1,7 +1,7 @@
 import Messaging from '@/components/manage-project/messaging'
 import { useRouter } from 'next/router'
 import React from 'react'
-import AdminPageLayout from '../admin-layout'
+import AdminPageLayout from './admin-layout'
 
 const Conversation = () => {
   const { query } = useRouter()

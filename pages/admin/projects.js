@@ -58,11 +58,8 @@ const Projects = () => {
                       View project
                     </a>
                   </Link>
-                  <Link 
-                    href={{
-                      pathname: '/admin/conversation/[principal]',
-                      query: { principal: owner.id.toText() },
-                    }}
+                  <Link
+                    href={`/admin/conversation?principal=${owner.id.toText()}`} as={`/admin/conversation.html?principal=${owner.id.toText()}`}
                   >
                     <a className="text-gray-600 hover:text-gray-800 ml-3">
                       Message
