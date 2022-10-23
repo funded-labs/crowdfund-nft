@@ -23,7 +23,6 @@ const AdminPageLayout = ({ title, children }) => {
   const { backendWithAuth, login } = useBackend()
 
   useEffect(() => {
-    console.log('???', backendWithAuth, !backendWithAuth)
     if (!backendWithAuth) {
       login().catch(console.log)
     }
@@ -31,11 +30,11 @@ const AdminPageLayout = ({ title, children }) => {
 
   const renderNavigationItems = () => (
     <>
-    {navigation.map(({ name, href, icon: MenuIcon }) => {
+    {navigation.map(({ name, href, icon: MenuIcon }, index) => {
       const current = pathname === href
       
       return (
-        <Link href={href} as={`${href}.html`}>
+        <Link href={href} as={`${href}.html`} key={index}>
           <a
             key={name}
             className={classNames(
