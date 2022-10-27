@@ -12,7 +12,7 @@
                 "output": "ui/declarations/frontend"
             },
             "dependencies": ["backend", "escrow_manager", "images"],
-            "source": ["out"],
+            "source": ["out", "src/assets"],
             "type": "assets"
         },
         "frontend_staging": {
