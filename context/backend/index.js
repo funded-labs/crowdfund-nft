@@ -27,6 +27,9 @@ const INITIAL_STATE = {
     nnsIdentity: null
 }
 
+const NFID_APPLICATION_NAME = "Crowdfund%20NFT%0A"
+const NFID_APPLICATION_LOGO_URL = "https%3A%2F%2Fgateway.pinata.cloud%2Fipfs%2FQmcZjaQLaKwxtKGKaneSpNqpre863wTUU5jyVZAE3XG4uw"
+
 export const BackendContext = createContext(INITIAL_STATE)
 
 export function BackendProvider({
@@ -130,7 +133,7 @@ export function BackendProvider({
         setBackend(_backend)
     }, [])
 
-    const login = async () => {
+    const login = async (provider) => {
         const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT
 
         let backendWithAuth
@@ -138,18 +141,23 @@ export function BackendProvider({
         if (environmentName === 'development') {
             backendWithAuth = makeBackendActor()
         } else {
-            backendWithAuth = await authClientLogin()
+            backendWithAuth = await authClientLogin(provider)
         }
 
         setBackendWithAuth(backendWithAuth)
         return backendWithAuth
     }
 
-    const authClientLogin = async () => {
+    const authClientLogin = async (provider) => {
         const authClient = await AuthClient.create()
+
+        const identityProvider = provider === 'nfid'
+            ? `https://nfid.one/authenticate/?applicationName=${NFID_APPLICATION_NAME}&applicationLogo=${NFID_APPLICATION_LOGO_URL}#authorize`
+            : null
 
         return new Promise((resolve, reject) => {
             authClient.login({
+                identityProvider,
                 onSuccess: async () => {
                     const identity = authClient.getIdentity()
 
