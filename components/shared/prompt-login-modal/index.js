@@ -4,6 +4,19 @@ import { useBackend } from "@/context/backend";
 export default function PromptLoginModal() {
     const { login } = useBackend();
 
+    const renderButton = (name, action, image) => (
+        <button
+            type="button"
+            onClick={action}
+            className={`
+                bg-blue-600 text-white font-medium px-4 py-3 w-full hover:bg-blue-700 flex flex-row items-center justify-center
+            `}
+        >
+            {name}
+            <img className="w-12 ml-2" src={image} />
+        </button>
+    )
+
     return (
         <Modal show={true} size="xs">
             <div className="w-full flex flex-col p-4 md:px-10 md:py-10 items-center">
@@ -14,15 +27,9 @@ export default function PromptLoginModal() {
                         Please login to continue
                     </p>
 
-                    <button
-                        type="button"
-                        onClick={login}
-                        className={`
-                            bg-blue-600 text-white font-medium px-4 py-3 w-full hover:bg-blue-700
-                        `}
-                    >
-                        Login
-                    </button>
+                    {renderButton('Login', login, "/assets/IClogo.png")}
+                    {renderButton('', () => login('nfid'), "/assets/nfid-logo.png")}
+
                     <a
                         href="/"
                         className="hover:opacity-80"
