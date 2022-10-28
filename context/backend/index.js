@@ -158,6 +158,7 @@ export function BackendProvider({
         return new Promise((resolve, reject) => {
             authClient.login({
                 identityProvider,
+                derivationOrigin: 'https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/',
                 onSuccess: async () => {
                     const identity = authClient.getIdentity()
 
