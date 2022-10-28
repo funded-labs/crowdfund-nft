@@ -18,7 +18,7 @@ export default function PromptLoginModal() {
     )
 
     return (
-        <Modal show={true} size="xs">
+        <Modal show={true} size="sn">
             <div className="w-full flex flex-col p-4 md:px-10 md:py-10 items-center">
                 <div className="w-full mx-auto flex flex-col items-center space-y-4">
                     <img src="/assets/logo.png" className="w-full" />
