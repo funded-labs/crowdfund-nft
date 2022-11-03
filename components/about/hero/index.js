@@ -1,7 +1,8 @@
 export default function Hero() {
     return (
         <section className='w-full py-20 bg-gradient-to-br from-blue-500 to-blue-600'>
-            <div className='w-full max-w-5xl mx-auto flex flex-col px-4'>
+            
+            <div className='w-full flex flex-col'>
                 <div className='w-full flex flex-col space-y-10 md:flex-row md:space-x-10 py-10'>
                     <div className='w-full md:w-6/12 font-bold text-4xl md:text-6xl text-white'>
                         Crowdfunding on the{' '}

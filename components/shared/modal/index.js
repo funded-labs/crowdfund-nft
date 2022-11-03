@@ -25,7 +25,7 @@ export default function Modal({ children, selector = "#modal", onClose = () => {
                         <div
                             className={classNames(
                                 "w-full h-full absolute top-0 left-0 bg-opacity-90",
-                                `bg-gray-900`
+                                `bg-gradient-to-br from-blue-500 to-blue-700`
                             )}
                             onClick={allowDismiss ? onClose : () => {}}
                         />

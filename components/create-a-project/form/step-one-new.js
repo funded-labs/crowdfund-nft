@@ -42,7 +42,7 @@ const initialValues = {
     profileImg: null,
 }
 
-export default function StepOne() {
+export default function StepOneNew() {
     const { setProfile, setStep } = useProjectForm()
     const [isLoading, setLoading] = useState(false)
 
@@ -83,10 +83,10 @@ export default function StepOne() {
                     onSubmit={handleSubmit}>
                     <div className='w-full sm:flex sm:flex-row sm:grid-cols-2 space-y-1'>
                         <div className="flex flex-col bg-clear px-4 py-4 sm:w-1/3">
-                        <p className='font-bold text-4xl sm:px-12 sm:pt-24 text-white font-sans'>
+                        <p className='font-bold text-4xl sm:px-12 sm:pt-24 text-neutral-900 tracking-tight font-sans'>
                             Let's start with your profile
                         </p>
-                        <p className='font-light text-md sm:px-12 sm:pt-4 text-white font-sans'>Tell us a bit about yourself and upload a photo so people can see who you are.</p>
+                        <p className='font-light text-md sm:px-12 sm:pt-4 text-neutral-500 font-sans'>Tell us a bit about yourself and upload a photo so people can see who you are.</p>
                         </div>
                         <div className="flex-col rounded-l-3xl bg-white sm:px-36 sm:py-24 p-8 flex-1">
                         <div className='w-full grid grid-cols-2 gap-4'>
@@ -97,6 +97,7 @@ export default function StepOne() {
                                 onBlur={handleBlur}
                                 placeholder='First name'
                                 type='text'
+                                label='First name'
                                 
                             />
                             <Input
@@ -106,6 +107,7 @@ export default function StepOne() {
                                 onBlur={handleBlur}
                                 type='text'
                                 placeholder='Last name'
+                                label='Last name'
                             />
                         </div>
                         <p className='sm:text-sm rounded-none

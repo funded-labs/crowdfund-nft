@@ -33,7 +33,7 @@ export default function Sidebar({ show, onClose }) {
         <>
             <div
                 className={classNames(
-                    'absolute top-0 left-0 z-30 w-screen h-screen bg-blue-700 opacity-50 duration-200 cursor-pointer',
+                    'absolute top-0 left-0 z-30 w-screen h-screen bg-neutral-900 opacity-50 duration-200 cursor-pointer',
                     show === false ? 'hidden' : null
                 )}
                 onClick={onClose}
@@ -62,13 +62,13 @@ export default function Sidebar({ show, onClose }) {
                     </svg>
                 </div>
 
-                <div className='flex items-center flex-shrink-0 px-4'>
+                {/* <div className='flex items-center flex-shrink-0 px-4'>
                     <img
                         className='h-8 w-auto'
                         src='/assets/logo.png'
                         alt='Workflow'
                     />
-                </div>
+                </div> */}
                 <div className='mt-5 flex-grow flex flex-col'>
                     <nav
                         className='flex-1 px-2 space-y-2 bg-white'
@@ -81,9 +81,9 @@ export default function Sidebar({ show, onClose }) {
                             </h3>
                             <h3 className='group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md'>
                                 Connect your wallet to buy and sell NFTs from
-                                the crowdfund NFT marketplace.
+                                the Crowdfund NFT marketplace.
                             </h3>
-                            <div className='w-full flex flex-col items-center'>
+                            <div className='w-full flex flex-col items-left px-4 py-4'>
                                 {Object.keys(wallets).map(w => (
                                     wallets[w]['principal'] ?
                                     (
@@ -103,8 +103,8 @@ export default function Sidebar({ show, onClose }) {
                                             <button
                                                 key={w}
                                                 type='button'
-                                                className={`flex flex-row space-x-1 justify-center items-center bg-slate-600 
-                                                border border-transparent rounded rounded font-medium text-black hover:bg-slate-400 px-4 py-2 mt-5 shadow-xl`}
+                                                className={`flex flex-row space-x-1 justify-center items-center bg-white 
+                                                border border-transparent rounded-xl font-medium text-black hover:bg-slate-400 px-4 py-2 mt-5 shadow-md`}
                                                 onClick={() => {
                                                     if (w === 'stoic') setLoadingStoic(true)
                                                     wallets[w]['getPrincipal']().then(() => setLoadingStoic(false))
@@ -113,7 +113,7 @@ export default function Sidebar({ show, onClose }) {
                                                     src={'/assets/' + w + '.png'}
                                                     className='h-8'
                                                 />
-                                                <span className='px-2 font-medium text-white'>
+                                                <span className='px-2 font-regular text-neutral-900 text-sm'>
                                                     {'Connect ' + w[0].toUpperCase() + w.slice(1) + ' Wallet'}
                                                 </span>
                                             </button>
@@ -124,27 +124,51 @@ export default function Sidebar({ show, onClose }) {
                                                 <span className='px-2 font-medium text-white'>Loading...</span>
                                             </div>
                                     )))}
-                                <Link
+                                
+                            </div>
+                            <div className='relative'>
+                                <div
+                                    className=' inset-1 my-4 flex items-center'
+                                    aria-hidden='true'>
+                                    <div className='w-full border-t border-gray-300' />
+                                </div>
+                            </div>
+                            <h3
+                                className='px-3 text-xs py-2 font-semibold text-gray-500 uppercase tracking-wider'
+                                id='projects-headline'>
+                                START A CROWDFUND
+                            </h3>
+                            <h3 className='group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md'>
+                                Create a project, design your NFTs and launch in minutes.
+                            </h3>
+                            <Link
                                     href='/create-a-project'
                                     passHref
                                     as='/create-a-project.html'>
                                     <a
                                         className={`
-                                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent rounded rounded font-medium hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
-                                            py-2 mx-4 justify-center items-center text-white h-12
+                                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent  rounded-full font-medium hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
+                                            py-2  mx-4 justify-center items-center text-white h-12
                                         `}
                                         href='/create-a-project.html'>
                                         Create a project
                                     </a>
                                 </Link>
-                            </div>
-                            <div className='relative'>
-                                <div
-                                    className='absolute inset-1 mt-4 flex items-center'
-                                    aria-hidden='true'>
-                                    <div className='w-full border-t border-gray-300' />
-                                </div>
-                            </div>
+                                <Link
+                                    href='/create-a-project'
+                                    passHref
+                                    as='/create-a-project.html'
+                                    >
+                                        
+                                    <a
+                                        className={`
+                                        flex flex-row space-x-1  bg-neutral-900 border border-transparent  rounded-full font-medium hover:bg-blue-400 px-4 shadow-xl
+                                            py-2  mx-4 justify-center items-center text-white h-12
+                                        `}
+                                        href='/create-a-project.html'>
+                                        Creator guide
+                                    </a>
+                                </Link>
                         </div>
                         <div className='py-12 space-y-1'>
                             {navigation.map((item) => (

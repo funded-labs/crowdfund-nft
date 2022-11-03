@@ -1,4 +1,5 @@
 import CreateAProjectForm from '@/components/create-a-project/form'
+import Footer from '@/components/shared/footer'
 import Navbar from '@/components/shared/navbar'
 import PromptLoginModal from '@/components/shared/prompt-login-modal'
 import { useBackend } from '@/context/backend'
@@ -21,6 +22,7 @@ export default function CreateAProject() {
         <div className='w-full'>
             <Navbar />
             <CreateAProjectForm />
+            <Footer/>
         </div>
     )
 }
