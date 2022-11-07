@@ -19,7 +19,7 @@ const stepTwoSchema = Yup.object().shape({
 
 const initialValues = {
     projectTitle: '',
-    projectCategory: '',
+    projectCategory: projectCategories[0].value,
     twitterLink: '',
     discordLink: '',
 }
