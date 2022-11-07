@@ -79,17 +79,17 @@ export default function StepOneNew() {
             }) => (
 
                 <form
-                    className='w-full bg-clear flex flex-col space-y-2'
+                    className='px-8 sm:p-0 w-full bg-clear flex flex-col space-y-2'
                     onSubmit={handleSubmit}>
                     <div className='w-full sm:flex sm:flex-row sm:grid-cols-2 space-y-1'>
                         <div className="flex flex-col bg-clear px-4 py-4 sm:w-1/3">
-                        <p className='font-bold text-4xl sm:px-12 sm:pt-24 text-neutral-900 tracking-tight font-sans'>
+                        <p className='font-bold text-2xl sm:text-4xl sm:px-12 pt-24 text-neutral-900 tracking-tight font-sans'>
                             Let's start with your profile
                         </p>
                         <p className='font-light text-md sm:px-12 sm:pt-4 text-neutral-500 font-sans'>Tell us a bit about yourself and upload a photo so people can see who you are.</p>
                         </div>
                         <div className="flex-col rounded-l-3xl bg-white sm:px-36 sm:py-24 p-8 flex-1">
-                        <div className='w-full grid grid-cols-2 gap-4'>
+                        <div className='w-full grid sm:grid-cols-2 gap-4'>
                             <Input
                                 name='firstName'
                                 value={values.firstName}

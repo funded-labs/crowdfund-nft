@@ -35,12 +35,12 @@ const incentives = [
                 {incentives.map((incentive) => (
                   <div key={incentive.name} className="text-center sm:flex sm:text-left lg:block lg:text-left">
                     <div className="sm:flex-shrink-0">
-                      <div className="flow-root">
-                        <img className="mx-auto h-16 w-16" src={incentive.imageSrc} alt="" />
+                      <div className="flow-root mb-4">
+                        <img className="mx-auto h-20 w-20" src={incentive.imageSrc} alt="" />
                       </div>
                     </div>
-                    <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 px-3.5 py-1.5 text-xl font-semibold text-white">
-                        {incentive.id}
+                    <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 px-3.5 py-1.5 h-12 w-12 justify-center text-xl font-semibold text-white">
+                    {incentive.id}
                     </span>
                     <div className="mt-3 sm:mt-0 sm:ml-6 lg:mt-6 lg:ml-0">
                       <h3 className="text-2xl font-semibold text-gray-900">{incentive.name}</h3>

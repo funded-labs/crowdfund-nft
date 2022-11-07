@@ -15,7 +15,7 @@
 export default function Featured() {
     return (
       <div className="bg-white">
-        <div className="mx-auto max-w-5xl py-16 sm:py-12 ">
+        <div className="mx-8 sm:mx-auto max-w-5xl py-16 sm:py-12 ">
           <div className="sm:flex sm:items-baseline sm:justify-between">
             <h2 className="text-4xl font-bold tracking-tight text-gray-900">Featured projects</h2>
             <a href="#" className="hidden text-sm font-semibold text-blue-600 hover:text-blue-500 sm:block">
@@ -106,8 +106,8 @@ export default function Featured() {
           </div>
   
           <div className="mt-6 sm:hidden">
-            <a href="#" className="block text-sm font-semibold text-indigo-600 hover:text-indigo-500">
-              Browse all categories
+            <a href="#" className="block text-sm font-semibold text-blue-600 hover:text-blue-500">
+              View all projects
               <span aria-hidden="true"> &rarr;</span>
             </a>
           </div>

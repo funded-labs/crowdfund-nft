@@ -1,21 +1,26 @@
 import AcademicCapIcon, { EnvelopeIcon } from '@heroicons/react/outline/AcademicCapIcon';
+import Link from 'next/link';
 
 export default function Hero() {
     return (
         <section className='w-full'>
-            <div className='w-full py-16 sm:pt-48 max-w-5xl mx-auto flex flex-col'>
-                <h1 className='text-center text-3xl leading-8 font-bold tracking-tight text-gray-900 sm:text-7xl'>
+            <div className='w-full py-16 pt-48 max-w-5xl mx-auto flex flex-col'>
+                <h1 className='text-center text-6xl sm:leading-8 font-bold tracking-tight text-gray-900 sm:text-7xl'>
                     Crowdfund the <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan-600 to-blue-600">future.</span>
                     <br />
                 
                 </h1>
                 <button
                         type="button"
-                        className="inline-flex sm:my-10 items-center rounded-full border border-transparent bg-gradient-to-br from-blue-500 to-blue-600 w-1/3  mx-auto px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="inline-flex my-10 items-center rounded-full border border-transparent bg-gradient-to-br from-blue-500 to-blue-600 w-1/3  mx-auto px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     <div className="mx-auto flex">
                     {/* <AcademicCapIcon className="-ml-1 mr-3 h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" /> */}
-                        <p className="text-center text-xl">Get started</p>
+                        <p className="text-center text-xl">
+                            <Link href='/create-a-project'>
+                            Get started
+                            </Link>
+                        </p>
                         </div>
                 </button>
                 <div className="mt-10 bg-white pb-4">
