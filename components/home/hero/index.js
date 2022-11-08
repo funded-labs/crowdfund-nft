@@ -5,8 +5,8 @@ export default function Hero() {
     return (
         <section className='w-full '>
             <div className='w-full py-16 pt-72 sm:pt-48 max-w-5xl mx-auto flex flex-col'>
-                <h1 className='text-center leading-7 text-6xl sm:leading-8 font-bold tracking-tight text-gray-900 sm:text-7xl'>
-                    Crowdfund the <span className="text-7xl sm:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-600 to-blue-600">future.</span>
+                <h1 className='text-center leading-8 text-6xl sm:leading-8 font-bold tracking-tight text-gray-900 sm:text-7xl'>
+                    Crowdfund <span className="block sm:inline">the <span className="text-6xl sm:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-600 to-blue-600">future.</span></span>
                     <br />
                 
                 </h1>
@@ -16,7 +16,7 @@ export default function Hero() {
                 >
                     <div className="mx-auto flex">
                     {/* <AcademicCapIcon className="-ml-1 mr-3 h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" /> */}
-                        <p className="text-center text-xl">
+                        <p className="text-center text-lg sm:text-xl">
                             <Link href='/create-a-project'>
                             Get started
                             </Link>

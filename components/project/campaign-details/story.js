@@ -48,7 +48,7 @@ export default function Story({ isLoading, project }) {
 
     if (isLoading) {
         return (
-            <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col space-y-2 items-start'>
+            <div className='w-full shadow p-8 rounded-2xl bg-white flex flex-col space-y-2 items-start'>
                 <div className='w-16 h-6 rounded bg-gray-200 animate-pulse' />
 
                 <div className='h-4 rounded bg-gray-200 animate-pulse w-full' />
@@ -68,8 +68,8 @@ export default function Story({ isLoading, project }) {
     const { story } = project
 
     return (
-        <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
-            <p className='font-bold text-base text-black'>Story</p>
+        <div className='w-full shadow p-8 rounded-2xl bg-white flex flex-col items-start'>
+            <p className='font-bold text-2xl text-black'>Project Overview</p>
 
             {/* User Input */}
             <Linkify>

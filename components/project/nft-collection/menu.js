@@ -21,7 +21,7 @@ const menuItems = [
 
 export default function Menu({ selected = "nfts" }) {
     return (
-        <div className="w-full shadow p-4 pl-0 rounded-2xl bg-white">
+        <div className="w-full  p-4 pl-0 ">
             <div className="w-full flex flex-col space-y-1">
                 {menuItems.map(item => (
                     <a

@@ -33,7 +33,7 @@ export default function End() {
             `}
             type='button'
             onClick={() => setShowSidebar(true)}>
-            <span className="text-md">Start a Crowdfund</span>
+            <span className="text-md">Start <span className="hidden sm:inline">a Crowdfund</span></span>
         </button>
         <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
         </>

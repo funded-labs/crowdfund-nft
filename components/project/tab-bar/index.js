@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 const tabs = [
     {
-        label: "Campaign Details",
+        label: "About Project",
         id: "campaign-details",
     },
     {
@@ -40,9 +40,9 @@ export default function TabBar({ selected, onSelect = () => {}, isLoading }) {
                     <button
                         key={tab.id}
                         className={classNames(
-                            "appearance-none rounded-none font-medium px-4 text-sm py-4",
-                            "border-b-4 hover:text-gray-500 flex-shrink-0",
-                            selected === tab.id ? "border-blue-600" : "border-transparent"
+                            "appearance-none rounded-none font-regular px-4 text-sm py-4",
+                            "border-b-4 px-4 hover:text-gray-500 flex-shrink-0",
+                            selected === tab.id ? "border-blue-600 " : "border-transparent"
                         )}
                         type="button"
                         onClick={() => onSelect(tab.id)}

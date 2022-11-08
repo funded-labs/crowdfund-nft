@@ -40,7 +40,7 @@ export default function Activity({ project, escrowActor }) {
 
     return (
         <div className='w-full'>
-            <div className='w-full max-w-5xl mx-auto'>
+            <div className='w-full max-w-7xl mx-auto'>
                 <div className='relative overflow-x-auto rounded py-10'>
                     <table className='w-full text-sm text-left text-gray-500'>
                         <thead className='text-xs text-gray-700 uppercase bg-gray-50'>

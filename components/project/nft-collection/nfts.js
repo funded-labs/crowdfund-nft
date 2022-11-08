@@ -10,10 +10,10 @@ export default function NFTs({ project }) {
     return (
         <div
             id='nft-collection-nfts'
-            className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-start'>
-            <p className='font-bold text-base text-black'>NFTs</p>
+            className='w-full shadow p-8 rounded-2xl bg-white flex flex-col items-start'>
+            <p className='font-bold text-2xl text-black'>NFTs</p>
 
-            <p className='text-gray-600 my-2 w-full'>
+            <p className='text-neutral-500 font-light my-2 w-full'>
                 When you back this project, you will be randomly allocated an
                 NFT from this collection if the project gets fully funded.
             </p>

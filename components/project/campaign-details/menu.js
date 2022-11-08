@@ -2,7 +2,7 @@ import classNames from "classnames";
 
 const menuItems = [
     {
-        label: "Story",
+        label: "Project overview",
         id: "story"
     },
     {
@@ -20,7 +20,7 @@ export default function Menu({ selected = "story", onSelect = () => {}, isLoadin
 
 
     return (
-        <div className="w-full shadow p-4 pl-0 rounded-2xl bg-white">
+        <div className="w-full  p-4 pl-0 rounded-2xl">
             <div className="w-full flex flex-col space-y-1">
                 {menuItems.map(item => (
                     <button
