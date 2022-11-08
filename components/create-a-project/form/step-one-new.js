@@ -83,12 +83,12 @@ export default function StepOneNew() {
                     onSubmit={handleSubmit}>
                     <div className='w-full sm:flex sm:flex-row sm:grid-cols-2 space-y-1'>
                         <div className="flex flex-col bg-clear px-4 py-4 sm:w-1/3">
-                        <p className='font-bold text-2xl sm:text-4xl sm:px-12 pt-24 text-neutral-900 tracking-tight font-sans'>
+                        <p className='font-bold text-2xl sm:text-4xl sm:px-12 pt-16 text-neutral-900 tracking-tight font-sans'>
                             Let's start with your profile
                         </p>
                         <p className='font-light text-md sm:px-12 sm:pt-4 text-neutral-500 font-sans'>Tell us a bit about yourself and upload a photo so people can see who you are.</p>
                         </div>
-                        <div className="flex-col rounded-l-3xl bg-white sm:px-36 sm:py-24 p-8 flex-1">
+                        <div className="flex-col rounded-l-3xl rounded-r-3xl sm:rounded-r-none sm:rounded-l-3xl bg-white bg-opacity-50 border border-1 border-white bg-blend-saturation sm:px-36 sm:py-24 p-8 flex-1">
                         <div className='w-full grid sm:grid-cols-2 gap-4'>
                             <Input
                                 name='firstName'
@@ -111,7 +111,7 @@ export default function StepOneNew() {
                             />
                         </div>
                         <p className='sm:text-sm rounded-none
-                        w-full text-neutral-500 font-semibold placeholder-neutral-500
+                        w-full text-neutral-500 font-regular placeholder-neutral-500
                         text-base mb-3'>Bio</p>
                         <RichTextArea
                             name='bio'
@@ -120,7 +120,7 @@ export default function StepOneNew() {
                             exclude={bioQillExclude}
                         />
                         <p className='sm:text-sm rounded-none
-                        w-full text-neutral-500 font-semibold placeholder-neutral-500
+                        w-full text-neutral-500 font-regular placeholder-neutral-500
                         text-base mb-3'>Upload a profile picture (optional)</p>
                         <Input
                             name='profileImg'

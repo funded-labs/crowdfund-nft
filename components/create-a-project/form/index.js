@@ -21,14 +21,14 @@ function Form() {
 
     return (
             <div className="w-full bg-blue-50 sm:mx-auto ">
-                <div className="bg-gradient-to-b from-neutral-100 to-neutral-200 pb-8 pt-24   flex flex-col ">
+                <div className="bg-gradient-to-br from-white to-blue-200 pb-8 pt-24  flex flex-col ">
                     
                     <div>
-                        <div className="absolute top-36 sm:left-6  w-full sm:w-48 px-8 flex flex-col space-y-3">
-                        <p className="font-bold text-neutral-700 text-xs sm:ml-6">
+                        <div className="absolute top-36 sm:left-6  w-full sm:w-48 px-12 flex flex-col space-y-3">
+                        <p className="font-bold text-neutral-700 text-xs ">
                             Step {step} of 7
                         </p>
-                        <div className="sm:ml-6">
+                        <div className="">
                         <ProgressBar step={step} className="" />
                         </div>
                         

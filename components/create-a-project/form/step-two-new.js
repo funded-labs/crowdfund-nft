@@ -51,15 +51,15 @@ export default function StepTwo() {
             validationSchema={stepTwoSchema}>
             {({ handleSubmit, handleBlur, handleChange, errors, values }) => (
                 <form
-                    className='w-full bg-clear flex flex-col space-y-2'
+                    className='px-8 sm:p-0 w-full bg-clear flex flex-col space-y-2'
                     onSubmit={handleSubmit}>
                         
                     <div className='w-full sm:flex sm:flex-row sm:grid-cols-2 space-y-1'>
                         <div className="flex flex-col bg-clear px-4 py-4 sm:w-1/3">
-                        <p className='font-bold text-4xl sm:px-12 sm:pt-24 text-neutral-900 font-sans'>Tell us more about your project</p>
-                        <p className='font-light text-md sm:px-12 sm:pt-4 text-neutral-700 font-sans'>What's your project title?</p>
+                        <p className='font-bold text-4xl sm:px-12 pt-12 text-neutral-900 font-sans'>Tell us more about your project</p>
+                        <p className='font-light text-md sm:px-12 pt-4 text-neutral-700 font-sans'>What's your project title?</p>
                         </div>
-                        <div className="flex-col rounded-l-3xl bg-white sm:px-36 sm:py-24 p-8 flex-1">
+                        <div className="flex-col rounded-l-3xl rounded-r-3xl sm:rounded-r-none sm:rounded-l-3xl bg-white bg-opacity-50 border border-1 border-white bg-blend-saturation sm:px-36 sm:py-24 p-8 flex-1">
                         <Input
                             id='projectTitle'
                             name='projectTitle'
@@ -68,17 +68,19 @@ export default function StepTwo() {
                             onBlur={handleBlur}
                             type='text'
                             placeholder='Project name'
+                            label ='Project name'
                         />
-                        <p className=''>Select a project category</p>
+                        
                         <Select
                             name='projectCategory'
                             value={values.projectCategory}
                             options={projectCategories}
                             onChange={handleChange}
                             onBlur={handleBlur}
+                            label ='Select a category'
                         />
-                        <p className=''>Social Media Links</p>
-                        <div className='w-full grid grid-cols-2 gap-4'>
+                        
+                        <div className='w-full grid grid-cols-2 gap-4 mt-4'>
                             <Input
                                 id='twitterLink'
                                 name='twitterLink'
@@ -86,7 +88,8 @@ export default function StepTwo() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 type='text'
-                                placeholder='Twitter link'
+                                placeholder='twitter.com/'
+                                label='Twitter Profile'
                             />
                             <Input
                                 id='discordLink'
@@ -95,7 +98,8 @@ export default function StepTwo() {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 type='text'
-                                placeholder='Discord link'
+                                placeholder='discord.gg/'
+                                label='Discord Invite'
                             />
                         </div>
                     

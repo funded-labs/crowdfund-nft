@@ -46,32 +46,23 @@ export default function StepFive() {
             validationSchema={stepFiveSchema}>
             {({ handleSubmit, handleBlur, handleChange, errors, values }) => (
                 <form
-                    className='w-full flex flex-col space-y-2'
+                    className='px-8 sm:p-0 w-full bg-clear flex flex-col space-y-2'
                     onSubmit={handleSubmit}>
                     <div className='w-full sm:flex sm:flex-row sm:grid-cols-2 space-y-1'>
                         <div className="flex flex-col bg-clear px-4 py-4 sm:w-1/3">
-                        <p className='font-bold text-4xl sm:px-12 sm:pt-24 text-neutral-900 font-sans'>
-                            Project story and project backer rewards
+                            
+                        <p className='font-bold text-4xl sm:px-12 pt-12 text-neutral-900 font-sans'>
+                            Describe your project and your NFTs
+                        </p>
+                        <p className='font-light text-md sm:px-12 pt-4 text-neutral-700 font-sans'>
+                            Go into as much detail as possible. Tell us what your project is, what you&apos;re raising for and what rewards your supporters will receive.
                         </p>
                         </div>
-                        <div className='flex-col rounded-l-3xl bg-white sm:px-36 sm:py-24 p-8 flex-1'>
-                        <p className=''>Tell us your project story</p>
-                        <RichTextArea
-                            name='story'
-                            value={values.story}
-                            onChange={handleChange}
-                        />
-
-                        <p className=''>Project backer rewards</p>
-                        <RichTextArea
-                            name='rewards'
-                            value={values.rewards}
-                            onChange={handleChange}
-                        />
-                        <div className='rounded-2xl w-full bg-blue-100 bg-opacity-30 p-4'>
-                            Tips! Be sure to mention:
-                            <p className='text-center text-blue-600 underline'>
-                                <a href=''>Why this project is impactful</a>
+                        <div className='flex-col rounded-l-3xl rounded-r-3xl sm:rounded-r-none sm:rounded-l-3xl bg-white bg-opacity-50 border border-1 border-white bg-blend-saturation sm:px-36 sm:py-12 p-8 flex-1'>
+                        <div className='rounded-2xl w-full text-center bg-white p-8 mb-8'>
+                            <span className="text-sm tracking-tighter text-neutral-500 font-regular mb-4 ">What to include:</span>
+                            <p className='text-left text-blue-600 underline'>
+                                <a className="mt-4" href=''>Why this project is impactful</a>
                                 <br />
                                 <a href=''>What you will do with funds</a>
                                 <br />
@@ -87,6 +78,20 @@ export default function StepFive() {
                                 <br />
                             </p>
                         </div>
+                        <p className='mb-2 text-neutral-800 font-regular'>Tell us your project story</p>
+                        <RichTextArea
+                            name='story'
+                            value={values.story}
+                            onChange={handleChange}
+                        />
+
+                        <p className='mb-2 text-neutral-800 font-regular'>Describe your NFT rewards</p>
+                        <RichTextArea
+                            name='rewards'
+                            value={values.rewards}
+                            onChange={handleChange}
+                        />
+                        
                     
 
                     {Object.values(errors).length > 0 && (

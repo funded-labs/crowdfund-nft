@@ -81,11 +81,11 @@ export default function RichTextArea({ name, onChange, value, label, exclude }) 
   }, [toolbarOptions, uploadImage])
   
   return (
-    <div className="w-full rounded-full">
+    <div className="w-full rounded-full ">
       {label && (
-        <label htmlFor={name} className="sm:text-sm rounded-none
-        w-full text-neutral-700 font-semibold placeholder-neutral-500
-        text-base">
+        <label htmlFor={name} className="text-sm font-regular rounded-none
+        w-full text-neutral-700 placeholder-neutral-500
+        ">
           {props.label}
         </label>
       )}
