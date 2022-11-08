@@ -31,7 +31,7 @@ export default function Navbar() {
                     'transition-all duration-300 border-b',
                     hasScrolled ? 'border-gray-200' : 'border-transparent'
                 )}>
-                <div className='w-full max-w-7xl mx-auto px-4 flex flex-row justify-between items-center'>
+                <div className='w-full max-w-7xl mx-auto px-4 sm:px-0  flex flex-row justify-between items-center'>
                     
 
                     <nav className='hidden lg:flex space-x-2'>
@@ -69,7 +69,7 @@ export default function Navbar() {
                         </Link>
                         
                     </nav>
-                    <div className='flex flex-row'>
+                    <div className='flex flex-row items-center'>
                         <a href='/'>
                             <img
                                 src='/assets/logo.png'

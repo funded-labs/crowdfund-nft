@@ -59,10 +59,10 @@ export default function Feature() {
   return (
     <>
     <div className="py-16 bg-white overflow-hidden lg:py-4">
-    <div className="mx-auto max-w-md px-4 z-10 text-left sm:max-w-3xl sm:px-6 lg:max-w-5xl lg:px-0">
-        <h2 className="text-lg font-semibold text-blue-500">WHY CROWDFUND?</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-          Fairer, faster, cheaper.
+    <div className="mx-auto max-w-md z-10 text-left sm:max-w-3xl sm:px-6 lg:max-w-5xl lg:px-0">
+        <h2 className="text-lg font-semibold text-neutral-600">WHY CROWDFUND?</h2>
+        <p className="mt-2 text-6xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          Fairer, faster, <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-500 to-blue-300">cheaper.</span>
         </p>
         <p className="mx-auto mt-5  text-xl text-gray-500">
         What makes CrowdFund NFT different?
@@ -78,8 +78,8 @@ export default function Feature() {
                         <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
                       </span>
                     </div>
-                    <h3 className="mt-8 text-lg font-medium tracking-tight text-gray-900">{feature.name}</h3>
-                    <p className="mt-5 text-base text-gray-500">{feature.description}</p>
+                    <h3 className="mt-8 text-xl font-semibold tracking-tight text-neutral-900">{feature.name}</h3>
+                    <p className="mt-5 text-base font-light text-neutral-500">{feature.description}</p>
                   </div>
                 </div>
               </div>
@@ -114,11 +114,11 @@ export default function Feature() {
        
         <Escrow/>
         <div className="mx-auto max-w-md text-left sm:max-w-3xl lg:max-w-5xl py-16 ">
-        <h2 className="text-lg font-semibold text-blue-600">WHY ICP?</h2>
-        <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        <h2 className="text-md font-semibold text-neutral-600">WHY ICP?</h2>
+        <p className="mt-2 text-6xl font-bold tracking-tight text-gray-900 sm:text-6xl">
           Built on the <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 to-orange-500">Internet Computer.</span>
         </p>
-        <p className=" mt-5 max-w-4xl text-left text-xl text-gray-500">
+        <p className=" mt-5 max-w-4xl text-left text-xl font-regular text-neutral-500">
         With the IC, our platform is hosted entirely on chain. From NFT assets, to our backend and frontend code - the platform is run entirely on decentralised systems. Other benefits of the IC include:
         </p>
         <div className="mt-12">

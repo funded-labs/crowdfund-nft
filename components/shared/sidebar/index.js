@@ -103,8 +103,8 @@ export default function Sidebar({ show, onClose }) {
                                             <button
                                                 key={w}
                                                 type='button'
-                                                className={`flex flex-row space-x-1 justify-center items-center bg-white 
-                                                border border-transparent rounded-xl font-medium text-black hover:bg-slate-400 px-4 py-2 mt-5 shadow-md`}
+                                                className={` flex-row space-x-1 items-center bg-white 
+                                                border border-transparent  mt-1  bg-gradient-to-t from-neutral-100 to-white shadow-md rounded-full text-neutral-800 flex justify-center font-medium px-4 py-4 w-full mx-auto`}
                                                 onClick={() => {
                                                     if (w === 'stoic') setLoadingStoic(true)
                                                     wallets[w]['getPrincipal']().then(() => setLoadingStoic(false))
@@ -141,34 +141,37 @@ export default function Sidebar({ show, onClose }) {
                             <h3 className='group flex items-center px-3 py-2 text-sm font-medium text-gray-600 rounded-md'>
                                 Create a project, design your NFTs and launch in minutes.
                             </h3>
+                            <div className="space-y-3">
                             <Link
                                     href='/create-a-project'
                                     passHref
                                     as='/create-a-project.html'>
                                     <a
                                         className={`
-                                        flex flex-row space-x-1 justify-center items-center bg-blue-600 border border-transparent  rounded-full font-medium hover:bg-blue-400 px-4 py-2 mt-5 shadow-xl
-                                            py-2  mx-4 justify-center items-center text-white h-12
+                                        flex flex-row space-x-1  bg-blue-600 border border-transparent  rounded-full font-medium hover:bg-blue-700 px-4 mt-5 shadow-md
+                                            py-2 mx-4 justify-center items-center text-white h-12
                                         `}
                                         href='/create-a-project.html'>
                                         Create a project
                                     </a>
                                 </Link>
                                 <Link
-                                    href='/create-a-project'
+                                    href='/p/project-creator-guide'
                                     passHref
-                                    as='/create-a-project.html'
+                                    as='/p/project-creator-guide'
                                     >
                                         
                                     <a
                                         className={`
-                                        flex flex-row space-x-1  bg-neutral-900 border border-transparent  rounded-full font-medium hover:bg-blue-400 px-4 shadow-xl
-                                            py-2  mx-4 justify-center items-center text-white h-12
+                                        flex flex-row space-x-1 bg-white border border-transparent  rounded-full font-medium hover:bg-neutral-100 px-4 shadow-md
+                                            py-2  mx-4 justify-center items-center text-neutral-800 h-12
                                         `}
-                                        href='/create-a-project.html'>
+                                        href='/p/project-creator-guide'>
                                         Creator guide
                                     </a>
                                 </Link>
+                            </div>
+                            
                         </div>
                         <div className='py-12 space-y-1'>
                             {navigation.map((item) => (

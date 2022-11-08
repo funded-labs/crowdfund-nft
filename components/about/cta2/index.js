@@ -15,7 +15,7 @@
 export default function CTA2() {
     return (
       <div className="bg-white">
-        <div className="mx-auto max-w-5xl py-16 px-4 sm:px-6 lg:px-0">
+        <div className="mx-auto max-w-5xl py-4 px-4 sm:px-6 lg:px-0">
           <div className="overflow-hidden rounded-lg bg-gradient-to-br from-neutral-100 to-white lg:grid lg:grid-cols-2 lg:gap-4">
             <div className="px-6 pt-10 pb-12 sm:px-16 sm:pt-16 lg:py-16 lg:pr-0 xl:py-20 xl:pl-20">
               <div className="lg:self-center">
@@ -28,7 +28,7 @@ export default function CTA2() {
                   href="#"
                   className="mt-8 inline-flex items-center rounded-full border border-transparent bg-black px-5 py-3 text-base font-medium text-white shadow hover:bg-neutral-900"
                 >
-                  Sign up for free
+                  Start a Crowdfund
                 </a>
               </div>
             </div>

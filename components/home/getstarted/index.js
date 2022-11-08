@@ -23,7 +23,7 @@ const incentives = [
   export default function Getstarted() {
     return (
       <div className="bg-white">
-        <div className="mx-auto max-w-5xl px-4  sm:px-6 lg:px-0 py-12">
+        <div className="mx-auto max-w-5xl px-8  sm:px-6 lg:px-0 py-12">
           <div className="rounded-2xl bg-white ">
             <div className="mx-auto max-w-xl lg:max-w-none">
               <div className="text-left">

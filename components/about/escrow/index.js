@@ -1,6 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { InboxIcon, CubeIcon, SparklesIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
+
 const posts = [
   {
     title: 'Boost your conversion rate',
@@ -12,7 +13,7 @@ const posts = [
     datetime: '2020-03-16',
     author: {
       name: 'Luke Dugdale',
-      href: '#',
+      href: '/assets/luke.png',
       imageUrl:
         'https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/assets/luke.png',
     },
@@ -32,7 +33,7 @@ export default function Escrow() {
           alt=""
         />
       </div>
-      <div className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <div className="relative mx-auto max-w-7xl px-6 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="md:ml-auto md:w-1/2 md:pl-10">
           <h2 className="text-md font-regular text-blue-600">FROM THE BLOG</h2>
           <p className="mt-2 text-3xl font-medium tracking-tight text-black sm:text-4xl">An alternative to traditional crowdfunding platforms</p>

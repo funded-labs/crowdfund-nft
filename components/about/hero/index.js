@@ -4,7 +4,7 @@ export default function Hero() {
             
             <div className='w-full flex flex-col'>
                 <div className='w-full flex flex-col space-y-10 md:flex-row md:space-x-10 py-10'>
-                    <div className='w-full md:w-6/12 font-bold text-4xl md:text-6xl text-white'>
+                    <div className='w-full md:w-6/12 font-bold text-6xl md:text-6xl text-white'>
                         Crowdfunding on the{' '}
                         <span className='underline hover:text-blue-800 duration-500'>
                             Blockchain

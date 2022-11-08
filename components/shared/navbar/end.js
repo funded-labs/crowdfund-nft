@@ -18,8 +18,7 @@ export default function End() {
                 className={`
                     h-8 px-2 rounded-lg text-sm focus:outline-none
                     ml-2 bg-white text-blue-600 flex flex-row space-x-1
-                    font-medium items-center focus:outline-none
-                    px-3 text-sm border-blue-600 border-2
+                    font-medium items-center 
                 `}
                 type='button'>
                 <span>{backendWithAuth ? 'Manage project' : 'Login'}</span>
