@@ -64,8 +64,8 @@ export default function CTA() {
           </div>
           
           <div className="aspect-w-16 aspect-h-9 relative rounded-xl max-w-5xl mx-auto">
-  
-</div>
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/AS_FVAoRpMk" className="rounded-2xl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
         </div>
         <div className="bg-white rounded-xl max-w-5xl mx-auto">
         <div className="mx-auto max-w-5xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
