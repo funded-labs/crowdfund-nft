@@ -12,11 +12,11 @@ export default function Hero() {
                 </h1>
                 <button
                         type="button"
-                        className="inline-flex my-10 items-center rounded-full border border-transparent bg-gradient-to-br from-blue-500 to-blue-600 w-1/3  mx-auto px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        className="inline-flex my-10 items-center rounded-full border border-transparent bg-gradient-to-br from-blue-500 to-blue-600 w-1/2 sm:w-1/3  mx-auto px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                     <div className="mx-auto flex">
                     {/* <AcademicCapIcon className="-ml-1 mr-3 h-5 w-5 sm:h-7 sm:w-7" aria-hidden="true" /> */}
-                        <p className="text-center text-lg sm:text-xl">
+                        <p className="text-center text- sm:text-xl">
                             <Link href='/create-a-project'>
                             Get started
                             </Link>
