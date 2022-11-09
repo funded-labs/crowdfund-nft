@@ -81,9 +81,11 @@ export default function RichTextArea({ name, onChange, value, label, exclude }) 
   }, [toolbarOptions, uploadImage])
   
   return (
-    <div className="w-full">
+    <div className="w-full rounded-full ">
       {label && (
-        <label htmlFor={name} className="text-xs text-gray-400">
+        <label htmlFor={name} className="text-sm font-regular rounded-none
+        w-full text-neutral-700 placeholder-neutral-500
+        ">
           {props.label}
         </label>
       )}
@@ -91,7 +93,7 @@ export default function RichTextArea({ name, onChange, value, label, exclude }) 
       <ReactQuill
         onChange={onChange(name)}
         value={value}
-        className="h-[300px] mb-[60px]"
+        className="h-[300px] mb-[60px] rounded-full"
         theme="snow"
         modules={quillModules}
       />

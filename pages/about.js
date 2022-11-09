@@ -1,7 +1,6 @@
 import UserGuides from '@/components/about/guide'
 import Hero from '@/components/about/hero'
 import Feature from '@/components/about/feature'
-import Cta from '@/components/about/cta'
 import Banner from '@/components/about/banner'
 import Support from '@/components/about/support'
 import HowItWorks from '@/components/about/how-it-works'
@@ -11,6 +10,9 @@ import Footer from '@/components/shared/footer'
 import Navbar from '@/components/shared/navbar'
 import Head from 'next/head'
 import Escrow from '@/components/about/escrow'
+import Divider from '@/components/about/divider'
+import CTA2 from '@/components/about/cta2'
+import CTA from '@/components/about/cta'
 
 export default function About() {
     return (
@@ -23,14 +25,15 @@ export default function About() {
 
             <Banner />
 
-            <Cta />
+            <CTA />
 
             <Feature />
+          
 
-            <Escrow />
-
+        
+            <CTA2/>
             <Teamtwo />
-
+            
             {/* <section className='w-full py-10'>
                 <div className='w-full max-w-5xl px-4 mx-auto'>
                     <p className='py-4 w-full text-center text-3xl font-semibold'>

@@ -1,6 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { AnnotationIcon, GlobeAltIcon, LightningBoltIcon, MailIcon, ScaleIcon, CashIcon, PuzzleIcon } from '@heroicons/react/outline'
+import { AnnotationIcon, GlobeAltIcon, LightningBoltIcon, MailIcon, ScaleIcon, CashIcon, PuzzleIcon, ArrowPathIcon,
+  CloudArrowUpIcon,
+  CogIcon,
+  LockClosedIcon,
+  ServerIcon,
+  ShieldCheckIcon, } from '@heroicons/react/outline'
 
+  import Divider from '@/components/about/divider'
+import Escrow from '../escrow'
 const transferFeatures = [
   {
     id: 1,
@@ -39,12 +46,49 @@ const communicationFeatures = [
       'Our platform can be easily integrated with other IC systems. We have partnered with PlugWallet, Entrepot and more to build a complete blockchain service.',
     icon: PuzzleIcon,
   },
+  {
+    id: 3,
+    name: 'Our Escrow Canister',
+    description: 
+    'We have built an escrow canister which handles funds for crowdfunding projects autonomously. If you wish to check out our escrow canister code, have a look at our GitHub repo.',
+    icon: GlobeAltIcon,
+  }
 ]
 
 export default function Feature() {
   return (
-    <div className="py-16 bg-gray-50 overflow-hidden lg:py-24">
-      <div className="relative max-w-xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
+    <>
+    <div className="py-16 bg-white overflow-hidden lg:py-4">
+    <div className="mx-auto max-w-md z-10 text-left sm:max-w-3xl sm:px-6 lg:max-w-5xl lg:px-0">
+        <h2 className="text-lg font-semibold text-neutral-600">WHY CROWDFUND?</h2>
+        <p className="mt-2 text-6xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          Fairer, faster, <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-500 to-blue-300">cheaper.</span>
+        </p>
+        <p className="mx-auto mt-5  text-xl text-gray-500">
+        What makes CrowdFund NFT different?
+        </p>
+        <div className="mt-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {transferFeatures.map((feature) => (
+              <div key={feature.name} className="pt-6">
+                <div className="flow-root rounded-lg bg-gray-50 px-6 pb-8">
+                  <div className="-mt-6">
+                    <div>
+                      <span className="inline-flex items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-blue-700 p-3 shadow-lg">
+                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </span>
+                    </div>
+                    <h3 className="mt-8 text-xl font-semibold tracking-tight text-neutral-900">{feature.name}</h3>
+                    <p className="mt-5 text-base font-light text-neutral-500">{feature.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      <div className="z-0 relative max-w-xl mx-auto px-4 sm:px-6 lg:px-0 lg:max-w-5xl">
         <svg
           className="hidden lg:block absolute left-full transform -translate-x-1/2 -translate-y-1/4"
           width={404}
@@ -62,114 +106,47 @@ export default function Feature() {
               height={20}
               patternUnits="userSpaceOnUse"
             >
-              <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
+              <rect x={0} y={0} width={4} height={4} className="text-neutral-100" fill="currentColor" />
             </pattern>
           </defs>
           <rect width={404} height={784} fill="url(#b1e6e422-73f8-40a6-b5d9-c8586e37e0e7)" />
         </svg>
-
-        <div className="relative">
-          <h2 className="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-          What makes CrowdFund NFT different?
-          </h2>
-        </div>
-
-        <div className="relative mt-12 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
-          <div className="relative">
-            <dl className="mt-10 space-y-10">
-              {transferFeatures.map((item) => (
-                <div key={item.id} className="relative">
-                  <dt>
-                    <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                      <item.icon className="h-6 w-6" aria-hidden="true" />
+       
+        <Escrow/>
+        <div className="mx-auto max-w-md text-left sm:max-w-3xl lg:max-w-5xl py-16 ">
+        <h2 className="text-md font-semibold text-neutral-600">WHY ICP?</h2>
+        <p className="mt-2 text-6xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          Built on the <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 to-orange-500">Internet Computer.</span>
+        </p>
+        <p className=" mt-5 max-w-4xl text-left text-xl font-regular text-neutral-500">
+        With the IC, our platform is hosted entirely on chain. From NFT assets, to our backend and frontend code - the platform is run entirely on decentralised systems. Other benefits of the IC include:
+        </p>
+        <div className="mt-12">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {communicationFeatures.map((feature) => (
+              <div key={feature.name} className="pt-6">
+                <div className="flow-root rounded-lg bg-gray-50 px-6 pb-8">
+                  <div className="-mt-6">
+                    <div>
+                      <span className="inline-flex items-center justify-center rounded-md bg-gradient-to-b from-neutral-900 to-black p-3 shadow-lg">
+                        <feature.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                      </span>
                     </div>
-                    <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{item.name}</p>
-                  </dt>
-                  <dd className="mt-2 ml-16 text-base text-gray-500">{item.description}</dd>
+                    <h3 className="mt-8 text-lg font-medium tracking-tight text-gray-900">{feature.name}</h3>
+                    <p className="mt-5 text-base text-gray-500">{feature.description}</p>
+                  </div>
                 </div>
-              ))}
-            </dl>
-          </div>
-
-          <div className="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
-            <svg
-              className="absolute left-1/2 transform -translate-x-1/2 translate-y-16 lg:hidden"
-              width={784}
-              height={404}
-              fill="none"
-              viewBox="0 0 784 404"
-            >
-              <defs>
-                <pattern
-                  id="ca9667ae-9f92-4be7-abcb-9e3d727f2941"
-                  x={0}
-                  y={0}
-                  width={20}
-                  height={20}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
-                </pattern>
-              </defs>
-              <rect width={784} height={404} fill="url(#ca9667ae-9f92-4be7-abcb-9e3d727f2941)" />
-            </svg>
-            <img
-              className="relative mx-auto"
-              width={490}
-              src="/assets/hhh8.png"
-              alt=""
-            />
+              </div>
+            ))}
           </div>
         </div>
-
-        <svg
-          className="hidden lg:block absolute right-full transform translate-x-1/2 translate-y-12"
-          width={404}
-          height={784}
-          fill="none"
-          viewBox="0 0 404 784"
-          aria-hidden="true"
-        >
-          <defs>
-            <pattern
-              id="64e643ad-2176-4f86-b3d7-f2c5da3b6a6d"
-              x={0}
-              y={0}
-              width={20}
-              height={20}
-              patternUnits="userSpaceOnUse"
-            >
-              <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
-            </pattern>
-          </defs>
-          <rect width={404} height={784} fill="url(#64e643ad-2176-4f86-b3d7-f2c5da3b6a6d)" />
-        </svg>
-
-        <div className="relative mt-12 sm:mt-16 lg:mt-24">
+      </div>
+        <div className="relative mt-12 sm:mt-16 lg:mt-4">
           <div className="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
-            <div className="lg:col-start-2">
-              <h3 className="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">Built on the Internet Computer</h3>
-              <p className="mt-3 text-lg text-gray-500">
-                With the IC, our platform is hosted entirely on chain. From NFT assets, to our backend and frontend code - the platform is run entirely on decentralised systems. Other benefits of the IC include:
-              </p>
-
-              <dl className="mt-10 space-y-10">
-                {communicationFeatures.map((item) => (
-                  <div key={item.id} className="relative">
-                    <dt>
-                      <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-blue-500 text-white">
-                        <item.icon className="h-6 w-6" aria-hidden="true" />
-                      </div>
-                      <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{item.name}</p>
-                    </dt>
-                    <dd className="mt-2 ml-16 text-base text-gray-500">{item.description}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            
 
             <div className="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1">
-              <svg
+             { <svg
                 className="absolute left-1/2 transform -translate-x-1/2 translate-y-16 lg:hidden"
                 width={784}
                 height={404}
@@ -186,21 +163,22 @@ export default function Feature() {
                     height={20}
                     patternUnits="userSpaceOnUse"
                   >
-                    <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
+                    <rect x={0} y={0} width={4} height={4} className="text-red-200" fill="currentColor" />
                   </pattern>
                 </defs>
                 <rect width={784} height={404} fill="url(#e80155a9-dfde-425a-b5ea-1f6fadd20131)" />
-              </svg>
-              <img
+              </svg>}
+              {/* <img
                 className="relative mx-auto"
                 width={490}
                 src="assets/features_thumb.png"
                 alt=""
-              />
+              /> */}
             </div>
           </div>
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -64,6 +64,7 @@ export default function StepOne() {
     }
 
     return (
+        
         <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
@@ -76,14 +77,18 @@ export default function StepOne() {
                 errors,
                 values,
             }) => (
+
                 <form
-                    className='w-full flex flex-col space-y-2'
+                    className='w-full bg-clear flex flex-col space-y-2'
                     onSubmit={handleSubmit}>
-                    <div className='w-full flex flex-col space-y-1'>
-                        <p className='font-semibold text-2xl'>
+                    <div className='w-full sm:flex sm:flex-row sm:grid-cols-2 space-y-1'>
+                        <div className="flex flex-col bg-clear px-4 py-4 sm:w-1/3">
+                        <p className='font-bold text-4xl sm:px-12 sm:pt-24 text-white font-sans'>
                             Let's start with your profile
                         </p>
-                        <p className=''>What's your name?</p>
+                        <p className='font-light text-md sm:px-12 sm:pt-4 text-white font-sans'>Tell us a bit about yourself and upload a photo so people can see who you are.</p>
+                        </div>
+                        <div className="flex-col rounded-l-3xl bg-white sm:px-36 sm:py-24 p-8 flex-1">
                         <div className='w-full grid grid-cols-2 gap-4'>
                             <Input
                                 name='firstName'
@@ -92,6 +97,7 @@ export default function StepOne() {
                                 onBlur={handleBlur}
                                 placeholder='First name'
                                 type='text'
+                                
                             />
                             <Input
                                 name='lastName'
@@ -102,14 +108,18 @@ export default function StepOne() {
                                 placeholder='Last name'
                             />
                         </div>
-                        <p className=''>Tell us about yourself</p>
+                        <p className='sm:text-sm rounded-none
+                        w-full text-neutral-500 font-semibold placeholder-neutral-500
+                        text-base mb-3'>Bio</p>
                         <RichTextArea
                             name='bio'
                             onChange={handleChange}
                             value={values.bio}
                             exclude={bioQillExclude}
                         />
-                        <p className=''>Upload a profile picture (optional)</p>
+                        <p className='sm:text-sm rounded-none
+                        w-full text-neutral-500 font-semibold placeholder-neutral-500
+                        text-base mb-3'>Upload a profile picture (optional)</p>
                         <Input
                             name='profileImg'
                             onChange={(e) =>
@@ -118,9 +128,7 @@ export default function StepOne() {
                             onBlur={handleBlur}
                             type='file'
                         />
-                    </div>
-
-                    {Object.values(errors).length > 0 && (
+                        {Object.values(errors).length > 0 && (
                         <div className='text-red-500 text-sm w-full flex flex-row items-center'>
                             {Object.values(errors)[0]}
                         </div>
@@ -142,6 +150,12 @@ export default function StepOne() {
                             </span>
                         )}
                     </button>
+                        </div>
+                        
+                        
+                    </div>
+
+                    
 
                     <p className='w-full py-4 px-4 text-xs text-center text-gray-500'>
                         By continuing, you agree to CrowdFund NFT's Terms and

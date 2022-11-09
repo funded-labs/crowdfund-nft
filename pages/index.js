@@ -7,6 +7,9 @@ import Setup from '@/components/home/setup'
 import Banner from '@/components/home/banner'
 import CategoryRow from '@/components/shared/categoryRow'
 import { useRouter } from 'next/router'
+import Featured from '@/components/home/featured'
+import Entrepot3 from '@/components/home/entrepot3'
+import Getstarted from '@/components/home/getstarted'
 
 const HomePage = () => {
     const router = useRouter()
@@ -20,12 +23,15 @@ const HomePage = () => {
 
     return (
         <div className='w-full'>
+            {/* <Banner /> */}
             <Navbar />
 
-            <Banner />
+            
 
             <Hero />
-
+            
+            <Featured/>
+            <Getstarted/>
             <CategoryRow onClick={navigateToCategory}/>
 
             <ProjectList
@@ -57,15 +63,15 @@ const HomePage = () => {
             <br />
             <br />
 
-            <Entrepot2 />
+            <Entrepot3 />
 
-            <Setup />
+           {/*  <Setup /> */}
 
-            <ProjectList
+            {/* <ProjectList
                 header='Archived Projects'
                 queryName='archived-projects'
                 statuses={[null]}
-            />
+            /> */}
 
             <br />
             <br />

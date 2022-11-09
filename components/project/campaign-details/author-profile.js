@@ -11,7 +11,7 @@ export default function AuthorProfile({ isLoading, author }) {
     const { firstName, lastName, bio } = author
 
     return (
-        <div className='w-full shadow p-4 rounded-2xl bg-white flex flex-col items-center'>
+        <div className='w-full  p-4 rounded-2xl  flex flex-col items-start'>
             <figure className='rounded-full w-14 h-14 bg-gray-300 overflow-hidden'>
                 {author.img && author.img !== '' && <img src={author.img} />}
             </figure>

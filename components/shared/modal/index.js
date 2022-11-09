@@ -25,13 +25,13 @@ export default function Modal({ children, selector = "#modal", onClose = () => {
                         <div
                             className={classNames(
                                 "w-full h-full absolute top-0 left-0 bg-opacity-90",
-                                `bg-gray-900`
+                                `bg-gradient-to-t from-blue-200 to-white`
                             )}
                             onClick={allowDismiss ? onClose : () => {}}
                         />
                         <div
                             className={classNames(
-                                "bg-white shadow-lg rounded-sm overflow-hidden flex flex-col relative w-full h-full",
+                                "bg-clear  overflow-hidden flex flex-col relative w-full h-full",
                                 size === "xs" ? "lg:w-3/12 lg:h-2/6" : null,
                                 size === "sm" ? "lg:w-6/12 lg:h-4/6" : null,
                                 size === "md" ? "lg:w-8/12 lg:h-5/6" : null,

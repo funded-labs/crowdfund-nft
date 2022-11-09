@@ -3,8 +3,8 @@ import Link from "next/link";
 export default function General({ project }) {    
     return (
         <div id="nft-collection-nfts" className='w-full flex flex-col items-start space-y-5'>
-            <div className="shadow p-4 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
-                <p className="font-bold text-black">
+            <div className="shadow p-8 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
+                <p className="font-bold text-2xl text-black">
                     Why can't I see an NFT in my wallet when I invested in a project?
                 </p>
                 <p>
@@ -16,8 +16,8 @@ export default function General({ project }) {
                 </p>
             </div>
 
-            <div className="shadow p-4 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
-                <p className="font-bold text-black">
+            <div className="shadow p-8 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
+                <p className="font-bold text-2xl text-black">
                     Why is there a minimum amount to invest?
                 </p>
                 <p>
@@ -31,8 +31,8 @@ export default function General({ project }) {
                 </p>
             </div>
 
-            <div className="shadow p-4 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
-                <p className="font-bold text-black">
+            <div className="shadow p-8 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
+                <p className="font-bold text-2xl text-black">
                     How do I collect my rewards?
                 </p>
                 <p>
@@ -44,8 +44,8 @@ export default function General({ project }) {
                 </p>
             </div>
 
-            <div className="shadow p-4 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
-                <p className="font-bold text-black">
+            <div className="shadow p-8 rounded-2xl bg-white w-full text-gray-600 flex flex-col space-y-3">
+                <p className="font-bold text-2xl text-black">
                     Who do I contact for support?
                 </p>
                 <p>

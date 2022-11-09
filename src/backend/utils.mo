@@ -84,6 +84,7 @@ module {
     "krpk7-5knvf-l2jy3-mfzbr-6arys-xhrc5-5k76j-hfszl-mlm37-pqsd2-eqe",  // Artur's local default
     "st2gz-phs6f-4w7d2-b625f-rh5vn-lumml-wxbhq-lcxnw-ob7yh-fhhwp-zqe", // Max's internet identity
     "h4evs-iliqn-ihwf5-4q6lk-dw6ry-hm6go-cazig-qa5t3-ikolx-fbr32-gae", // CrowdfundNFT's internet identity
+    "yt5fv-msnry-ro7si-secca-nseuk-7a5oj-4phag-o5poh-gv2n5-uyqqf-pae", // Tom's identity
   ];
 
   public func isAdmin(userId: UserId): Bool {
