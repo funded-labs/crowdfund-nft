@@ -12,7 +12,7 @@ export default function Entrepot3() {
                     Crowdfund NFTs.
                   </h2>
                   <div className="mt-6 text-base">
-                    <a href="#" className="font-semibold text-white">
+                    <a href="https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/" className="font-semibold text-white">
                       Browse marketplace
                       <span aria-hidden="true"> &rarr;</span>
                     </a>
