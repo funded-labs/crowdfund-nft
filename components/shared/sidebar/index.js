@@ -158,7 +158,7 @@ export default function Sidebar({ show, onClose }) {
                                 <Link
                                     href='/p/project-creator-guide'
                                     passHref
-                                    as='/p/project-creator-guide'
+                                    as='/p/project-creator-guide.html'
                                     >
                                         
                                     <a
