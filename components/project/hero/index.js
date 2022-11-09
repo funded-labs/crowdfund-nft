@@ -481,14 +481,13 @@ export default function Hero({ isLoading, project, adminView }) {
                                     : '- --:--:--'}
                             </p>
                             <p className='text-gray-400 text-md font-light'>to go</p>
-                            </div>
-                            <div className="flex">
+                            </div>                            
+                        </div>
+                        <div className="flex">
                             <PricePerNFT
-                            stats={project.stats}
-                            {...{ selectedTierState }}
+                                stats={project.stats}
+                                {...{ selectedTierState }}
                             />
-                            </div>
-                            
                         </div>
                         
                         {(status === 'approved' || status === 'whitelist') &&
