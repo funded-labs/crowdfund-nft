@@ -25,7 +25,7 @@ export default function CTA2() {
                 </h2>
                 
                 <a
-                  href="#"
+                  href="/create-project"
                   className="mt-8 inline-flex items-center rounded-full border border-transparent bg-black px-5 py-3 text-base font-medium text-white shadow hover:bg-neutral-900"
                 >
                   Start a Crowdfund
