@@ -60,7 +60,7 @@ export default function Navbar() {
                                     text-neutral-900 text-sm bg-transparent px-2 py-px hover:text-gray-700
                                     transform transition duration-200 cursor-pointer hover:underline
                                 `}>
-                                Trade
+                                Marketplace
                                 <span className="inline-flex ml-1 items-center rounded-full bg-gradient-to-tr from-cyan-600 to-blue-600 px-2 py-px text-xs font-medium text-white">
                                 New
                             </span>
@@ -73,7 +73,7 @@ export default function Navbar() {
                         <a href='/'>
                             <img
                                 src='/assets/logo.png'
-                                className='w-25 h-8 hover:scale-105 duration-200 cursor-pointer'
+                                className='w-25 h-10 hover:scale-105 duration-200 cursor-pointer'
                                 alt=''
                             />
                         </a>

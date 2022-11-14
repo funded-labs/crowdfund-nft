@@ -34,7 +34,7 @@ export default function Hero() {
                   <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">12</dd>
                 </div>
                 <div className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
-                  <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">towards the future of the IC</dt>
+                  <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">towards the future</dt>
                   <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600"><div>
                             <img
                                 src='/assets/IClogo.png'

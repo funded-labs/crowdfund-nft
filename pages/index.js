@@ -31,7 +31,7 @@ const HomePage = () => {
             <Hero />
             
             <Featured/>
-            <Getstarted/>
+            
             <CategoryRow onClick={navigateToCategory}/>
 
             <ProjectList
@@ -61,8 +61,9 @@ const HomePage = () => {
             />
 
             <br />
+            <Getstarted/>
             <br />
-
+            
             <Entrepot3 />
 
            {/*  <Setup /> */}
