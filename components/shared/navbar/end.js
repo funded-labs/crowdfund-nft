@@ -21,7 +21,7 @@ export default function End() {
                     font-medium items-center 
                 `}
                 type='button'>
-                <span>{backendWithAuth ? 'Manage project' : 'Login'}</span>
+                <span>{backendWithAuth ? 'Manage project' : 'Sign in'}</span>
             </button>
         </Link>
         <button

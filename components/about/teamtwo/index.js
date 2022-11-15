@@ -24,29 +24,22 @@ const people = [
       linkedinUrl: 'https://www.linkedin.com/in/luke-dugdale-71aa65113/',
     },
     {
-      name: 'Max Lascombe',
+      name: 'Mazen Zibara',
       role: 'CTO',
       imageUrl:
-        'assets/max.png',
-      twitterUrl: 'https://twitter.com/MaxLascombe',
-      linkedinUrl: 'https://www.linkedin.com/in/maxlascombe/',
+        'assets/mazen.jpeg',
+      twitterUrl: 'https://twitter.com/mazen_zibara',
+      linkedinUrl: 'https://www.linkedin.com/in/mazenzibara/',
     },
     {
       name: 'Clement Mayer',
-      role: 'VP Growth',
+      role: 'COO',
       imageUrl:
         'assets/clem.png',
       twitterUrl: 'https://twitter.com/crowdfundnft',
       linkedinUrl: 'https://www.linkedin.com/in/clement-mayer-617788154/',
     },
-    {
-      name: 'Zahid Mahmood',
-      role: 'VP Engineering',
-      imageUrl:
-        'assets/zahid.png',
-      twitterUrl: 'https://twitter.com/zaarheed',
-      linkedinUrl: 'https://www.linkedin.com/in/zaarheed/',
-    },
+    
     // More people...
   ]
   

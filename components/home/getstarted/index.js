@@ -2,7 +2,7 @@ const incentives = [
     {
       name: 'Connect your wallet',
       imageSrc: '/assets/wallet_icon.png',
-      description: "Connect your Plug wallet or create an Internet Identity to submit a project.",
+      description: "Connect your Plug, Stoic or Infinity wallet or create an Internet Identity to submit a project.",
       id:'1'
     },
     {
@@ -12,10 +12,10 @@ const incentives = [
       id:'2'
     },
     {
-      name: 'Share with the IC community',
+      name: 'Share with your community',
       imageSrc: '/assets/community_icon.png',
       description:
-        "Join our growing community of over 3000 ICP fans and builders who will help you get your idea off the ground.",
+        "Join our growing community of over 3000 backers and builders who will help you get your idea off the ground.",
         id:'3'
     },
   ]
