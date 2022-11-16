@@ -10,6 +10,7 @@ const navigation = {
     ],
     support: [
       { name: 'Creator guide', href: '/p/project-creator-guide', as: '/p/project-creator-guide.html' },
+      { name: 'Rules', href: '/p/rules', as: '/p/rules.html' },
     ],
     company: [
       { name: 'About', href: '/about', as: '/about.html' },
