@@ -26,7 +26,7 @@ export default function PricePerNFT({ stats, selectedTierState }) {
                                     !soldOut && setSelectedTier(index)
                                 }>
                                 <p
-                                    className={`font-bold text-4xl text-center ${
+                                    className={`font-bold text-2xl text-center ${
                                         isSelected
                                             ? 'text-blue-600'
                                             : 'text-black'

@@ -41,7 +41,7 @@ export default function Featured() {
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=228"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=238"
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />
               <div
@@ -51,16 +51,16 @@ export default function Featured() {
               <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=21">
+                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=63">
                       <span className="absolute inset-0" />
-                      Kinic
+                      Seers
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                  Kinic is a search engine for web3 content
+                  Seers is a web3 decentralized social network
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm text-blue-300">
-                    1500 ICP raised | Goal reached
+                    Raising 24000 ICP
                   </p>
                 </div>
               </div>
