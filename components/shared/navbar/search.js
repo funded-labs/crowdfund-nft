@@ -75,7 +75,7 @@ const Search = () => {
                 type='search'
                 name='search'
                 placeholder='Search projects'
-                value={searchTerm}
+                value={searchTerm ?? ''}
                 onChange={({ target: { value } }) => setSearchTerm(value)}
                 onKeyDown={({ key }) => {
                     if (key === 'Enter') {

@@ -48,7 +48,7 @@ export default function ProjectList({
                     )
                     stats[project.project.id] = newStats
                 } catch (e) {
-                    console.error(e)
+                    //console.error(e)
                     stats[project.project.id] = {
                         nftsSold: 0,
                         nftPriceE8S: 0,
