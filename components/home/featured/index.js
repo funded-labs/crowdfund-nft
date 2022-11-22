@@ -17,31 +17,31 @@ export default function Featured() {
           <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=208"
-                alt="Catalyze"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=238"
+                alt="Seers"
                 className="object-cover object-center group-hover:opacity-75"
               />
               <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-75" />
               <div className="flex items-end p-6">
                 <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=56">
+                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=63">
                       <span className="absolute inset-0" />
-                      Catalyze
+                      Seers
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                    IC Based Alternative to Discord
+                    Seers is a web3 decentralized social network
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm font-semibold text-blue-300">
-                    15022 ICP raised | Goal reached
+                    Raising 24000 ICP
                   </p>
                 </div>
               </div>
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=238"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=300"
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />
               <div
@@ -51,23 +51,23 @@ export default function Featured() {
               <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=63">
+                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=68">
                       <span className="absolute inset-0" />
-                      Seers
+                      Babble
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                  Seers is a web3 decentralized social network
+                  The Open Community Collaborative Experience on the Internet Computer
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm text-blue-300">
-                    Raising 24000 ICP
+                    Raising 1000 ICP
                   </p>
                 </div>
               </div>
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=86"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=208"
                 alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />
@@ -78,16 +78,16 @@ export default function Featured() {
               <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=33">
+                    <a href="https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/project.html?projectId=56">
                       <span className="absolute inset-0" />
-                      Cubetopia
+                      Catalyze
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                  Own a unique island on the blockchain
+                      IC Based Alternative to Discord
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm font-semibold text-blue-300">
-                    3000 ICP raised | Goal reached
+                    15022 ICP raised | Goal reached
                   </p>
                 </div>
               </div>
