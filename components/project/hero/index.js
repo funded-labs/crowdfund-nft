@@ -569,7 +569,7 @@ export default function Hero({ isLoading, project, adminView }) {
                             )}
                             {showCaptcha && !hasPassedCaptcha && (
                                 <ReCAPTCHA
-                                    sitekey='6LfzZaceAAAAALKgbi6cblAmKHmIGmzp4CGJ-xEt'
+                                    sitekey='6LeV7ysjAAAAAC2Jx7s2pNpbpXjVp0xhpOiM29P0'
                                     onChange={() => {
                                         setHasPassedCaptcha(true)
                                         if (hasShownInstructions)
