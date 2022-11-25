@@ -6,6 +6,7 @@ type Project__1 =
    cover: Link;
    description: text;
    discordLink: Link;
+   fundingType: opt ProjectFundingType;
    goal: float64;
    id: ProjectId__1;
    nftVolume: nat;
@@ -49,12 +50,19 @@ type ProjectState =
  };
 type ProjectId__1 = text;
 type ProjectId = text;
+type ProjectFundingType = 
+ opt variant {
+       btc;
+       icp;
+       usd;
+     };
 type Project = 
  record {
    category: text;
    cover: Link;
    description: text;
    discordLink: Link;
+   fundingType: opt ProjectFundingType;
    goal: float64;
    id: ProjectId__1;
    nftVolume: nat;
@@ -90,6 +98,7 @@ type NewProject =
    cover: Link;
    description: text;
    discordLink: Link;
+   fundingType: opt ProjectFundingType;
    goal: float64;
    nftVolume: nat;
    rewards: text;

@@ -54,6 +54,7 @@ module {
           twitterLink = "";
           walletId = "";
           wetransferLink = "";
+          fundingType = null;
         }
       };
     };

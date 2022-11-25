@@ -83,6 +83,8 @@ export default function Hero({ isLoading, project, adminView }) {
     const { backend } = useBackend()
     const escrowActor = makeEscrowActor()
 
+    const currency = Object.keys(project?.fundingType?.[0]?.[0] || {})?.[0]?.toUpperCase() || 'ICP'
+
     useEffect(() => {
         setInterval(() => setNow(Date.now()), 1000)
     }, [])
@@ -440,12 +442,12 @@ export default function Hero({ isLoading, project, adminView }) {
                                                   100_000_000
                                           ).toString()
                                 ).toString()}{' '}
-                                ICP
+                                {currency}
                             </p>
                             <p className='text-gray-400 text-md font-light'>
                                 pledged of{' '}
                                 {threeDecimals(goal / 100_000_000).toString()}{' '}
-                                ICP goal
+                                {currency} goal
                             </p>
                         </div>
                         <div className='h-3 bg-gray-200 rounded-full relative overflow-hidden'>
@@ -486,6 +488,7 @@ export default function Hero({ isLoading, project, adminView }) {
                         <div className="flex">
                             <PricePerNFT
                                 stats={project.stats}
+                                currency={currency}
                                 {...{ selectedTierState }}
                             />
                         </div>

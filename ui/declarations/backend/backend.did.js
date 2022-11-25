@@ -7,6 +7,9 @@ export const idlFactory = ({ IDL }) => {
     'lastName' : IDL.Text,
     'firstName' : IDL.Text,
   });
+  const ProjectFundingType = IDL.Opt(
+    IDL.Variant({ 'btc' : IDL.Null, 'icp' : IDL.Null, 'usd' : IDL.Null })
+  );
   const NewProject = IDL.Record({
     'title' : IDL.Text,
     'wetransferLink' : Link,
@@ -20,6 +23,7 @@ export const idlFactory = ({ IDL }) => {
     'story' : IDL.Text,
     'rewards' : IDL.Text,
     'category' : IDL.Text,
+    'fundingType' : IDL.Opt(ProjectFundingType),
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
@@ -49,6 +53,7 @@ export const idlFactory = ({ IDL }) => {
     'story' : IDL.Text,
     'rewards' : IDL.Text,
     'category' : IDL.Text,
+    'fundingType' : IDL.Opt(ProjectFundingType),
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });
@@ -98,6 +103,7 @@ export const idlFactory = ({ IDL }) => {
     'story' : IDL.Text,
     'rewards' : IDL.Text,
     'category' : IDL.Text,
+    'fundingType' : IDL.Opt(ProjectFundingType),
     'nftVolume' : IDL.Nat,
     'walletId' : IDL.Text,
   });

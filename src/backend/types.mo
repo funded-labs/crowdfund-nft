@@ -16,6 +16,12 @@ module {
     #fully_funded;
   };
 
+  public type ProjectFundingType = ?{
+    #icp;
+    #btc;
+    #usd;
+  };
+
   public type NewProfile = {
     bio: Text;
     firstName: Text;
@@ -46,6 +52,7 @@ module {
     walletId: Text;
     wetransferLink: Link;
     video: ?Text;
+    fundingType: ?ProjectFundingType
   };
 
   public type Project = {
@@ -65,6 +72,7 @@ module {
     twitterLink: Link;
     walletId: Text;
     wetransferLink: Link;
+    fundingType: ?ProjectFundingType;
   };
 
   public type ProjectWithOwner = {

@@ -1,4 +1,4 @@
-export default function PricePerNFT({ stats, selectedTierState }) {
+export default function PricePerNFT({ stats, currency, selectedTierState, }) {
     if (stats.nftStats.length > 1) {
         const tiers = stats.nftStats
         const [selectedTier, setSelectedTier] = selectedTierState
@@ -58,11 +58,15 @@ export default function PricePerNFT({ stats, selectedTierState }) {
         )
     }
 
+    const getFormattedPrice = () => {
+        return `${(stats.nftStats[0].priceE8S / 100_000_000).toString()} ${currency}`
+    }
+
     return (
         <div className='w-full flex flex-col'>
             <p className='text-blue-600 text-2xl font-medium'>
                 <img src='/assets/IClogo.png' className='h-3 inline-block' />{' '}
-                {(stats.nftStats[0].priceE8S / 100_000_000).toString()} ICP
+                {getFormattedPrice()}
             </p>
             <p className='text-gray-400 text-md font-light'>price per NFT</p>
         </div>

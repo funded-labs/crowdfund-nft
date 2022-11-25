@@ -6,6 +6,7 @@ import { useProjectForm } from './project-form-context'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { InformationCircleIcon } from '@heroicons/react/outline'
+import Select from '@/components/forms/select'
 
 const stepThreeSchema = Yup.object().shape({
     targetAmount: Yup.number()
@@ -20,10 +21,16 @@ const stepThreeSchema = Yup.object().shape({
 })
 
 const initialValues = {
+    fundingType: 'icp',
     targetAmount: '',
     nftVolume: '',
     walletId: '',
 }
+
+const fundingTypes = [
+    { label: 'ICP', value: 'icp' },
+    { label: 'BTC', value: 'btc' }
+]
 
 export default function StepThree() {
     const { setStep, setProject, previousStep } = useProjectForm()
@@ -64,8 +71,25 @@ export default function StepThree() {
                         </p>
                         
                         </div>
+                        
                         <div className="flex-col rounded-l-3xl rounded-r-3xl sm:rounded-r-none sm:rounded-l-3xl bg-white bg-opacity-50 border border-1 border-white bg-blend-saturation sm:px-36 sm:py-24 p-8 flex-1">
-                            <p className=''>
+                            
+                            <div className='w-full flex flex-col'>
+                                <p className='mb-2'>
+                                    How do you want to fund your project
+                                </p>
+
+                                <Select
+                                    name='fundingType'
+                                    value={values.fundingType}
+                                    options={fundingTypes}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    label ='Select funding type'
+                                />
+                            </div>
+                            
+                            <p className='mt-5'>
                                 How much would you like to raise?
                             </p>
                             <Input
@@ -76,17 +100,17 @@ export default function StepThree() {
                                 placeholder='Enter target amount'
                                 type='number'
                                 endItem={() => (
-                                    <p className='font-bold text-black'>ICP</p>
+                                    <p className='font-bold text-black'>{values.fundingType?.toUpperCase()}</p>
                                 )}
                             />
                             <p className='bg-gray-50 rounded-2xl text-sm p-4 my-4 flex items-center'>
-                            <InformationCircleIcon className="h-12  rounded-full text-blue-500"/>
-                            <span className="flex ml-4">
-                            Bear in mind that fees are deducated from each
-                            donation, we charge 5% of every donation, and there
-                            is a flat 0.001 ICP fee per transaction
-                            </span>
-                        </p>
+                                <InformationCircleIcon className="h-12  rounded-full text-blue-500"/>
+                                <span className="flex ml-4">
+                                    Bear in mind that fees are deducated from each
+                                    donation, we charge 5% of every donation, and there
+                                    is a flat 0.001 ICP fee per transaction
+                                </span>
+                            </p>
 
                         <div className='w-full flex flex-col space-y-1'>
                             <p className=''>
