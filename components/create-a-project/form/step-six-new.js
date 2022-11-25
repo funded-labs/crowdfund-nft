@@ -10,6 +10,17 @@ import { makeImagesActor, getImageURL } from '@/ui/service/actor-locator'
 import { selectWalletModalPromise } from '../../shared/select-wallet-modal'
 import { ExclamationCircleIcon } from '@heroicons/react/outline'
 
+const AWS = require('aws-sdk')
+
+const s3 = new AWS.S3({
+    apiVersion: '2006-03-01',
+    accessKeyId: process.env.NEXT_PUBLIC_FLEEK_API_KEY,
+    secretAccessKey: process.env.NEXT_PUBLIC_FLEEK_API_SECRET,
+    endpoint: 'https://storageapi2.fleek.co',
+    region: 'us-east-1',
+    s3ForcePathStyle: true
+})
+
 const stepFiveSchema = Yup.object().shape({
     // walletId: Yup.string().required('You must connect your wallet to proceed'),
 })
@@ -23,6 +34,42 @@ export default function StepSix() {
     const backend = backendWithAuth
     const [isLoading, setLoading] = useState(false)
     const { profile, project, previousStep, setStep } = useProjectForm()
+
+    const uploadVideo = (video) => {
+        return new Promise((resolve, reject) => {
+            s3.listBuckets((err, data) => {
+                if (err) {
+                    reject(err)
+                    return
+                }
+
+                const bucket = data.Buckets?.[0]
+
+                if (!bucket) {
+                    reject('No buckets available')
+                    return
+                }
+
+                const params = {
+                    Bucket: bucket.Name,
+                    Key: `videos/${crypto.randomUUID()}`,
+                    ContentType: video.type,
+                    Body: video,
+                    ACL: 'public-read'
+                }
+
+                const request = s3.putObject(params, (err, data) => {
+                    if (err) reject(err)
+                });
+
+                request.on('httpHeaders', (statusCode, headers) => {
+                    const ipfsHashV0 = headers['x-fleek-ipfs-hash-v0']
+                    
+                    resolve(`http://ipfs.fleek.co/ipfs/${ipfsHashV0}`)
+                }).send();
+            })
+        })
+    }
 
     const handleSubmit = (form) => {
         selectWalletModalPromise().then(async wallet => {
@@ -45,15 +92,7 @@ export default function StepSix() {
 
                 let videoUrl = ''
                 if (p.video) {
-                    const video = {
-                        name: p.video.name,
-                        payload: {
-                            ctype: p.video.type,
-                            data: [await imgFileToInt8Array(p.video)]
-                        }
-                    }
-
-                    videoUrl = getImageURL(await imageActor.addAsset(video))
+                    videoUrl = await uploadVideo(p.video)
                 }
 
                 const payload = {

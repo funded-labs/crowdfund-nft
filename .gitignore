@@ -20,3 +20,5 @@ out/
 
 .vessel/
 
+.env.development
+.env.production
