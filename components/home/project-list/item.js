@@ -31,6 +31,8 @@ export default function Item({
         item.project?.status?.[0] || { archived: null }
     )[0]
 
+    const currency = Object.keys(item.project?.fundingType?.[0]?.[0] || {})?.[0]?.toUpperCase() || 'ICP'
+
     return (
         <Link
             href={`/project?projectId=${item.project.id}`}
@@ -54,7 +56,7 @@ export default function Item({
                             src='/assets/IClogo.png'
                             className='h-2 inline-block'
                         />{' '}
-                        {item.project.goal} ICP goal
+                        {item.project.goal} {currency} goal
                     </p>
                 </div>
                 <p className='text-sm text-indigo-500'>
