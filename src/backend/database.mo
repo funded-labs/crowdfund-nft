@@ -141,6 +141,7 @@ module {
                   twitterLink = "";
                   walletId = "";
                   wetransferLink = "";
+                  fundingType = null;
                 };
               };
               case (?project) { project };
@@ -177,6 +178,7 @@ module {
         twitterLink = project.twitterLink;
         walletId = project.walletId;
         wetransferLink = project.wetransferLink;
+        fundingType = project.fundingType;
       });
     };
 
@@ -264,6 +266,7 @@ module {
         twitterLink = project.twitterLink;
         walletId = project.walletId;
         wetransferLink = project.wetransferLink;
+        fundingType = project.fundingType;
       };
     };
 

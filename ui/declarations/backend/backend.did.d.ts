@@ -29,6 +29,7 @@ export interface NewProject {
   'story' : string,
   'rewards' : string,
   'category' : string,
+  'fundingType' : [] | [ProjectFundingType],
   'nftVolume' : bigint,
   'walletId' : string,
 }
@@ -61,9 +62,15 @@ export interface Project {
   'story' : string,
   'rewards' : string,
   'category' : string,
+  'fundingType' : [] | [ProjectFundingType],
   'nftVolume' : bigint,
   'walletId' : string,
 }
+export type ProjectFundingType = [] | [
+  { 'btc' : null } |
+    { 'icp' : null } |
+    { 'usd' : null }
+];
 export type ProjectId = string;
 export type ProjectId__1 = string;
 export type ProjectState = { 'closed' : null } |
@@ -103,6 +110,7 @@ export interface Project__1 {
   'story' : string,
   'rewards' : string,
   'category' : string,
+  'fundingType' : [] | [ProjectFundingType],
   'nftVolume' : bigint,
   'walletId' : string,
 }

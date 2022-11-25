@@ -109,7 +109,8 @@ export default function StepSix() {
                     twitterLink: p.twitterLink,
                     walletId: p.walletId,
                     wetransferLink: p.wetransferLink,
-                    video: videoUrl ? [videoUrl] : []
+                    video: videoUrl ? [videoUrl] : [],
+                    fundingType: [[{ [p.fundingType]: null }]]
                 }
                 await backend.createProject(payload)
 
