@@ -10,7 +10,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
                 <div
                     className={`w-full grid grid-cols-${
                         tiers.length > 2 ? 3 : 2
-                    } gap-3`}>
+                    } gap-${currency === "ICP" ? 3 : 1}`}>
                     {tiers.map((tier, index) => {
                         const isSelected = selectedTier === index
                         const soldOut = tier.sold >= tier.number
@@ -21,7 +21,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
                                     isSelected ? 'border-blue-600' : ''
                                 } ${
                                     soldOut ? 'opacity-40' : 'cursor-pointer'
-                                } border bg-gray-50 rounded-lg py-4 px-2`}
+                                } border bg-gray-50 rounded-lg py-4`}
                                 onClick={() =>
                                     !soldOut && setSelectedTier(index)
                                 }>
@@ -35,7 +35,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
                                         Tier price
                                     </p>
                                     {((tier.priceE8S ? tier.priceE8S : tier.priceSatoshi) / 100_000_000)
-                                        .toFixed(1)
+                                        .toFixed(tier.priceSatoshi ? 3 : 1)
                                         .replace(/\.?0+$/, '')
                                         .toString()}
                                     <span
