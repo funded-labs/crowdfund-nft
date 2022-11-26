@@ -16,7 +16,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
                         const soldOut = tier.sold >= tier.number
                         return (
                             <div
-                                key={`tier${tier.priceE8S}`}
+                                key={`tier${tier.priceE8S ? tier.priceE8S : tier.priceSatoshi}`}
                                 className={`${
                                     isSelected ? 'border-blue-600' : ''
                                 } ${
@@ -34,7 +34,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
                                     <p className='text-xs font-light text-center text-gray-400'>
                                         Tier price
                                     </p>
-                                    {(tier.priceE8S / 100_000_000)
+                                    {((tier.priceE8S ? tier.priceE8S : tier.priceSatoshi) / 100_000_000)
                                         .toFixed(1)
                                         .replace(/\.?0+$/, '')
                                         .toString()}
@@ -44,7 +44,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
                                                 ? 'text-blue-600'
                                                 : 'text-gray-500'
                                         }`}>
-                                        ICP
+                                        {currency}
                                     </span>
                                     <p className='text-xs font-light text-center text-gray-400'>
                                         {tier.sold} / {tier.number} sold
@@ -59,7 +59,7 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
     }
 
     const getFormattedPrice = () => {
-        return `${(stats.nftStats[0].priceE8S / 100_000_000).toString()} ${currency}`
+        return `${((stats.nftStats[0].priceE8S ? stats.nftStats[0].priceE8S : stats.nftStats[0].priceSatoshi) / 100_000_000).toString()} ${currency}`
     }
 
     return (

@@ -42,6 +42,26 @@ export const idlFactory = ({ IDL }) => {
     })
 }
 
+export const idlBTCFactory = ({ IDL }) => {
+    const AccountIdText = IDL.Text
+    const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
+    const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
+    return IDL.Service({
+        cancelTransfer: IDL.Func([AccountIdText], [], []),
+        confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
+        getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
+    })
+}
+
+/*
+export const testingBTCWalletIDLFactory = ({ IDL }) => {
+    const AccountIdText = IDL.Text
+    return IDL.Service({
+        supportCrowdFund: IDL.Func([AccountIdText, IDL.Nat64], [IDL.Text], []),
+    })
+}
+*/
+
 const createActor = (canisterId, idlFactory) => {
     const agent = new HttpAgent({
         host:
@@ -123,6 +143,7 @@ export default function Hero({ isLoading, project, adminView }) {
     const backProject = async () => {
         setLoading(true)
         setLoadingMessage('Getting Wallet principal...')
+        //const wallet = {"wallet": "BTC", "id": "ncr3i-zmiei-ncsbg-fwp63-qp4mb-cdlcy-smbe3-c7cqx-2v5gk-v46n2-eae"}
         const wallet = await selectWalletModalPromise().catch(err => '')
         if (!wallet) {
             setLoading(false)
@@ -144,17 +165,31 @@ export default function Hero({ isLoading, project, adminView }) {
         }
         let actor
         let isNewActor = true
+        let isNewWithBTCActor = false
         try {
-            actor = createActor(canisterPrincipal[0], idlFactory)
-        } catch (e) {
-            actor = createActor(canisterPrincipal[0], oldIdlFactory)
+            actor = createActor(canisterPrincipal[0], idlBTCFactory)
             isNewActor = false
+            isNewWithBTCActor = true
+        } catch (e) {
+            try {
+                actor = createActor(canisterPrincipal[0], idlFactory)
+            } catch (e) {
+                actor = createActor(canisterPrincipal[0], oldIdlFactory)
+                isNewActor = false
+                isNewWithBTCActor = false
+            }
+        }
+
+        if (isNewWithBTCActor) {
+            alert ("BTC not yet supported, coming soon !")
+            return
         }
 
         setLoadingMessage('Requesting new account id...')
-        let accountIdPromise = isNewActor
-            ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0])
-            : actor.getNewAccountId(Principal.from(wallet.id))
+        let accountIdPromise = isNewActor ?
+            actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0]) :
+            isNewWithBTCActor ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], wallet.wallet === "BTC" ? "BTC" : "ICP") :
+            actor.getNewAccountId(Principal.from(wallet.id))
         const accountIdResult = await accountIdPromise
         if (accountIdResult.hasOwnProperty('err')) {
             setLoading(false)
@@ -230,6 +265,15 @@ export default function Hero({ isLoading, project, adminView }) {
                     return {Err: error}
                 })
             }
+        } else if (wallet.wallet === "BTC") {
+            /*
+            const testingBTCWalletActor = createActor("rkp4c-7iaaa-aaaaa-aaaca-cai", testingBTCWalletIDLFactory)
+            console.log("ACID:", accountid)
+            res = await testingBTCWalletActor.supportCrowdFund(accountid, Number(project.stats.nftStats[selectedTierState[0]].priceSatoshi))
+            console.log("CROWDFUND RESULT: ", res)
+            */
+            alert("BTC not yet supported, coming soon !")
+            res = {err: "btc not yet supported"}
         }
         if (res.Err || res.err) {
             setLoading(false)
@@ -344,10 +388,10 @@ export default function Hero({ isLoading, project, adminView }) {
 
     const goal = (
         project?.stats?.nftStats ?? [{ number: 0, priceE8S: 0 }]
-    ).reduce((acc, cur) => acc + cur.number * cur.priceE8S, 0)
+    ).reduce((acc, cur) => acc + cur.number * (cur.priceE8S ? cur.priceE8S : cur.priceSatoshi), 0)
     const pledged = (
         project?.stats?.nftStats ?? [{ sold: 0, priceE8S: 0 }]
-    ).reduce((acc, cur) => acc + cur.sold * cur.priceE8S, 0)
+    ).reduce((acc, cur) => acc + cur.sold * (cur.priceE8S ? cur.priceE8S : cur.priceSatoshi), 0)
 
     const remainingTimeString = (endTime) => {
         const diff = endTime - now
@@ -374,7 +418,7 @@ export default function Hero({ isLoading, project, adminView }) {
                     </span>
                 </p>
                 {!adminView && <div className='w-full flex flex-row space-x-8 items-center mb-2'>
-                            
+
                             <div className='w-6/12 flex flex-row space-x-1 justify-start'>
                                 {twitterLink && (
                                     <a
@@ -425,7 +469,7 @@ export default function Hero({ isLoading, project, adminView }) {
                     </div>
 
                     <div className='w-full lg:w-4/12 bg-white rounded-lg shadow-lg px-8 flex flex-col'>
-                        
+
                         <div className='w-full flex flex-col py-3'>
                             <p className='text-blue-600 text-3xl font-medium'>
                                 <img
@@ -483,7 +527,7 @@ export default function Hero({ isLoading, project, adminView }) {
                                     : '- --:--:--'}
                             </p>
                             <p className='text-gray-400 text-md font-light'>to go</p>
-                            </div>                            
+                            </div>
                         </div>
                         <div className="flex">
                             <PricePerNFT
@@ -492,7 +536,7 @@ export default function Hero({ isLoading, project, adminView }) {
                                 {...{ selectedTierState }}
                             />
                         </div>
-                        
+
                         {(status === 'approved' || status === 'whitelist') &&
                             project?.stats?.endTime > 0 && (
                                 <div className='mt-2 text-xs text-center'>
@@ -568,7 +612,7 @@ export default function Hero({ isLoading, project, adminView }) {
                                         <>Fund this project</>
                                     )}
                                 </button>
-                                
+
                             )}
                             {showCaptcha && !hasPassedCaptcha && (
                                 <ReCAPTCHA
@@ -611,12 +655,12 @@ export default function Hero({ isLoading, project, adminView }) {
                                 </button>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </section>
-       
+
         </>
     )
 }
