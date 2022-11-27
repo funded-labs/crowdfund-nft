@@ -42,14 +42,21 @@ export const idlFactory = ({ IDL }) => {
     })
 }
 
+// export const idlBTCFactory = ({ IDL }) => {
+//     const AccountIdText = IDL.Text
+//     const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
+//     const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
+//     return IDL.Service({
+//         cancelTransfer: IDL.Func([AccountIdText], [], []),
+//         confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
+//         getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
+//     })
+// }
+
 export const idlBTCFactory = ({ IDL }) => {
     const AccountIdText = IDL.Text
-    const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
-    const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
     return IDL.Service({
-        cancelTransfer: IDL.Func([AccountIdText], [], []),
-        confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
-        getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
+        supportCrowdFund: IDL.Func([AccountIdText, IDL.Nat64], [IDL.Text], []),
     })
 }
 
