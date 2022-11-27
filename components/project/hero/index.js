@@ -172,30 +172,30 @@ export default function Hero({ isLoading, project, adminView }) {
         }
         let actor
         let isNewActor = true
-        let isNewWithBTCActor = false
-        try {
-            actor = createActor(canisterPrincipal[0], idlBTCFactory)
-            isNewActor = false
-            isNewWithBTCActor = true
-        } catch (e) {
+        //let isNewWithBTCActor = false
+        //try {
+        //    actor = createActor(canisterPrincipal[0], idlBTCFactory)
+        //    isNewActor = false
+        //    isNewWithBTCActor = true
+        //} catch (e) {
             try {
                 actor = createActor(canisterPrincipal[0], idlFactory)
             } catch (e) {
                 actor = createActor(canisterPrincipal[0], oldIdlFactory)
                 isNewActor = false
-                isNewWithBTCActor = false
+               // isNewWithBTCActor = false
             }
-        }
+        //}
 
-        if (isNewWithBTCActor) {
-            alert ("BTC not yet supported, coming soon !")
-            return
-        }
+        //if (isNewWithBTCActor) {
+        //    alert ("BTC not yet supported, coming soon !")
+        //    return
+        // }
 
         setLoadingMessage('Requesting new account id...')
         let accountIdPromise = isNewActor ?
             actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0]) :
-            isNewWithBTCActor ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], wallet.wallet === "BTC" ? "BTC" : "ICP") :
+           // isNewWithBTCActor ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], wallet.wallet === "BTC" ? "BTC" : "ICP") :
             actor.getNewAccountId(Principal.from(wallet.id))
         const accountIdResult = await accountIdPromise
         if (accountIdResult.hasOwnProperty('err')) {
