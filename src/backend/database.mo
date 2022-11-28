@@ -91,6 +91,11 @@ module {
       project;
     };
 
+    public func putProjectVideo(projectId: ProjectId, video: Text): ProjectId {
+         projectVideoMap.put(projectId, video);
+         projectId;
+    };
+
     public func deleteProject(projectId: ProjectId) : ?Project {
       let p = projectMap.get(projectId);
       switch (p) {
