@@ -380,7 +380,7 @@ export default function Hero({ isLoading, project, adminView }) {
             case 'archived':
                 return <>archived</>
             default:
-                return project.stats.endTime > 0 ? (
+                return project.stats.endTime > 0 && currency !== "BTC" ? (
                     <>
                         Not live. Whitelist in{' '}
                         {remainingTimeString(
