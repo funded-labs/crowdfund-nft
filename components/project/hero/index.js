@@ -544,7 +544,7 @@ export default function Hero({ isLoading, project, adminView }) {
                             />
                         </div>
 
-                        {(status === 'approved' || status === 'whitelist') &&
+                        {(status === 'approved' || status === 'whitelist') && currency !== "BTC" &&
                             project?.stats?.endTime > 0 && (
                                 <div className='mt-2 text-xs text-center'>
                                     {status === 'approved' ? (
