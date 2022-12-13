@@ -196,6 +196,10 @@ export const useProjectDetails = (projectId) => {
               }
           }
 
+          if (Object.keys(project?.status?.[0] || { submitted: null })[0] === 'fully_funded') {
+              stats['endTime'] = 0
+          }
+
           return {
               ...project,
               escrowActor,
