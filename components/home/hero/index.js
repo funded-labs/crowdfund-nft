@@ -31,7 +31,7 @@ export default function Hero() {
               <dl className="rounded-lg sm:grid sm:grid-cols-3 space-y-4">
                 <div className="flex flex-col border-b sm:mt-4 border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                   <dt className="order-2 mt-2  text-md font-regular leading-6 text-neutral-500">projects funded</dt>
-                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">12</dd>
+                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">13</dd>
                 </div>
                 <div className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
                   <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">towards the future</dt>
@@ -40,7 +40,7 @@ export default function Hero() {
                                 src='/assets/IClogo.png'
                                 className='h-6 inline-block'
                             />{' '}
-                            29,803 ICP
+                            39,793 ICP
                         </div></dd>
                 </div>
                 <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">

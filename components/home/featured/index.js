@@ -87,7 +87,7 @@ export default function Featured() {
                       Web3’s answer to TikTok
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm font-semibold text-blue-300">
-                    Raising 9990 ICP
+                    9990 ICP Raised
                   </p>
                 </div>
               </div>
