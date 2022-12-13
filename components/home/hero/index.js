@@ -45,7 +45,7 @@ export default function Hero() {
                 </div>
                 <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
                   <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">NFTs minted</dt>
-                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">2,863</dd>
+                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">2,975</dd>
                 </div>
               </dl>
             </div>
