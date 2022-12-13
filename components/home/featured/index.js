@@ -67,7 +67,7 @@ export default function Featured() {
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=208"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=334"
                 alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk."
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />
@@ -78,16 +78,16 @@ export default function Featured() {
               <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://crowdfund-nft.com/project.html?projectId=56">
+                    <a href="https://crowdfund-nft.com/project.html?projectId=72">
                       <span className="absolute inset-0" />
-                      Catalyze
+                      Hot or Not
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                      IC Based Alternative to Discord
+                      Web3’s answer to TikTok
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm font-semibold text-blue-300">
-                    15022 ICP raised | Goal reached
+                    Raising 9990 ICP
                   </p>
                 </div>
               </div>
