@@ -24,6 +24,7 @@ export const idlFactory = ({ IDL }) => {
       openSubaccounts: IDL.Nat,
       number: IDL.Nat,
       priceE8S: IDL.Nat,
+      oversellNumber: IDL.Int,
   })
   const EscrowStats = IDL.Record({
       endTime: IDL.Int,
@@ -108,6 +109,7 @@ export const useProjectDetails = (projectId) => {
                           100_000_000,
                       sold: 0,
                       openSubaccounts: 0,
+                      oversellNumber: Number(project.oversellNumber),
                   },
               ],
           }
@@ -160,6 +162,7 @@ export const useProjectDetails = (projectId) => {
                           openSubaccounts: Number(
                               newStats.openSubaccounts
                           ),
+                          oversellNumber: Number(newStats.oversellNumber),
                       },
                   ],
               }
@@ -176,6 +179,7 @@ export const useProjectDetails = (projectId) => {
                       priceE8S: Number(nft.priceE8S),
                       sold: Number(nft.sold),
                       openSubaccounts: Number(nft.openSubaccounts),
+                      oversellNumber: Number(nft.oversellNumber),
                   })),
               }
           } else if (
@@ -192,6 +196,7 @@ export const useProjectDetails = (projectId) => {
                       priceSatoshi: Number(nft.priceSatoshi),
                       sold: Number(nft.sold),
                       openSubaccounts: Number(nft.openSubaccounts),
+                      oversellNumber: Number(nft.oversellNumber),
                   })),
               }
           }

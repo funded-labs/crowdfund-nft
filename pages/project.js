@@ -23,7 +23,6 @@ export default function ProjectDetails() {
         isError,
         isFetching,
     } = useProjectDetails(projectId)
-
     if (isLoading || isError || isFetching || !project) {
         return (
             <div className='w-full bg-gray-50'>

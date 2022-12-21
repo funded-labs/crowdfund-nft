@@ -18,7 +18,6 @@ export const makeActorWithPrincipal = (
     createActor,
     identity
 ) => {
-    console.log("xx",identity);
     const options = {
         agentOptions: {
             host: process.env.NEXT_PUBLIC_IC_HOST,
@@ -31,9 +30,7 @@ export const makeActorWithPrincipal = (
 export const makeBackendActorWithIdentity = (identity) =>
     makeActorWithPrincipal(backendCanisterId, createBackendActor, identity)
 
-export const makeBackendActor = () => makeActorWithPrincipal(backendCanisterId, createBackendActor)
-
-// export const makeBackendActor = () => Actor.createActor(backendIdl, {agent: new HttpAgent({host: process.env.NEXT_PUBLIC_IC_HOST}), canisterId: backendCanisterId}) //createActor(backendCanisterId, {host: process.env.NEXT_PUBLIC_IC_HOST})
+export const makeBackendActor = () =>  makeActorWithPrincipal(backendCanisterId, createBackendActor)
 
 export const makeImagesActor = () =>
     makeActorWithPrincipal(imagesCanisterId, createImagesActor)
