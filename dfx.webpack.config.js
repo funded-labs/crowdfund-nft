@@ -33,6 +33,7 @@ function initCanisterIds() {
         process.env[`NEXT_PUBLIC_${canister.toUpperCase()}_CANISTER_ID`] =
             canisters[canister][network]
     }
+    console.log(process.env);
 }
 
 module.exports = {

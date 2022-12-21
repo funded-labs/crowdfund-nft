@@ -127,15 +127,15 @@ export function BackendProvider({
     }
 
     useEffect(() => {
-        if (backend) return
-
-        const _backend = makeBackendActor()
-        setBackend(_backend)
+        if (!backend) {
+            const _backend = makeBackendActor()
+            setBackend(_backend)
+        }
     }, [])
 
     const login = async (provider) => {
         const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT
-
+        console.log(provider);
         let backendWithAuth
 
         if (environmentName === 'development') {

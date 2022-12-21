@@ -145,7 +145,7 @@ export interface _SERVICE {
       'owner' : Profile,
       'marketplaceLinks' : MarketplaceLinks,
       'project' : Project,
-    },
+    }
   >,
   'getProjects' : ActorMethod<[UserId__1], Array<Project>>,
   'getWhitelist' : ActorMethod<[ProjectId], Array<Principal>>,
@@ -154,7 +154,7 @@ export interface _SERVICE {
   'isAdmin' : ActorMethod<[], boolean>,
   'listProjects' : ActorMethod<
     [Array<ProjectStatus>, string, Array<string>],
-    Array<ProjectWithOwner>,
+    Array<ProjectWithOwner>
   >,
   'makeProjectLive' : ActorMethod<[ProjectId], undefined>,
   'openProjectToWhiteList' : ActorMethod<[ProjectId], undefined>,
@@ -168,4 +168,5 @@ export interface _SERVICE {
   'updateProfile' : ActorMethod<[Profile], undefined>,
   'updateProject' : ActorMethod<[Project], undefined>,
   'updateProjectStatus' : ActorMethod<[ProjectId, ProjectStatus], undefined>,
+  'updateProjectVideo' : ActorMethod<[ProjectId, string], ProjectId>,
 }

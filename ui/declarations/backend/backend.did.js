@@ -184,6 +184,7 @@ export const idlFactory = ({ IDL }) => {
     'updateProfile' : IDL.Func([Profile], [], []),
     'updateProject' : IDL.Func([Project], [], []),
     'updateProjectStatus' : IDL.Func([ProjectId, ProjectStatus], [], []),
+    'updateProjectVideo' : IDL.Func([ProjectId, IDL.Text], [ProjectId], []),
   });
 };
 export const init = ({ IDL }) => { return []; };
