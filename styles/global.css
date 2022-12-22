@@ -3,20 +3,35 @@
 @tailwind utilities;
 
 .scrollbar-hidden {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 @font-face {
-    font-family: "Poppins";
-    src: url("fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-family: "Poppins";
+  src: url("fonts/Poppins/Poppins-Regular.ttf") format("truetype");
 }
 
 @font-face {
-    font-family: "Poppins-Bold";
-    src: url("fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+  font-family: "Poppins-Bold";
+  src: url("fonts/Poppins/Poppins-Bold.ttf") format("truetype");
+}
+
+.bottom-arrow {
+  border-bottom: 8px solid transparent;
+}
+
+.bottom-arrow:after {
+  content: "";
+  position: absolute;
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-bottom: 8px solid rgb(37 99 235);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
 }
