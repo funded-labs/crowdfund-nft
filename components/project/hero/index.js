@@ -361,10 +361,9 @@ export default function Hero({ isLoading, project, adminView }) {
     (acc, cur) => acc + cur.sold * (cur.priceE8S ? cur.priceE8S : cur.priceSatoshi),
     0
   );
-
-  const oversellAmount =
-    (project.stats.nftStats ?? [{ oversellNumber: 0 }]).reduce((a, b) => a.oversellNumber + b.oversellNumber)
-      .oversellNumber * 100000000;
+  const oversellAmount = (project.stats.nftStats ?? [{ oversellNumber: 0 }])
+    .map((n) => n.oversellNumber * 100000000)
+    .reduce((a, b) => a + b);
 
   const remainingTimeString = (endTime) => {
     const diff = endTime - now;
