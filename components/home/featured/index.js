@@ -17,24 +17,24 @@ export default function Featured() {
           <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=238"
-                alt="Seers"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=332"
+                alt="Digital time Capsule"
                 className="object-cover object-center group-hover:opacity-75"
               />
               <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-75" />
               <div className="flex items-end p-6">
                 <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://crowdfund-nft.com/project.html?projectId=63">
+                    <a href="https://crowdfund-nft.com/project.html?projectId=71">
                       <span className="absolute inset-0" />
-                      Seers
+                        The Digital Time Capsule
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                    Seers is a web3 decentralized social network
+                     Private server and treasury for owners of the corresponding utility NFT and their respective communities
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm font-semibold text-blue-300">
-                    Raising 24000 ICP
+                    Raising 750 ICP
                   </p>
                 </div>
               </div>
