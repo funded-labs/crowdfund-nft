@@ -230,8 +230,7 @@ actor CrowdFundNFT {
     };
 
     public shared(msg) func approveProject(pid: ProjectId): async () {
-        //TODO:
-        // assert(Utils.isAdmin(msg.caller));
+        assert(Utils.isAdmin(msg.caller));
         switch (db.getProject(pid)) {
             case (?p) { 
                 assert(p.status == ?#submitted);
@@ -283,8 +282,7 @@ actor CrowdFundNFT {
     };
 
     public shared(msg) func makeProjectLive(pid: ProjectId): async () {
-        // TODO:
-        // assert(Utils.isAdmin(msg.caller));
+        assert(Utils.isAdmin(msg.caller));
         switch (db.getProject(pid)) {
             case (?p) { 
                 assert(p.status == ?#approved or p.status == ?#whitelist);
