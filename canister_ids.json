@@ -1,20 +1,18 @@
 {
-    "backend": {
-      "ic": "54shx-2yaaa-aaaai-qbhyq-cai"
-    },
-    "escrow_manager": {
-      "ic": "3fhg4-qiaaa-aaaak-aajiq-cai"
-    },
-    "frontend": {
-      "ic": "kn5ky-6iaaa-aaaai-qbikq-cai"
-    },
-    "frontend_staging": {
-      "ic": "l23oo-gaaaa-aaaak-aan2q-cai"
-    },
-    "images": {
-      "ic": "3mena-gaaaa-aaaak-aajja-cai"
-    },
-    "ukraine_round": {
-      "ic": "qhega-taaaa-aaaak-ady7q-cai"
-    }
+  "backend": {
+    "staging": "wvrbh-pyaaa-aaaap-aawfa-cai",
+    "production": "54shx-2yaaa-aaaai-qbhyq-cai"
+  },
+  "escrow_manager": {
+    "staging": "wsqht-caaaa-aaaap-aawfq-cai",
+    "production": "3fhg4-qiaaa-aaaak-aajiq-cai"
+  },
+  "frontend": {
+    "staging": "whxw6-diaaa-aaaap-aawga-cai",
+    "production": "kn5ky-6iaaa-aaaai-qbikq-cai"
+  },
+  "images": {
+    "staging": "wawqk-oqaaa-aaaap-aawgq-cai",
+    "production": "3mena-gaaaa-aaaak-aajja-cai"
   }
+}

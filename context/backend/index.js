@@ -157,7 +157,7 @@ export function BackendProvider({
         return new Promise((resolve, reject) => {
             authClient.login({
                 identityProvider,
-                derivationOrigin: 'https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app',
+                derivationOrigin: window.location.origin.includes('crowdfund-nft.com') ? 'https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app' : null,
                 onSuccess: async () => {
                     const identity = authClient.getIdentity()
 
