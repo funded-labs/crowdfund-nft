@@ -17,31 +17,31 @@ export default function Featured() {
           <div className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8">
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=332"
-                alt="Digital time Capsule"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=331"
+                alt="Crowdfund"
                 className="object-cover object-center group-hover:opacity-75"
               />
               <div aria-hidden="true" className="bg-gradient-to-b from-transparent to-black opacity-75" />
               <div className="flex items-end p-6">
                 <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://crowdfund-nft.com/project.html?projectId=71">
+                    <a href="https://crowdfund-nft.com/project.html?projectId=69">
                       <span className="absolute inset-0" />
-                        The Digital Time Capsule
+                        CrowdFund NFT
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                     Private server and treasury for owners of the corresponding utility NFT and their respective communities
+                    Crowdfunding on the IC, soon in BTC!
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm font-semibold text-blue-300">
-                    Raising 750 ICP
+                    Raising 5 BTC
                   </p>
                 </div>
               </div>
             </div>
             <div className="group aspect-w-2 aspect-h-1 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full">
               <img
-                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=331"
+                src="https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=208"
                 className="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"
               />
               <div
@@ -51,16 +51,16 @@ export default function Featured() {
               <div className="flex items-end p-6 sm:absolute sm:inset-0">
               <div>
                   <h3 className="font-semibold text-xl text-white">
-                    <a href="https://crowdfund-nft.com/project.html?projectId=69">
+                    <a href="https://crowdfund-nft.com/project.html?projectId=56">
                       <span className="absolute inset-0" />
-                      CrowdFund NFT
+                      Catalyze
                     </a>
                   </h3>
                   <p aria-hidden="true" className="mt-1 text-sm text-white">
-                  Crowdfunding on the IC, soon in BTC!
+                    IC Based Alternative to Discord
                   </p>
                   <p aria-hidden="true" className="mt-1 text-sm text-blue-300">
-                    Raising 5 BTC
+                    15022 ICP Raised
                   </p>
                 </div>
               </div>
