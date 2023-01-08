@@ -135,7 +135,6 @@ export function BackendProvider({
 
     const login = async (provider) => {
         const environmentName = process.env.NEXT_PUBLIC_ENVIRONMENT
-
         let backendWithAuth
 
         if (environmentName === 'development') {

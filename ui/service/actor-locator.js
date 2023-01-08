@@ -1,3 +1,5 @@
+import {Actor, HttpAgent} from '@dfinity/agent';
+// import {idlFactory as backendIdl} from 'ui/declarations/backend/backend.did.js'
 import {
     createActor as createBackendActor,
     canisterId as backendCanisterId,
@@ -14,12 +16,12 @@ import {
 export const makeActorWithPrincipal = (
     canisterId,
     createActor,
-    identity = null
+    identity
 ) => {
     const options = {
         agentOptions: {
             host: process.env.NEXT_PUBLIC_IC_HOST,
-            ...(identity ? { identity } : {}),
+            identity: identity ?? undefined,
         },
     }
     return createActor(canisterId, options)
@@ -28,8 +30,7 @@ export const makeActorWithPrincipal = (
 export const makeBackendActorWithIdentity = (identity) =>
     makeActorWithPrincipal(backendCanisterId, createBackendActor, identity)
 
-export const makeBackendActor = () =>
-    makeActorWithPrincipal(backendCanisterId, createBackendActor)
+export const makeBackendActor = () =>  makeActorWithPrincipal(backendCanisterId, createBackendActor)
 
 export const makeImagesActor = () =>
     makeActorWithPrincipal(imagesCanisterId, createImagesActor)

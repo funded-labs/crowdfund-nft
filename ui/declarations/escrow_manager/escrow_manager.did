@@ -16,10 +16,13 @@ type CanisterIdText = text;
 service : {
   acceptCycles: () -> ();
   availableCycles: () -> (nat) query;
-  createEscrowCanister: (ProjectId, principal, vec NFTInfo, Time, nat) -> ();
+  createEscrowCanister: (ProjectId, principal, vec NFTInfo, Time, nat,
+   nat) -> ();
   dissociateEscrowCanister: (ProjectId) -> ();
+  getMaxOversellPercentage: () -> (nat) query;
   getProjectEscrowCanisterPrincipal: (ProjectId) ->
    (opt CanisterIdText) query;
+  setMaxOversellPercentage: (nat) -> ();
   takeover: (text) -> (definite_canister_settings);
   wallet_receive: () -> ();
 }

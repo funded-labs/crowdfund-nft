@@ -1,32 +1,50 @@
 {
     "canisters": {
         "backend": {
+            "type": "motoko",
             "declarations": {
                 "output": "ui/declarations/backend"
             },
-            "dependencies": ["escrow_manager"],
+            "dependencies": [
+                "escrow_manager"
+            ],
             "main": "src/backend/main.mo"
         },
         "frontend": {
             "declarations": {
                 "output": "ui/declarations/frontend"
             },
-            "dependencies": ["backend", "escrow_manager", "images"],
-            "source": ["out", "src/assets"],
+            "dependencies": [
+                "backend",
+                "escrow_manager",
+                "images"
+            ],
+            "source": [
+                "out",
+                "src/assets"
+            ],
             "type": "assets"
         },
         "frontend_staging": {
-            "dependencies": ["backend", "escrow_manager", "images"],
-            "source": ["out"],
+            "dependencies": [
+                "backend",
+                "escrow_manager",
+                "images"
+            ],
+            "source": [
+                "out"
+            ],
             "type": "assets"
         },
         "escrow_manager": {
+            "type": "motoko",
             "declarations": {
                 "output": "ui/declarations/escrow_manager"
             },
             "main": "src/escrow_manager/main.mo"
         },
         "images": {
+            "type": "motoko",
             "declarations": {
                 "output": "ui/declarations/images"
             },
@@ -41,7 +59,7 @@
             "packtool": ""
         }
     },
-    "dfx": "0.11.2",
+    "dfx": "0.12.1",
     "networks": {
         "local": {
             "bind": "127.0.0.1:8000",

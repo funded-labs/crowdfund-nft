@@ -70,7 +70,7 @@
         "react-linkify": "^1.0.0-alpha",
         "react-modal-promise": "^1.0.2",
         "react-query": "3.34.7",
-        "react-quill": "^1.3.5",
+        "react-quill": "^2.0.0",
         "sass": "1.54.5",
         "stream-browserify": "^3.0.0",
         "util": "^0.12.4",

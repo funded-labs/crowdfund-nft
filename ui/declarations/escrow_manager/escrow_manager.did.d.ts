@@ -15,14 +15,16 @@ export interface _SERVICE {
   'acceptCycles' : ActorMethod<[], undefined>,
   'availableCycles' : ActorMethod<[], bigint>,
   'createEscrowCanister' : ActorMethod<
-    [ProjectId, Principal, Array<NFTInfo>, Time, bigint],
-    undefined,
+    [ProjectId, Principal, Array<NFTInfo>, Time, bigint, bigint],
+    undefined
   >,
   'dissociateEscrowCanister' : ActorMethod<[ProjectId], undefined>,
+  'getMaxOversellPercentage' : ActorMethod<[], bigint>,
   'getProjectEscrowCanisterPrincipal' : ActorMethod<
     [ProjectId],
-    [] | [CanisterIdText],
+    [] | [CanisterIdText]
   >,
+  'setMaxOversellPercentage' : ActorMethod<[bigint], undefined>,
   'takeover' : ActorMethod<[string], definite_canister_settings>,
   'wallet_receive' : ActorMethod<[], undefined>,
 }

@@ -184,4 +184,5 @@ service : {
   updateProfile: (Profile) -> ();
   updateProject: (Project) -> ();
   updateProjectStatus: (ProjectId, ProjectStatus) -> ();
+  updateProjectVideo: (ProjectId, text) -> (ProjectId);
 }
