@@ -33,7 +33,7 @@ const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selec
   }, [price8s])
 
   const escrowActor = useMemo(() => {
-    return createActor(canisterPrincipal[0], idlFactory)
+    return createActor(canisterPrincipal, idlFactory)
   }, [canisterPrincipal])
 
   useEffect(() => {
@@ -42,11 +42,16 @@ const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selec
     setLoadingLabel('Obtaining BTC address')
     escrowActor
       .getNewAccountId(Principal.from(wallet.id), selectedTier, "BTC")
-      .then((result) => setWalletAddress(result.ok))
+      .then((result) => {
+        if (result.ok) setWalletAddress(result.ok)
+        if (result.err) onReject(result.err)
+      })
       .catch(onReject)
       .finally(() => setLoadingLabel())
 
   }, [escrowActor, wallet])
+
+  console.log(walletAddress)
 
   useEffect(() => {
     return () => { clearInterval(intervalRef.current) }

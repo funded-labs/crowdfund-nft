@@ -18,7 +18,7 @@ import ViewOnMarketplace from "../view-on-marketplace";
 import { bitcoinSupportPromise } from "./bitcoin-support-modal";
 import { createActor } from '@/helpers/createActor';
 
-export const oldIdlFactory = ({ IDL }) => {
+export const v1Factory = ({ IDL }) => {
   const AccountIdText = IDL.Text;
   const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text });
   const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text });
@@ -29,7 +29,7 @@ export const oldIdlFactory = ({ IDL }) => {
   });
 };
 
-export const idlFactory = ({ IDL }) => {
+export const v2Factory = ({ IDL }) => {
   const AccountIdText = IDL.Text;
   const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text });
   const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text });
@@ -37,6 +37,17 @@ export const idlFactory = ({ IDL }) => {
     cancelTransfer: IDL.Func([AccountIdText], [], []),
     confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
     getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat], [Result], []),
+  });
+};
+
+export const v3Factory = ({ IDL }) => {
+  const AccountIdText = IDL.Text;
+  const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text });
+  const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text });
+  return IDL.Service({
+    cancelTransfer: IDL.Func([AccountIdText], [], []),
+    confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
+    getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
   });
 };
 
@@ -110,12 +121,18 @@ export default function Hero({ isLoading, project, adminView }) {
     }
     let actor;
     let isNewActor = true;
+    let requiresCurrencyParam = false;
 
     try {
-      actor = createActor(canisterPrincipal[0], idlFactory);
+      actor = createActor(canisterPrincipal[0], v3Factory);
+      requiresCurrencyParam = true
     } catch (e) {
-      actor = createActor(canisterPrincipal[0], oldIdlFactory);
-      isNewActor = false;
+      try {
+        actor = createActor(canisterPrincipal[1], v2Factory)
+      } catch (e) {
+        actor = createActor(canisterPrincipal[0], v1Factory);
+        isNewActor = false;
+      }
     }
 
     if (currency === 'BTC') {
@@ -123,7 +140,10 @@ export default function Hero({ isLoading, project, adminView }) {
         .then(() => {
           router.push("/success?projectId=" + project.id, "/success.html?projectId=" + project.id);
         })
-        .catch(console.error)
+        .catch((error) => {
+          alert(error)
+          console.log(error)
+        })
         .finally(() => setLoading(false))
 
       return
@@ -131,7 +151,7 @@ export default function Hero({ isLoading, project, adminView }) {
 
     setLoadingMessage("Requesting new account id...");
     let accountIdPromise = isNewActor
-      ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0])
+      ? (requiresCurrencyParam ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], "ICP") : actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0]))
       : actor.getNewAccountId(Principal.from(wallet.id));
     
       const accountIdResult = await accountIdPromise;
