@@ -15,6 +15,8 @@ import InstructionModal from "./instruction-modal";
 import ReCAPTCHA from "react-google-recaptcha";
 import PricePerNFT from "./price-per-nft";
 import ViewOnMarketplace from "../view-on-marketplace";
+import { bitcoinSupportPromise } from "./bitcoin-support-modal";
+import { createActor } from '@/helpers/createActor';
 
 export const oldIdlFactory = ({ IDL }) => {
   const AccountIdText = IDL.Text;
@@ -35,53 +37,6 @@ export const idlFactory = ({ IDL }) => {
     cancelTransfer: IDL.Func([AccountIdText], [], []),
     confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
     getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat], [Result], []),
-  });
-};
-
-// export const idlBTCFactory = ({ IDL }) => {
-//     const AccountIdText = IDL.Text
-//     const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
-//     const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
-//     return IDL.Service({
-//         cancelTransfer: IDL.Func([AccountIdText], [], []),
-//         confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
-//         getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
-//     })
-// }
-
-export const idlBTCFactory = ({ IDL }) => {
-  const AccountIdText = IDL.Text;
-  return IDL.Service({
-    supportCrowdFund: IDL.Func([AccountIdText, IDL.Nat64], [IDL.Text], []),
-  });
-};
-
-/*
-export const testingBTCWalletIDLFactory = ({ IDL }) => {
-    const AccountIdText = IDL.Text
-    return IDL.Service({
-        supportCrowdFund: IDL.Func([AccountIdText, IDL.Nat64], [IDL.Text], []),
-    })
-}
-*/
-
-const createActor = (canisterId, idlFactory) => {
-  const agent = new HttpAgent({
-    host: process.env.NODE_ENV === "production" ? "https://ic0.app" : "http://127.0.0.1:8000/",
-  });
-
-  // Fetch root key for certificate validation during development
-  if (process.env.NODE_ENV !== "production") {
-    agent.fetchRootKey().catch((err) => {
-      console.warn("Unable to fetch root key. Check to ensure that your local replica is running");
-      console.error(err);
-    });
-  }
-
-  // Creates an actor with using the candid interface and the HttpAgent
-  return Actor.createActor(idlFactory, {
-    agent,
-    canisterId,
   });
 };
 
@@ -136,7 +91,7 @@ export default function Hero({ isLoading, project, adminView }) {
   const backProject = async () => {
     setLoading(true);
     setLoadingMessage("Getting Wallet principal...");
-    //const wallet = {"wallet": "BTC", "id": "ncr3i-zmiei-ncsbg-fwp63-qp4mb-cdlcy-smbe3-c7cqx-2v5gk-v46n2-eae"}
+
     const wallet = await selectWalletModalPromise().catch((err) => "");
     if (!wallet) {
       setLoading(false);
@@ -155,32 +110,31 @@ export default function Hero({ isLoading, project, adminView }) {
     }
     let actor;
     let isNewActor = true;
-    //let isNewWithBTCActor = false
-    //try {
-    //    actor = createActor(canisterPrincipal[0], idlBTCFactory)
-    //    isNewActor = false
-    //    isNewWithBTCActor = true
-    //} catch (e) {
+
     try {
       actor = createActor(canisterPrincipal[0], idlFactory);
     } catch (e) {
       actor = createActor(canisterPrincipal[0], oldIdlFactory);
       isNewActor = false;
-      // isNewWithBTCActor = false
     }
-    //}
 
-    //if (isNewWithBTCActor) {
-    //    alert ("BTC not yet supported, coming soon !")
-    //    return
-    // }
+    if (currency === 'BTC') {
+      bitcoinSupportPromise({ wallet, project, canisterPrincipal: canisterPrincipal[0], selectedTier: selectedTierState[0] })
+        .then(() => {
+          router.push("/success?projectId=" + project.id, "/success.html?projectId=" + project.id);
+        })
+        .catch(console.error)
+        .finally(() => setLoading(false))
+
+      return
+    }
 
     setLoadingMessage("Requesting new account id...");
     let accountIdPromise = isNewActor
       ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0])
-      : // isNewWithBTCActor ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], wallet.wallet === "BTC" ? "BTC" : "ICP") :
-        actor.getNewAccountId(Principal.from(wallet.id));
-    const accountIdResult = await accountIdPromise;
+      : actor.getNewAccountId(Principal.from(wallet.id));
+    
+      const accountIdResult = await accountIdPromise;
     if (accountIdResult.hasOwnProperty("err")) {
       setLoading(false);
       return alert(accountIdResult.err);
@@ -249,16 +203,8 @@ export default function Hero({ isLoading, project, adminView }) {
           return { Err: error };
         });
       }
-    } else if (wallet.wallet === "BTC") {
-      /*
-            const testingBTCWalletActor = createActor("rkp4c-7iaaa-aaaaa-aaaca-cai", testingBTCWalletIDLFactory)
-            console.log("ACID:", accountid)
-            res = await testingBTCWalletActor.supportCrowdFund(accountid, Number(project.stats.nftStats[selectedTierState[0]].priceSatoshi))
-            console.log("CROWDFUND RESULT: ", res)
-            */
-      alert("BTC not yet supported, coming soon !");
-      res = { err: "btc not yet supported" };
     }
+
     if (res.Err || res.err) {
       setLoading(false);
       if (res.hasOwnProperty("Err") && res.Err.InsufficientFunds) {

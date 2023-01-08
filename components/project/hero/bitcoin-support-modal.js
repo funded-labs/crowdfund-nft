@@ -19,7 +19,7 @@ export const idlFactory = ({ IDL }) => {
   })
 }
 
-const BitcoinSupportModal = ({ isOpen, wallet, project, launchDate, status, canisterPrincipal, selectedTier, sum, onResolve, onReject } ) => {
+const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selectedTier, onResolve, onReject } ) => {
   const [walletAddress, setWalletAddress] = useState()
   const [loadingLabel, setLoadingLabel] = useState()
   const intervalRef = useRef()
