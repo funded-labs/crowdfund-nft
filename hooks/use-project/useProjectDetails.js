@@ -24,7 +24,6 @@ export const idlFactory = ({ IDL }) => {
       openSubaccounts: IDL.Nat,
       number: IDL.Nat,
       priceE8S: IDL.Nat,
-      oversellNumber: IDL.Int,
   })
   const EscrowStats = IDL.Record({
       endTime: IDL.Int,
