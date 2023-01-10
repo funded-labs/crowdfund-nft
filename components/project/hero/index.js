@@ -328,7 +328,7 @@ export default function Hero({ isLoading, project, adminView }) {
     0
   );
   const oversellAmount = (project.stats.nftStats ?? [{ oversellNumber: 0 }])
-    .map((n) => n.oversellNumber * 100000000)
+    .map((({ priceE8S, priceSatoshi, oversellNumber }) => oversellNumber * (priceE8S ? priceE8S : priceSatoshi)))
     .reduce((a, b) => a + b);
 
   const remainingTimeString = (endTime) => {
