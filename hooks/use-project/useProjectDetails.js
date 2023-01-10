@@ -43,7 +43,8 @@ export const idlBTCFactory = ({ IDL }) => {
       openSubaccounts: IDL.Nat,
       number: IDL.Nat,
       priceE8S: IDL.Nat,
-      priceSatoshi: IDL.Nat
+      priceSatoshi: IDL.Nat,
+      oversellNumber: IDL.Int,
   })
   const EscrowStats = IDL.Record({
       endTime: IDL.Int,

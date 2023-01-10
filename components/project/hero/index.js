@@ -378,6 +378,11 @@ export default function Hero({ isLoading, project, adminView }) {
     );
   }
 
+  const currencyIcon = () => {
+    const className = "h-6 inline-block mr-3"
+    return currency === "BTC" ? <img src='assets/bitcoin.svg' className={className}/> : <img src="/assets/IClogo.png" className={className} />
+  }
+
   return (
     <>
       <section className="w-full bg-white">
@@ -443,8 +448,8 @@ export default function Hero({ isLoading, project, adminView }) {
 
             <div className="w-full lg:w-4/12 bg-white rounded-lg shadow-lg px-8 flex flex-col">
               <div className="w-full flex flex-col py-3">
-                <p className="text-blue-600 text-3xl font-medium">
-                  <img src="/assets/IClogo.png" className="h-6 inline-block" />{" "}
+                <p className="flex text-blue-600 text-3xl font-medium items-center">
+                  {currencyIcon()}
                   {threeDecimals(threeDecimals(pledged / 100_000_000).toString()) + " " + currency}
                 </p>
                 <p className="text-gray-400 text-md font-light">
