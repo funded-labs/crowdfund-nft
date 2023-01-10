@@ -14,10 +14,10 @@ https://kn5ky-6iaaa-aaaai-qbikq-cai.ic0.app/
 
 Install:
 
--   NodeJS 14.\* or higher https://nodejs.org/en/download/
--   Internet Computer dfx CLI https://sdk.dfinity.org/docs/quickstart/local-quickstart.html
--   Visual Studio Code (Recommended Code Editor) https://code.visualstudio.com/Download
--   VSCode extension - Motoko (Recommended) https://marketplace.visualstudio.com/items?itemName=dfinity-foundation.vscode-motoko
+- NodeJS 14.\* or higher https://nodejs.org/en/download/
+- Internet Computer dfx CLI https://sdk.dfinity.org/docs/quickstart/local-quickstart.html
+- Visual Studio Code (Recommended Code Editor) https://code.visualstudio.com/Download
+- VSCode extension - Motoko (Recommended) https://marketplace.visualstudio.com/items?itemName=dfinity-foundation.vscode-motoko
 
 ```bash
 sh -ci "$(curl -fsSL https://sdk.dfinity.org/install.sh)"
@@ -60,7 +60,16 @@ dfx stop
 
 Internet Computer has the concept of [Canister](https://sdk.dfinity.org/docs/developers-guide/concepts/canisters-code.html) which is a computation unit. This project has 2 canisters:
 
--   backend
--   frontend
+- backend
+- frontend
 
 Canister configuration are stored in dfx.json.
+
+## Deployment
+
+There 2 sets of Canister on the IC (production and staging)
+
+```bash
+dfx deploy --network staging
+dfx deploy --network production
+```
