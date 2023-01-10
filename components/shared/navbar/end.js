@@ -4,38 +4,38 @@ import { useState } from 'react'
 import Sidebar from '../sidebar'
 
 export default function End() {
-    const { backendWithAuth } = useBackend()
-    const [showSidebar, setShowSidebar] = useState(false)
+  const { backendWithAuth } = useBackend()
+  const [showSidebar, setShowSidebar] = useState(false)
 
-    return (
-        <>
-        <Link
-            href='/manage-project'
-            as='/manage-project.html'
-            passHref
-        >
-            <button
-                className={`
-                    h-8 px-2 rounded-lg text-sm focus:outline-none
-                    ml-2 bg-white text-blue-600 flex flex-row space-x-1
-                    font-medium items-center 
-                `}
-                type='button'>
-                <span>{backendWithAuth ? 'Manage project' : 'Sign in'}</span>
-            </button>
-        </Link>
+  return (
+    <>
+      <Link href='/manage-project' as='/manage-project.html' passHref>
         <button
-            className={`
-                h-12 rounded-full
-                ml-2 bg-gradient-to-br from-neutral-800 to-black text-white flex flex-row space-x-1
-                font-medium items-center focus:outline-none
-                px-8 text-sm
-            `}
-            type='button'
-            onClick={() => setShowSidebar(true)}>
-            <span className="text-md">Start <span className="hidden sm:inline">a Crowdfund</span></span>
+          className={`
+                    ml-2 flex h-8 flex-row items-center
+                    space-x-1 rounded-lg bg-white px-2 text-sm font-medium
+                    text-blue-600 focus:outline-none 
+                `}
+          type='button'
+        >
+          <span>{backendWithAuth ? 'Manage project' : 'Sign in'}</span>
         </button>
-        <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
-        </>
-    )
+      </Link>
+      <button
+        className={`
+                ml-2 flex
+                h-12 flex-row items-center space-x-1 rounded-full bg-gradient-to-br from-neutral-800 to-black
+                px-8 text-sm font-medium
+                text-white focus:outline-none
+            `}
+        type='button'
+        onClick={() => setShowSidebar(true)}
+      >
+        <span className='text-md'>
+          Start <span className='hidden sm:inline'>a Crowdfund</span>
+        </span>
+      </button>
+      <Sidebar show={showSidebar} onClose={() => setShowSidebar(false)} />
+    </>
+  )
 }

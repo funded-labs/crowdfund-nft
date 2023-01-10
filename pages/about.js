@@ -15,26 +15,24 @@ import CTA2 from '@/components/about/cta2'
 import CTA from '@/components/about/cta'
 
 export default function About() {
-    return (
-        <div className='w-full flex flex-col'>
-            <Head>
-                <title>About CrowdFund NFT</title>
-            </Head>
+  return (
+    <div className='flex w-full flex-col'>
+      <Head>
+        <title>About CrowdFund NFT</title>
+      </Head>
 
-            <Navbar />
+      <Navbar />
 
-            <Banner />
+      <Banner />
 
-            <CTA />
+      <CTA />
 
-            <Feature />
-          
+      <Feature />
 
-        
-            <CTA2/>
-            <Teamtwo />
-            
-            {/* <section className='w-full py-10'>
+      <CTA2 />
+      <Teamtwo />
+
+      {/* <section className='w-full py-10'>
                 <div className='w-full max-w-5xl px-4 mx-auto'>
                     <p className='py-4 w-full text-center text-3xl font-semibold'>
                         What Makes CrowdFund NFT Different?
@@ -220,7 +218,7 @@ export default function About() {
             <Team />
             */}
 
-            <Footer />
-        </div>
-    )
+      <Footer />
+    </div>
+  )
 }

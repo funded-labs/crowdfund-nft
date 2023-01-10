@@ -6,23 +6,23 @@ import { useBackend } from '@/context/backend'
 import { useEffect, useState } from 'react'
 
 export default function CreateAProject() {
-    const backend = useBackend().backendWithAuth
-    const [showLoginModal, setLoginModal] = useState(false)
+  const backend = useBackend().backendWithAuth
+  const [showLoginModal, setLoginModal] = useState(false)
 
-    useEffect(() => {
-        if (backend) return setLoginModal(false)
-        setLoginModal(true)
-    }, [backend])
+  useEffect(() => {
+    if (backend) return setLoginModal(false)
+    setLoginModal(true)
+  }, [backend])
 
-    if (showLoginModal === true) {
-        return <PromptLoginModal />
-    }
+  if (showLoginModal === true) {
+    return <PromptLoginModal />
+  }
 
-    return (
-        <div className='w-full'>
-            <Navbar />
-            <CreateAProjectForm />
-            <Footer/>
-        </div>
-    )
+  return (
+    <div className='w-full'>
+      <Navbar />
+      <CreateAProjectForm />
+      <Footer />
+    </div>
+  )
 }

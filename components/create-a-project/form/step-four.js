@@ -10,220 +10,219 @@ import classNames from 'classnames'
 const SUPPORTED_FILE_FORMATS = ['image/png', 'image/jpeg', 'image/jpg']
 const SUPPORTED_VIDEO_FORMATS = ['video/mp4', 'video/ogg', 'video/webm']
 const FILE_SIZE = 500000
-const VIDEO_FILE_SIZE = 2 * 1000000
+const VIDEO_FILE_SIZE = 100 * 1000000
 
 const stepFourSchema = Yup.object().shape({
-    coverImg: Yup.mixed()
-        .test(
-            'fileFormat',
-            'Please select a jpg or png file for the cover image.',
-            (value) =>
-                value === null ||
-                (value && SUPPORTED_FILE_FORMATS.includes(value.type))
-        )
-        .test(
-            'fileSize',
-            'Please select a file smaller than 500KB.',
-            (value) => value === null || (value && value.size <= FILE_SIZE)
-        ),
-    video: Yup.mixed()
-        .test(
-            'fileFormat',
-            'Only mp4, ogg, webm video formats are supported',
-            (value) =>
-                !value ||
-                (value && SUPPORTED_VIDEO_FORMATS.includes(value.type))
-        )
-        .test(
-            'fileSize',
-            'Please select a file smaller than 2 MB.',
-            (value) => !value || (value && value.size <= VIDEO_FILE_SIZE)
-        ),
-    wetransferLink: Yup.string().required(
-        'You must enter a valid WeTransfer for your NFT art.'
+  coverImg: Yup.mixed()
+    .test(
+      'fileFormat',
+      'Please select a jpg or png file for the cover image.',
+      (value) =>
+        value === null ||
+        (value && SUPPORTED_FILE_FORMATS.includes(value.type)),
+    )
+    .test(
+      'fileSize',
+      'Please select a file smaller than 500KB.',
+      (value) => value === null || (value && value.size <= FILE_SIZE),
     ),
+  video: Yup.mixed()
+    .test(
+      'fileFormat',
+      'Only mp4, ogg, webm video formats are supported',
+      (value) =>
+        !value || (value && SUPPORTED_VIDEO_FORMATS.includes(value.type)),
+    )
+    .test(
+      'fileSize',
+      'Please select a file smaller than 100 MB.',
+      (value) => !value || (value && value.size <= VIDEO_FILE_SIZE),
+    ),
+  wetransferLink: Yup.string().required(
+    'You must enter a valid WeTransfer for your NFT art.',
+  ),
 })
 
 const initialValues = {
-    coverImgUrl: '',
-    wetransferLink: 'auto-generated',
+  coverImgUrl: '',
+  wetransferLink: 'auto-generated',
 }
 
 export default function StepFour() {
-    const { setStep, setProject, previousStep, project } = useProjectForm()
-    const [isLoading, setLoading] = useState(false)
-    const router = useRouter()
+  const { setStep, setProject, previousStep, project } = useProjectForm()
+  const [isLoading, setLoading] = useState(false)
+  const router = useRouter()
 
-    const handleSubmit = async (form) => {
-        try {
-            setLoading(true)
+  const handleSubmit = async (form) => {
+    try {
+      setLoading(true)
 
-            setProject((project) => ({ ...project, ...form }))
+      setProject((project) => ({ ...project, ...form }))
 
-            setStep(5)
-        } catch (error) {
-            console.error(error)
-            // toto: set form error
-        } finally {
-            setLoading(false)
-        }
+      setStep(5)
+    } catch (error) {
+      console.error(error)
+      // toto: set form error
+    } finally {
+      setLoading(false)
     }
+  }
 
-    return (
-        <Formik
-            initialValues={initialValues}
-            onSubmit={handleSubmit}
-            validationSchema={stepFourSchema}>
-            {({
-                handleSubmit,
-                handleBlur,
-                handleChange,
-                setFieldValue,
-                errors,
-                values,
-            }) => (
-                <form
-                    className='w-full flex flex-col space-y-2'
-                    onSubmit={handleSubmit}>
-                    <div className='w-full flex flex-col space-y-4'>
-                        <p className='font-semibold text-2xl'>
-                            Add a cover photo for your NFTs
-                        </p>
-                        <p className=''>
-                            A high-quality image that will serve as your project
-                            cover, as well as NFT collection cover!
-                        </p>
-                        <Input
-                            name='coverImg'
-                            onChange={(e) =>
-                                setFieldValue('coverImg', e.target.files[0])
-                            }
-                            onBlur={handleBlur}
-                            type='file'
-                        />
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={stepFourSchema}
+    >
+      {({
+        handleSubmit,
+        handleBlur,
+        handleChange,
+        setFieldValue,
+        errors,
+        values,
+      }) => (
+        <form
+          className='bg-clear flex w-full flex-col space-y-2 px-8 sm:p-0'
+          onSubmit={handleSubmit}
+        >
+          <div className='w-full space-y-1 sm:flex sm:grid-cols-2 sm:flex-row'>
+            <div className='bg-clear flex flex-col px-4 py-4 sm:w-1/3'>
+              <p className='pt-12 font-sans text-4xl font-bold text-neutral-900 sm:px-12'>
+                Upload your project artwork
+              </p>
+              <p className='text-md pt-4 font-sans font-light text-neutral-700 sm:px-12'>
+                A high-quality image that will serve as your project cover, as
+                well as NFT collection cover!
+              </p>
+            </div>
+            <div className='border-1 flex-1 flex-col rounded-l-3xl rounded-r-3xl border border-white bg-white bg-opacity-50 p-8 bg-blend-saturation sm:rounded-r-none sm:rounded-l-3xl sm:px-36 sm:py-16'>
+              <p className='text-2xl font-semibold'>Upload your cover image</p>
+              <Input
+                name='coverImg'
+                onChange={(e) => setFieldValue('coverImg', e.target.files[0])}
+                onBlur={handleBlur}
+                type='file'
+              />
+              <p className='mt-8 text-2xl font-semibold'>Add a project video</p>
+              <Input
+                name='video'
+                onChange={(e) => setFieldValue('video', e.target.files[0])}
+                onBlur={handleBlur}
+                type='file'
+              />
 
-                        <p className='font-semibold text-2xl'>
-                            Add your project video
-                        </p>
-                        <Input
-                            name='video'
-                            onChange={(e) =>
-                                setFieldValue('video', e.target.files[0])
-                            }
-                            onBlur={handleBlur}
-                            type='file'
-                        />
+              <p className='pt-10 pb-2 text-2xl font-semibold text-neutral-900'>
+                Select your NFT Art
+              </p>
+              <p className='font-regular mb-4 text-neutral-500'>
+                Choose whether you would like to upload your own custom NFT art,
+                or have it auto-generated by CrowdFund NFT.
+              </p>
 
-                        <p className='font-semibold text-2xl pt-10'>NFT Art</p>
-                        <p className=''>
-                            Choose whether you would like to upload your own
-                            custom NFT art, or have it auto-generated by
-                            CrowdFund NFT.
-                        </p>
+              <div className='flex w-full flex-row space-x-2'>
+                <button
+                  type='button'
+                  className={classNames(
+                    'display-none rounded-lg focus:outline-none',
+                    'w-6/12 border border-white py-3 px-4 font-medium',
+                    values.wetransferLink === 'auto-generated'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white bg-opacity-70 text-blue-600',
+                  )}
+                  onClick={() =>
+                    setFieldValue('wetransferLink', 'auto-generated')
+                  }
+                >
+                  Auto-generated
+                </button>
+                <button
+                  type='button'
+                  className={classNames(
+                    'display-none rounded-lg focus:outline-none',
+                    'w-6/12 border border-white py-3 px-4 font-medium',
+                    values.wetransferLink !== 'auto-generated'
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white bg-opacity-70 text-blue-600',
+                  )}
+                  onClick={() => setFieldValue('wetransferLink', '')}
+                >
+                  Custom
+                </button>
+              </div>
 
-                        <div className='w-full flex flex-row space-x-2'>
-                            <button
-                                type='button'
-                                className={classNames(
-                                    'rounded-lg display-none focus:outline-none',
-                                    'py-3 px-4 border border-blue-600 w-6/12 font-medium',
-                                    values.wetransferLink === 'auto-generated'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white text-blue-600'
-                                )}
-                                onClick={() =>
-                                    setFieldValue(
-                                        'wetransferLink',
-                                        'auto-generated'
-                                    )
-                                }>
-                                Auto-generated
-                            </button>
-                            <button
-                                type='button'
-                                className={classNames(
-                                    'rounded-lg display-none focus:outline-none',
-                                    'py-3 px-4 border border-blue-600 w-6/12 font-medium',
-                                    values.wetransferLink !== 'auto-generated'
-                                        ? 'bg-blue-600 text-white'
-                                        : 'bg-white text-blue-600'
-                                )}
-                                onClick={() =>
-                                    setFieldValue('wetransferLink', '')
-                                }>
-                                Custom
-                            </button>
-                        </div>
+              {values.wetransferLink !== 'auto-generated' && (
+                <div className='w-full rounded-lg bg-gray-100 p-8'>
+                  <p className='mb-4'>
+                    You have chosen to provide custom NFT art. Please upload
+                    your NFT art collection to WeTransfer and paste the link
+                    below.
+                  </p>
 
-                        {values.wetransferLink !== 'auto-generated' && (
-                            <div className='bg-gray-100 rounded-lg w-full py-4 px-2'>
-                                <p className='mb-4'>
-                                    You have chosen to provide custom NFT art.
-                                    Please upload your NFT art collection to
-                                    WeTransfer and paste the link below.
-                                </p>
+                  <Input
+                    name='wetransferLink'
+                    value={values.wetransferLink}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    type='text'
+                    placeholder='WeTransfer link for your NFT'
+                  />
 
-                                <Input
-                                    name='wetransferLink'
-                                    value={values.wetransferLink}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    type='text'
-                                    placeholder='WeTransfer link for your NFT'
-                                />
+                  <p className='mt-4 text-xs'>
+                    Reminder, you selected a collection size of{' '}
+                    {project.nftVolume} NFTs so make sure you have the
+                    appropriate number of JPG's or PNG's in your upload. These
+                    will be minted and randomly allocated to people who invest
+                    in your project.
+                  </p>
+                </div>
+              )}
 
-                                <p className='mt-4 text-xs'>
-                                    Reminder, you selected a collection size of{' '}
-                                    {project.nftVolume} NFTs so make sure you
-                                    have the appropriate number of JPG's or
-                                    PNG's in your upload. These will be minted
-                                    and randomly allocated to people who invest
-                                    in your project.
-                                </p>
-                            </div>
-                        )}
-                    </div>
+              {Object.values(errors).length > 0 && (
+                <div className='flex w-full flex-row items-center pt-8 text-sm text-red-500'>
+                  {Object.values(errors)[0]}
+                </div>
+              )}
 
-                    {Object.values(errors).length > 0 && (
-                        <div className='text-red-500 text-sm w-full flex flex-row items-center pt-8'>
-                            {Object.values(errors)[0]}
-                        </div>
-                    )}
-
-                    <button
-                        disabled={isLoading === true}
-                        type='submit'
-                        className={`
-                            flex flex-row justify-center w-full bg-blue-600 text-white py-3 
-                            px-4 font-medium text-base tracking-wider rounded-xl
+              <button
+                disabled={isLoading === true}
+                type='submit'
+                className={`
+                            mt-4 flex w-full flex-row justify-center rounded-xl bg-blue-600 py-3 
+                            px-4 text-base font-medium tracking-wider text-white
                             shadow-xl hover:bg-blue-700
-                        `}>
-                        {!isLoading && <span>Next</span>}
+                        `}
+              >
+                {!isLoading && <span>Next</span>}
 
-                        {isLoading && (
-                            <span className='h-5 w-5'>
-                                <Spinner show={true} />
-                            </span>
-                        )}
-                    </button>
+                {isLoading && (
+                  <span className='h-5 w-5'>
+                    <Spinner show={true} />
+                  </span>
+                )}
+              </button>
 
-                    <button
-                        className='appearance-none w-full py-4 px-4 text-xs text-center text-gray-500 focus:outline-none'
-                        onClick={previousStep}
-                        type='button'>
-                        &larr; Go back
-                    </button>
+              <button
+                className='w-full appearance-none py-4 px-4 text-center text-xs text-gray-500 focus:outline-none'
+                onClick={previousStep}
+                type='button'
+              >
+                &larr; Go back
+              </button>
+            </div>
+          </div>
 
-                    <p
-                        className={`
-                            w-full py-4 px-4 text-xs text-center text-gray-500
+          <p
+            className={`
+                            w-full py-4 px-4 text-center text-xs text-gray-500
                             
-                        `}>
-                        By continuing, you agree to CrowdFund NFTs Terms and
-                        acknowledge receipt of our Privacy Policy.
-                    </p>
-                </form>
-            )}
-        </Formik>
-    )
+                        `}
+          >
+            By continuing, you agree to CrowdFund NFTs Terms and acknowledge
+            receipt of our Privacy Policy.
+          </p>
+        </form>
+      )}
+    </Formik>
+  )
 }

@@ -12,35 +12,33 @@ import Entrepot3 from '@/components/home/entrepot3'
 import Getstarted from '@/components/home/getstarted'
 
 const HomePage = () => {
-    const router = useRouter()
+  const router = useRouter()
 
-    const navigateToCategory = (category) => {
-        router.push(
-            `/search?category=${category}`,
-            `/search.html?category=${category}`
-        )
-    }
+  const navigateToCategory = (category) => {
+    router.push(
+      `/search?category=${category}`,
+      `/search.html?category=${category}`,
+    )
+  }
 
-    return (
-        <div className='w-full'>
-            {/* <Banner /> */}
-            <Navbar />
+  return (
+    <div className='w-full'>
+      {/* <Banner /> */}
+      <Navbar />
 
-            
+      <Hero />
 
-            <Hero />
-            
-            <Featured/>
-            
-            <CategoryRow onClick={navigateToCategory}/>
+      <Featured />
 
-            <ProjectList
-                header='Live Projects'
-                queryName='live-projects'
-                statuses={['whitelist', 'live']}
-            />
+      <CategoryRow onClick={navigateToCategory} />
 
-            {/*
+      <ProjectList
+        header='Live Projects'
+        queryName='live-projects'
+        statuses={['whitelist', 'live']}
+      />
+
+      {/*
             <ProjectList
                 header='Supernova Projects'
                 queryName='supernova-projects'
@@ -48,38 +46,38 @@ const HomePage = () => {
             />
             */}
 
-            <ProjectList
-                header='Projects Going Live Soon'
-                queryName='live-soon-projects'
-                statuses={['approved']}
-            />
+      <ProjectList
+        header='Projects Going Live Soon'
+        queryName='live-soon-projects'
+        statuses={['approved']}
+      />
 
-            <ProjectList
-                header='Fully Funded Projects'
-                queryName='fully-funded-projects'
-                statuses={['fully_funded']}
-            />
+      <ProjectList
+        header='Fully Funded Projects'
+        queryName='fully-funded-projects'
+        statuses={['fully_funded']}
+      />
 
-            <br />
-            <Getstarted/>
-            <br />
-            
-            <Entrepot3 />
+      <br />
+      <Getstarted />
+      <br />
 
-           {/*  <Setup /> */}
+      <Entrepot3 />
 
-            {/* <ProjectList
+      {/*  <Setup /> */}
+
+      {/* <ProjectList
                 header='Archived Projects'
                 queryName='archived-projects'
                 statuses={[null]}
             /> */}
 
-            <br />
-            <br />
+      <br />
+      <br />
 
-            <Footer />
-        </div>
-    )
+      <Footer />
+    </div>
+  )
 }
 
 export default HomePage

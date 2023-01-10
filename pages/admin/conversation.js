@@ -9,8 +9,8 @@ const Conversation = () => {
 
   return (
     <AdminPageLayout>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-        <Messaging otherPartyPrincipal={principal}/>
+      <div className='mx-auto max-w-7xl px-4 sm:px-6 md:px-8'>
+        <Messaging otherPartyPrincipal={principal} />
       </div>
     </AdminPageLayout>
   )

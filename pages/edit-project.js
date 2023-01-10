@@ -7,22 +7,22 @@ import { useEffect, useState } from 'react'
 import EditProjectForm from '@/components/edit-project/form'
 
 export default function EditProject() {
-    const backend = useBackend().backendWithAuth
-    const [showLoginModal, setLoginModal] = useState(false)
+  const backend = useBackend().backendWithAuth
+  const [showLoginModal, setLoginModal] = useState(false)
 
-    useEffect(() => {
-        if (backend) return setLoginModal(false)
-        setLoginModal(true)
-    }, [backend])
+  useEffect(() => {
+    if (backend) return setLoginModal(false)
+    setLoginModal(true)
+  }, [backend])
 
-    if (showLoginModal === true) {
-        return <PromptLoginModal />
-    }
+  if (showLoginModal === true) {
+    return <PromptLoginModal />
+  }
 
-    return (
-        <div className='w-full'>
-            <Navbar />
-            <EditProjectForm />
-        </div>
-    )
+  return (
+    <div className='w-full'>
+      <Navbar />
+      <EditProjectForm />
+    </div>
+  )
 }
