@@ -311,7 +311,7 @@ export default function Hero({ isLoading, project, adminView }) {
       case "archived":
         return <>archived</>;
       default:
-        return project.stats.endTime > 0 && currency !== "BTC" ? (
+        return project.stats.endTime > 0 ? (
           <>Not live. Whitelist in {remainingTimeString(project.stats.endTime - 30 * 1000 * 24 * 60 * 60)}</>
         ) : (
           <>not live</>
@@ -474,7 +474,6 @@ export default function Hero({ isLoading, project, adminView }) {
               </div>
 
               {(status === "approved" || status === "whitelist") &&
-                currency !== "BTC" &&
                 project?.stats?.endTime > 0 && (
                   <div className="mt-2 text-xs text-center">
                     {status === "approved" ? (
