@@ -1,70 +1,59 @@
 {
-    "canisters": {
-        "backend": {
-            "type": "motoko",
-            "declarations": {
-                "output": "ui/declarations/backend"
-            },
-            "dependencies": [
-                "escrow_manager"
-            ],
-            "main": "src/backend/main.mo"
-        },
-        "frontend": {
-            "declarations": {
-                "output": "ui/declarations/frontend"
-            },
-            "dependencies": [
-                "backend",
-                "escrow_manager",
-                "images"
-            ],
-            "source": [
-                "out",
-                "src/assets"
-            ],
-            "type": "assets"
-        },
-        "frontend_staging": {
-            "dependencies": [
-                "backend",
-                "escrow_manager",
-                "images"
-            ],
-            "source": [
-                "out"
-            ],
-            "type": "assets"
-        },
-        "escrow_manager": {
-            "type": "motoko",
-            "declarations": {
-                "output": "ui/declarations/escrow_manager"
-            },
-            "main": "src/escrow_manager/main.mo"
-        },
-        "images": {
-            "type": "motoko",
-            "declarations": {
-                "output": "ui/declarations/images"
-            },
-            "main": "src/images/main.mo"
-        },
-        "ukraine_round": {
-            "main": "src/escrow_manager/escrow.mo"
-        }
+  "canisters": {
+    "backend": {
+      "type": "motoko",
+      "declarations": {
+        "output": "ui/declarations/backend"
+      },
+      "dependencies": ["escrow_manager"],
+      "main": "src/backend/main.mo"
     },
-    "defaults": {
-        "build": {
-            "packtool": ""
-        }
+    "frontend": {
+      "declarations": {
+        "output": "ui/declarations/frontend"
+      },
+      "dependencies": ["backend", "escrow_manager", "images"],
+      "source": ["out", "src/assets"],
+      "type": "assets"
     },
-    "dfx": "0.12.1",
-    "networks": {
-        "local": {
-            "bind": "127.0.0.1:8000",
-            "type": "ephemeral"
-        }
+    "escrow_manager": {
+      "type": "motoko",
+      "declarations": {
+        "output": "ui/declarations/escrow_manager"
+      },
+      "main": "src/escrow_manager/main.mo"
     },
-    "version": 1
+    "images": {
+      "type": "motoko",
+      "declarations": {
+        "output": "ui/declarations/images"
+      },
+      "main": "src/images/main.mo"
+    }
+  },
+  "defaults": {
+    "build": {
+      "packtool": ""
+    }
+  },
+  "bitcoin": {
+    "enabled": true,
+    "nodes": ["127.0.0.1:18444"]
+  },
+  "dfx": "0.12.1",
+  "version": 1,
+  "networks": {
+    "staging": {
+      "providers": [
+        "https://ic0.app"
+      ],
+      "type": "persistent"
+    },
+    "production": {
+      "providers": [
+        "https://ic0.app"
+      ],
+      "type": "persistent"
+    }
+  }
 }

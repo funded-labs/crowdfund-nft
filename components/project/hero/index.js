@@ -15,8 +15,10 @@ import InstructionModal from "./instruction-modal";
 import ReCAPTCHA from "react-google-recaptcha";
 import PricePerNFT from "./price-per-nft";
 import ViewOnMarketplace from "../view-on-marketplace";
+import { bitcoinSupportPromise } from "./bitcoin-support-modal";
+import { createActor } from '@/helpers/createActor';
 
-export const oldIdlFactory = ({ IDL }) => {
+export const v1Factory = ({ IDL }) => {
   const AccountIdText = IDL.Text;
   const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text });
   const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text });
@@ -27,7 +29,7 @@ export const oldIdlFactory = ({ IDL }) => {
   });
 };
 
-export const idlFactory = ({ IDL }) => {
+export const v2Factory = ({ IDL }) => {
   const AccountIdText = IDL.Text;
   const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text });
   const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text });
@@ -38,50 +40,14 @@ export const idlFactory = ({ IDL }) => {
   });
 };
 
-// export const idlBTCFactory = ({ IDL }) => {
-//     const AccountIdText = IDL.Text
-//     const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text })
-//     const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text })
-//     return IDL.Service({
-//         cancelTransfer: IDL.Func([AccountIdText], [], []),
-//         confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
-//         getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
-//     })
-// }
-
-export const idlBTCFactory = ({ IDL }) => {
+export const v3Factory = ({ IDL }) => {
   const AccountIdText = IDL.Text;
+  const Result_1 = IDL.Variant({ ok: IDL.Null, err: IDL.Text });
+  const Result = IDL.Variant({ ok: AccountIdText, err: IDL.Text });
   return IDL.Service({
-    supportCrowdFund: IDL.Func([AccountIdText, IDL.Nat64], [IDL.Text], []),
-  });
-};
-
-/*
-export const testingBTCWalletIDLFactory = ({ IDL }) => {
-    const AccountIdText = IDL.Text
-    return IDL.Service({
-        supportCrowdFund: IDL.Func([AccountIdText, IDL.Nat64], [IDL.Text], []),
-    })
-}
-*/
-
-const createActor = (canisterId, idlFactory) => {
-  const agent = new HttpAgent({
-    host: process.env.NODE_ENV === "production" ? "https://ic0.app" : "http://127.0.0.1:8000/",
-  });
-
-  // Fetch root key for certificate validation during development
-  if (process.env.NODE_ENV !== "production") {
-    agent.fetchRootKey().catch((err) => {
-      console.warn("Unable to fetch root key. Check to ensure that your local replica is running");
-      console.error(err);
-    });
-  }
-
-  // Creates an actor with using the candid interface and the HttpAgent
-  return Actor.createActor(idlFactory, {
-    agent,
-    canisterId,
+    cancelTransfer: IDL.Func([AccountIdText], [], []),
+    confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
+    getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
   });
 };
 
@@ -136,7 +102,7 @@ export default function Hero({ isLoading, project, adminView }) {
   const backProject = async () => {
     setLoading(true);
     setLoadingMessage("Getting Wallet principal...");
-    //const wallet = {"wallet": "BTC", "id": "ncr3i-zmiei-ncsbg-fwp63-qp4mb-cdlcy-smbe3-c7cqx-2v5gk-v46n2-eae"}
+
     const wallet = await selectWalletModalPromise().catch((err) => "");
     if (!wallet) {
       setLoading(false);
@@ -155,32 +121,40 @@ export default function Hero({ isLoading, project, adminView }) {
     }
     let actor;
     let isNewActor = true;
-    //let isNewWithBTCActor = false
-    //try {
-    //    actor = createActor(canisterPrincipal[0], idlBTCFactory)
-    //    isNewActor = false
-    //    isNewWithBTCActor = true
-    //} catch (e) {
-    try {
-      actor = createActor(canisterPrincipal[0], idlFactory);
-    } catch (e) {
-      actor = createActor(canisterPrincipal[0], oldIdlFactory);
-      isNewActor = false;
-      // isNewWithBTCActor = false
-    }
-    //}
+    let requiresCurrencyParam = false;
 
-    //if (isNewWithBTCActor) {
-    //    alert ("BTC not yet supported, coming soon !")
-    //    return
-    // }
+    try {
+      actor = createActor(canisterPrincipal[0], v3Factory);
+      requiresCurrencyParam = true
+    } catch (e) {
+      try {
+        actor = createActor(canisterPrincipal[1], v2Factory)
+      } catch (e) {
+        actor = createActor(canisterPrincipal[0], v1Factory);
+        isNewActor = false;
+      }
+    }
+
+    if (currency === 'BTC') {
+      bitcoinSupportPromise({ wallet, project, canisterPrincipal: canisterPrincipal[0], selectedTier: selectedTierState[0] })
+        .then(() => {
+          router.push("/success?projectId=" + project.id, "/success.html?projectId=" + project.id);
+        })
+        .catch((error) => {
+          alert(error)
+          console.log(error)
+        })
+        .finally(() => setLoading(false))
+
+      return
+    }
 
     setLoadingMessage("Requesting new account id...");
     let accountIdPromise = isNewActor
-      ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0])
-      : // isNewWithBTCActor ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], wallet.wallet === "BTC" ? "BTC" : "ICP") :
-        actor.getNewAccountId(Principal.from(wallet.id));
-    const accountIdResult = await accountIdPromise;
+      ? (requiresCurrencyParam ? actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0], "ICP") : actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0]))
+      : actor.getNewAccountId(Principal.from(wallet.id));
+    
+      const accountIdResult = await accountIdPromise;
     if (accountIdResult.hasOwnProperty("err")) {
       setLoading(false);
       return alert(accountIdResult.err);
@@ -249,16 +223,8 @@ export default function Hero({ isLoading, project, adminView }) {
           return { Err: error };
         });
       }
-    } else if (wallet.wallet === "BTC") {
-      /*
-            const testingBTCWalletActor = createActor("rkp4c-7iaaa-aaaaa-aaaca-cai", testingBTCWalletIDLFactory)
-            console.log("ACID:", accountid)
-            res = await testingBTCWalletActor.supportCrowdFund(accountid, Number(project.stats.nftStats[selectedTierState[0]].priceSatoshi))
-            console.log("CROWDFUND RESULT: ", res)
-            */
-      alert("BTC not yet supported, coming soon !");
-      res = { err: "btc not yet supported" };
     }
+
     if (res.Err || res.err) {
       setLoading(false);
       if (res.hasOwnProperty("Err") && res.Err.InsufficientFunds) {
@@ -345,7 +311,7 @@ export default function Hero({ isLoading, project, adminView }) {
       case "archived":
         return <>archived</>;
       default:
-        return project.stats.endTime > 0 && currency !== "BTC" ? (
+        return project.stats.endTime > 0 ? (
           <>Not live. Whitelist in {remainingTimeString(project.stats.endTime - 30 * 1000 * 24 * 60 * 60)}</>
         ) : (
           <>not live</>
@@ -362,7 +328,7 @@ export default function Hero({ isLoading, project, adminView }) {
     0
   );
   const oversellAmount = (project.stats.nftStats ?? [{ oversellNumber: 0 }])
-    .map((n) => n.oversellNumber * 100000000)
+    .map((({ priceE8S, priceSatoshi, oversellNumber }) => oversellNumber * (priceE8S ? priceE8S : priceSatoshi)))
     .reduce((a, b) => a + b);
 
   const remainingTimeString = (endTime) => {
@@ -377,13 +343,20 @@ export default function Hero({ isLoading, project, adminView }) {
   };
 
   function renderProgressBar() {
-    const oversellPercentageTotal = (oversellAmount / goal) * 100;
-    const goalPercentageTotal = 100 - (oversellAmount / goal) * 100;
-    const pledgedPercentageTotal =
-      status === "fully_funded" ? goalPercentageTotal : (pledged / goal) * goalPercentageTotal;
+    const oversellAvailable = !isNaN(oversellAmount)
 
-    const oversellPercentagePledged =
-      pledged >= goal ? ((pledged - goal) / ((goal * oversellPercentageTotal) / 100)) * oversellPercentageTotal : 0;
+    let goalPercentageTotal = 0
+    let oversellPercentagePledged = 0
+    let pledgedPercentageTotal = 0
+
+    if (oversellAvailable) {
+      const oversellPercentageTotal = (oversellAmount / goal) * 100;
+      goalPercentageTotal = 100 - (oversellAmount / goal) * 100;
+      oversellPercentagePledged = pledged >= goal ? ((pledged - goal) / ((goal * oversellPercentageTotal) / 100)) * oversellPercentageTotal : 0;
+      pledgedPercentageTotal = status === "fully_funded" ? goalPercentageTotal : (pledged / goal) * goalPercentageTotal;
+    } else {
+      pledgedPercentageTotal = status === "fully_funded" ? 100 : pledged / goal * 100
+    }
 
     return (
       <>
@@ -407,9 +380,14 @@ export default function Hero({ isLoading, project, adminView }) {
             }}
           />
         </div>
-        <div style={{ paddingLeft: `calc(${goalPercentageTotal}% - 6px)` }} className="bottom-arrow" />
+        {oversellAvailable && <div style={{ paddingLeft: `calc(${goalPercentageTotal}% - 6px)` }} className="bottom-arrow" />}
       </>
     );
+  }
+
+  const currencyIcon = () => {
+    const className = "h-6 inline-block mr-3"
+    return currency === "BTC" ? <img src='assets/bitcoin.svg' className={className}/> : <img src="/assets/IClogo.png" className={className} />
   }
 
   return (
@@ -477,8 +455,8 @@ export default function Hero({ isLoading, project, adminView }) {
 
             <div className="w-full lg:w-4/12 bg-white rounded-lg shadow-lg px-8 flex flex-col">
               <div className="w-full flex flex-col py-3">
-                <p className="text-blue-600 text-3xl font-medium">
-                  <img src="/assets/IClogo.png" className="h-6 inline-block" />{" "}
+                <p className="flex text-blue-600 text-3xl font-medium items-center">
+                  {currencyIcon()}
                   {threeDecimals(threeDecimals(pledged / 100_000_000).toString()) + " " + currency}
                 </p>
                 <p className="text-gray-400 text-md font-light">
@@ -503,7 +481,6 @@ export default function Hero({ isLoading, project, adminView }) {
               </div>
 
               {(status === "approved" || status === "whitelist") &&
-                currency !== "BTC" &&
                 project?.stats?.endTime > 0 && (
                   <div className="mt-2 text-xs text-center">
                     {status === "approved" ? (

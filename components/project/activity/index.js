@@ -1,6 +1,8 @@
 import { useQuery } from 'react-query'
 
 export default function Activity({ project, escrowActor }) {
+    const currency = Object.keys(project?.fundingType?.[0]?.[0] || {})?.[0]?.toUpperCase() || "ICP";
+
     const { data: activity, isLoading } = useQuery(
         ['escrow-activity', escrowActor],
         async () => {
@@ -37,6 +39,14 @@ export default function Activity({ project, escrowActor }) {
             refetchOnWindowFocus: true,
         }
     )
+
+    const getNftPrice = (row) => {
+        const [principal, nftIndex] = row[0].split(',')
+        const nftStats = project.stats.nftStats[nftIndex]
+        const price = currency === 'ICP' ? nftStats.priceE8S : nftStats.priceSatoshi
+
+        return `${price / 100_000_000} ${currency}`
+    }
 
     return (
         <div className='w-full'>
@@ -90,10 +100,7 @@ export default function Activity({ project, escrowActor }) {
                                                 {row[1]}
                                             </td>
                                             <td className='px-6 py-4 truncate whitespace-nowrap'>
-                                                {project.stats.nftStats[
-                                                    nftIndex
-                                                ].priceE8S / 100_000_000}{' '}
-                                                ICP
+                                                {getNftPrice(row)}
                                             </td>
                                         </tr>
                                     )

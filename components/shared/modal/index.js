@@ -2,7 +2,7 @@ import { useRef, useEffect, useState, cloneElement } from "react";
 import { createPortal } from "react-dom";
 import classNames from "classnames";
 
-export default function Modal({ children, selector = "#modal", onClose = () => {}, show = false, width = "100%", height = "100%", size = "md", allowDismiss = false }) {
+export default function Modal({ children, selector = "#modal", onClose = () => {}, show = false, width = "100%", height = "100%", size = "md", allowDismiss = false, transparent = false }) {
 
     useEffect(() => {
         if (show === false) return;
@@ -24,8 +24,8 @@ export default function Modal({ children, selector = "#modal", onClose = () => {
                     <div className="w-full h-full relative flex justify-center items-center z-20">
                         <div
                             className={classNames(
-                                "w-full h-full absolute top-0 left-0 bg-opacity-90",
-                                `bg-gradient-to-t from-blue-200 to-white`
+                                "w-full h-full absolute top-0 left-0",
+                                transparent ? 'bg-blue-200 bg-opacity-60' : `bg-gradient-to-t from-blue-200 to-white bg-opacity-90`
                             )}
                             onClick={allowDismiss ? onClose : () => {}}
                         />
@@ -37,7 +37,8 @@ export default function Modal({ children, selector = "#modal", onClose = () => {
                                 size === "md" ? "lg:w-8/12 lg:h-5/6" : null,
                                 size === "lg" ? "lg:w-11/12 lg:h-5/6" : null,
                                 size === "xl" ? "lg:w-12/12 lg:h-6/6" : null,
-                                size === "sn" ? "lg:w-3/12 lg:h-3/6" : null
+                                size === "sn" ? "lg:w-3/12 lg:h-3/6" : null,
+                                size === "static" ? "md:w-2/3 lg:w-1/2 xl:w-1/3 h-5/6" : null
                             )}
                             style={{ width: size ? null :  width, height: size ? null : height }}
                         >

@@ -1,0 +1,2 @@
+cd ~/bitcoin
+./bin/bitcoind -conf=$(pwd)/bitcoin.conf -datadir=$(pwd)/data --port=18444 -fallbackfee=0.0000001

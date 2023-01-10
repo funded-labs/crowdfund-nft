@@ -69,6 +69,7 @@
         "react-google-recaptcha": "^2.1.0",
         "react-linkify": "^1.0.0-alpha",
         "react-modal-promise": "^1.0.2",
+        "react-qr-code": "^2.0.11",
         "react-query": "3.34.7",
         "react-quill": "^2.0.0",
         "sass": "1.54.5",

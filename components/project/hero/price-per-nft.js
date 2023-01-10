@@ -65,7 +65,6 @@ export default function PricePerNFT({ stats, currency, selectedTierState, }) {
     return (
         <div className='w-full flex flex-col'>
             <p className='text-blue-600 text-2xl font-medium'>
-                <img src='/assets/IClogo.png' className='h-3 inline-block' />{' '}
                 {getFormattedPrice()}
             </p>
             <p className='text-gray-400 text-md font-light'>price per NFT</p>
