@@ -169,13 +169,17 @@ const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selec
   }
 
   const renderBtcAddress = () => (
-    <div className='flex flex-col items-center space-y-6'>
+    <div className='flex flex-col items-center space-y-4'>
       <div className='text-center text-gray-600 font-medium'>Unique BTC Deposit address</div>
       {walletAddress && <QRCode value={walletAddress} className='h-40 w-40'/>}
       <div className='text-center text-blue-600 font-medium'>{walletAddress}</div>
       <div className='text-center mb-2 text-gray-600 text-lg font-bold'>Please transfer exact amount of {price} BTC</div>
-      <div className='text-center mb-2 text-gray-600 text-sm'>Please note that when sending Bitcoin, you are responsible for ensuring that the full amount (including any transaction fees) is sent to our specified address. In the event that an insufficient amount is received due to deducted fees, we will not be able to credit your account or process your transaction</div>
-      <div className='text-center mb-2 text-gray-600 text-sm'>By participating in this crowdfunding project, you understand and acknowledge that we shall not be held liable for any errors or mistakes in the address provided, including but not limited to sending funds to the wrong address.</div>
+      {renderConfirmButton()}
+      <div>
+        <div className='text-center text-gray-600 mb-1 text-xs'>Please note that when sending Bitcoin, you are responsible for ensuring that the full amount (including any transaction fees) is sent to our specified address</div>
+        <div className='text-center text-gray-600 mb-1 text-xs font-bold'>In the event that an insufficient amount is received due to deducted fees, we will not be able to credit your account or process your transaction</div>
+        <div className='text-center text-gray-600 text-xs'>By participating in this crowdfunding project, you understand and acknowledge that we shall not be held liable for any errors or mistakes in the address provided, including but not limited to sending funds to the wrong address.</div>
+      </div>
     </div>
   )
 
@@ -209,7 +213,7 @@ const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selec
     }
 
     return (
-      <div className='text-4xl font-medium mb-4'>
+      <div className='text-4xl font-medium mt-2 mb-4'>
         {timer}
       </div>
     )
@@ -217,8 +221,8 @@ const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selec
 
   return (
     <Modal show={isOpen} size="static" width="100%" height="100%" transparent>
-      <div className='w-full h-full p-6 rounded-md mx-auto bg-white'>
-        <div className="flex flex-1 p-4 border-2 border-gray-200 h-full rounded-md mx-auto flex flex-col items-center">
+      <div className=' w-full h-full p-6 rounded-md mx-auto bg-white'>
+        <div className="overflow-auto flex flex-1 p-4 border-2 border-gray-200 h-full rounded-md mx-auto flex flex-col items-center">
           <div className='flex flex-row items-center'>
             <img src='assets/bitcoin.svg' />
             <div className='flex flex-row items-end ml-2'>
@@ -232,7 +236,6 @@ const BitcoinSupportModal = ({ isOpen, wallet, project, canisterPrincipal, selec
             {loadingLabel && renderLoading()}
           </div>
           {renderTimer()}
-          {!loadingLabel && walletAddress && renderConfirmButton()}
         </div>
       </div>
     </Modal>

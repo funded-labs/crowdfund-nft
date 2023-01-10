@@ -38,7 +38,7 @@ export default function Modal({ children, selector = "#modal", onClose = () => {
                                 size === "lg" ? "lg:w-11/12 lg:h-5/6" : null,
                                 size === "xl" ? "lg:w-12/12 lg:h-6/6" : null,
                                 size === "sn" ? "lg:w-3/12 lg:h-3/6" : null,
-                                size === "static" ? "md:w-2/3 lg:w-1/2 xl:w-1/3 h-4/6" : null
+                                size === "static" ? "md:w-2/3 lg:w-1/2 xl:w-1/3 h-5/6" : null
                             )}
                             style={{ width: size ? null :  width, height: size ? null : height }}
                         >
