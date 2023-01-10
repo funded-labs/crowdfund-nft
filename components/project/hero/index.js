@@ -343,13 +343,20 @@ export default function Hero({ isLoading, project, adminView }) {
   };
 
   function renderProgressBar() {
-    const oversellPercentageTotal = (oversellAmount / goal) * 100;
-    const goalPercentageTotal = 100 - (oversellAmount / goal) * 100;
-    const pledgedPercentageTotal =
-      status === "fully_funded" ? goalPercentageTotal : (pledged / goal) * goalPercentageTotal;
+    const oversellAvailable = !isNaN(oversellAmount)
 
-    const oversellPercentagePledged =
-      pledged >= goal ? ((pledged - goal) / ((goal * oversellPercentageTotal) / 100)) * oversellPercentageTotal : 0;
+    let goalPercentageTotal = 0
+    let oversellPercentagePledged = 0
+    let pledgedPercentageTotal = 0
+
+    if (oversellAvailable) {
+      const oversellPercentageTotal = (oversellAmount / goal) * 100;
+      goalPercentageTotal = 100 - (oversellAmount / goal) * 100;
+      oversellPercentagePledged = pledged >= goal ? ((pledged - goal) / ((goal * oversellPercentageTotal) / 100)) * oversellPercentageTotal : 0;
+      pledgedPercentageTotal = status === "fully_funded" ? goalPercentageTotal : (pledged / goal) * goalPercentageTotal;
+    } else {
+      pledgedPercentageTotal = status === "fully_funded" ? 100 : pledged / goal * 100
+    }
 
     return (
       <>
@@ -373,7 +380,7 @@ export default function Hero({ isLoading, project, adminView }) {
             }}
           />
         </div>
-        <div style={{ paddingLeft: `calc(${goalPercentageTotal}% - 6px)` }} className="bottom-arrow" />
+        {oversellAvailable && <div style={{ paddingLeft: `calc(${goalPercentageTotal}% - 6px)` }} className="bottom-arrow" />}
       </>
     );
   }
