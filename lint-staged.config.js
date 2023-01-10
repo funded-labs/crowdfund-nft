@@ -15,7 +15,10 @@ module.exports = {
   '**/*.{ts,tsx,js,jsx}': async (files) => {
     const filesToLint = await removeIgnoredFiles(files)
 
-    return [`prettier --write ${files.join(' ')}`]
+    return [
+      `eslint --max-warnings=0 ${filesToLint.join(' ')}`,
+      `prettier --write ${files.join(' ')}`,
+    ]
   },
   '*.{scss,css,md}': 'prettier --write',
 }
