@@ -518,7 +518,7 @@ export default function Hero({ isLoading, project, adminView }) {
               <figure className='mb-1 h-96 w-full overflow-hidden rounded-xl bg-yellow-500'>
                 <img
                   src={project.cover}
-                  className='h-full w-full object-cover'
+                  className='h-full w-full object-fill'
                 />
               </figure>
             </div>
