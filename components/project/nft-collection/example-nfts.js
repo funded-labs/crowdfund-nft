@@ -210,7 +210,7 @@ const exampleNfts = {
     },
     {
       id: '#2',
-      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/modclub/modclub-silver.gif',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/modclub/modclub-gold.gif',
     },
   ],
 }
