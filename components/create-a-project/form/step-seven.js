@@ -59,6 +59,7 @@ export default function StepSix() {
 
           const payload = {
             category: p.projectCategory,
+            fundingType: p.fundingType,
             cover: coverURL,
             description: '',
             discordLink: p.discordLink,

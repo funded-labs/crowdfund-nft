@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Principal } from '@dfinity/principal'
 import { Spinner } from '@/components/shared/loading-spinner'
 import { Formik } from 'formik'
 import * as Yup from 'yup'

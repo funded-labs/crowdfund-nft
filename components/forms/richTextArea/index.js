@@ -31,6 +31,7 @@ const ALL_TOOLBAR_OPTIONS = [
   [{ align: [] }],
   ['clean'], // remove formatting button
   ['image'],
+  ['video'],
 ]
 
 export default function RichTextArea({

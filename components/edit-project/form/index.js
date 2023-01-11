@@ -260,6 +260,7 @@ const Form = ({ admin }) => {
                     value={values.story}
                     onChange={handleChange}
                     onBlur={handleBlur}
+                    exclude='video'
                   />
                   <p className='text-sm'>Project rewards</p>
                   <RichTextArea

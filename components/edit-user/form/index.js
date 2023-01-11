@@ -12,6 +12,7 @@ const bioQillExclude = [
   { list: 'bullet' },
   'font',
   'clean',
+  'video',
 ]
 const SUPPORTED_FILE_FORMATS = ['image/png', 'image/jpeg', 'image/jpg']
 const FILE_SIZE = 500000

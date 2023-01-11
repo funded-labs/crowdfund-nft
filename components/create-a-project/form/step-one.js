@@ -52,6 +52,7 @@ export default function StepOneNew() {
     { list: 'bullet' },
     'font',
     'clean',
+    'video',
   ]
 
   const handleSubmit = async (form) => {

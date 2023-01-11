@@ -88,6 +88,7 @@ export default function StepFive() {
                 name='story'
                 value={values.story}
                 onChange={handleChange}
+                exclude='video'
               />
 
               <p className='font-regular mb-2 text-neutral-800'>
