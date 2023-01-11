@@ -41,7 +41,7 @@ export default function Rewards({ isLoading, project }) {
 
       <div
         className={classNames(
-          'my-2 flex flex-1 whitespace-pre-wrap text-gray-600',
+          'my-2 flex flex-1 flex-col whitespace-pre-wrap text-gray-600',
           styles.projectRewards,
         )}
         dangerouslySetInnerHTML={{ __html: rewards }}
