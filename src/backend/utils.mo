@@ -86,6 +86,7 @@ module {
     "st2gz-phs6f-4w7d2-b625f-rh5vn-lumml-wxbhq-lcxnw-ob7yh-fhhwp-zqe", // Max's internet identity
     "h4evs-iliqn-ihwf5-4q6lk-dw6ry-hm6go-cazig-qa5t3-ikolx-fbr32-gae", // CrowdfundNFT's internet identity
     "is7gy-jgfpp-4fnpe-da4au-xbb5e-iflz6-kuqge-wef4p-fpeo4-gftlc-mae", // Mazen's Identity
+    "alp6s-qiomp-fcbti-7rjdk-igzef-gicc5-gxhve-xqbul-ciwh5-v7zqf-iae" // Mazen's internet identity
   ];
 
   public func isAdmin(userId: UserId): Bool {
