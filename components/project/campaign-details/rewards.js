@@ -1,31 +1,12 @@
 import { useEffect, useState } from 'react'
 import translations from './translations'
+import styles from './Rewards.module.scss'
+import classNames from 'classnames'
 
 export default function Rewards({ isLoading, project }) {
-  // const [loadingTranslations, setLoadingTranslations] = useState(false)
   const [storyLanguage, setStoryLanguage] = useState('EN')
   const [storyTranslation, setStoryTranslation] = useState('')
   const [showTranslation, setShowTranslation] = useState(false)
-
-  // useEffect(() => {
-  //     if (isLoading || storyTranslation !== '' || loadingTranslations) return
-  //     setLoadingTranslations(true)
-  //     ;(async () => {
-  //         fetch(
-  //             `https://api-free.deepl.com/v2/translate?auth_key=b783d4a7-0e81-8675-a4bc-b16ac126cb78:fx&text=${project.rewards}&target_lang=en`
-  //         )
-  //             .then((r) => {
-  //                 return r.json()
-  //             })
-  //             .then((translations) => {
-  //                 const t = translations.translations[0]
-  //                 setStoryLanguage(t.detected_source_language)
-  //                 setStoryTranslation(t.text)
-  //             })
-  //             .catch((e) => console.error(e))
-  //             .finally(() => setLoadingTranslations(false))
-  //     })()
-  // }, [isLoading, project])
 
   useEffect(() => {
     if (!project || !translations.hasOwnProperty(project.id)) return
@@ -59,7 +40,10 @@ export default function Rewards({ isLoading, project }) {
       <p className='text-2xl font-bold text-black'>Rewards</p>
 
       <div
-        className='my-2 whitespace-pre-line whitespace-pre-wrap text-gray-600'
+        className={classNames(
+          'my-2 flex flex-1 whitespace-pre-wrap text-gray-600',
+          styles.projectRewards,
+        )}
         dangerouslySetInnerHTML={{ __html: rewards }}
       />
       {storyLanguage !== 'EN' && (
@@ -69,7 +53,7 @@ export default function Rewards({ isLoading, project }) {
           </div>
           {showTranslation && (
             <div
-              className='my-2 whitespace-pre-line whitespace-pre-wrap text-gray-600'
+              className='my-2 whitespace-pre-wrap text-gray-600'
               dangerouslySetInnerHTML={{ __html: storyTranslation }}
             />
           )}
