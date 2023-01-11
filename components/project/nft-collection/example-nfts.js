@@ -1,6 +1,6 @@
 const range = (n) => Array.from({ length: n }, (_, i) => i)
 
-export default {
+const exampleNfts = {
   1: [
     {
       id: '#79',
@@ -199,4 +199,20 @@ export default {
     id: `#${i}`,
     url: `https://3mena-gaaaa-aaaak-aajja-cai.raw.ic0.app/id=${378 + i}`,
   })),
+  88: [
+    {
+      id: '#0',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/modclub/modclub-bronze.gif',
+    },
+    {
+      id: '#1',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/modclub/modclub-silver.gif',
+    },
+    {
+      id: '#2',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/modclub/modclub-silver.gif',
+    },
+  ],
 }
+
+export default exampleNfts
