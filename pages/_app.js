@@ -12,6 +12,11 @@ export default function App({ Component, pageProps }) {
       <BackendProvider>
         <Head>
           <title>CrowdFund NFT</title>
+          <script
+            defer
+            data-domain='crowdfund-nft.com'
+            src='https://plausible.io/js/script.js'
+          />
         </Head>
         <Component {...pageProps} />
         <ModalContainer />
