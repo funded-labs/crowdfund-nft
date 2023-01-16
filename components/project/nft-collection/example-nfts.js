@@ -213,6 +213,20 @@ const exampleNfts = {
       url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/modclub/modclub-bronze.gif',
     },
   ],
+  90: [
+    {
+      id: '#0',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/catalyze/nft_1.png',
+    },
+    {
+      id: '#1',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/catalyze/nft_2.png',
+    },
+    {
+      id: '#2',
+      url: 'https://storageapi.fleek.one/de1ec99e-1d54-4924-afc0-8806c2024aa6-bucket/nft-example/catalyze/nft_3.png',
+    },
+  ],
 }
 
 export default exampleNfts
