@@ -47,7 +47,11 @@ export const v3Factory = ({ IDL }) => {
   return IDL.Service({
     cancelTransfer: IDL.Func([AccountIdText], [], []),
     confirmTransfer: IDL.Func([AccountIdText], [Result_1], []),
-    getNewAccountId: IDL.Func([IDL.Principal, IDL.Nat, IDL.Text], [Result], []),
+    getNewAccountId: IDL.Func(
+      [IDL.Principal, IDL.Nat, IDL.Text, IDL.Text, IDL.Text],
+      [Result],
+      [],
+    ),
   })
 }
 
