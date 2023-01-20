@@ -173,6 +173,8 @@ export default function Hero({ isLoading, project, adminView }) {
             Principal.from(wallet.id),
             selectedTierState[0],
             'ICP',
+            '',
+            '',
           )
         : actor.getNewAccountId(Principal.from(wallet.id), selectedTierState[0])
       : actor.getNewAccountId(Principal.from(wallet.id))
