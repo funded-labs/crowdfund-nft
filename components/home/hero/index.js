@@ -6,7 +6,7 @@ export default function Hero() {
         <section className='w-full '>
             <div className='w-full py-16 pt-72 sm:pt-48 max-w-5xl mx-auto flex flex-col'>
                 <h1 className='text-center leading-8 text-6xl sm:leading-8 font-bold tracking-tight text-gray-900 sm:text-7xl'>
-                    Crowdfund <span className="block sm:inline">the <span className="text-6xl sm:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-cyan-600 to-blue-600">future.</span></span>
+                    Crowdfund <span className="block sm:inline">the <span className="text-6xl sm:text-7xl text-transparent bg-clip-text bg-gradient-to-br from-blue-800 to-blue-500">future.</span></span>
                     <br />
                 
                 </h1>
@@ -30,22 +30,36 @@ export default function Hero() {
             <div className="mx-auto max-w-4xl">
               <dl className="rounded-lg sm:grid sm:grid-cols-3 space-y-4">
                 <div className="flex flex-col border-b sm:mt-4 border-gray-100 p-6 text-center sm:border-0 sm:border-r">
-                  <dt className="order-2 mt-2  text-md font-regular leading-6 text-neutral-500">projects funded</dt>
-                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">12</dd>
+                  <dt className="order-3 mt-2  text-md font-regular leading-6 text-neutral-500">projects funded</dt>
+                  <dd className="order-2 mt-12 text-4xl font-bold tracking-tight text-blue-600">12</dd>
                 </div>
                 <div className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
-                  <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">towards the future</dt>
-                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600"><div>
+                  <dt className="order-3 mt-2 text-md font-regular leading-6 text-neutral-500">towards the future</dt>
+                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
                             <img
                                 src='/assets/IClogo.png'
-                                className='h-6 inline-block'
+                                className='h-6 inline-block mx-2'
                             />{' '}
                             29,803 ICP
+                        </div></dd>
+                    <dd className="order-2 mt-3 text-4xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
+                            <img
+                                src='/assets/Bitcoin.png'
+                                className='h-7 inline-block mx-2'
+                            />{' '}
+                            0 BTC
+                        </div></dd>
+                    <dd className="order-2 mt-3 text-4xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
+                            <img
+                                src='/assets/ETH.png'
+                                className='h-6 inline-block mx-2'
+                            />{' '}
+                            0 ETH
                         </div></dd>
                 </div>
                 <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
                   <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">NFTs minted</dt>
-                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600">2,863</dd>
+                  <dd className="order-1 mt-12 text-4xl font-bold tracking-tight text-blue-600">2,863</dd>
                 </div>
               </dl>
             </div>

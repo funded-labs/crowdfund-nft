@@ -60,7 +60,7 @@ const navigation = {
             <div className="space-y-8 xl:col-span-1">
               <img
                 className="h-10 sm:h-16"
-                src='/assets/logo.png'
+                src='/assets/Funded22.png'
                 alt="Company name"
               />
               <div className="flex">
