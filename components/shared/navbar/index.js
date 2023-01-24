@@ -72,7 +72,7 @@ export default function Navbar() {
                     <div className='flex flex-row items-center'>
                         <a href='/'>
                             <img
-                                src='/assets/Funded22.png'
+                                src='/assets/funded34.png'
                                 className='w-25 h-10 hover:scale-105 duration-200 cursor-pointer'
                                 alt=''
                             />
