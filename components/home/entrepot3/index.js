@@ -9,7 +9,7 @@ export default function Entrepot3() {
                   <h2 id="sale-heading" className="text-4xl font-bold tracking-tight text-white md:text-5xl">
                     You can now trade
                     <br />
-                    Crowdfund NFTs.
+                    Funded NFTs.
                   </h2>
                   <div className="mt-6 text-base">
                     <a href="https://n5eqg-pqaaa-aaaak-ab3aa-cai.ic0.app/" className="font-semibold text-white">
