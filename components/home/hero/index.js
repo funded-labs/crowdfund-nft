@@ -31,25 +31,25 @@ export default function Hero() {
               <dl className="rounded-lg sm:grid sm:grid-cols-3 space-y-4">
                 <div className="flex flex-col border-b sm:mt-4 border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                   <dt className="order-3 mt-2  text-md font-regular leading-6 text-neutral-500">projects funded</dt>
-                  <dd className="order-2 mt-12 text-4xl font-bold tracking-tight text-blue-600">12</dd>
+                  <dd className="order-2 mt-12 text-3xl font-bold tracking-tight text-blue-600">12</dd>
                 </div>
                 <div className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
                   <dt className="order-3 mt-2 text-md font-regular leading-6 text-neutral-500">towards the future</dt>
-                  <dd className="order-1 text-4xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
+                  <dd className="order-1 text-3xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
                             <img
                                 src='/assets/IClogo.png'
                                 className='h-6 inline-block mx-2'
                             />{' '}
                             29,803 ICP
                         </div></dd>
-                    <dd className="order-2 mt-3 text-4xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
+                    <dd className="order-2 mt-3 text-3xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
                             <img
                                 src='/assets/Bitcoin.png'
                                 className='h-7 inline-block mx-2'
                             />{' '}
                             0 BTC
                         </div></dd>
-                    <dd className="order-2 mt-3 text-4xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
+                    <dd className="order-2 mt-3 text-3xl font-bold tracking-tight text-blue-600"><div className='flex items-center justify-center'>
                             <img
                                 src='/assets/ETH.png'
                                 className='h-6 inline-block mx-2'
@@ -59,7 +59,7 @@ export default function Hero() {
                 </div>
                 <div className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
                   <dt className="order-2 mt-2 text-md font-regular leading-6 text-neutral-500">NFTs minted</dt>
-                  <dd className="order-1 mt-12 text-4xl font-bold tracking-tight text-blue-600">2,863</dd>
+                  <dd className="order-1 mt-12 text-3xl font-bold tracking-tight text-blue-600">2,863</dd>
                 </div>
               </dl>
             </div>
@@ -84,16 +84,6 @@ export default function Hero() {
                         raised by projects on CrowdFund NFT
                     </div>
                 </div> */}
-                <div className='text-center mt-4'>
-                    <a href='https://dfinity.org' target='_blank'>
-                        <img
-                            src='/assets/icbadge.svg'
-                            className='w-125 h-18 sm:h-8 hover:scale-105 duration-200 cursor-pointer d-inline-block'
-                            style={{ display: 'inline-block' }}
-                            alt=''
-                        />
-                    </a>
-                </div>
 
                 {/* <div className="w-full max-w-lg mx-auto">
                     <div className="w-full flex flex-row justify-between text-sm lg:text-base px-4">
