@@ -7,6 +7,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { InformationCircleIcon } from '@heroicons/react/outline'
 import Select from '@/components/forms/select'
+import classNames from 'classnames'
 
 const stepThreeSchema = Yup.object().shape({
   targetAmount: Yup.number()
@@ -92,28 +93,27 @@ export default function StepThree() {
                   currency as participation payment
                 </p>
 
-                <div className='mt-4 flex w-full space-x-12'>
+                <div className='mt-4 w-full space-y-7 lg:flex lg:space-y-0 lg:space-x-12'>
                   {fundingTypes.map((type) => (
                     <div
                       key={type.value}
-                      className={
-                        'flow-root rounded-lg bg-slate-200 py-4 pl-4 pr-20 shadow-md hover:cursor-pointer ' +
-                        (type.value === values.fundingType
-                          ? ' shadow-blue-700'
-                          : 'shadow-gray-300')
-                      }
+                      className={classNames(
+                        'flow-root w-full rounded-lg bg-slate-200 py-4 pl-4 pr-20 shadow-md hover:cursor-pointer',
+                        type.value === values.fundingType
+                          ? 'shadow-blue-700'
+                          : 'shadow-gray-300',
+                      )}
                       onClick={() => setFieldValue('fundingType', type.value)}
                     >
                       <div className='flex'>
-                        {type.value === 'btc' ? (
-                          <img src='assets/bitcoin.svg' className='mr-4 h-12' />
-                        ) : (
-                          <img
-                            src={`assets/${type.value}.svg`}
-                            className='mr-4 h-12'
-                          />
-                        )}
-
+                        <img
+                          src={
+                            type.value === 'btc'
+                              ? 'assets/bitcoin.svg'
+                              : `assets/${type.value}.svg`
+                          }
+                          className='mr-4 h-12'
+                        />
                         <span className='my-auto text-xl font-bold'>
                           {type.label}
                         </span>
@@ -125,23 +125,19 @@ export default function StepThree() {
                       </div>
 
                       <div className='text-gray-500'>
-                        {type.value === 'eth' ? (
-                          <div className='flex'>
-                            <img
-                              src='assets/polygon.svg'
-                              className='my-auto mr-4 h-5'
-                            />
-                            <p className='text-lg font-bold'>Polygon</p>
-                          </div>
-                        ) : (
-                          <div className='flex'>
-                            <img
-                              src='assets/icp.svg'
-                              className='my-auto mr-4 h-5'
-                            />
-                            <p className='text-lg font-bold'>ICP</p>
-                          </div>
-                        )}
+                        <div className='flex'>
+                          <img
+                            src={
+                              type.value === 'eth'
+                                ? 'assets/polygon.svg'
+                                : 'assets/icp.svg'
+                            }
+                            className='my-auto mr-4 h-5'
+                          />
+                          <p className='text-lg font-bold'>
+                            {type.value === 'eth' ? 'Polygon' : 'ICP'}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -174,10 +170,10 @@ export default function StepThree() {
                   <div className='my-auto ml-2 flex'>
                     <img
                       src={`assets/${values.fundingType}.svg`}
-                      className={
-                        'my-auto mr-2' +
-                        (values.fundingType === 'eth' ? ' h-7' : ' h-5')
-                      }
+                      className={classNames(
+                        'my-auto mr-2',
+                        values.fundingType === 'eth' ? 'h-7' : 'h-5',
+                      )}
                     />
                     <p className='text-lg font-bold text-neutral-900'>
                       {values.fundingType.toUpperCase()}
