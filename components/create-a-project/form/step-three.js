@@ -7,6 +7,7 @@ import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { InformationCircleIcon } from '@heroicons/react/outline'
 import Select from '@/components/forms/select'
+import classNames from 'classnames'
 
 const stepThreeSchema = Yup.object().shape({
   targetAmount: Yup.number()
@@ -30,6 +31,7 @@ const initialValues = {
 const fundingTypes = [
   { label: 'ICP', value: 'icp' },
   { label: 'BTC', value: 'btc' },
+  { label: 'ETH', value: 'eth' },
 ]
 
 export default function StepThree() {
@@ -58,7 +60,14 @@ export default function StepThree() {
       onSubmit={handleSubmit}
       validationSchema={stepThreeSchema}
     >
-      {({ handleSubmit, handleBlur, handleChange, errors, values }) => (
+      {({
+        handleSubmit,
+        handleBlur,
+        handleChange,
+        setFieldValue,
+        errors,
+        values,
+      }) => (
         <form
           className='bg-clear flex w-full flex-col space-y-2 px-8 sm:p-0'
           onSubmit={handleSubmit}
@@ -76,32 +85,103 @@ export default function StepThree() {
 
             <div className='border-1 flex-1 flex-col rounded-l-3xl rounded-r-3xl border border-white bg-white bg-opacity-50 p-8 bg-blend-saturation sm:rounded-r-none sm:rounded-l-3xl sm:px-36 sm:py-24'>
               <div className='flex w-full flex-col'>
-                <p className='mb-2'>How do you want to fund your project</p>
+                <p className='mb-2 text-2xl font-bold text-neutral-900'>
+                  Please select your raise currency
+                </p>
+                <p className='text-md py-2 font-sans font-light text-neutral-700'>
+                  Your crowdfund campaign will only be able to accept this
+                  currency as participation payment
+                </p>
 
-                <Select
-                  name='fundingType'
-                  value={values.fundingType}
-                  options={fundingTypes}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  label='Select funding type'
-                />
+                <div className='mt-4 w-full space-y-7 lg:flex lg:space-y-0 lg:space-x-12'>
+                  {fundingTypes.map((type) => (
+                    <div
+                      key={type.value}
+                      className={classNames(
+                        'flow-root w-full rounded-lg bg-slate-200 py-4 pl-4 pr-20 shadow-md hover:cursor-pointer',
+                        type.value === values.fundingType
+                          ? 'shadow-blue-700'
+                          : 'shadow-gray-300',
+                      )}
+                      onClick={() => setFieldValue('fundingType', type.value)}
+                    >
+                      <div className='flex'>
+                        <img
+                          src={
+                            type.value === 'btc'
+                              ? 'assets/bitcoin.svg'
+                              : `assets/${type.value}.svg`
+                          }
+                          className='mr-4 h-12'
+                        />
+                        <span className='my-auto text-xl font-bold'>
+                          {type.label}
+                        </span>
+                      </div>
+                      <div className='my-2'>
+                        <p className='text-sm text-gray-500'>
+                          Smart contract built on:
+                        </p>
+                      </div>
+
+                      <div className='text-gray-500'>
+                        <div className='flex'>
+                          <img
+                            src={
+                              type.value === 'eth'
+                                ? 'assets/polygon.svg'
+                                : 'assets/icp.svg'
+                            }
+                            className='my-auto mr-4 h-5'
+                          />
+                          <p className='text-lg font-bold'>
+                            {type.value === 'eth' ? 'Polygon' : 'ICP'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <p className='mt-5'>How much would you like to raise?</p>
-              <Input
-                name='targetAmount'
-                value={values.targetAmount}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                placeholder='Enter target amount'
-                type='number'
-                endItem={() => (
-                  <p className='font-bold text-black'>
-                    {values.fundingType?.toUpperCase()}
-                  </p>
+              <p className='mt-5 text-2xl font-bold text-neutral-900'>
+                How much would you like to raise?
+              </p>
+              <div className='flex'>
+                <div className='w-full lg:w-1/3 xl:w-1/4'>
+                  <Input
+                    name='targetAmount'
+                    value={values.targetAmount}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    placeholder='Enter target amount'
+                    type='number'
+                  />
+                </div>
+                {values.fundingType === 'btc' ? (
+                  <div className='my-auto ml-2 flex'>
+                    <img
+                      src='assets/bitcoin.svg'
+                      className='my-auto mr-2 h-7'
+                    />
+                    <p className='text-lg font-bold text-neutral-900'>BTC</p>
+                  </div>
+                ) : (
+                  <div className='my-auto ml-2 flex'>
+                    <img
+                      src={`assets/${values.fundingType}.svg`}
+                      className={classNames(
+                        'my-auto mr-2',
+                        values.fundingType === 'eth' ? 'h-7' : 'h-5',
+                      )}
+                    />
+                    <p className='text-lg font-bold text-neutral-900'>
+                      {values.fundingType.toUpperCase()}
+                    </p>
+                  </div>
                 )}
-              />
+              </div>
+
               <p className='my-4 flex items-center rounded-2xl bg-gray-50 p-4 text-sm'>
                 <InformationCircleIcon className='h-12  rounded-full text-blue-500' />
                 <span className='ml-4 flex'>
