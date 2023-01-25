@@ -148,7 +148,7 @@ export default function StepThree() {
                 How much would you like to raise?
               </p>
               <div className='flex'>
-                <div className='w-1/4'>
+                <div className='w-full lg:w-1/3 xl:w-1/4'>
                   <Input
                     name='targetAmount'
                     value={values.targetAmount}
