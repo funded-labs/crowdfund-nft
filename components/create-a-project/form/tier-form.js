@@ -5,7 +5,7 @@ import { Spinner } from '@/components/shared/loading-spinner'
 import { useProjectForm } from './project-form-context'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { InformationCircleIcon, XCircleIcon } from '@heroicons/react/outline'
+import { InformationCircleIcon, XIcon } from '@heroicons/react/outline'
 import Select from '@/components/forms/select'
 import classNames from 'classnames'
 
@@ -103,7 +103,7 @@ export default function TierForm() {
                           Tier {index + 1}
                         </div>
                         <div className='flex w-2/5 justify-end'>
-                          <XCircleIcon
+                          <XIcon
                             onClick={() => {
                               const tiers = [...values.tiers]
                               tiers.splice(index, 1)
