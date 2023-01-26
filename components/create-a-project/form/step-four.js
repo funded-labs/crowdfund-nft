@@ -53,13 +53,19 @@ export default function StepFour() {
   const [isLoading, setLoading] = useState(false)
   const router = useRouter()
 
+  const goBack = () => {
+    console.log(project)
+    if (project.useTiers) setStep(4)
+    else setStep(3)
+  }
+
   const handleSubmit = async (form) => {
     try {
       setLoading(true)
 
       setProject((project) => ({ ...project, ...form }))
 
-      setStep(5)
+      setStep(6)
     } catch (error) {
       console.error(error)
       // toto: set form error
@@ -204,7 +210,7 @@ export default function StepFour() {
 
               <button
                 className='w-full appearance-none py-4 px-4 text-center text-xs text-gray-500 focus:outline-none'
-                onClick={previousStep}
+                onClick={() => goBack()}
                 type='button'
               >
                 &larr; Go back

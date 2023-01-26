@@ -94,7 +94,7 @@ export default function StepSix() {
             firstName: profile.firstName,
           })
 
-          setStep(7)
+          setStep(8)
         } catch (error) {
           console.error(error)
           // todo: set form error

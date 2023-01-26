@@ -8,6 +8,7 @@ import StepFour from './step-four'
 import StepFive from './step-five'
 import StepSix from './step-six'
 import StepSeven from './step-seven'
+import TierForm from './tier-form'
 
 export default function CreateAProjectForm({ instruction, onSuccess }) {
   return (
@@ -35,10 +36,11 @@ function Form() {
           {step === 1 && <StepOne />}
           {step === 2 && <StepTwo />}
           {step === 3 && <StepThree />}
-          {step === 4 && <StepFour />}
-          {step === 5 && <StepFive />}
-          {step === 6 && <StepSix />}
-          {step === 7 && <StepSeven />}
+          {step === 4 && <TierForm />}
+          {step === 5 && <StepFour />}
+          {step === 6 && <StepFive />}
+          {step === 7 && <StepSix />}
+          {step === 8 && <StepSeven />}
         </div>
       </div>
     </div>

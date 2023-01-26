@@ -14,10 +14,14 @@ const stepThreeSchema = Yup.object().shape({
     .positive('Target raise must be greater than zero')
     .integer('Target raise must be a whole number')
     .required('Enter a raise amount'),
-  nftVolume: Yup.number()
-    .positive('Number of NFTs must be greater than zero')
-    .integer('Number of NFTs must be a whole number')
-    .required('Enter a number of NFTs'),
+  useTiers: Yup.boolean(),
+  nftVolume: Yup.number().when('useTiers', {
+    is: (useTiers) => useTiers === false,
+    then: Yup.number()
+      .positive('Number of NFTs must be greater than zero')
+      .integer('Number of NFTs must be a whole number')
+      .required('Enter a number of NFTs'),
+  }),
   walletId: Yup.string(),
 })
 
@@ -26,6 +30,7 @@ const initialValues = {
   targetAmount: '',
   nftVolume: '',
   walletId: '',
+  useTiers: true,
 }
 
 const fundingTypes = [
@@ -45,7 +50,11 @@ export default function StepThree() {
 
       setProject((project) => ({ ...project, ...form }))
 
-      setStep(4)
+      if (form.useTiers) {
+        setStep(4)
+      } else {
+        setStep(5)
+      }
     } catch (error) {
       console.error(error)
       // todo: set form error
@@ -192,18 +201,58 @@ export default function StepThree() {
               </p>
 
               <div className='flex w-full flex-col space-y-1'>
-                <p className=''>
-                  How many NFTs would you like to include in your collection?
+                <p className='my-5 text-2xl font-bold text-neutral-900'>
+                  Would you like to include tiers in your round?
                 </p>
-                <Input
-                  name='nftVolume'
-                  value={values.nftVolume}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder='Enter target amount'
-                  type='number'
-                  endItem={() => <p className='font-bold text-black'>NFTs</p>}
-                />
+
+                <div className='my-auto space-y-4 lg:flex lg:space-y-0 lg:space-x-4'>
+                  <button
+                    type='button'
+                    onClick={() => setFieldValue('useTiers', true)}
+                    className={classNames(
+                      'flex w-full flex-row justify-center rounded-xl py-3 px-4 text-base font-medium tracking-wider text-white shadow-xl hover:bg-blue-700 lg:w-1/2',
+                      values.useTiers
+                        ? 'bg-blue-600'
+                        : 'bg-white text-blue-600 hover:text-white',
+                    )}
+                  >
+                    <span className='my-auto'>Yes, I would like tiers</span>
+                  </button>
+                  <button
+                    type='button'
+                    onClick={() => setFieldValue('useTiers', false)}
+                    className={classNames(
+                      'flex w-full flex-row justify-center rounded-xl py-3 px-4 text-base font-medium tracking-wider text-white shadow-xl hover:bg-blue-700 lg:w-1/2',
+                      !values.useTiers
+                        ? 'bg-blue-600'
+                        : 'bg-white text-blue-600 hover:text-white',
+                    )}
+                  >
+                    <span className='my-auto'>
+                      No, I would like 1 donation amount
+                    </span>
+                  </button>
+                </div>
+
+                {!values.useTiers && (
+                  <div>
+                    <p className='mt-4'>
+                      How many NFTs would you like to include in your
+                      collection?
+                    </p>
+                    <Input
+                      name='nftVolume'
+                      value={values.nftVolume}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      placeholder='Enter target amount'
+                      type='number'
+                      endItem={() => (
+                        <p className='font-bold text-black'>NFTs</p>
+                      )}
+                    />
+                  </div>
+                )}
               </div>
               <p className='my-4 flex items-center rounded-2xl bg-gray-50 p-4 text-sm'>
                 <InformationCircleIcon className='h-12  rounded-full text-blue-500' />
@@ -223,10 +272,10 @@ export default function StepThree() {
                 disabled={isLoading === true}
                 type='submit'
                 className={`
-                            flex w-full flex-row justify-center rounded-xl bg-blue-600 py-3 
-                            px-4 text-base font-medium tracking-wider text-white
-                            shadow-xl hover:bg-blue-700
-                        `}
+                  flex w-full flex-row justify-center rounded-xl bg-blue-600 py-3 
+                  px-4 text-base font-medium tracking-wider text-white
+                  shadow-xl hover:bg-blue-700
+                `}
               >
                 {!isLoading && <span>Next</span>}
 
@@ -247,21 +296,16 @@ export default function StepThree() {
             </div>
 
             {/* <div className="bg-gray-50 rounded-2xl text-sm p-4">
-                            To receive the money raised, make sure you have a Plug Wallet.
-                            <br /><br />
-                            If you want to connect your wallet, or dont have a wallet yet,
-                            click below:
+                To receive the money raised, make sure you have a Plug Wallet.
+                <br /><br />
+                If you want to connect your wallet, or dont have a wallet yet,
+                click below:
 
-                            <div className="bg-gray-200 rounded-xl p-8 my-5" />
-                        </div> */}
+                <div className="bg-gray-200 rounded-xl p-8 my-5" />
+            </div> */}
           </div>
 
-          <p
-            className={`
-                            w-full py-4 px-4 text-center text-xs text-gray-500
-                            
-                        `}
-          >
+          <p className={` w-full py-4 px-4 text-center text-xs text-gray-500`}>
             By continuing, you agree to CrowdFund NFTs Terms and acknowledge
             receipt of our Privacy Policy.
           </p>

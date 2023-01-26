@@ -30,7 +30,7 @@ export default function StepFive() {
 
       setProject((project) => ({ ...project, ...form }))
 
-      setStep(6)
+      setStep(7)
     } catch (error) {
       console.error(error)
       // toto: set form error
