@@ -54,7 +54,6 @@ export default function StepFour() {
   const router = useRouter()
 
   const goBack = () => {
-    console.log(project)
     if (project.useTiers) setStep(4)
     else setStep(3)
   }

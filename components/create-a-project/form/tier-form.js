@@ -5,7 +5,7 @@ import { Spinner } from '@/components/shared/loading-spinner'
 import { useProjectForm } from './project-form-context'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { InformationCircleIcon } from '@heroicons/react/outline'
+import { InformationCircleIcon, XCircleIcon } from '@heroicons/react/outline'
 import Select from '@/components/forms/select'
 import classNames from 'classnames'
 
@@ -98,12 +98,21 @@ export default function TierForm() {
                       key={index + 1}
                       className='col-span-6 flow-root rounded-lg bg-slate-200 py-4 px-4 shadow-md shadow-gray-300 hover:cursor-pointer xl:col-span-3 2xl:col-span-2'
                     >
-                      <p
-                        onClick={() => console.log(values)}
-                        className='mb-2 text-2xl font-bold text-neutral-900'
-                      >
-                        Tier {index + 1}
-                      </p>
+                      <div className='flex w-full'>
+                        <div className='mb-2 flex w-3/5 text-2xl font-bold text-neutral-900'>
+                          Tier {index + 1}
+                        </div>
+                        <div className='flex w-2/5 justify-end'>
+                          <XCircleIcon
+                            onClick={() => {
+                              const tiers = [...values.tiers]
+                              tiers.splice(index, 1)
+                              setFieldValue('tiers', tiers)
+                            }}
+                            className='h-7 text-gray-400 hover:text-gray-500'
+                          />
+                        </div>
+                      </div>
 
                       <p className='pt-2 font-sans text-sm font-normal text-neutral-700'>
                         NFT price:
@@ -115,13 +124,13 @@ export default function TierForm() {
                           onChange={(e) => {
                             const tiers = [...values.tiers]
                             tiers[index].price = e.currentTarget.value
-                            console.log(tiers)
                             setFieldValue('tiers', tiers)
                           }}
                           onBlur={handleBlur}
                           placeholder='Enter target amount'
                           type='number'
                         />
+
                         {project.fundingType === 'btc' ? (
                           <div className='my-auto ml-2 flex'>
                             <img
@@ -146,6 +155,15 @@ export default function TierForm() {
                             </p>
                           </div>
                         )}
+
+                        {errors.tiers && errors.tiers.length > 0 && (
+                          <div className='flex w-full flex-row items-center text-xs text-red-500'>
+                            {errors.tiers[index] &&
+                              errors.tiers[index].price && (
+                                <p>{errors.tiers[index].price}</p>
+                              )}
+                          </div>
+                        )}
                       </div>
 
                       <p className='pt-2 font-sans text-sm font-normal text-neutral-700'>
@@ -163,6 +181,14 @@ export default function TierForm() {
                         placeholder='Enter target amount'
                         type='number'
                       />
+
+                      {errors.tiers && errors.tiers.length > 0 && (
+                        <div className='flex w-full flex-row items-center text-xs text-red-500'>
+                          {errors.tiers[index] && errors.tiers[index].count && (
+                            <p>{errors.tiers[index].count}</p>
+                          )}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -172,8 +198,8 @@ export default function TierForm() {
                 type='button'
                 onClick={() =>
                   setFieldValue(`tiers[${values.tiers.length}]`, {
-                    price: null,
-                    count: null,
+                    price: '',
+                    count: '',
                   })
                 }
                 className={`my-5 flex w-full flex-row justify-center 
@@ -192,11 +218,16 @@ export default function TierForm() {
                 </span>
               </p>
 
-              {Object.values(errors).length > 0 && (
+              {/* {Object.values(errors.tiers).length > 0 && (
                 <div className='flex w-full flex-row items-center text-sm text-red-500'>
-                  {Object.values(errors)[0]}
+                  {Object.values(errors.tiers)[0].price && (
+                    <p>{Object.values(errors.tiers)[0].price}</p>
+                  )}
+                  {Object.values(errors.tiers)[0].count && (
+                    <p>{Object.values(errors.tiers)[0].count}</p>
+                  )}
                 </div>
-              )}
+              )} */}
 
               <button
                 disabled={isLoading === true}
