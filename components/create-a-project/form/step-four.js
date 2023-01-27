@@ -117,7 +117,10 @@ export default function StepFour() {
                 type='file'
               />
 
-              <p className='pt-10 pb-2 text-2xl font-semibold text-neutral-900'>
+              <p
+                onClick={() => console.log(project)}
+                className='pt-10 pb-2 text-2xl font-semibold text-neutral-900'
+              >
                 Select your NFT Art
               </p>
               <p className='font-regular mb-4 text-neutral-500'>
@@ -209,7 +212,7 @@ export default function StepFour() {
 
               <button
                 className='w-full appearance-none py-4 px-4 text-center text-xs text-gray-500 focus:outline-none'
-                onClick={() => goBack()}
+                onClick={goBack}
                 type='button'
               >
                 &larr; Go back

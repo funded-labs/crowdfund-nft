@@ -116,11 +116,7 @@ export default function StepThree() {
                     >
                       <div className='flex'>
                         <img
-                          src={
-                            type.value === 'btc'
-                              ? 'assets/bitcoin.svg'
-                              : `assets/${type.value}.svg`
-                          }
+                          src={`assets/${type.value}.svg`}
                           className='mr-4 h-12'
                         />
                         <span className='my-auto text-xl font-bold'>
@@ -167,28 +163,18 @@ export default function StepThree() {
                     type='number'
                   />
                 </div>
-                {values.fundingType === 'btc' ? (
-                  <div className='my-auto ml-2 flex'>
-                    <img
-                      src='assets/bitcoin.svg'
-                      className='my-auto mr-2 h-7'
-                    />
-                    <p className='text-lg font-bold text-neutral-900'>BTC</p>
-                  </div>
-                ) : (
-                  <div className='my-auto ml-2 flex'>
-                    <img
-                      src={`assets/${values.fundingType}.svg`}
-                      className={classNames(
-                        'my-auto mr-2',
-                        values.fundingType === 'eth' ? 'h-7' : 'h-5',
-                      )}
-                    />
-                    <p className='text-lg font-bold text-neutral-900'>
-                      {values.fundingType.toUpperCase()}
-                    </p>
-                  </div>
-                )}
+                <div className='my-auto ml-2 flex'>
+                  <img
+                    src={`assets/${values.fundingType}.svg`}
+                    className={classNames(
+                      'my-auto mr-2',
+                      values.fundingType === 'eth' ? 'h-7' : 'h-5',
+                    )}
+                  />
+                  <p className='text-lg font-bold text-neutral-900'>
+                    {values.fundingType.toUpperCase()}
+                  </p>
+                </div>
               </div>
 
               <p className='my-4 flex items-center rounded-2xl bg-gray-50 p-4 text-sm'>
@@ -294,15 +280,6 @@ export default function StepThree() {
                 &larr; Go back
               </button>
             </div>
-
-            {/* <div className="bg-gray-50 rounded-2xl text-sm p-4">
-                To receive the money raised, make sure you have a Plug Wallet.
-                <br /><br />
-                If you want to connect your wallet, or dont have a wallet yet,
-                click below:
-
-                <div className="bg-gray-200 rounded-xl p-8 my-5" />
-            </div> */}
           </div>
 
           <p className={` w-full py-4 px-4 text-center text-xs text-gray-500`}>

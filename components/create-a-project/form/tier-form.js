@@ -1,13 +1,10 @@
-import { useRouter } from 'next/router'
 import { useState } from 'react'
-import Input from '@/components/forms/input'
 import { Spinner } from '@/components/shared/loading-spinner'
 import { useProjectForm } from './project-form-context'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { InformationCircleIcon, XIcon } from '@heroicons/react/outline'
-import Select from '@/components/forms/select'
-import classNames from 'classnames'
+import TierCard from './TierCard'
 
 const tierFormSchema = Yup.object().shape({
   tiers: Yup.array().of(
@@ -40,21 +37,11 @@ const initialValues = {
 export default function TierForm() {
   const { setStep, setProject, previousStep, project } = useProjectForm()
   const [isLoading, setLoading] = useState(false)
-  const router = useRouter()
 
   const handleSubmit = async (form) => {
-    try {
-      setLoading(true)
-
-      setProject((project) => ({ ...project, ...form }))
-
-      setStep(5)
-    } catch (error) {
-      console.error(error)
-      // todo: set form error
-    } finally {
-      setLoading(false)
-    }
+    setLoading(true)
+    setProject((project) => ({ ...project, ...form }))
+    setStep(5)
   }
 
   return (
@@ -63,14 +50,7 @@ export default function TierForm() {
       onSubmit={handleSubmit}
       validationSchema={tierFormSchema}
     >
-      {({
-        handleSubmit,
-        handleBlur,
-        handleChange,
-        setFieldValue,
-        errors,
-        values,
-      }) => (
+      {({ handleSubmit, handleBlur, setFieldValue, errors, values }) => (
         <form
           className='bg-clear flex w-full flex-col space-y-2 px-8 sm:p-0'
           onSubmit={handleSubmit}
@@ -91,107 +71,14 @@ export default function TierForm() {
                 <p className='mb-2 text-2xl font-bold text-neutral-900'>
                   How many NFTs would you like to include for your round?
                 </p>
-                {/* space-y-7 lg:flex lg:flex-wrap lg:space-y-0 lg:space-x-2 */}
-                <div className='mt-4 grid w-full grid-cols-6 gap-4'>
-                  {values.tiers.map((tier, index) => (
-                    <div
-                      key={index + 1}
-                      className='col-span-6 flow-root rounded-lg bg-slate-200 py-4 px-4 shadow-md shadow-gray-300 hover:cursor-pointer xl:col-span-3 2xl:col-span-2'
-                    >
-                      <div className='flex w-full'>
-                        <div className='mb-2 flex w-3/5 text-2xl font-bold text-neutral-900'>
-                          Tier {index + 1}
-                        </div>
-                        <div className='flex w-2/5 justify-end'>
-                          <XIcon
-                            onClick={() => {
-                              const tiers = [...values.tiers]
-                              tiers.splice(index, 1)
-                              setFieldValue('tiers', tiers)
-                            }}
-                            className='h-7 text-gray-400 hover:text-gray-500'
-                          />
-                        </div>
-                      </div>
 
-                      <p className='pt-2 font-sans text-sm font-normal text-neutral-700'>
-                        NFT price:
-                      </p>
-                      <div className='flex w-full flex-wrap'>
-                        <Input
-                          name='tiers'
-                          value={tier.price}
-                          onChange={(e) => {
-                            const tiers = [...values.tiers]
-                            tiers[index].price = e.currentTarget.value
-                            setFieldValue('tiers', tiers)
-                          }}
-                          onBlur={handleBlur}
-                          placeholder='Enter target amount'
-                          type='number'
-                        />
-
-                        {project.fundingType === 'btc' ? (
-                          <div className='my-auto ml-2 flex'>
-                            <img
-                              src='assets/bitcoin.svg'
-                              className='my-auto mr-2 h-7'
-                            />
-                            <p className='text-lg font-bold text-neutral-900'>
-                              BTC
-                            </p>
-                          </div>
-                        ) : (
-                          <div className='my-auto ml-2 flex'>
-                            <img
-                              src={`assets/${project.fundingType}.svg`}
-                              className={classNames(
-                                'my-auto mr-2',
-                                project.fundingType === 'eth' ? 'h-7' : 'h-5',
-                              )}
-                            />
-                            <p className='text-lg font-bold text-neutral-900'>
-                              {project.fundingType.toUpperCase()}
-                            </p>
-                          </div>
-                        )}
-
-                        {errors.tiers && errors.tiers.length > 0 && (
-                          <div className='flex w-full flex-row items-center text-xs text-red-500'>
-                            {errors.tiers[index] &&
-                              errors.tiers[index].price && (
-                                <p>{errors.tiers[index].price}</p>
-                              )}
-                          </div>
-                        )}
-                      </div>
-
-                      <p className='pt-2 font-sans text-sm font-normal text-neutral-700'>
-                        Number of NFTs:
-                      </p>
-                      <Input
-                        name='tiers'
-                        value={tier.count}
-                        onChange={(e) => {
-                          const tiers = [...values.tiers]
-                          tiers[index].count = e.currentTarget.value
-                          setFieldValue('tiers', tiers)
-                        }}
-                        onBlur={handleBlur}
-                        placeholder='Enter target amount'
-                        type='number'
-                      />
-
-                      {errors.tiers && errors.tiers.length > 0 && (
-                        <div className='flex w-full flex-row items-center text-xs text-red-500'>
-                          {errors.tiers[index] && errors.tiers[index].count && (
-                            <p>{errors.tiers[index].count}</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+                <TierCard
+                  values={values}
+                  project={project}
+                  errors={errors}
+                  handleBlur={handleBlur}
+                  setFieldValue={setFieldValue}
+                />
               </div>
 
               <button
@@ -217,17 +104,6 @@ export default function TierForm() {
                   to roughly 312 NFTs.
                 </span>
               </p>
-
-              {/* {Object.values(errors.tiers).length > 0 && (
-                <div className='flex w-full flex-row items-center text-sm text-red-500'>
-                  {Object.values(errors.tiers)[0].price && (
-                    <p>{Object.values(errors.tiers)[0].price}</p>
-                  )}
-                  {Object.values(errors.tiers)[0].count && (
-                    <p>{Object.values(errors.tiers)[0].count}</p>
-                  )}
-                </div>
-              )} */}
 
               <button
                 disabled={isLoading === true}

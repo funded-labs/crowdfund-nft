@@ -451,7 +451,7 @@ export default function Hero({ isLoading, project, adminView }) {
   const currencyIcon = () => {
     const className = 'h-6 inline-block mr-3'
     return currency === 'BTC' ? (
-      <img src='assets/bitcoin.svg' className={className} />
+      <img src='assets/btc.svg' className={className} />
     ) : (
       <img src='/assets/IClogo.png' className={className} />
     )
