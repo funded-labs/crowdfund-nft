@@ -3,7 +3,7 @@ import { Spinner } from '@/components/shared/loading-spinner'
 import { useProjectForm } from './project-form-context'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { InformationCircleIcon, XIcon } from '@heroicons/react/outline'
+import { InformationCircleIcon } from '@heroicons/react/outline'
 import TierCard from './TierCard'
 
 const tierFormSchema = Yup.object().shape({
@@ -72,13 +72,27 @@ export default function TierForm() {
                   How many NFTs would you like to include for your round?
                 </p>
 
-                <TierCard
-                  values={values}
-                  project={project}
-                  errors={errors}
-                  handleBlur={handleBlur}
-                  setFieldValue={setFieldValue}
-                />
+                <div className='mt-4 grid w-full grid-cols-6 gap-4'>
+                  {values.tiers.map((tier, index) => (
+                    <TierCard
+                      tier={tier}
+                      index={index}
+                      fundingType={project.fundingType}
+                      error={errors.tiers}
+                      handleBlur={handleBlur}
+                      removeTier={() => {
+                        const tiers = [...values.tiers]
+                        tiers.splice(index, 1)
+                        setFieldValue('tiers', tiers)
+                      }}
+                      changeTier={(key) => (e) => {
+                        const tiers = [...values.tiers]
+                        tiers[index][key] = e.currentTarget.value
+                        setFieldValue('tiers', tiers)
+                      }}
+                    />
+                  ))}
+                </div>
               </div>
 
               <button
