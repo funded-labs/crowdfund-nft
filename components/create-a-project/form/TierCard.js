@@ -2,13 +2,17 @@ import Input from '@/components/forms/input'
 import classNames from 'classnames'
 import { XIcon } from '@heroicons/react/outline'
 
-export default function TierCard({ tier, index, fundingType, error, removeTier, changeTier, handleBlur }) {
-
+export default function TierCard({
+  tier,
+  index,
+  fundingType,
+  error,
+  removeTier,
+  changeTier,
+  handleBlur,
+}) {
   return (
-    <div
-      key={`tier-${index}`}
-      className='col-span-6 flow-root rounded-lg bg-slate-200 py-4 px-4 shadow-md shadow-gray-300 hover:cursor-pointer xl:col-span-3 2xl:col-span-2'
-    >
+    <div className='col-span-6 flow-root rounded-lg bg-slate-200 py-4 px-4 shadow-md shadow-gray-300 hover:cursor-pointer xl:col-span-3 2xl:col-span-2'>
       <div className='flex w-full'>
         <div className='mb-2 flex w-3/5 text-2xl font-bold text-neutral-900'>
           Tier {index + 1}
@@ -48,10 +52,7 @@ export default function TierCard({ tier, index, fundingType, error, removeTier, 
 
         {error && error.length > 0 && (
           <div className='flex w-full flex-row items-center text-xs text-red-500'>
-            {error[index] &&
-              error[index].price && (
-                <p>{error[index].price}</p>
-              )}
+            {error[index] && error[index].price && <p>{error[index].price}</p>}
           </div>
         )}
       </div>
@@ -70,9 +71,7 @@ export default function TierCard({ tier, index, fundingType, error, removeTier, 
 
       {error && error.length > 0 && (
         <div className='flex w-full flex-row items-center text-xs text-red-500'>
-          {error[index] && error[index].count && (
-            <p>{error[index].count}</p>
-          )}
+          {error[index] && error[index].count && <p>{error[index].count}</p>}
         </div>
       )}
     </div>

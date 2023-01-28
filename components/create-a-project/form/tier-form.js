@@ -75,6 +75,7 @@ export default function TierForm() {
                 <div className='mt-4 grid w-full grid-cols-6 gap-4'>
                   {values.tiers.map((tier, index) => (
                     <TierCard
+                      key={`tier-${index}`}
                       tier={tier}
                       index={index}
                       fundingType={project.fundingType}
