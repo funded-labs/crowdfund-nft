@@ -42,7 +42,7 @@ export default function Escrow() {
           </p>
           <div className="mt-4">
             <div className="inline-flex rounded-md">
-              <Link href="#"
+              <Link href="https://medium.com/@luke_71499/crowdfund-nft-an-alternative-to-traditional-crowdfunding-using-nfts-89ef15bd65d8"
              className="inline-flex items-center justify-center font-sans border-transparent bg-clear px-5 py-3 text-sm font-medium text-blue-600 hover:bg-gray-50"
               >
                 <p className="text-blue-600 cursor-pointer">Read the full article</p>
